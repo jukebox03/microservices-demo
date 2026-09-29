@@ -185,6 +185,12 @@ function main () {
   server.addService(shopProto.CurrencyService.service, {getSupportedCurrencies, convert});
   server.addService(healthProto.Health.service, {check});
 
+  if (process.env.DPUMESH_ENABLE === '1') {
+    // gRPC over DPUMesh; setup installs @dpumesh/grpc-js.
+    require('@dpumesh/grpc-js').serve(server, grpc.ServerCredentials.createInsecure());
+    logger.info(`CurrencyService gRPC server started over DPUMesh`);
+    return;
+  }
   server.bindAsync(
     `[::]:${PORT}`,
     grpc.ServerCredentials.createInsecure(),

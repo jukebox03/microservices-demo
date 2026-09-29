@@ -57,6 +57,12 @@ class HipsterShopServer {
   listen() {
     const server = this.server 
     const port = this.port
+    if (process.env.DPUMESH_ENABLE === '1') {
+      // gRPC over DPUMesh; setup installs @dpumesh/grpc-js.
+      require('@dpumesh/grpc-js').serve(server, grpc.ServerCredentials.createInsecure());
+      logger.info(`PaymentService gRPC server started over DPUMesh`);
+      return;
+    }
     server.bindAsync(
       `[::]:${port}`,
       grpc.ServerCredentials.createInsecure(),
