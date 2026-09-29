@@ -16,7 +16,6 @@ package main
 
 import (
 	"fmt"
-	"net"
 	"os"
 	"time"
 
@@ -75,7 +74,7 @@ func main() {
 	}
 	port = fmt.Sprintf(":%s", port)
 
-	lis, err := net.Listen("tcp", port)
+	lis, err := dpumeshListen(port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

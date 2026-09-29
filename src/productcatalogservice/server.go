@@ -18,7 +18,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"net"
 	"os"
 	"os/signal"
 	"sync"
@@ -121,7 +120,7 @@ func main() {
 }
 
 func run(port string) string {
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
+	listener, err := dpumeshListen(fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -208,9 +207,9 @@ func mustConnGRPC(ctx context.Context, conn **grpc.ClientConn, addr string) {
 	var err error
 	_, cancel := context.WithTimeout(ctx, time.Second*3)
 	defer cancel()
-	*conn, err = grpc.NewClient(addr,
+	*conn, err = grpc.NewClient(addr, append([]grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithStatsHandler(otelgrpc.NewClientHandler()))
+		grpc.WithStatsHandler(otelgrpc.NewClientHandler())}, dpumeshDialOptions()...)...)
 	if err != nil {
 		panic(errors.Wrapf(err, "grpc: failed to connect %s", addr))
 	}
