@@ -23,4 +23,8 @@ static IHostBuilder CreateHostBuilder(string[] args) =>
         .ConfigureWebHostDefaults(webBuilder =>
         {
             webBuilder.UseStartup<Startup>();
+#if DPUMESH
+            // With DPUMESH_ENABLE=1, gRPC is served over DPUMesh.
+            Dpumesh.Grpc.DpumeshExtensions.UseDpumesh(webBuilder);
+#endif
         });
