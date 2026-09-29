@@ -132,7 +132,12 @@ if __name__ == "__main__":
     if catalog_addr == "":
         raise Exception('PRODUCT_CATALOG_SERVICE_ADDR environment variable not set')
     logger.info("product catalog address: " + catalog_addr)
-    channel = grpc.insecure_channel(catalog_addr)
+    if os.environ.get('DPUMESH_ENABLE') == '1':
+        # gRPC over DPUMesh; setup installs dpumesh_grpc and its grpcio.
+        import dpumesh_grpc
+        channel = dpumesh_grpc.insecure_channel(catalog_addr)
+    else:
+        channel = grpc.insecure_channel(catalog_addr)
     product_catalog_stub = demo_pb2_grpc.ProductCatalogServiceStub(channel)
 
     # create gRPC server
@@ -145,8 +150,11 @@ if __name__ == "__main__":
 
     # start server
     logger.info("listening on port: " + port)
-    server.add_insecure_port('[::]:'+port)
-    server.start()
+    if os.environ.get('DPUMESH_ENABLE') == '1':
+        dpumesh_grpc.serve(server, '[::]:'+port)
+    else:
+        server.add_insecure_port('[::]:'+port)
+        server.start()
 
     # keep alive
     try:

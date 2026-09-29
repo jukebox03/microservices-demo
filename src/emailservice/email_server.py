@@ -128,8 +128,13 @@ def start(dummy_mode):
 
   port = os.environ.get('PORT', "8080")
   logger.info("listening on port: "+port)
-  server.add_insecure_port('[::]:'+port)
-  server.start()
+  if os.environ.get('DPUMESH_ENABLE') == '1':
+    # gRPC over DPUMesh; setup installs dpumesh_grpc and its grpcio.
+    import dpumesh_grpc
+    dpumesh_grpc.serve(server, '[::]:'+port)
+  else:
+    server.add_insecure_port('[::]:'+port)
+    server.start()
   try:
     while True:
       time.sleep(3600)
