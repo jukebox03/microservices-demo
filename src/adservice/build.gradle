@@ -47,6 +47,11 @@ dependencies {
                 "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}",
                 "io.netty:netty-tcnative-boringssl-static:2.0.84.Final"
     }
+    // Built with DPUMESH_ROOT, gRPC runs over DPUMesh when DPUMESH_ENABLE=1:
+    // the jar's providers answer ServerBuilder.forPort.
+    if (System.getenv('DPUMESH_ROOT')) {
+        runtimeOnly files("${System.getenv('DPUMESH_ROOT')}/integrations/grpc/java/build/libs/dpumesh-grpc.jar")
+    }
 }
 
 protobuf {
