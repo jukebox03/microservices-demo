@@ -7,9 +7,11 @@ requests per second. Rows of kind "m1" and "m64" hold one health-bench
 target: calls/s and latency.
 """
 import csv
+import json
 import re
 import sys
 from pathlib import Path
+from cpusample import cpu_seconds
 
 SERVICE = {"1": "productcatalog", "2": "currency", "3": "cart", "4": "recommendation",
            "5": "shipping", "6": "checkout", "7": "ad", "8": "email", "9": "payment"}
@@ -39,6 +41,16 @@ def rows(run):
         rps = float(rps)
         total = re.search(r"(?m)^total\s+([0-9.]+)", block)
         host = float(total.group(1)) if total else None
+        host_ms = host / rps * 1e3 if host is not None and rps else None
+        a, b = run / f"cpu-u{users}-a.json", run / f"cpu-u{users}-b.json"
+        if a.exists() and b.exists() and int(n):
+            before, after = json.loads(a.read_text()), json.loads(b.read_text())
+            seconds = sum(cpu_seconds(before, after, name) for name in after["procs"])
+            host = seconds / (after["t"] - before["t"])
+            # CPU snapshots include process startup/shutdown around Locust.
+            # Use measured CPU time / actual requests, not cores / Locust rps
+            # (those rates use a different elapsed interval).
+            host_ms = seconds / int(n) * 1e3
         proxy = re.search(r"proxy outbound requests: \d+ \((\d+)/s\)", block)
         note = [busy] if busy else []
         if rps == 0:
@@ -48,7 +60,7 @@ def rows(run):
         yield dict(kind="locust", run=run.name, mode=mode, users=users, rate_per_s=f"{rps:.0f}",
                    p50=p50, p95=p95, p99=p99, unit="ms", failures=fail,
                    host_cores=f"{host:.2f}" if host is not None else "",
-                   host_ms_per_page=f"{host / rps * 1e3:.1f}" if host is not None and rps else "",
+                   host_ms_per_page=f"{host_ms:.1f}" if host_ms is not None else "",
                    proxy_rpc_per_s=proxy.group(1) if proxy else "", note="; ".join(note))
     for kind in ("m1", "m64"):
         path = run / f"bench-{kind}.txt"
@@ -64,8 +76,9 @@ def rows(run):
                        failures=f["errors"], note=lost("no calls") if f["calls"] == "0" else busy)
 
 
-w = csv.DictWriter(sys.stdout, FIELDS)
-w.writeheader()
-for d in sys.argv[1:]:
-    for r in rows(Path(d)):
-        w.writerow(r)
+if __name__ == "__main__":
+    w = csv.DictWriter(sys.stdout, FIELDS)
+    w.writeheader()
+    for d in sys.argv[1:]:
+        for r in rows(Path(d)):
+            w.writerow(r)
