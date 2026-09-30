@@ -1,0 +1,5 @@
+# Load generator for perf.sh; the versions the recorded runs used.
+locust==2.43.0
+geventhttpclient==2.4.0
+gevent==25.9.1
+Faker==40.1.0

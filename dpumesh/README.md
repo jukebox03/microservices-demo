@@ -52,4 +52,6 @@ treat 10.99.0.0/16 as profile networks
 original destination (the mock policy's `MOCK_POLICY_ECHO_TARGET=1`). A DPU
 worker must allow 64 flows.
 
-Results: DPUMesh `bench-results/2026-09-29_online-boutique-e2e.md`.
+`bench/` measures the modes against kernel TCP and a linkerd2-proxy on the
+host (`bench/README.md`). Results: DPUMesh
+`bench-results/2026-09-29_online-boutique-e2e.md`.
