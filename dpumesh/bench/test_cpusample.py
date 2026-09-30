@@ -33,6 +33,23 @@ class CpuAccountingTest(unittest.TestCase):
             row = next(summarize.rows(run))
             self.assertEqual(float(row["host_ms_per_page"]), 100 / cpusample.HZ / 20 * 1000)
 
+    def test_idle_row_counts_cores_and_switches(self):
+        before = {"t": 0, "procs": {"svc": {"7": ["dpumesh", 0, 10, 5, 3], "8": ["old", 50, 0, 0, 1]}},
+                  "process_totals": {"svc": [7, 3, 100]}}
+        after = {"t": 10, "procs": {"svc": {"7": ["dpumesh", 20, 110, 5, 3], "8": ["new", 5, 30, 0, 9]}},
+                 "process_totals": {"svc": [7, 3, 100 + 2 * cpusample.HZ]}}
+        with tempfile.TemporaryDirectory() as d:
+            run = Path(d)
+            (run / "cpu-idle-a.json").write_text(json.dumps(before))
+            (run / "cpu-idle-b.json").write_text(json.dumps(after))
+            (run / "summary.txt").write_text("== idle 10s\ntotal 0.20\ndpuproxy 0.97 x\n")
+            row = next(summarize.rows(run))
+            self.assertEqual(row["kind"], "idle")
+            self.assertAlmostEqual(float(row["host_cores"]), 0.2, places=3)
+            # 100 switches on the surviving thread, 30 on the reused TID.
+            self.assertEqual(row["rate_per_s"], "13")
+            self.assertIn("dpu proxy 0.97", row["note"])
+
     def test_restarted_process_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "restarted"):
             cpusample.cpu_seconds({"process_totals": {"p": [42, 9, 100]}},

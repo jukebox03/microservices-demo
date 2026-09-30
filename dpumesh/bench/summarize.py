@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """summarize.py <result dir>...: one CSV of perf.sh results on stdout.
 
-Rows of kind "locust" hold a Locust level: frontend req/s and latency, the
+Rows of kind "idle" hold the phase with no load: host cores of the services
+and their context switches per second. Rows of kind "locust" hold a Locust level: frontend req/s and latency, the
 host CPU of the services (and the host proxy), and the proxy's outbound
 requests per second. Rows of kind "m1" and "m64" hold one health-bench
 target: calls/s and latency.
@@ -19,6 +20,25 @@ FIELDS = ["kind", "run", "mode", "users", "service", "rate_per_s", "p50", "p95",
           "failures", "host_cores", "host_ms_per_page", "proxy_rpc_per_s", "note"]
 
 
+def idle_cost(run):
+    """Host cores and context switches per second of the services, idle phase."""
+    a, b = run / "cpu-idle-a.json", run / "cpu-idle-b.json"
+    if not (a.exists() and b.exists()):
+        return None, 0
+    before, after = json.loads(a.read_text()), json.loads(b.read_text())
+    dt = after["t"] - before["t"]
+    seconds = sum(cpu_seconds(before, after, name) for name in after["procs"])
+    csw = 0
+    for name, threads in after["procs"].items():
+        then = before["procs"].get(name, {})
+        for tid, row in threads.items():
+            t0 = then.get(tid)
+            if t0 is None or (len(row) > 4 and len(t0) > 4 and row[4] != t0[4]):
+                t0 = [row[0], 0, 0, 0]
+            csw += (row[2] - t0[2]) + (row[3] - t0[3])
+    return seconds / dt, csw / dt
+
+
 def rows(run):
     head = (run / "run.log").read_text() if (run / "run.log").exists() else ""
     m = re.search(r"mode (\w+)", head)
@@ -33,6 +53,14 @@ def rows(run):
     def lost(why):  # a window the DPA crash emptied or cut short
         return f"DPA crash, {why}" if crashed else why
     for block in re.split(r"(?m)^== ", text):
+        m = re.match(r"idle (\d+)s\n", block)
+        if m:
+            host, csw = idle_cost(run)
+            dpu = re.search(r"(?m)^dpuproxy\s+([0-9.]+)", block)
+            note = f"idle {m.group(1)} s" + (f"; dpu proxy {dpu.group(1)} cores" if dpu else "")
+            yield dict(kind="idle", run=run.name, mode=mode, rate_per_s=f"{csw:.0f}", unit="csw/s",
+                       host_cores=f"{host:.3f}" if host is not None else "", note=note)
+            continue
         m = re.match(r"users=(\d+): frontend req/s=([0-9.]+) requests=(\d+) p50=(\S+)ms p95=(\S+)ms "
                      r"p99=(\S+)ms failures=(\d+)", block)
         if not m:

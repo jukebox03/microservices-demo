@@ -25,6 +25,8 @@ Around every window, it records three things:
 - for DPUMesh modes, the same for the DPU proxy;
 - the proxy's per-service request counts and latency buckets (`proxystats.py`).
 
+With `IDLE_SEC`, it first measures an idle phase: the same CPU samples with no load while the smoke check's connections stay open.
+
 `summary.txt` in the result directory collects all of it. `summarize.py` turns result directories into one CSV.
 CPU per page is the CPU time between snapshots divided by the actual request
 count. The CPU snapshot window includes Locust startup and shutdown, so its
@@ -117,7 +119,9 @@ Go and C++ smoke binaries; the host library must already be built and
 | `SKIP_BENCH`, `SKIP_M64` | 0 | skip health-bench, or its 64-in-flight phase |
 | `M1_WARM`, `M1_DUR` | 2s, 8s | health-bench warm-up and window per service, 1 in flight |
 | `DPU_BUSY_POLL` | 1 | the DPU proxy's `DMESH_BUSY_POLL` |
-| `DPUMESH_SPIN_US` | 0 | host EQ spin window; explicitly set 1000 to reproduce the previous default |
+| `IDLE_SEC` | 0 | seconds of an idle phase after the smoke check (no load; the smoke's connections stay up) |
+| `WAIT_STATS` | 1 | collect the host idle-wake counters (`DPUMESH_WAIT_STATS`) into `wait-stats/` and `summary.txt` |
+| `DPUMESH_NAP_US`, `DPUMESH_NAP_CAP_US`, `DPUMESH_LINGER_US` | library defaults | host idle-wake knobs, passed to the services when set |
 | `DPU_PROXY_LOG` | warn | DPU proxy log filter; use the same value for both sides of a comparison |
 | `DPU_EU_BASE` | 64 | first fixed DPA EU; this node's tested range is 64–127 |
 | `OUT` | `dpumesh/.build/bench/results` | where result directories go |

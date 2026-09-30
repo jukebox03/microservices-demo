@@ -35,7 +35,8 @@ HP=$BB/hostproxy-target/release
 RM=$BB/redis
 SERVICES="frontend productcatalogservice currencyservice cartservice recommendationservice shippingservice checkoutservice adservice emailservice paymentservice"
 export DPUMESH_ROOT
-export DPUMESH_SPIN_US=${DPUMESH_SPIN_US:-0}
+# Host idle-wake knobs pass through to the services when set.
+export DPUMESH_WAIT_STATS=${DPUMESH_WAIT_STATS-}
 export DPU_EU_BASE=${DPU_EU_BASE:-64}
 SERVICES_STARTED=0 DPU_STARTED=0
 RUN_FAILED=0
@@ -75,7 +76,11 @@ done
 rm -rf "$E"; mkdir -p "$E"
 log() { echo "[$(date +%T)] $*" | tee -a "$E/run.log"; }
 log "mode $MODE, users '$USERS_LIST', ldur $LDUR, fork $(git -C "$FORK" rev-parse --short HEAD), DPUMesh $(git -C "$DPUMESH_ROOT" rev-parse --short HEAD)"
-log "host spin_us=$DPUMESH_SPIN_US, DPU busy_poll=${DPU_BUSY_POLL:-1} log=${DPU_PROXY_LOG:-warn} eu_base=${DPU_EU_BASE:-0}"
+log "host nap_us=${DPUMESH_NAP_US:-default} nap_cap_us=${DPUMESH_NAP_CAP_US:-default} linger_us=${DPUMESH_LINGER_US:-default}, DPU busy_poll=${DPU_BUSY_POLL:-1} log=${DPU_PROXY_LOG:-warn} eu_base=${DPU_EU_BASE:-0}"
+if [ "${WAIT_STATS:-1}" = 1 ]; then
+    mkdir -p "$E/wait-stats"
+    export DPUMESH_WAIT_STATS=$E/wait-stats
+fi
 
 # --- network namespace -------------------------------------------------------
 unshare -Urn sleep infinity &
@@ -162,6 +167,20 @@ locust() {  # locust <users> <seconds> [args...]
     ns "$LOCUST" -f "$HERE/locust_closed.py" --headless --processes "${LOCUST_PROCS:-4}" \
         -u "$1" -r "$1" -t "$2s" --host http://127.0.0.1:18080 --only-summary "${@:3}"
 }
+pids > "$E/pids.txt"
+
+# --- phase 0: idle ---------------------------------------------------------------
+# Connections the smoke check opened stay up, as between user requests.
+if [ "${IDLE_SEC:-0}" -gt 0 ]; then
+    sleep 5
+    snap idle-a
+    sleep "$IDLE_SEC"
+    snap idle-b
+    { echo "== idle ${IDLE_SEC}s"
+      $CPU diff "$E/cpu-idle-a.json" "$E/cpu-idle-b.json" | tail -n +2
+      dpu_diff idle-a idle-b; } | tee -a "$E/summary.txt"
+fi
+
 [ -z "$USERS_LIST" ] || locust 32 15 > "$E/locust-warmup.log" 2>&1
 for U in $USERS_LIST; do
     metrics > "$E/metrics-u$U-before.txt"
@@ -189,19 +208,23 @@ bench() {  # bench <tag> <in flight> <warm> <dur>
     local tag=$1 out=$E/bench-$1.txt
     : > "$out"
     $NSX env "${BENCH_ENV[@]}" "$BB/health-bench" -targets "$TARGETS" -m "$2" -warm "$3" -dur "$4" > "$out" 2>&1 &
-    local bp=$! seen=0 lines
-    # The final MEASURE_END can be written just before process exit. Drain
-    # remaining lines too, otherwise the last service has no CPU end snapshot.
-    while kill -0 $bp 2>/dev/null || [ "$seen" -lt "$(wc -l < "$out")" ]; do
-        lines=$(wc -l < "$out")
-        while [ $seen -lt "$lines" ]; do
+    local bp=$! seen=0 alive marks
+    # Only the MEASURE_ markers matter; library logs can add many lines. The
+    # final MEASURE_END can be written just before process exit, so take one
+    # more pass after it exits, or the last service has no CPU end snapshot.
+    while :; do
+        alive=0
+        kill -0 $bp 2>/dev/null && alive=1
+        mapfile -t marks < <(grep -E '^MEASURE_(START|END) ' "$out")
+        while [ $seen -lt ${#marks[@]} ]; do
+            set -- ${marks[$seen]}
             seen=$((seen + 1))
-            set -- $(sed -n "${seen}p" "$out")
-            case "${1:-}" in
+            case "$1" in
                 MEASURE_START) snap "$tag-${2//[:.]/_}-a" ;;
                 MEASURE_END) snap "$tag-${2//[:.]/_}-b" ;;
             esac
         done
+        [ $alive = 1 ] || break
         sleep 0.05
     done
     wait $bp
@@ -256,5 +279,12 @@ if [ $DPU_PROXY = 1 ]; then
 fi
 kill $NS
 cp "$OB"/logs/*.log "$E/" 2>/dev/null
+if [ -d "$E/wait-stats" ] && ls "$E"/wait-stats/dpumesh-wait.* > /dev/null 2>&1; then
+    echo "== host idle-wake counters" >> "$E/summary.txt"
+    while IFS== read -r svc pid; do
+        [ -f "$E/wait-stats/dpumesh-wait.$pid" ] &&
+            printf '%-24s %s\n' "$svc" "$(cat "$E/wait-stats/dpumesh-wait.$pid")" >> "$E/summary.txt"
+    done < "$E/pids.txt"
+fi
 log "done: $E"
 exit "$RUN_FAILED"
