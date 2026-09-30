@@ -35,6 +35,26 @@ HP=$BB/hostproxy-target/release
 RM=$BB/redis
 SERVICES="frontend productcatalogservice currencyservice cartservice recommendationservice shippingservice checkoutservice adservice emailservice paymentservice"
 export DPUMESH_ROOT
+export DPUMESH_SPIN_US=${DPUMESH_SPIN_US:-0}
+export DPU_EU_BASE=${DPU_EU_BASE:-64}
+SERVICES_STARTED=0 DPU_STARTED=0
+RUN_FAILED=0
+NS= REDIS= HPROXY=
+cleanup() {
+    if [ "$SERVICES_STARTED" = 1 ]; then
+        REDIS_ADDR=127.0.0.1:16379 bash "$FORK/dpumesh/run.sh" stop > "$E/stop.log" 2>&1
+    fi
+    [ -z "$REDIS" ] || kill "$REDIS" 2>/dev/null
+    if [ -n "$HPROXY" ]; then
+        kill "$HPROXY" $(cat "$E"/mock-*.pid) 2>/dev/null
+    fi
+    if [ "$DPU_STARTED" = 1 ]; then
+        ssh -n "$DPU" "cd $DB && bash stop.sh proxy mock-identity mock-policy mock-destination" > "$E/dpu-stop.log" 2>&1
+    fi
+    [ -z "$NS" ] || kill "$NS" 2>/dev/null
+    return 0
+}
+trap cleanup EXIT
 
 case $MODE in
     tcp | hostproxy)
@@ -55,6 +75,7 @@ done
 rm -rf "$E"; mkdir -p "$E"
 log() { echo "[$(date +%T)] $*" | tee -a "$E/run.log"; }
 log "mode $MODE, users '$USERS_LIST', ldur $LDUR, fork $(git -C "$FORK" rev-parse --short HEAD), DPUMesh $(git -C "$DPUMESH_ROOT" rev-parse --short HEAD)"
+log "host spin_us=$DPUMESH_SPIN_US, DPU busy_poll=${DPU_BUSY_POLL:-1} log=${DPU_PROXY_LOG:-warn} eu_base=${DPU_EU_BASE:-0}"
 
 # --- network namespace -------------------------------------------------------
 unshare -Urn sleep infinity &
@@ -98,19 +119,24 @@ if [ "$MODE" = hostproxy ]; then
     HPROXY=$(cat "$E/proxy.pid")
     kill -0 "$HPROXY" || { log "host proxy failed"; exit 1; }
 elif [ $DPU_PROXY = 1 ]; then
-    ssh -n "$DPU" "cd $DB && export DMESH_BUSY_POLL=${DPU_BUSY_POLL:-1} OB_L7=1 && bash start.sh mocks && sleep 2 && bash start.sh proxy perf-$TAG && sleep 6 && kill -0 \$(cat run/proxy.pid)" \
+    DPU_STARTED=1
+    ssh -n "$DPU" "cd $DB && export DMESH_BUSY_POLL=${DPU_BUSY_POLL:-1} LINKERD2_PROXY_LOG=${DPU_PROXY_LOG:-warn} DPUMESH_DPA_EU_BASE=${DPU_EU_BASE:-0} OB_L7=1 && bash start.sh mocks && sleep 2 && bash start.sh proxy perf-$TAG && sleep 6 && kill -0 \$(cat run/proxy.pid)" \
         || { log "DPU start failed"; exit 1; }
 fi
 
 # --- services ------------------------------------------------------------------
+SERVICES_STARTED=1
 ns env DPUMESH_MODE=$OB_MODE REDIS_ADDR=127.0.0.1:16379 bash "$FORK/dpumesh/run.sh" start > "$E/start.log" 2>&1
 sleep 6
 ns bash "$FORK/dpumesh/run.sh" status > "$E/status.txt"
-log "$(grep -c 'up (' "$E/status.txt") services up"
+UP=$(grep -c 'up (' "$E/status.txt")
+log "$UP services up"
+[ "$UP" = 10 ] || { log "incomplete startup: measurement aborted"; exit 1; }
 for s in $SERVICES; do
     echo "$s $(grep -o -E 'libdpumesh[_a-z]*\.so[.0-9]*|dpumesh_grpc\.node|libdpumesh_jni[0-9]*\.so|Dpumesh\.Grpc\.dll|cygrpc[^/ ]*\.so' "/proc/$(cat "$RUN/$s.pid")/maps" 2>/dev/null | sort -u | tr '\n' ' ')"
 done > "$E/libs.txt"
-ns bash "$FORK/dpumesh/run.sh" smoke > "$E/smoke.txt" 2>&1 && log "smoke PASS" || log "smoke FAIL"
+ns bash "$FORK/dpumesh/run.sh" smoke > "$E/smoke.txt" 2>&1 && log "smoke PASS" \
+    || { log "smoke FAIL: measurement aborted"; exit 1; }
 
 pids() {
     for s in $SERVICES; do echo "$s=$(cat "$RUN/$s.pid")"; done
@@ -161,9 +187,12 @@ done
 # --- phases B and C: health-bench on every service ---------------------------------
 bench() {  # bench <tag> <in flight> <warm> <dur>
     local tag=$1 out=$E/bench-$1.txt
+    : > "$out"
     $NSX env "${BENCH_ENV[@]}" "$BB/health-bench" -targets "$TARGETS" -m "$2" -warm "$3" -dur "$4" > "$out" 2>&1 &
     local bp=$! seen=0 lines
-    while kill -0 $bp 2>/dev/null; do
+    # The final MEASURE_END can be written just before process exit. Drain
+    # remaining lines too, otherwise the last service has no CPU end snapshot.
+    while kill -0 $bp 2>/dev/null || [ "$seen" -lt "$(wc -l < "$out")" ]; do
         lines=$(wc -l < "$out")
         while [ $seen -lt "$lines" ]; do
             seen=$((seen + 1))
@@ -176,7 +205,8 @@ bench() {  # bench <tag> <in flight> <warm> <dur>
         sleep 0.05
     done
     wait $bp
-    echo "bench exit=$?" >> "$out"
+    local bench_rc=$?
+    echo "bench exit=$bench_rc" >> "$out"
     echo "== health-bench $tag" | tee -a "$E/summary.txt"
     grep ^RESULT "$out" | while read -r _ kv; do
         local t calls
@@ -187,6 +217,19 @@ bench() {  # bench <tag> <in flight> <warm> <dur>
             | awk '$2 > 0.02 || /total/'
         dpu_diff "$tag-${t//[:.]/_}-a" "$tag-${t//[:.]/_}-b" "$calls"
     done | tee -a "$E/summary.txt"
+    if [ "$bench_rc" != 0 ] || ! awk '
+        /^RESULT / {
+            n++;
+            for (i = 2; i <= NF; i++) {
+                if ($i == "calls=0") bad = 1;
+                if ($i ~ /^errors=/ && $i != "errors=0") bad = 1;
+            }
+        }
+        END { exit (n != 9 || bad) }
+    ' "$out"; then
+        log "health-bench $tag failed or incomplete"
+        RUN_FAILED=1
+    fi
 }
 if [ "${SKIP_BENCH:-0}" != 1 ]; then
     bench m1 1 "${M1_WARM:-2s}" "${M1_DUR:-8s}"
@@ -196,7 +239,7 @@ fi
 # --- teardown --------------------------------------------------------------------
 metrics > "$E/metrics-end.txt"
 ns bash "$FORK/dpumesh/run.sh" stop > "$E/stop.log" 2>&1
-pgrep -u "$(id -u)" -f 'Roslyn/[b]incore' | xargs -r kill
+SERVICES_STARTED=0
 kill $REDIS 2>/dev/null
 if [ -n "$HPROXY" ]; then
     kill "$HPROXY" $(cat "$E"/mock-*.pid) 2>/dev/null
@@ -206,7 +249,12 @@ if [ $DPU_PROXY = 1 ]; then
     sleep 6
     ssh -n "$DPU" "cd $DB; L=run/proxy-perf-$TAG.log; echo \"dpuproxy: ERR=\$(grep -c '\]\[ERR\]' \$L) crash=\$(grep -c flexio_crash_data \$L) panics=\$(grep -c -i panicked \$L)\"; bash stop.sh proxy mock-identity mock-policy mock-destination >/dev/null" | tee -a "$E/summary.txt"
     scp -q "$DPU:$DB/run/proxy-perf-$TAG.log" "$E/" 2>/dev/null
+    if grep -Eq 'flexio_crash_data|panicked' "$E/proxy-perf-$TAG.log"; then
+        RUN_FAILED=1
+    fi
+    DPU_STARTED=0
 fi
 kill $NS
 cp "$OB"/logs/*.log "$E/" 2>/dev/null
 log "done: $E"
+exit "$RUN_FAILED"

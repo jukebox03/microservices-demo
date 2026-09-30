@@ -21,11 +21,17 @@ Results and analysis are in DPUMesh's `bench-results/2026-09-29_online-boutique-
 2. **health-bench.** DPUMesh's `integrations/grpc/go/cmd/health-bench` calls every service's gRPC health `Check`, first with 1 call in flight and then with 64.
 
 Around every window, it records three things:
-- the CPU time and context switches of each thread of the services and the host proxy (`cpusample.py`);
+- process CPU time (including exited threads), per-thread CPU with TIDs, and context switches of the services and the host proxy (`cpusample.py`);
 - for DPUMesh modes, the same for the DPU proxy;
 - the proxy's per-service request counts and latency buckets (`proxystats.py`).
 
 `summary.txt` in the result directory collects all of it. `summarize.py` turns result directories into one CSV.
+CPU per page is the CPU time between snapshots divided by the actual request
+count. The CPU snapshot window includes Locust startup and shutdown, so its
+elapsed time must not be substituted for Locust's request-rate interval.
+Runs abort and clean up if a service fails to start or the smoke check fails.
+Health RPC errors, missing targets and DPU crash reports make the run exit
+with a failure status after saving the results.
 
 ### Network namespace
 
@@ -69,7 +75,7 @@ Run these once, in this order.
 
 `DPU_HOST` and `DPU_DIR` select another DPU or checkout.
 
-The DPU proxy serves Comch name `DPUMeshBoutique0` on 03:00.0/94:00.0, pinned to cores 9 and 12. `DPU_PCI`, `REP_PCI` and `PROXY_CPUS` in `dpu/env.sh` and `dpu/start.sh` change that. The host proxy is pinned to cores 34–35 and its mocks to core 33 (`HOST_PROXY_CPUS`, `HOST_MOCK_CPUS`).
+The DPU proxy serves Comch name `DPUMeshBoutique0` on 03:00.0/94:00.0, pinned to cores 9 and 12. `DPU_PCI`, `REP_PCI` and `PROXY_CPUS` in `dpu/env.sh` and `dpu/start.sh` change that. Its DPA data/helper pairs use EUs 64–127 (`DPU_EU_BASE=64` in the bench scripts, `DPUMESH_DPA_EU_BASE` in `dpu/env.sh`). Another DPA job is running on PF 03:00.1 of this test node. Using base 0 produced seconds-long tail latency; base 64 restored throughput without stopping that job. This setting assigns affinity and does not create an exclusive hardware partition. Select an available range on another node; the transport library's default remains 0. The host proxy is pinned to cores 34–35 and its mocks to core 33 (`HOST_PROXY_CPUS`, `HOST_MOCK_CPUS`).
 
 ## Run
 
@@ -101,4 +107,7 @@ With busy poll off, the DPU proxy's CPU reflects its work rather than a spinning
 | `SKIP_BENCH`, `SKIP_M64` | 0 | skip health-bench, or its 64-in-flight phase |
 | `M1_WARM`, `M1_DUR` | 2s, 8s | health-bench warm-up and window per service, 1 in flight |
 | `DPU_BUSY_POLL` | 1 | the DPU proxy's `DMESH_BUSY_POLL` |
+| `DPUMESH_SPIN_US` | 0 | host EQ spin window; explicitly set 1000 to reproduce the previous default |
+| `DPU_PROXY_LOG` | warn | DPU proxy log filter; use the same value for both sides of a comparison |
+| `DPU_EU_BASE` | 64 | first fixed DPA EU; this node's tested range is 64–127 |
 | `OUT` | `dpumesh/.build/bench/results` | where result directories go |
