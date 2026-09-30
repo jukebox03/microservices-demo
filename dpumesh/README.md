@@ -13,6 +13,10 @@ mesh:
   `LD_PRELOAD` shim, which turns their sockets into DPUMesh streams.
 - `native`: each uses its language's DPUMesh gRPC library
   (`integrations/grpc` in DPUMesh), enabled by `DPUMESH_ENABLE=1`.
+- `tcp`: the baseline without DPUMesh. Every service listens on its own TCP
+  port and clients dial that port at the same 10.99.1.N address, so the
+  addresses must exist on the host (a network namespace with them on `lo`
+  works), or `TCP_HOST=127.0.0.1` replaces them.
 
 The Go services use `dmeshgo` in both modes (built with `-tags dpumesh`): Go
 makes its socket calls without libc, so preload cannot reach them. Every
@@ -36,7 +40,8 @@ dpumesh/run.sh stop
 ```
 
 `NATIVE_SERVICES="cartservice adservice"` in preload mode makes just those
-services native. Frontend HTTP listens on `127.0.0.1:18080`; logs go to
+services native. `REDIS_ADDR` names a running Redis instead of the Docker
+one. Frontend HTTP listens on `127.0.0.1:18080`; logs go to
 `dpumesh/.build/logs`.
 
 Each service is a DPUMesh pod (`DPUMESH_POD_IP` 10.99.0.11–20) serving the

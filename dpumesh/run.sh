@@ -10,10 +10,13 @@
 # mesh: "preload" (default) runs them unmodified under the preload shim;
 # "native" enables their DPUMesh gRPC library. The Go services use dmeshgo in
 # both modes: Go makes its socket calls without libc, so preload cannot reach
-# them.
+# them. "tcp" is the baseline without DPUMesh: every service listens on its
+# own TCP port and clients dial that port at the same 10.99.1.N address
+# (TCP_HOST replaces the address, e.g. 127.0.0.1).
 #
-# Requires setup.sh and a DPU proxy on DPUMESH_SERVER whose profile networks
-# cover 10.99.0.0/16 (see README.md).
+# Requires setup.sh and, except in tcp mode, a DPU proxy on DPUMESH_SERVER
+# whose profile networks cover 10.99.0.0/16 (see README.md). REDIS_ADDR names
+# a running Redis instead of the one run.sh starts in Docker.
 set -uo pipefail
 
 HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -40,16 +43,21 @@ export DISABLE_PROFILER=1 ENABLE_TRACING=0 DISABLE_TRACING=1 DISABLE_STATS=1
 POOL=${DPUMESH_BACKEND_POOL:-1}
 MAX=${DPUMESH_BACKEND_MAX:-8}
 
-# Service targets, as the clients dial them.
-PRODUCT=10.99.1.1:3550
-CURRENCY=10.99.1.2:7000
-CART=10.99.1.3:7070
-RECOMMENDATION=10.99.1.4:8080
-SHIPPING=10.99.1.5:50051
-CHECKOUT=10.99.1.6:5050
-AD=10.99.1.7:9555
-EMAIL=10.99.1.8:5000
-PAYMENT=10.99.1.9:50051
+# Service targets, as the clients dial them. In tcp mode a target is the
+# service's own TCP port: target <ip>:<mesh port>:<tcp port>.
+target() {
+    local ip=$1 mesh=$2 tcp=$3
+    if [ "$MODE" = tcp ]; then echo "${TCP_HOST:-$ip}:$tcp"; else echo "$ip:$mesh"; fi
+}
+PRODUCT=$(target 10.99.1.1 3550 3550)
+CURRENCY=$(target 10.99.1.2 7000 17000)
+CART=$(target 10.99.1.3 7070 17070)
+RECOMMENDATION=$(target 10.99.1.4 8080 18081)
+SHIPPING=$(target 10.99.1.5 50051 50051)
+CHECKOUT=$(target 10.99.1.6 5050 5050)
+AD=$(target 10.99.1.7 9555 19555)
+EMAIL=$(target 10.99.1.8 5000 15000)
+PAYMENT=$(target 10.99.1.9 50051 15051)
 
 mkdir -p "$RUN" "$LOGS"
 
@@ -64,10 +72,15 @@ launch() {
     echo "started $name (pid $!)"
 }
 
+# The mesh settings of a Go program: none in tcp mode.
+go_mesh() {
+    [ "$MODE" = tcp ] && echo DPUMESH_ENABLE=0 || echo DPUMESH_ENABLE=1
+}
+
 # go_server <name> <pod ip> <target> <dir> <binary> [env...]
 go_server() {
     local name=$1 pod=$2 target=$3 dir=$4 bin=$5; shift 5
-    launch "$name" "$dir" DPUMESH_ENABLE=1 DPUMESH_POD_IP="$pod" DPUMESH_SERVICE="$target" \
+    launch "$name" "$dir" "$(go_mesh)" DPUMESH_POD_IP="$pod" DPUMESH_SERVICE="$target" \
         DPUMESH_BACKEND_POOL="$POOL" DPUMESH_BACKEND_MAX="$MAX" PORT="${target##*:}" "$@" -- "$OB/bin/$bin"
 }
 
@@ -77,7 +90,9 @@ go_server() {
 mesh_server() {
     local name=$1 pod=$2 target=$3 port=$4 dir=$5; shift 5
     local via=(LD_PRELOAD="$PRELOAD" DPUMESH_PORT="$port")
-    if [ "$MODE" = native ] || [[ " $NATIVE_SERVICES " == *" $name "* ]]; then
+    if [ "$MODE" = tcp ]; then
+        via=(DPUMESH_ENABLE=0)
+    elif [ "$MODE" = native ] || [[ " $NATIVE_SERVICES " == *" $name "* ]]; then
         via=(DPUMESH_ENABLE=1)
     fi
     launch "$name" "$dir" "${via[@]}" DPUMESH_POD_IP="$pod" DPUMESH_SERVICE="$target" \
@@ -86,17 +101,19 @@ mesh_server() {
 
 start() {
     case "$MODE" in
-        preload | native) ;;
-        *) echo "DPUMESH_MODE must be preload or native" >&2; return 2 ;;
+        preload | native | tcp) ;;
+        *) echo "DPUMESH_MODE must be preload, native or tcp" >&2; return 2 ;;
     esac
     echo "mode: $MODE${NATIVE_SERVICES:+ (native: $NATIVE_SERVICES)}"
-    docker run -d --rm --name ob-redis -p 127.0.0.1:$REDIS_PORT:6379 redis:7-alpine >/dev/null 2>&1 \
-        && echo "started redis on 127.0.0.1:$REDIS_PORT" || echo "redis already running?"
+    if [ -z "${REDIS_ADDR:-}" ]; then
+        docker run -d --rm --name ob-redis -p 127.0.0.1:$REDIS_PORT:6379 redis:7-alpine >/dev/null 2>&1 \
+            && echo "started redis on 127.0.0.1:$REDIS_PORT" || echo "redis already running?"
+    fi
 
     go_server productcatalogservice 10.99.0.11 $PRODUCT "$SRC/productcatalogservice" productcatalogservice
     mesh_server currencyservice 10.99.0.12 $CURRENCY 17000 "$SRC/currencyservice" -- node server.js
     mesh_server cartservice 10.99.0.13 $CART 17070 "$OB/bin/cartservice" \
-        REDIS_ADDR=127.0.0.1:$REDIS_PORT ASPNETCORE_URLS=http://+:17070 DOTNET_CLI_TELEMETRY_OPTOUT=1 \
+        REDIS_ADDR="${REDIS_ADDR:-127.0.0.1:$REDIS_PORT}" ASPNETCORE_URLS=http://+:17070 DOTNET_CLI_TELEMETRY_OPTOUT=1 \
         -- "$OB/toolchains/dotnet/dotnet" cartservice.dll
     go_server shippingservice 10.99.0.15 $SHIPPING "$SRC/shippingservice" shippingservice
     mesh_server adservice 10.99.0.17 $AD 19555 "$SRC/adservice" JAVA_HOME="$OB/toolchains/jdk" \
@@ -114,7 +131,7 @@ start() {
         EMAIL_SERVICE_ADDR=$EMAIL CURRENCY_SERVICE_ADDR=$CURRENCY CART_SERVICE_ADDR=$CART
     sleep "${CLIENT_WARMUP:-4}"
 
-    launch frontend "$SRC/frontend" DPUMESH_ENABLE=1 DPUMESH_POD_IP=10.99.0.20 \
+    launch frontend "$SRC/frontend" "$(go_mesh)" DPUMESH_POD_IP=10.99.0.20 \
         LISTEN_ADDR="${FRONTEND_HTTP%:*}" PORT="${FRONTEND_HTTP##*:}" \
         PRODUCT_CATALOG_SERVICE_ADDR=$PRODUCT CURRENCY_SERVICE_ADDR=$CURRENCY CART_SERVICE_ADDR=$CART \
         RECOMMENDATION_SERVICE_ADDR=$RECOMMENDATION SHIPPING_SERVICE_ADDR=$SHIPPING \
@@ -138,7 +155,7 @@ stop() {
         fi
         rm -f "$f"
     done
-    docker rm -f ob-redis >/dev/null 2>&1 && echo "stopped redis" || true
+    [ -n "${REDIS_ADDR:-}" ] || { docker rm -f ob-redis >/dev/null 2>&1 && echo "stopped redis" || true; }
 }
 
 status() {
