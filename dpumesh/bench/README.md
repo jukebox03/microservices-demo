@@ -84,6 +84,7 @@ export DPUMESH_ROOT=<DPUMesh>
 dpumesh/bench/matrix.sh 1                    # the recorded run set, ~45 min
 dpumesh/bench/perf.sh hostproxy my-run       # one mode
 USERS_LIST= SKIP_M64=1 dpumesh/bench/perf.sh native m1-only
+DPUMESH_ROOT=<DPUMesh> bash dpumesh/bench/hw-regression.sh
 ```
 
 `matrix.sh <rep>` runs three groups:
@@ -93,9 +94,18 @@ USERS_LIST= SKIP_M64=1 dpumesh/bench/perf.sh native m1-only
 
 It then writes `results/matrix-r<rep>.csv`.
 
-Groups 2 and 3 are there because the DPU's DPA process can crash under load, which cuts the first group short in the DPUMesh modes. `dpuproxy: crash=` in `summary.txt` counts those crashes.
+Groups 2 and 3 were added because the original DPA process crashed under load. The 2026-09-30 fixes passed the complete native run, including all nine targets with 64 calls in flight. `dpuproxy: crash=` in `summary.txt` counts crash report lines, which may repeat for one failure. The scripts fail a run with a crash, missing health target or health RPC error.
 
 With busy poll off, the DPU proxy's CPU reflects its work rather than a spinning loop.
+
+`hw-regression.sh` checks every payload byte with a position-dependent pattern,
+including messages larger than the staging buffer, concurrent streams, and
+40 gRPC close/reopen cycles while a sibling keeps sending. It rebuilds the
+Go and C++ smoke binaries; the host library must already be built and
+`build/grpc` configured with `BUILD_TESTING=ON`. It defaults to
+`dpu-dma`. Set `REVERSE_MODES="dpu-dma host-dpa"` and
+`DPUMESH_HOST_DPA_PCI` for a host PF with a usable DPA EU partition to include
+`host-dpa`; that mode requires hardware resources beyond the Comch PF.
 
 `perf.sh` knobs:
 
