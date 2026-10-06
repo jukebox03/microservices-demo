@@ -226,9 +226,11 @@ func mustConnGRPC(ctx context.Context, conn **grpc.ClientConn, addr string) {
 	var err error
 	_, cancel := context.WithTimeout(ctx, time.Second*3)
 	defer cancel()
-	*conn, err = grpc.NewClient(addr, append([]grpc.DialOption{
+	target, targetOpts := staticTarget(addr)
+	*conn, err = grpc.NewClient(target, append(append([]grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithStatsHandler(otelgrpc.NewClientHandler())}, dpumeshDialOptions()...)...)
+		grpc.WithDefaultServiceConfig(`{"loadBalancingConfig":[{"round_robin":{}}]}`),
+		grpc.WithStatsHandler(otelgrpc.NewClientHandler())}, targetOpts...), dpumeshDialOptions()...)...)
 	if err != nil {
 		panic(errors.Wrapf(err, "grpc: failed to connect %s", addr))
 	}
