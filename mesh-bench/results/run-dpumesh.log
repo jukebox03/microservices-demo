@@ -1,0 +1,10 @@
+[21:30:08] == k8s-dpumesh rep1: setup
+[21:30:19] k8s-dpumesh rep1: warmup 60 s at 200 tasks/s
+[21:31:56]   k8s-dpumesh rep1 rate=300: rps=364 p50=11.3 p99=19.0 fail=0.0000 dropped=0 svc=4.41c dpu=2.13c outside=-0.24c 
+[21:32:37]   k8s-dpumesh rep1 rate=900: rps=1092 p50=14.1 p99=26.4 fail=0.0000 dropped=0 svc=8.91c dpu=4.83c outside=0.19c 
+[21:33:19]   k8s-dpumesh rep1 rate=1500: rps=1813 p50=22.8 p99=46.5 fail=0.0000 dropped=0 svc=10.51c dpu=6.47c outside=0.81c 
+[21:34:01]   k8s-dpumesh rep1 rate=2100: rps=2541 p50=37.2 p99=75.4 fail=0.0000 dropped=0 svc=11.47c dpu=7.15c outside=1.16c 
+[21:34:42]   k8s-dpumesh rep1 rate=2700: rps=3270 p50=60.9 p99=135.6 fail=0.0000 dropped=0 svc=11.18c dpu=7.59c outside=1.58c 
+[21:35:25]   k8s-dpumesh rep1 rate=3000: rps=3643 p50=83.7 p99=188.9 fail=0.0000 dropped=0 svc=11.32c dpu=7.99c outside=1.70c 
+[21:36:07]   k8s-dpumesh rep1 rate=3300: rps=4000 p50=174.8 p99=345.7 fail=0.0000 dropped=0 svc=10.97c dpu=7.92c outside=1.81c 
+[21:36:50]   k8s-dpumesh rep1 rate=3600: rps=4073 p50=843.3 p99=1377.7 fail=0.0000 dropped=4713 svc=11.42c dpu=8.05c outside=1.99c SAT
