@@ -27,14 +27,14 @@ import (
 const staticScheme = "static"
 
 // staticTarget returns the gRPC target for addr and, for a list, the dial
-// options it needs: the default :authority would be the whole list, which is
-// not a valid HTTP/2 authority, so the first backend is used instead.
+// options it needs. A list gets none: each backend's address is its own
+// :authority (resolver.Address.ServerName, set by the resolver), which a
+// WithAuthority dial option would override for every backend.
 func staticTarget(addr string) (string, []grpc.DialOption) {
 	if !strings.Contains(addr, ",") {
 		return addr, nil
 	}
-	first := strings.TrimSpace(strings.SplitN(addr, ",", 2)[0])
-	return staticScheme + ":///" + addr, []grpc.DialOption{grpc.WithAuthority(first)}
+	return staticScheme + ":///" + addr, nil
 }
 
 type staticBuilder struct{}
@@ -45,7 +45,10 @@ func (staticBuilder) Build(t resolver.Target, cc resolver.ClientConn, _ resolver
 	var addrs []resolver.Address
 	for _, a := range strings.Split(t.Endpoint(), ",") {
 		if a = strings.TrimSpace(a); a != "" {
-			addrs = append(addrs, resolver.Address{Addr: a})
+			// ServerName makes each backend's own address its :authority; a
+			// mesh that routes by authority (Istio) would otherwise send every
+			// request to the first backend.
+			addrs = append(addrs, resolver.Address{Addr: a, ServerName: a})
 		}
 	}
 	return staticResolver{}, cc.UpdateState(resolver.State{Addresses: addrs})
