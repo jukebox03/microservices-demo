@@ -106,7 +106,7 @@ no-sidecar가 포화 직전(2,904 rps)일 때 pod 전체가 11.4코어를 쓴다
 - **Host:** Xeon 6515P 16코어. turbo를 끄고 2.3 GHz로 고정했다.
   - 코어 0–11: 모든 pod(앱, 사이드카, DPUMesh host 라이브러리)
   - 코어 12–15: k6 부하 생성기
-- **DPU:** BlueField-3, DOCA 3.1. 코어 12–15를 offline으로 내려 12코어로 쓴다. cpufreq가 없어 실측 약 2.12 GHz다.
+- **DPU:** BlueField-3 16코어, DOCA 3.5(host도 3.5). DPU 프록시를 코어 0–11에 묶는다(`taskset -c 0-11`). shard 10개는 코어 2–11, 나머지 스레드는 코어 0–1을 쓴다. cpufreq가 없어 실측 약 2.12 GHz다.
 
 ### Kubernetes
 
@@ -151,6 +151,71 @@ no-sidecar가 포화 직전(2,904 rps)일 때 pod 전체가 11.4코어를 쓴다
 - **CPU 기록:**
   - pod 전체는 kubepods cgroup, 컨테이너별은 `cpusnap.py`로 잰다.
   - DPU는 `/proc/stat`으로 잰다.
+
+## 환경 준비
+
+아래는 이 측정을 처음부터 다시 돌리기 위한 준비다. 테스트베드 값은 host `jet1`, DPU `192.168.100.2`다.
+
+### Host
+
+1. **CPU 주파수를 고정한다.** turbo를 끄고 2.3 GHz로 고정한다.
+
+   ```sh
+   echo 1 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo
+   sudo cpupower frequency-set -g performance -d 2.3GHz -u 2.3GHz
+   ```
+
+2. **단일 노드 Kubernetes를 만든다.** kubeadm 1.34와 Flannel을 쓴다. 노드 하나에 pod를 띄우려면 control-plane taint를 지워야 한다(`kubectl taint nodes --all node-role.kubernetes.io/control-plane-`).
+   - kubelet 설정(`/var/lib/kubelet/config.yaml`)에 아래 항목을 넣고 kubelet을 재시작한다.
+
+     ```yaml
+     cpuManagerPolicy: static
+     reservedSystemCPUs: "12-15"
+     cpuManagerPolicyOptions:
+       strict-cpu-reservation: "true"
+     ```
+
+   - static 정책으로 바꿀 때는 kubelet을 멈추고 `/var/lib/kubelet/cpu_manager_state`를 지운 뒤 다시 시작한다.
+
+3. **도구를 PATH에 둔다.** k6 v2.3.0, `linkerd` edge-26.9.3, `istioctl` 1.31.1, `kubectl`이 필요하다. 메시는 `run.sh`가 측정마다 직접 설치하고 지운다.
+
+4. **서비스 바이너리를 빌드한다.**
+   - DPUMesh host 라이브러리와 gRPC 연동 라이브러리를 먼저 빌드한다(DPUMesh `README.md`, `integrations/grpc/README.md`). 결과는 `~/DPUMesh/build`에 생긴다.
+   - 그다음 서비스를 빌드한다. 결과는 `../dpumesh/.build`(Go 바이너리, venv, JDK, .NET)에 생긴다.
+
+     ```sh
+     DPUMESH_ROOT=~/DPUMesh ../dpumesh/setup.sh
+     ```
+
+5. **그래프용 Python 환경을 만든다.** `python3 -m venv .venv && .venv/bin/pip install matplotlib`
+
+### DPU
+
+1. **DPUMesh를 받아 프록시를 빌드한다.** DPUMesh(`feature/grpc-perf` 이후 버전)를 DPU의 `~/DPUMesh-online-boutique`에 둔다. DPA EU 범위 설정과 linkerd2-proxy 서브모듈(worker 분할, `dmesh_doca`)이 필요하므로 `git submodule update --init`까지 한다. 그다음 transport, linkerd2-proxy, mock 제어 평면을 빌드한다.
+
+   ```sh
+   ~/DPUMesh-online-boutique/bench/grpc/dpu/build.sh
+   ```
+
+   - DPU에는 인터넷이 없어서, Rust와 crate는 오프라인으로 준비해 둔다(`~/opt/rust`, `CARGO_HOME=~/opt/cargo-home`).
+
+2. **시작 스크립트를 복사한다.** `run.sh`는 ssh로 DPU의 `~/DPUMesh-online-boutique/ob-bench/start.sh`를 부른다.
+
+   ```sh
+   ssh 192.168.100.2 mkdir -p DPUMesh-online-boutique/ob-bench
+   scp dpumesh/dpu/env.sh dpumesh/dpu/start.sh 192.168.100.2:DPUMesh-online-boutique/ob-bench/
+   ```
+
+3. **host에서 DPU로 비밀번호 없이 ssh할 수 있어야 한다.**
+
+### 고정값과 권한
+
+- **DPU 주소:** `192.168.100.2`가 `k8sob/run.sh`(`DPU=`)에 고정돼 있다.
+- **PCI 주소:** DPU 장치 `03:00.1`, representor `0b:00.1`은 `dpumesh/dpu/env.sh`에 있다. host 쪽 Comch `0b:00.1`은 `k8sob/gen.py`의 `DPUMESH_PCI_ADDR`에 있다.
+- **`SUDO_PW`:** DPU의 sudo 비밀번호다. DPU 프록시는 representor 목록을 읽기 위해 root로 떠야 하고, 시작 후 shard 스레드를 코어에 고정할 때도 root가 필요하다. 환경변수로만 넘기고 파일에 적지 않는다.
+- **DPA EU 범위:** `dpumesh/dpu/env.sh`가 worker 10개용 범위(`DPUMESH_DPA_EU_END=190`, `DPUMESH_DPA_EU_OFFSETS`)를 정한다. 배치를 바꾸면 `dpumesh/gen_layout.py`로 다시 계산한다. 변수 설명은 DPUMesh `design/HOST.md`에 있다.
+- **mock 제어 평면:** mock identity의 인증서는 mock이 시작한 시점부터 24시간 유효하다. `run.sh`는 측정마다 mock을 새로 띄운다(`start.sh mocks`). 프록시를 재시작할 때는 mock을 유지한다.
+- **host 쪽 pod:** pod는 privileged이고 host 루트를 마운트한다. 테스트베드 전용이다. DOCA Comch를 쓰려면 memlock 한도가 무제한이어야 해서, `gen.py`가 pod 시작 시 `ulimit -l unlimited`를 건다.
 
 ## 재현
 
