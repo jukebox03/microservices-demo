@@ -80,24 +80,28 @@ no-sidecar가 포화 직전(2,904 rps)일 때 pod 전체가 11.4코어를 쓴다
 
 ## 무엇이 포화하는가
 
-| 구성 | 포화 부근 pod CPU (12코어 중) | 사이드카 CPU 합 | 가장 바쁜 frontend 사이드카 |
+| 구성 | 포화 부근 pod CPU (12코어 중) | 사이드카 CPU 합 | 가장 바쁜 사이드카 |
 |---|---:|---:|---:|
 | no-sidecar | 11.4–11.5코어 | — | — |
-| Linkerd | 11.1–11.7코어 | 4.6–4.8코어 | 0.57코어 |
-| Istio | 9.4–10.0코어 | 4.6–5.0코어 | 0.60코어 |
+| Linkerd | 11.1–11.7코어 | 4.6–4.8코어 | 0.57코어 (frontend) |
+| Istio | 9.4–10.0코어 | 4.6–5.0코어 | 0.70코어 (productcatalog-1) |
 | DPUMesh | 11.0–11.4코어 (DPU 7.9–8.1코어) | — | — |
 
 - **no-sidecar, Linkerd, DPUMesh:** host CPU가 포화한다.
   - Linkerd는 사이드카가 pod CPU의 약 40%를 써서, no-sidecar보다 낮은 부하에서 CPU가 찬다.
   - Linkerd의 사이드카는 모두 1코어(worker 1개의 상한)보다 한참 아래다.
-- **Istio:** host CPU가 2코어가량 남은 상태에서 무너진다. 가장 바쁜 Envoy도 0.6코어라, 무엇이 먼저 막혔는지는 이 측정으로 가리지 못했다.
+- **Istio:** productcatalog-1 사이드카(Envoy)의 worker 스레드 하나가 포화한다. host CPU는 2코어가량 남아 있다.
+  - 이 Envoy는 부하가 3배가 되는 동안 0.60 → 0.70코어에서 더 늘지 않는다.
+  - 무너지는 부하(약 900 RPS)에서 스레드별로 재 보면, worker 스레드(`wrk:worker_0`)가 매초 0.72초 실행하고 0.17초는 CPU를 기다린다. 89% 동안 일하거나 일하려고 기다리는 상태라 사실상 다 찼다.
+  - `concurrency: 1`이라 worker가 하나뿐이어서, 이 스레드가 상한이 된다.
+  - productcatalog-1이 다른 catalog replica보다 바쁜 이유: checkout과 recommendation-1·5가 catalog-1만 부르고, frontend 4개의 round-robin 몫이 그 위에 더해진다. 그래서 같은 부하에서 다른 replica의 Envoy보다 일이 많다.
 - **DPUMesh:** DPU 프록시 전체 CPU는 7.9–8.1코어다(event-driven 모드). shard별 포화 여부는 이 측정에서 재지 않았다.
 
 ## 배치를 구성마다 다르게 둔 이유
 
 - **DPUMesh는 frontend 10개다.** host 프로세스 하나가 DPU worker 하나에 붙고, frontend의 L7 처리는 그 worker(DPU 코어 1개)에서 돈다. 프록시 worker가 10개라, frontend 10개를 worker마다 하나씩 두어야 DPU 코어를 고르게 쓴다.
 - **no-sidecar는 frontend 4개다.** frontend 프로세스는 여러 코어를 쓰므로 프록시 같은 단일 코어 병목이 없다. frontend 수를 늘리면 프로세스 고정 비용만 는다.
-- **Linkerd·Istio는 frontend 4개다.** 사이드카는 worker 1개라 1코어만 쓴다. 사이드카 하나가 한계에 닿지 않게 frontend를 나눈다. 이 측정에서 가장 바쁜 frontend 사이드카는 0.6코어 이하다.
+- **Linkerd·Istio는 frontend 4개다.** 사이드카는 worker 1개라 1코어만 쓴다. 사이드카 하나가 한계에 닿지 않게 frontend를 나눈다. 이 측정에서 frontend 사이드카는 0.6코어 이하다. Istio에서는 frontend가 아니라 productcatalog-1의 Envoy가 먼저 한계에 닿는다(위 참고).
 
 ## 실험 설정
 
