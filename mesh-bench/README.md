@@ -29,16 +29,30 @@ Online Boutique를 Kubernetes에서 네 가지 구성으로 실행하고, 정해
 
 no-sidecar가 포화 직전(2,904 rps)일 때 pod 전체가 11.4코어를 쓴다. 요청 하나에 CPU 약 3.9 ms다. 비교로 DeathStarBench hotel-reservation은 17K RPS에서 약 14코어를 써서 요청당 약 0.8 ms다. Online Boutique의 요청 하나가 하는 일이 훨씬 많다.
 
-**부하 구성.** k6는 사용자 행동(task)을 upstream locustfile 비중으로 고른다. 장바구니 담기와 결제는 HTTP 요청을 여러 개 보내서, task 19개가 HTTP 요청 23개가 된다.
+**부하의 세 단계.** 부하는 task → HTTP 요청 → gRPC 호출로 이어진다.
 
-| task | 비중 | 보내는 HTTP 요청 |
-|---|---:|---|
-| 홈 보기 | 1 | `GET /` |
-| 통화 변경 | 2 | `POST /setCurrency` |
-| 상품 보기 | 10 | `GET /product/…` |
-| 장바구니 담기 | 2 | `GET /product/…` → `POST /cart` |
-| 장바구니 보기 | 3 | `GET /cart` |
-| 결제 | 1 | `GET /product/…` → `POST /cart` → `POST /cart/checkout` |
+1. **task(사용자 행동):** k6가 초당 정해진 수만큼 시작한다(open loop, 응답을 기다리지 않음). 시작할 때마다 upstream `locustfile.py`의 비중으로 하나를 무작위로 고른다.
+2. **HTTP 요청(k6 → frontend):** task 하나가 HTTP 요청 1–3개를 보낸다. task 19개당 23개다.
+3. **gRPC 호출(frontend → 백엔드):** frontend는 HTTP 요청 하나를 처리하려고 다른 서비스를 여러 번 호출한다. 일부 서비스는 다시 다른 서비스를 부른다. HTTP 요청 하나당 평균 약 10번이다.
+
+평균으로 task 1개 → HTTP 요청 약 1.2개 → gRPC 호출 약 12번이다. 그래프의 offered RPS와 p99는 2단계(HTTP 요청) 기준이다. 메시(사이드카, DPUMesh)가 처리하는 것은 3단계의 gRPC 호출이라, HTTP 요청 하나에 메시 비용이 열 번 넘게 더해진다.
+
+| task | 비중 | 보내는 HTTP 요청 | 요청 수 | 비중 × 요청 수 | 무작위 요소 |
+|---|---:|---|---:|---:|---|
+| 홈 보기 | 1 | `GET /` | 1 | 1 | — |
+| 통화 변경 | 2 | `POST /setCurrency` | 1 | 2 | 통화 6개 중 하나 |
+| 상품 보기 | 10 | `GET /product/…` | 1 | 10 | 상품 9개 중 하나 |
+| 장바구니 담기 | 2 | `GET /product/…` → `POST /cart` | 2 | 4 | 상품, 수량 1–10 |
+| 장바구니 보기 | 3 | `GET /cart` | 1 | 3 | — |
+| 결제 | 1 | `GET /product/…` → `POST /cart` → `POST /cart/checkout` | 3 | 3 | 상품, 수량, 카드 만료일 |
+| **합계** | **19** | | | **23** | |
+
+- **offered RPS:** tasks/s × 23/19다. 부하는 300 tasks/s 간격으로 올렸다. 그래서 그래프의 RPS는 363, 726, 1,089, 1,453, 1,816, 2,179, 2,542, 2,905, 3,268, …처럼 이 환산값만 나온다.
+- **포화 직전 값의 해상도:** 네 구성이 같은 부하 간격을 쓴다. 그래서 포화 직전 값이 같게 나오면(Linkerd와 Istio의 1,816 RPS), 실제 한계가 둘 다 그 값과 다음 값(2,179 RPS) 사이라는 뜻이다. 이 간격 안의 차이는 이 측정으로 가리지 않는다.
+- **redirect:** 통화 변경, 장바구니 담기, 결제 뒤의 302 redirect는 따라가지 않는다(`maxRedirects: 0`). 따라가면 요청 수가 늘어난다.
+- **가상 사용자(VU):** 각 VU는 frontend 하나에 고정되고 쿠키를 유지한다. 그래서 장바구니에 담은 상품은 결제할 때까지 남는다.
+- **drop:** 응답이 늦어 VU가 모자라면 미리 만든 수(초당 task 수의 절반, 최소 64)의 8배까지 늘린다. 그래도 모자라 시작하지 못한 task는 drop으로 센다.
+- **결제 입력값:** 주소, 이메일, 카드 번호는 locustfile과 같은 고정값이다.
 
 **HTTP 요청별 호출 서비스.** 요청 23개 중 몇 번 나오는지와 gRPC 수다. 장바구니 상품 1개를 가정했다(`src/frontend/handlers.go`, `src/checkoutservice/main.go`).
 
@@ -142,7 +156,7 @@ no-sidecar가 포화 직전(2,904 rps)일 때 pod 전체가 11.4코어를 쓴다
 ### 부하와 측정
 
 - **부하 생성:** k6 v2.3.0 `constant-arrival-rate`(open loop)다.
-- **task 비율:** upstream locustfile과 같다. index 1, setCurrency 2, browseProduct 10, addToCart 2, viewCart 3, checkout 1이다. redirect를 따라가지 않아 task 19개당 요청이 23개다(offered RPS = tasks/s × 23/19).
+- **task 비율:** upstream locustfile과 같다. index 1, setCurrency 2, browseProduct 10, addToCart 2, viewCart 3, checkout 1이다. task 19개당 HTTP 요청이 23개다(offered RPS = tasks/s × 23/19). 자세한 구성은 위의 "요청 하나가 하는 일"에 있다.
 - **k6 연결:** k6는 frontend마다 있는 ClusterIP로 요청을 보낸다. VU마다 frontend 하나를 쓴다.
 - **측정 절차:**
   - 구성마다 클러스터를 새로 배포한다(메시 설치, DPU 프록시 시작 포함).
