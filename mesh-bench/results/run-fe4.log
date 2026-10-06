@@ -23,12 +23,6 @@
 [14:31:10]   k8s-linkerd rep1 rate=1800: rps=2074 p50=797.9 p99=1234.2 fail=0.0000 dropped=1651 svc=11.68c pkt/req=31 outside=1.70c SAT
 [14:31:10]   saturated, ending sweep
 [14:31:24] done
-[14:31:24] start: cfg=k8s-istio mode=tcp reps=[1] rates=[300 600 900 1200 1500 1800 2100 2400 2700 3000 3300 3600] W=10 busy_poll=0
-[14:31:24] == k8s-istio rep1: setup
-[14:31:50] k8s-istio rep1: warmup 60 s at 200 tasks/s
-[14:33:27]   k8s-istio rep1 rate=300: rps=367 p50=21.2 p99=36.8 fail=0.0000 dropped=0 svc=6.46c pkt/req=51 outside=0.44c 
-[14:34:09]   k8s-istio rep1 rate=600: rps=728 p50=37.6 p99=75.7 fail=0.0000 dropped=0 svc=9.32c pkt/req=43 outside=0.69c 
-[14:34:55]   k8s-istio rep1 rate=900: rps=912 p50=2247.9 p99=4130.0 fail=0.0000 dropped=2889 svc=10.04c pkt/req=37 outside=1.01c SAT
 [14:34:55]   saturated, ending sweep
 [14:35:08] done
 FE4_DONE

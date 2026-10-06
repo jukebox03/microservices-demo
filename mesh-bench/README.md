@@ -2,7 +2,7 @@
 
 Online Boutique를 Kubernetes에서 네 가지 구성으로 실행하고, 정해진 속도로 요청을 넣는 open-loop 부하에서 offered load별 p99 지연을 잰다. 각 구성은 자기에게 맞는 frontend 수로 배치한다.
 
-- 결과: `results/` (구성별 `results/<cfg>/rep1/`, 실행 로그 `results/run-*.log`; 로그의 `k8s-tcp`, `k8s-linkerd`, `k8s-istio`, `k8s-dpumesh`가 각각 `nosidecar`, `linkerd`, `istio`, `dpumesh`다)
+- 결과: `results/` (구성별 `results/<cfg>/rep1/`, 실행 로그 `results/run-*.log`; 로그의 `k8s-tcp`, `k8s-linkerd`, `k8s-dpumesh`가 각각 `nosidecar`, `linkerd`, `dpumesh`다)
 - 그래프: `results/p99_vs_load.png` (`plot.py`)
 - 재현: `SUDO_PW=... ./run_all.sh`
 
@@ -12,15 +12,16 @@ Online Boutique를 Kubernetes에서 네 가지 구성으로 실행하고, 정해
 
 | 구성 | frontend 수 | 포화 직전 offered load (그때 p99) | 포화한 offered load | p99 @ 363 RPS | p99 @ 1,089 RPS | p99 @ 1,816 RPS |
 |---|---:|---:|---:|---:|---:|---:|
-| Istio | 4 | 726 RPS (76 ms) | 1,089 RPS | 37 ms | 4.1 s (포화) | — |
+| Istio | 4 | 1,816 RPS (781 ms) | 2,179 RPS | 37 ms | 172 ms | 781 ms |
 | Linkerd | 4 | 1,816 RPS (445 ms) | 2,179 RPS | 25 ms | 101 ms | 445 ms |
 | no-sidecar | 4 | 2,905 RPS (234 ms) | 3,268 RPS | 11 ms | 13 ms | 27 ms |
 | **DPUMesh** | **10** | **3,995 RPS (346 ms)** | 4,358 RPS | 19 ms | 26 ms | 47 ms |
 
 - 포화는 요청 drop이 2%를 넘거나 p99가 2초를 넘은 부하다. 포화 직전은 그 바로 아래 부하다.
 - 처리량 순서는 Istio < Linkerd < no-sidecar < DPUMesh다.
+  - Istio와 Linkerd는 같은 부하(2,179 RPS)에서 포화하지만, 그 전까지 Istio의 p99가 Linkerd의 약 2배다(1,089 RPS에서 172 ms 대 101 ms, 1,816 RPS에서 781 ms 대 445 ms).
   - DPUMesh는 no-sidecar보다 약 1.4배 높은 부하까지 버틴다.
-  - Linkerd는 no-sidecar의 약 0.6배, Istio는 약 0.25배에서 무너진다.
+  - Linkerd와 Istio는 no-sidecar의 약 0.6배에서 무너진다.
 - 저부하 p99는 no-sidecar가 가장 낮다. DPUMesh는 홉마다 DPU를 왕복해서 no-sidecar보다 약 8 ms 높다.
 - 1회 측정, 지점당 20초다. 반복 측정은 하지 않았다.
 
@@ -84,24 +85,20 @@ no-sidecar가 포화 직전(2,904 rps)일 때 pod 전체가 11.4코어를 쓴다
 |---|---:|---:|---:|
 | no-sidecar | 11.4–11.5코어 | — | — |
 | Linkerd | 11.1–11.7코어 | 4.6–4.8코어 | 0.57코어 (frontend) |
-| Istio | 9.4–10.0코어 | 4.6–5.0코어 | 0.70코어 (productcatalog-1) |
+| Istio | 11.4–12.2코어 | 5.9–6.2코어 | 0.62코어 |
 | DPUMesh | 11.0–11.4코어 (DPU 7.9–8.1코어) | — | — |
 
-- **no-sidecar, Linkerd, DPUMesh:** host CPU가 포화한다.
+- **네 구성 모두 host CPU가 포화한다.**
   - Linkerd는 사이드카가 pod CPU의 약 40%를 써서, no-sidecar보다 낮은 부하에서 CPU가 찬다.
-  - Linkerd의 사이드카는 모두 1코어(worker 1개의 상한)보다 한참 아래다.
-- **Istio:** productcatalog-1 사이드카(Envoy)의 worker 스레드 하나가 포화한다. host CPU는 2코어가량 남아 있다.
-  - 이 Envoy는 부하가 3배가 되는 동안 0.60 → 0.70코어에서 더 늘지 않는다.
-  - 무너지는 부하(약 900 RPS)에서 스레드별로 재 보면, worker 스레드(`wrk:worker_0`)가 매초 0.72초 실행하고 0.17초는 CPU를 기다린다. 89% 동안 일하거나 일하려고 기다리는 상태라 사실상 다 찼다.
-  - `concurrency: 1`이라 worker가 하나뿐이어서, 이 스레드가 상한이 된다.
-  - productcatalog-1이 다른 catalog replica보다 바쁜 이유: checkout과 recommendation-1·5가 catalog-1만 부르고, frontend 4개의 round-robin 몫이 그 위에 더해진다. 그래서 같은 부하에서 다른 replica의 Envoy보다 일이 많다.
+  - Istio는 사이드카(Envoy)가 pod CPU의 약 52%를 써서, 같은 부하에서 Linkerd보다 CPU가 더 빨리 찬다. 그래서 지연이 먼저 오른다.
+  - 사이드카는 모두 1코어(worker 1개의 상한)보다 한참 아래다(Linkerd 0.57, Istio 0.62코어).
 - **DPUMesh:** DPU 프록시 전체 CPU는 7.9–8.1코어다(event-driven 모드). shard별 포화 여부는 이 측정에서 재지 않았다.
 
 ## 배치를 구성마다 다르게 둔 이유
 
 - **DPUMesh는 frontend 10개다.** host 프로세스 하나가 DPU worker 하나에 붙고, frontend의 L7 처리는 그 worker(DPU 코어 1개)에서 돈다. 프록시 worker가 10개라, frontend 10개를 worker마다 하나씩 두어야 DPU 코어를 고르게 쓴다.
 - **no-sidecar는 frontend 4개다.** frontend 프로세스는 여러 코어를 쓰므로 프록시 같은 단일 코어 병목이 없다. frontend 수를 늘리면 프로세스 고정 비용만 는다.
-- **Linkerd·Istio는 frontend 4개다.** 사이드카는 worker 1개라 1코어만 쓴다. 사이드카 하나가 한계에 닿지 않게 frontend를 나눈다. 이 측정에서 frontend 사이드카는 0.6코어 이하다. Istio에서는 frontend가 아니라 productcatalog-1의 Envoy가 먼저 한계에 닿는다(위 참고).
+- **Linkerd·Istio는 frontend 4개다.** 사이드카는 worker 1개라 1코어만 쓴다. 사이드카 하나가 한계에 닿지 않게 frontend를 나눈다. 이 측정에서 가장 바쁜 사이드카는 0.62코어 이하다.
 
 ## 실험 설정
 
@@ -130,7 +127,7 @@ no-sidecar가 포화 직전(2,904 rps)일 때 pod 전체가 11.4코어를 쓴다
   - DPUMesh의 frontend 10개는 replica를 나눠 맡는다.
   - replica마다 고정 ClusterIP Service가 있다(`10.99.<replica>.<service>`). 포트 이름이 `grpc`/`http`라 Istio도 L7로 처리한다.
 - 앱 변경:
-  - frontend는 플랫폼 감지 DNS 조회를 프로세스당 한 번만 한다. 그리고 여러 주소에 gRPC `round_robin`한다.
+  - frontend는 플랫폼 감지 DNS 조회를 프로세스당 한 번만 한다. 그리고 여러 주소에 gRPC `round_robin`하며, 각 연결의 `:authority`를 그 주소로 둔다. Istio는 `:authority`로 목적지 서비스를 고르므로, 이렇게 해야 요청이 replica마다 나뉜다.
   - recommendation의 gRPC 스레드 수는 40이다(`MAX_WORKERS`).
 
 ### 메시
