@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """gen_layout.py <n_fe> <n_cat> <n_cur> <n_rec> <workers> <out_workers_file>
 
-Places the ob.sh processes on DPU workers and sizes each worker's DPA EU range.
-Every DPUMesh stream holds a DPA thread, which must have an EU of its own:
+Places the ob.sh processes on DPU workers. To balance them it estimates each
+worker's DPUMesh streams (every stream holds a DPA thread):
   - a client stream per (client process, target address);
   - a backend stream per (client's worker, server address), on the server's
     worker (the DPU proxy keeps one HTTP/2 connection per target per worker);
@@ -10,7 +10,9 @@ Every DPUMesh stream holds a DPA thread, which must have an EU of its own:
 Frontend i (partitioned) calls catalog (i-1)%n_cat+1, currency (i-1)%n_cur+1,
 recommendation (i-1)%n_rec+1 and the single cart, shipping, checkout and ad.
 Frontend i runs on worker i-1; the servers are packed onto the workers with
-the fewest streams. Prints the stream total and DPUMESH_DPA_EU_OFFSETS."""
+the fewest streams. The estimate only guides the placement: the proxy pools
+backend streams, so real counts differ (179 estimated vs 117 used for 10
+frontends on 14 workers). Size the DPA EU ranges from a run with eu_check.py."""
 import collections, sys
 
 n_fe, n_cat, n_cur, n_rec, W = map(int, sys.argv[1:6])
@@ -19,7 +21,6 @@ out = sys.argv[6]
 # recommendation (k8sob/gen.py FE_RR) instead of one of each
 import os
 FE_RR = os.environ.get('FE_RR') == '1'
-EU_TOTAL = 190
 
 clients = collections.defaultdict(list)   # client process -> server addresses
 for i in range(1, n_fe + 1):
@@ -62,16 +63,7 @@ for s in sorted(servers, key=server_streams, reverse=True):
     worker[s] = k
     load[k] += server_streams(s)
 
-total = sum(load.values())
-if total > EU_TOTAL:
-    sys.exit(f'{total} streams > {EU_TOTAL} EUs')
-spare = EU_TOTAL - total
-offsets, acc = [], 0
-for k in range(W):
-    offsets.append(acc)
-    acc += load[k] + spare // W
 with open(out, 'w') as f:
     for p, k in sorted(worker.items(), key=lambda x: (x[1], x[0])):
         f.write(f'{p} {k}\n')
-print(f'streams {total} of {EU_TOTAL} EUs; per worker {[load[k] for k in range(W)]}')
-print('DPUMESH_DPA_EU_OFFSETS=' + ','.join(map(str, offsets)))
+print(f'estimated streams per worker {[load[k] for k in range(W)]}')

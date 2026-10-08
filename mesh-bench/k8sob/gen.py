@@ -2,16 +2,23 @@
 """gen.py <tcp|dpumesh> > manifest.yaml
 
 Online Boutique as Kubernetes pods running host-built service binaries: frontend
-x N_FE (default 10), productcatalog x4, currency x2, recommendation x5, the rest
-x1. With FE_RR=1 every frontend round-robins over all replicas of catalog,
+x N_FE (default 10), productcatalog x N_CAT (4), currency x N_CUR (2),
+recommendation x N_REC (5), the rest x1. With FE_RR=1 every frontend round-robins over all replicas of catalog,
 currency and recommendation; otherwise frontend i calls one replica of each.
-  tcp-fe4.yaml:  N_FE=4 FE_RR=1 gen.py tcp      (no-sidecar, Linkerd, Istio)
-  dpumesh.yaml:  gen.py dpumesh                  (DPUMesh, one frontend per DPU worker)
+Each configuration uses the replica counts that give it the most throughput:
+  tcp-nosidecar.yaml: N_FE=2 FE_RR=1 N_REC=8 N_CUR=3 gen.py tcp
+  tcp-linkerd.yaml:   N_FE=6 FE_RR=1 gen.py tcp
+  tcp-istio.yaml:     N_FE=4 FE_RR=1 gen.py tcp
+  dpumesh.yaml:       N_FE=10 N_REC=10 W=14 LAYOUT=../dpumesh/layout14.txt gen.py dpumesh
 
 Each pod is privileged, mounts the host root at /host and chroots into it, so the
 binaries, runtimes and DPUMesh library come from the host; the network (veth,
 cni0, kube-proxy), cgroups and scheduling are Kubernetes'. Testbed only:
 privileged pods with the host root mounted have no isolation from the host.
+Every pod runs on NODE (default jet1, the host with the DPU), tolerating the
+dpumesh.io/bench taint that keeps everything else (control planes) off it. The DPUMesh host
+library comes from DPUMESH_LIB (default ~/DPUMesh-ob/build/lib, feature/grpc-all)
+and opens the DOCA device itself (DPUMESH_BROKER=off).
 
 Service targets are 10.99.<replica>.<service>:<port>. With tcp they are fixed
 ClusterIPs (one Service per replica, port named grpc/http so Istio proxies them
@@ -34,8 +41,13 @@ FORK = f'{HOME}/microservices-demo'
 SRC = f'{FORK}/src'
 OB = f'{FORK}/dpumesh/.build'
 DPUMESH = f'{HOME}/DPUMesh'
+DPUMESH_LIB = os.environ.get('DPUMESH_LIB') or f'{HOME}/DPUMesh-ob/build/lib'
+NODE = os.environ.get('NODE', 'jet1')
+PLACE = {'nodeSelector': {'kubernetes.io/hostname': NODE},
+         'tolerations': [{'key': 'dpumesh.io/bench', 'operator': 'Exists', 'effect': 'NoSchedule'}]}
 LAYOUT = os.environ.get('LAYOUT') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'dpumesh', 'layout10.txt')
-N_FE, N_CAT, N_CUR, N_REC, W = int(os.environ.get('N_FE', 10)), 4, 2, 5, 10
+N_FE, N_CAT, N_CUR, N_REC, W = (int(os.environ.get(k, d)) for k, d in
+                                 (('N_FE', 10), ('N_CAT', 4), ('N_CUR', 2), ('N_REC', 5), ('W', 10)))
 # FE_RR=1: every frontend round-robins over all replicas of the replicated
 # services (used with few frontends, so no replica sits idle)
 FE_RR = os.environ.get('FE_RR') == '1'
@@ -78,15 +90,18 @@ def pod(name, workdir, env, cmd, tgt=None, local_port=None):
     """A service process. tgt: its service target; local_port: the port it
     listens on in dpumesh mode (in tcp mode it listens on the target port)."""
     pod_seq[0] += 1
-    k = int(worker[name]) % W
+    # the DPU worker matters only with dpumesh (the env is inert otherwise)
+    k = int(worker[name] if MODE == 'dpumesh' else worker.get(name, 0)) % W
     e = {k: ','.join(TGT2NAME.get(a, a) for a in v.split(',')) for k, v in env.items()}
     e.update({'DPUMESH_ENABLE': '1' if MODE == 'dpumesh' else '0', 'DPUMESH_SERVER': f'DPUMesh{k}',
               'DPUMESH_POD_IP': f'10.99.0.{pod_seq[0]}', 'DPUMESH_WORKLOAD': name,
               'DPUMESH_BACKEND_POOL': '1', 'DPUMESH_BACKEND_MAX': '16',
-              'DPUMESH_PCI_ADDR': '0b:00.1', 'DPUMESH_REVERSE': 'dpu-dma',
-              'LD_LIBRARY_PATH': f'{DPUMESH}/build/lib:{DPUMESH}/build/grpc',
+              'DPUMESH_PCI_ADDR': '0b:00.1', 'DPUMESH_REVERSE': 'dpu-dma', 'DPUMESH_BROKER': 'off',
+              'LD_LIBRARY_PATH': f'{DPUMESH_LIB}:{DPUMESH}/build/grpc',
               'DISABLE_PROFILER': '1', 'ENABLE_TRACING': '0', 'DISABLE_TRACING': '1', 'DISABLE_STATS': '1',
               'HOME': HOME})
+    # EXTRA_ENV="K=V,K=V": more environment for every service process
+    e.update(kv.split('=', 1) for kv in os.environ.get('EXTRA_ENV', '').split(',') if '=' in kv)
     if tgt:
         e['DPUMESH_SERVICE'] = tgt
         e.setdefault('PORT', tgt.rsplit(':', 1)[1] if MODE != 'dpumesh' else str(local_port))
@@ -95,7 +110,7 @@ def pod(name, workdir, env, cmd, tgt=None, local_port=None):
     # One sidecar worker under either mesh (Linkerd's default; Istio's is 2).
     docs.append({'apiVersion': 'v1', 'kind': 'Pod', 'metadata': {'name': name, 'namespace': NS, 'labels': {'app': name, 'ob': '1'},
                                                                  'annotations': {'proxy.istio.io/config': '{"concurrency": 1}'}},
-                 'spec': {'terminationGracePeriodSeconds': 5, 'restartPolicy': 'Never',
+                 'spec': {'terminationGracePeriodSeconds': 5, 'restartPolicy': 'Never', **PLACE,
                           'containers': [{'name': 'server', 'image': 'docker.io/library/redis:alpine',
                                           # RDMA registration needs the host's unlimited memlock; raise it as
                                           # root before dropping to the host user (the container default is 8 MiB).
@@ -113,7 +128,8 @@ def pod(name, workdir, env, cmd, tgt=None, local_port=None):
 
 # Redis: the same image the Kubernetes runs use.
 docs.append({'apiVersion': 'v1', 'kind': 'Pod', 'metadata': {'name': 'redis-cart', 'namespace': NS, 'labels': {'app': 'redis-cart', 'ob': '1'}},
-             'spec': {'containers': [{'name': 'redis', 'image': 'docker.io/library/redis:alpine',
+             'spec': {**PLACE,
+                      'containers': [{'name': 'redis', 'image': 'docker.io/library/redis:alpine',
                                       'resources': {'requests': {'cpu': '70m', 'memory': '200Mi'}}}]}})
 service('redis-cart', '10.99.0.250', 6379, 6379, 'redis-cart', 'tcp-redis')
 

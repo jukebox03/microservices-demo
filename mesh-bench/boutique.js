@@ -4,8 +4,8 @@
 // one frontend request, as the request counts below assume.
 //
 // Env: TARGET (http://ip:port, or several separated by commas: each VU then
-// keeps to one of them, as a client keeps to one frontend), RATE (tasks/s),
-// WARM_S, MEASURE_S, OUT (json).
+// keeps to one of them, as a client keeps to one frontend), RATE (offered HTTP
+// requests/s), WARM_S, MEASURE_S, OUT (json file, or - for stdout).
 import http from 'k6/http';
 
 const TARGETS = __ENV.TARGET.split(',');
@@ -13,11 +13,14 @@ let TARGET = TARGETS[0];
 const RATE = Number(__ENV.RATE);
 const WARM = Number(__ENV.WARM_S || 20);
 const MEASURE = Number(__ENV.MEASURE_S || 60);
-const VUS = Math.max(64, Math.ceil(RATE * 0.5));
+// 19 tasks make 23 requests (below), so RATE requests/s is RATE*19 tasks every
+// 23 s: the offered load lands exactly on RATE.
+const TASKS = RATE * 19 / 23;
+const VUS = Math.max(64, Math.ceil(TASKS * 0.5));
 
 function scenario(start, dur) {
   return {
-    executor: 'constant-arrival-rate', rate: RATE, timeUnit: '1s',
+    executor: 'constant-arrival-rate', rate: RATE * 19, timeUnit: '23s',
     duration: `${dur}s`, startTime: `${start}s`,
     preAllocatedVUs: VUS, maxVUs: VUS * 8, gracefulStop: '10s',
   };
@@ -78,7 +81,7 @@ export default function () {
 export function handleSummary(data) {
   const m = (k) => (data.metrics[k] ? data.metrics[k].values : null);
   const out = {
-    rate_tasks: RATE, measure_s: MEASURE,
+    rate_rps: RATE, rate_tasks: TASKS, measure_s: MEASURE,
     dur: m('http_req_duration{scenario:main}'),
     reqs: m('http_reqs{scenario:main}'),
     failed: m('http_req_failed{scenario:main}'),
@@ -86,5 +89,6 @@ export function handleSummary(data) {
     iters: m('iterations{scenario:main}'),
     vus_max: m('vus_max'),
   };
-  return { [__ENV.OUT]: JSON.stringify(out, null, 1) };
+  const json = JSON.stringify(out, null, 1);
+  return __ENV.OUT === '-' ? { stdout: json } : { [__ENV.OUT]: json };
 }

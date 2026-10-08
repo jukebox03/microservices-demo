@@ -1,12 +1,12 @@
 #!/bin/bash
 # start.sh mocks | proxy <tag> | stop: the mock control plane and the proxy.
-# The proxy process is limited to CPUs 0..11; once its shards exist, shard i
-# is pinned to CPU SHARD_BASE+i (the proxy pins to 15-i, which is offline on
-# this 12-core DPU) and the remaining threads to MAIN_CPUS.
+# The proxy process gets all 16 DPU cores; once its shards exist, shard i is
+# pinned to CPU SHARD_BASE+i (W=14: CPUs 2-15) and the remaining threads to
+# MAIN_CPUS (0-1).
 set -u
 source "$(dirname "$0")/env.sh"
 cd "$P"
-SHARD_BASE=${SHARD_BASE:-2} SHARD_CPUS=${SHARD_CPUS:-10} MAIN_CPUS=${MAIN_CPUS:-0-1}
+SHARD_BASE=${SHARD_BASE:-2} SHARD_CPUS=${SHARD_CPUS:-$DMESH_NUM_WORKERS} MAIN_CPUS=${MAIN_CPUS:-0-1}
 case "$1" in
     mocks)
         for m in mock-identity mock-policy mock-destination; do
@@ -18,7 +18,7 @@ case "$1" in
         # list representors (doca_caps: rep_filter_net unsupported).
         echo "${SUDO_PW:-}" | sudo -S -p '' -v
         KEEP_MOCKS=1 "$B/start.sh" stop  # a leftover proxy keeps the Comch names registered
-        sudo -E nohup taskset -c 0-11 target/release/linkerd2-proxy > "$R/proxy-$2.log" 2>&1 < /dev/null &
+        sudo -E nohup taskset -c "${PROXY_CPUS:-0-15}" target/release/linkerd2-proxy > "$R/proxy-$2.log" 2>&1 < /dev/null &
         for _ in $(seq 1 50); do pid=$(pgrep -nx linkerd2-proxy); [ -n "$pid" ] && break; sleep 0.1; done
         echo $pid > "$R/proxy.pid"
         for _ in $(seq 1 100); do

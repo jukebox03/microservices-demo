@@ -1,17 +1,19 @@
 #!/bin/bash
 # k8sob/run.sh: one offered-load sweep of Online Boutique in Kubernetes pods
 # (k8sob/gen.py) into $RES/$CFG/rep<k>/: a fresh deployment (and mesh), a 60 s
-# warmup at 200 tasks/s, then per load a quiet check, WARM_S s warm + MEASURE_S s
-# measured k6, CPU (kubepods cgroup, per container via cpusnap.py) and pod
-# veth packets; the sweep stops at the first saturated load.
+# warmup at 250 requests/s, then per load a quiet check, WARM_S s warm +
+# MEASURE_S s measured k6, CPU (whole host split into app / sidecar / other pods /
+# system by cpusnap.py) and pod veth packets; the sweep stops at the first
+# saturated load. RATES are offered HTTP requests/s.
 #   MODE=tcp|dpumesh MANIFEST=<yaml> N_FE=<frontends> EXPECT_PODS=<n>
 #   MESH=linkerd|istio (tcp only), DPU_ENV=<extra env for the DPU proxy>
+#   W=<DPU workers> K6_HOST=<ssh host running k6; unset: local, CPUs 12-15>
 #   SUDO_PW=... RES=... RATES="..." REPS=1 CFG=<name> ./run.sh
 set -uo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 cd "$HERE"
 REPS=${REPS:-1 2 3}
-RATES=${RATES:-100 300 500 700 900 1000 1100 1200 1300 1400 1500 1700 1900 2100 2300 2500}
+RATES=${RATES:-500 1000 1500 2000 2500 3000 3500 4000 4500 5000 5500 6000}
 WARM_S=${WARM_S:-20} MEASURE_S=${MEASURE_S:-60}
 CFG=${CFG:-dpumesh}
 RES=${RES:-$HERE/../results}
@@ -20,38 +22,48 @@ DPU=192.168.100.2
 mkdir -p "$RES"
 log() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$RES/run.log"; }
 
-# snap <file>: host per-core busy, service-process CPU, and the DPU's busy time.
+# snap <file>: host and DPU idle time, service-process CPU, pod veth packets.
+# Busy time is wall time minus idle on both: the kernels are NOHZ, so idle is
+# exact while /proc/stat's busy fields are tick samples that miss short wakeups.
 snap() {
     python3 - "$1" <<'EOF'
-import json, os, subprocess, sys, time
+import glob, json, os, subprocess, sys, time
 hz = os.sysconf('SC_CLK_TCK')
-svc = 0
-for l in open('/sys/fs/cgroup/kubepods.slice/cpu.stat'):
-    k, v = l.split()
-    if k == 'usage_usec':
-        svc = int(v) * hz // 1_000_000
-v = list(map(int, open('/proc/stat').readline().split()[1:9]))
-host_busy = (sum(v) - v[3] - v[4]) * 1_000_000 // hz
-dpu = subprocess.run(['ssh', '192.168.100.2', 'head -1 /proc/stat'], capture_output=True, text=True).stdout.split()[1:9]
-d = list(map(int, dpu))
-import glob
+idle = lambda line: (int(line.split()[4]) + int(line.split()[5])) * 1_000_000 // hz
+svc = [int(l.split()[1]) for l in open('/sys/fs/cgroup/kubepods.slice/cpu.stat') if l.startswith('usage_usec ')][0]
+host = idle(open('/proc/stat').readline())
+t = time.time()
 veth = sum(int(open(f).read()) for f in glob.glob('/sys/class/net/veth*/statistics/[rt]x_packets'))
-json.dump({'t': time.time(), 'host_busy': host_busy, 'svc': svc * 1_000_000 // hz, 'veth': veth,
-           'dpu_busy': (sum(d) - d[3] - d[4]) * 1_000_000 // 100}, open(sys.argv[1], 'w'))
+# DPU: whole-device idle, and per thread of the DPU proxy its CPU ticks
+# (utime+stime), so each shard's load shows (dmesh-shard-<k> serves DPUMesh<k>)
+dpu = subprocess.run(['ssh', '192.168.100.2', 'head -1 /proc/stat; nproc; p=$(pgrep -nx linkerd2-proxy) && '
+                      'for t in /proc/$p/task/*; do echo "$(cat $t/comm) $(sed "s/.*) //" $t/stat | cut -d" " -f12,13)"; done'],
+                     capture_output=True, text=True).stdout.split('\n')
+threads = {}
+for l in dpu[2:]:
+    f = l.split()
+    if len(f) == 3:
+        threads[f[0]] = threads.get(f[0], 0) + int(f[1]) + int(f[2])
+json.dump({'t': t, 'ncpu': os.cpu_count(), 'idle': host, 'svc': svc, 'veth': veth,
+           'dpu_t': time.time(), 'dpu_ncpu': int(dpu[1]), 'dpu_idle': idle(dpu[0]), 'dpu_threads': threads},
+          open(sys.argv[1], 'w'))
 EOF
 }
 
-# cpudiff <a> <b> <out>: cores used in the window, in summarize.py's fields
-# (kubepods = the services, outside = the rest of the host).
+# cpudiff <a> <b> <out>: cores used in the window (kubepods = the services,
+# outside = the rest of the host).
 cpudiff() {
     python3 - "$@" <<'EOF'
 import json, sys
 a, b = (json.load(open(x)) for x in sys.argv[1:3])
-dt = b['t'] - a['t']
-c = lambda k: (b[k] - a[k]) / 1e6 / dt
-r = {'dt': dt, 'host_busy': c('host_busy'), 'kubepods': c('svc'), 'dpu_busy': c('dpu_busy')}
+dt, ddt = b['t'] - a['t'], b['dpu_t'] - a['dpu_t']
+r = {'dt': dt, 'host_busy': b['ncpu'] - (b['idle'] - a['idle']) / 1e6 / dt,
+     'kubepods': (b['svc'] - a['svc']) / 1e6 / dt,
+     'dpu_busy': b['dpu_ncpu'] - (b['dpu_idle'] - a['dpu_idle']) / 1e6 / ddt}
 r['outside'] = r['host_busy'] - r['kubepods']
-r['veth_pps'] = (b.get('veth', 0) - a.get('veth', 0)) / dt
+r['veth_pps'] = (b['veth'] - a['veth']) / dt
+# per DPU proxy thread name, cores (CLK_TCK 100 on the DPU)
+r['dpu_threads'] = {k: (v - a['dpu_threads'].get(k, v)) / 100 / ddt for k, v in b['dpu_threads'].items()}
 json.dump(r, open(sys.argv[3], 'w'), indent=1)
 EOF
 }
@@ -68,8 +80,15 @@ wait_quiet() {
 }
 
 k6run() {  # rate warm measure out
-    GOMAXPROCS=4 taskset -c 12-15 k6 run -q --no-color -e TARGET="$TARGETS" -e RATE=$1 \
-        -e WARM_S=$2 -e MEASURE_S=$3 -e OUT="$4" ../boutique.js >"$4.log" 2>&1
+    if [ -n "${K6_HOST:-}" ]; then
+        # the load generator's own node: the script goes over stdin, the summary
+        # comes back on stdout
+        ssh "$K6_HOST" "k6 run -q --no-color -e TARGET='$TARGETS' -e RATE=$1 -e WARM_S=$2 \
+            -e MEASURE_S=$3 -e OUT=- -" < ../boutique.js > "$4" 2> "$4.log"
+    else
+        GOMAXPROCS=4 taskset -c 12-15 k6 run -q --no-color -e TARGET="$TARGETS" -e RATE=$1 \
+            -e WARM_S=$2 -e MEASURE_S=$3 -e OUT="$4" ../boutique.js >"$4.log" 2>&1
+    fi
 }
 
 TARGETS=$(for i in $(seq 1 ${N_FE:-10}); do printf '%shttp://10.99.0.%d' "$([ $i = 1 ] || echo ,)" $((100 + i)); done)
@@ -99,7 +118,10 @@ setup() {  # tag
         istioctl uninstall --purge -y >/dev/null 2>&1; kubectl delete ns istio-system --ignore-not-found --wait=true >/dev/null 2>&1
     fi
     case ${MESH:-} in
-    linkerd) linkerd install --crds | kubectl apply -f - >/dev/null; linkerd install | kubectl apply -f - >/dev/null
+    linkerd) # Linkerd requires the Gateway API CRDs (kept across runs)
+             kubectl get crd httproutes.gateway.networking.k8s.io >/dev/null 2>&1 || kubectl apply --server-side \
+                 -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.1/standard-install.yaml >/dev/null || return 1
+             linkerd install --crds | kubectl apply -f - >/dev/null; linkerd install | kubectl apply -f - >/dev/null
              linkerd check --wait 5m >/dev/null || return 1 ;;
     istio) istioctl install -y --set profile=minimal >/dev/null 2>&1 || return 1
            kubectl -n istio-system rollout status deploy/istiod --timeout=300s >/dev/null ;;
@@ -143,8 +165,8 @@ for rep in $REPS; do
     d="$RES/$CFG/rep$rep"; mkdir -p "$d" "$RES/$CFG"
     log "== $CFG rep$rep: setup"
     setup "$CFG-rep$rep" || { log "setup failed (services or smoke)"; continue; }
-    log "$CFG rep$rep: warmup 60 s at 200 tasks/s"
-    k6run 200 50 10 "$d/warmup.json"
+    log "$CFG rep$rep: warmup 60 s at 250 requests/s"
+    k6run 250 50 10 "$d/warmup.json"
     for r in $RATES; do
         q=$(wait_quiet) || log "  not quiet ($q) before rate $r; measuring anyway, flagged"
         echo "$q" > "$d/rate$r.quiet"
@@ -155,13 +177,17 @@ for rep in $REPS; do
         wait $kp
         cpudiff "$d/.c1" "$d/.c2" "$d/rate$r.cpu.json"; python3 ../cpusnap.py diff "$d/.p1" "$d/.p2" > "$d/rate$r.ctrs.json"
         echo "0" > "$d/rate$r.restarts.before"; kubectl -n boutique get pods --no-headers | grep -vc Running > "$d/rate$r.restarts.after"
-        line=$(python3 - "$d/rate$r.json" "$d/rate$r.cpu.json" "$MEASURE_S" <<'EOF'
+        line=$(python3 - "$d/rate$r.json" "$d/rate$r.cpu.json" "$d/rate$r.ctrs.json" "$MEASURE_S" <<'EOF'
 import json, sys
-d = json.load(open(sys.argv[1])); c = json.load(open(sys.argv[2])); m = float(sys.argv[3])
-offered = d['rate_tasks'] * m
-print('rps=%.0f p50=%.1f p99=%.1f fail=%.4f dropped=%d svc=%.2fc pkt/req=%.0f outside=%.2fc %s' % (
-    d['reqs']['count'] / m, d['dur']['p(50)'], d['dur']['p(99)'], d['failed']['rate'],
-    d['dropped']['count'], c['kubepods'], c.get('veth_pps', 0) / max(d['reqs']['count'] / m, 1), c['outside'],
+d, c, p = (json.load(open(x)) for x in sys.argv[1:4]); m = float(sys.argv[4])
+offered = d['rate_tasks'] * m  # dropped counts tasks
+s = p['split']
+shards = [v for k, v in c.get('dpu_threads', {}).items() if k.startswith('dmesh-shard')]
+print('rps=%.0f p50=%.1f p99=%.1f max=%.0f fail=%.4f dropped=%d host=%.2fc (app %.2f sidecar %.2f pods %.2f runtime %.2f user %.2f system %.2f) dpu=%.2fc%s pkt/req=%.0f %s' % (
+    d['reqs']['count'] / m, d['dur']['p(50)'], d['dur']['p(99)'], d['dur']['max'], d['failed']['rate'], d['dropped']['count'],
+    c['host_busy'], s['app'], s['sidecar'], s['pods'], s['runtime'], s['user'], s['system'], c['dpu_busy'],
+    ' (busiest shard %.2f)' % max(shards) if shards else '',
+    c.get('veth_pps', 0) / max(d['reqs']['count'] / m, 1),
     'SAT' if d['dropped']['count'] > 0.02 * offered or d['dur']['p(99)'] > 2000 else ''))
 EOF
 )
@@ -169,6 +195,13 @@ EOF
         [[ $line == *SAT ]] && [ "${STOP_AT_SAT:-1}" = 1 ] && { log "  saturated, ending sweep"; break; }
         sleep 5
     done
+    # DPUMesh: keep the proxy log and check that no DPA EU was shared by two
+    # streams (a shared EU stalls requests; the run is then invalid)
+    if [ "${MODE:-dpumesh}" = dpumesh ]; then
+        ssh $DPU "gzip -c DPUMesh-online-boutique/ob-bench/run/proxy-$CFG-rep$rep.log" > "$d/proxy.log.gz"
+        zcat "$d/proxy.log.gz" | python3 ../dpumesh/eu_check.py /dev/stdin ../dpumesh/layout14.txt > "$d/eu_check.txt"
+        log "  $CFG rep$rep DPA EU check: $(tail -1 "$d/eu_check.txt")"
+    fi
 done
 kubectl delete ns boutique --ignore-not-found --wait=true >/dev/null 2>&1
 ssh $DPU "cd DPUMesh-online-boutique/ob-bench && SUDO_PW=$SUDO_PW ./start.sh stop" >/dev/null

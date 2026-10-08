@@ -1,0 +1,30 @@
+# kubeadm init --config kubeadm-init.yaml on jet2: the control plane, its API
+# server on the 200G link (10.200.0.2).
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 10.200.0.2
+  bindPort: 6443
+nodeRegistration:
+  name: jet2
+  criSocket: unix:///run/containerd/containerd.sock
+  kubeletExtraArgs:
+  - name: node-ip
+    value: 10.200.0.2
+---
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+kubernetesVersion: v1.34.11
+apiServer:
+  certSANs: [10.200.0.2, jet2.snu.ac.kr, 147.46.78.185]
+networking:
+  podSubnet: 10.244.0.0/16
+  serviceSubnet: 10.96.0.0/12
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: systemd
+# jet2 keeps its (unused) swapfile
+failSwapOn: false
+memorySwap:
+  swapBehavior: NoSwap

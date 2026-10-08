@@ -24,16 +24,17 @@ export DMESH_NUM_WORKERS=${W:-10} DMESH_SHARDED=1 LINKERD2_PROXY_CORES=1 DMESH_B
 # jet1's DPU runs no other DPA job (dpa-ps is empty), so the pools may use
 # every EU from 0.
 export DPUMESH_DPA_EU_BASE=${DPUMESH_DPA_EU_BASE:-0}
-# DPA EUs per worker. Two DPUMesh streams on one EU stall for seconds, and
-# every stream holds a DPA thread on its worker's pool, so each worker gets
-# its own EU range inside [base, END): the device reports 254 EUs but takes
-# DPA threads only below 190 (dpaeumgmt: 190 usable). With the ob.sh layout
-# (W=10, gen_layout.py 10 4 2 5 10: one frontend per worker, 179 streams
-# in all) each range holds its worker's streams plus one spare EU.
-# another W, OFFSETS is unset and the pools are STRIDE apart.
+# DPA EUs per worker. Every DPUMesh stream holds a thread of its worker's DPA
+# pool and runs on that thread's EU; DPA threads are not preempted, so two busy
+# streams on one EU starve each other. The device takes DPA threads only below
+# EU 190. Pool k belongs to worker k (Comch server DPUMesh<k>; DPUMesh
+# feature/grpc-perf 34749be) and keeps its threads inside its range. With
+# W=14 (layout14.txt) the ranges are each worker's peak thread count, measured
+# with ../eu_check.py, plus 3 spare; for another W the pools are STRIDE apart.
+# k8sob/run.sh checks every DPUMesh run for shared EUs.
 export DPUMESH_DPA_EU_END=${DPUMESH_DPA_EU_END:-190}
 export DPUMESH_DPA_EU_STRIDE=${DPUMESH_DPA_EU_STRIDE:-$(( (DPUMESH_DPA_EU_END - DPUMESH_DPA_EU_BASE) / DMESH_NUM_WORKERS ))}
-[ "$DMESH_NUM_WORKERS" = 10 ] && export DPUMESH_DPA_EU_OFFSETS=${DPUMESH_DPA_EU_OFFSETS:-0,25,45,65,84,103,120,138,155,173}
+[ "$DMESH_NUM_WORKERS" = 14 ] && export DPUMESH_DPA_EU_OFFSETS=${DPUMESH_DPA_EU_OFFSETS:-0,12,25,38,51,66,81,98,115,131,148,159,166,171}
 export LINKERD2_PROXY_DESTINATION_PROFILE_NETWORKS=127.0.0.0/8,10.99.0.0/16
 unset DMESH_NO_TEARDOWN
 R=$B/run

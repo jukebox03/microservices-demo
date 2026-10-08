@@ -1,0 +1,21 @@
+# kubeadm join --config join.yaml on jet1 (run from this directory): jet1 joins
+# jet2's cluster over the 200G link, tainted so that only the Online Boutique
+# pods (k8sob/gen.py tolerates the taint) run on it. TOKEN and HASH come from
+# `kubeadm token create --print-join-command` on jet2.
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: JoinConfiguration
+discovery:
+  bootstrapToken:
+    apiServerEndpoint: 10.200.0.2:6443
+    token: TOKEN
+    caCertHashes: [sha256:HASH]
+nodeRegistration:
+  name: jet1
+  criSocket: unix:///run/containerd/containerd.sock
+  kubeletExtraArgs:
+  - name: node-ip
+    value: 10.200.0.1
+  taints:
+  - key: dpumesh.io/bench
+    value: ob
+    effect: NoSchedule
