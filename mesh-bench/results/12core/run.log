@@ -1,0 +1,51 @@
+[17:21:15] start: cfg=nosidecar mode=tcp reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000] W=10 busy_poll=0
+[17:21:15] == nosidecar rep1: setup
+[17:21:32] nosidecar rep1: warmup 60 s at 250 requests/s
+[17:23:01]   nosidecar rep1 rate=1000: rps=1001 p50=6.3 p99=12.7 max=26 fail=0.0000 dropped=0 host=10.06c (app 8.31 sidecar 0.00 pods 0.01 runtime 0.82 user 0.16 system 0.77) dpu=0.12c pkt/req=112 
+[17:23:33]   nosidecar rep1 rate=2000: rps=2002 p50=13.9 p99=29.4 max=57 fail=0.0000 dropped=0 host=12.63c (app 10.83 sidecar 0.00 pods 0.01 runtime 1.11 user 0.16 system 0.53) dpu=0.12c pkt/req=82 
+[17:24:06]   nosidecar rep1 rate=3000: rps=2996 p50=35.2 p99=75.6 max=121 fail=0.0000 dropped=0 host=13.42c (app 11.53 sidecar 0.00 pods 0.01 runtime 1.26 user 0.18 system 0.45) dpu=0.12c pkt/req=54 
+[17:24:39]   nosidecar rep1 rate=3500: rps=3508 p50=66.1 p99=157.4 max=275 fail=0.0000 dropped=0 host=13.66c (app 11.68 sidecar 0.00 pods 0.01 runtime 1.31 user 0.17 system 0.49) dpu=0.12c pkt/req=43 
+[17:25:15]   nosidecar rep1 rate=4000: rps=3991 p50=152.9 p99=366.8 max=549 fail=0.0000 dropped=0 host=13.73c (app 11.76 sidecar 0.00 pods 0.01 runtime 1.34 user 0.17 system 0.45) dpu=0.12c pkt/req=33 
+[17:25:48]   nosidecar rep1 rate=4500: rps=4442 p50=447.8 p99=981.2 max=1762 fail=0.0000 dropped=687 host=13.77c (app 11.82 sidecar 0.00 pods 0.01 runtime 1.31 user 0.17 system 0.49) dpu=0.41c pkt/req=26 
+[17:26:21]   nosidecar rep1 rate=5000: rps=4706 p50=632.3 p99=1413.0 max=2320 fail=0.0000 dropped=3648 host=13.81c (app 11.84 sidecar 0.00 pods 0.01 runtime 1.35 user 0.16 system 0.45) dpu=0.12c pkt/req=23 SAT
+[17:26:21]   saturated, ending sweep
+[17:26:34] done
+[17:26:34] start: cfg=linkerd mode=tcp reps=[1] rates=[500 1000 1500 2000 2500 3000 3500 4000 4500 5000] W=10 busy_poll=0
+[17:26:34] == linkerd rep1: setup
+[17:27:32] linkerd rep1: warmup 60 s at 250 requests/s
+[17:29:01]   linkerd rep1 rate=500: rps=501 p50=15.6 p99=29.0 max=38 fail=0.0000 dropped=0 host=9.49c (app 4.45 sidecar 3.54 pods 0.01 runtime 0.54 user 0.19 system 0.72) dpu=0.47c pkt/req=106 
+[17:29:33]   linkerd rep1 rate=1000: rps=1005 p50=50.7 p99=90.4 max=119 fail=0.0000 dropped=0 host=12.56c (app 6.33 sidecar 4.88 pods 0.01 runtime 0.69 user 0.24 system 0.43) dpu=0.12c pkt/req=94 
+[17:30:07]   linkerd rep1 rate=1500: rps=1495 p50=154.5 p99=261.3 max=355 fail=0.0000 dropped=0 host=13.12c (app 6.80 sidecar 4.89 pods 0.01 runtime 0.79 user 0.25 system 0.38) dpu=0.49c pkt/req=70 
+[17:30:18]   host busy outside services: 5.78 cores, waiting
+[17:30:50]   host busy outside services: 3.12 cores, waiting
+[17:31:21]   host busy outside services: 0.50 cores, waiting
+[17:32:14]   linkerd rep1 rate=2000: rps=1988 p50=484.4 p99=756.7 max=1012 fail=0.0000 dropped=151 host=13.38c (app 6.88 sidecar 4.95 pods 0.01 runtime 0.86 user 0.33 system 0.37) dpu=0.47c pkt/req=43 
+[17:32:48]   linkerd rep1 rate=2500: rps=2253 p50=1096.0 p99=1792.4 max=2306 fail=0.0000 dropped=2946 host=13.32c (app 6.74 sidecar 5.11 pods 0.01 runtime 0.88 user 0.23 system 0.41) dpu=0.34c pkt/req=29 SAT
+[17:32:48]   saturated, ending sweep
+[17:33:02] done
+[17:33:02] start: cfg=istio mode=tcp reps=[1] rates=[500 1000 1500 2000 2500 3000 3500 4000 4500 5000] W=10 busy_poll=0
+[17:33:02] == istio rep1: setup
+[17:33:28] istio rep1: warmup 60 s at 250 requests/s
+[17:34:56]   istio rep1 rate=500: rps=498 p50=25.2 p99=46.1 max=76 fail=0.0000 dropped=0 host=10.47c (app 4.22 sidecar 4.80 pods 0.01 runtime 0.52 user 0.31 system 0.63) dpu=0.12c pkt/req=51 
+[17:35:29]   istio rep1 rate=1000: rps=1001 p50=91.7 p99=143.9 max=199 fail=0.0000 dropped=0 host=12.76c (app 5.39 sidecar 6.02 pods 0.01 runtime 0.65 user 0.30 system 0.40) dpu=0.48c pkt/req=43 
+[17:36:02]   istio rep1 rate=1500: rps=1503 p50=259.5 p99=407.7 max=522 fail=0.0000 dropped=0 host=13.08c (app 5.63 sidecar 6.11 pods 0.01 runtime 0.73 user 0.23 system 0.36) dpu=0.12c pkt/req=25 
+[17:36:35]   istio rep1 rate=2000: rps=1919 p50=720.4 p99=1084.6 max=1420 fail=0.0000 dropped=1039 host=13.21c (app 5.65 sidecar 6.19 pods 0.01 runtime 0.76 user 0.22 system 0.38) dpu=0.48c pkt/req=16 SAT
+[17:36:35]   saturated, ending sweep
+[17:36:48] done
+[17:36:48] start: cfg=dpumesh mode=dpumesh reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000] W=14 busy_poll=0
+[17:36:48] == dpumesh rep1: setup
+[17:37:05] dpumesh rep1: warmup 60 s at 250 requests/s
+[17:38:34]   dpumesh rep1 rate=1000: rps=998 p50=13.3 p99=23.9 max=46 fail=0.0000 dropped=0 host=10.73c (app 9.06 sidecar 0.00 pods 0.00 runtime 0.59 user 0.17 system 0.91) dpu=5.28c (busiest shard 0.74) pkt/req=9 
+[17:39:06]   dpumesh rep1 rate=2000: rps=1993 p50=22.4 p99=43.2 max=62 fail=0.0000 dropped=0 host=12.51c (app 10.82 sidecar 0.00 pods 0.01 runtime 0.84 user 0.21 system 0.61) dpu=7.67c (busiest shard 0.96) pkt/req=7 
+[17:39:40]   dpumesh rep1 rate=3000: rps=3005 p50=40.2 p99=79.9 max=118 fail=0.0000 dropped=0 host=13.10c (app 11.42 sidecar 0.00 pods 0.01 runtime 1.03 user 0.18 system 0.46) dpu=8.95c (busiest shard 0.99) pkt/req=7 
+[17:40:13]   dpumesh rep1 rate=3500: rps=3508 p50=55.2 p99=108.4 max=173 fail=0.0000 dropped=0 host=13.27c (app 11.56 sidecar 0.00 pods 0.00 runtime 1.09 user 0.19 system 0.43) dpu=8.75c (busiest shard 0.99) pkt/req=7 
+[17:40:46]   dpumesh rep1 rate=4000: rps=4008 p50=81.0 p99=156.8 max=228 fail=0.0000 dropped=0 host=13.50c (app 11.63 sidecar 0.00 pods 0.01 runtime 1.15 user 0.20 system 0.55) dpu=9.24c (busiest shard 0.99) pkt/req=7 
+[17:41:19]   dpumesh rep1 rate=4500: rps=4491 p50=113.3 p99=227.4 max=368 fail=0.0000 dropped=0 host=13.70c (app 11.70 sidecar 0.00 pods 0.01 runtime 1.20 user 0.26 system 0.56) dpu=8.86c (busiest shard 0.99) pkt/req=6 
+[17:41:53]   dpumesh rep1 rate=5000: rps=4993 p50=181.0 p99=372.4 max=540 fail=0.0000 dropped=0 host=13.65c (app 11.78 sidecar 0.00 pods 0.01 runtime 1.27 user 0.20 system 0.39) dpu=9.28c (busiest shard 0.99) pkt/req=6 
+[17:42:26]   dpumesh rep1 rate=5500: rps=5489 p50=314.0 p99=636.6 max=1036 fail=0.0000 dropped=0 host=13.81c (app 11.83 sidecar 0.00 pods 0.01 runtime 1.32 user 0.24 system 0.41) dpu=8.82c (busiest shard 0.99) pkt/req=6 
+[17:43:00]   dpumesh rep1 rate=6000: rps=5899 p50=499.3 p99=1032.8 max=1528 fail=0.0000 dropped=1182 host=13.82c (app 11.85 sidecar 0.00 pods 0.01 runtime 1.31 user 0.20 system 0.44) dpu=9.46c (busiest shard 0.99) pkt/req=6 
+[17:43:12]   host busy outside services: 0.56 cores, waiting
+[17:44:06]   dpumesh rep1 rate=6500: rps=5988 p50=723.6 p99=1615.1 max=2522 fail=0.0286 dropped=6349 host=13.64c (app 11.75 sidecar 0.00 pods 0.00 runtime 1.27 user 0.22 system 0.40) dpu=8.44c (busiest shard 0.96) pkt/req=6 SAT
+[17:44:06]   saturated, ending sweep
+[17:44:07]   dpumesh rep1 DPA EU check: EUs shared by two streams: none
+[17:44:24] done

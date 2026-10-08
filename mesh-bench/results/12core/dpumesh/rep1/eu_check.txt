@@ -1,0 +1,16 @@
+offset width peak  processes
+     0    12   10  frontend-1(0),productcatalogservice-1(0)
+    12    13    9  frontend-2(1),productcatalogservice-2(1)
+    25    13   10  currencyservice-1(2),frontend-3(2)
+    38    13    9  currencyservice-2(3),frontend-4(3)
+    51    15   13  frontend-5(4),productcatalogservice-3(4),recommendationservice-10(4)
+    66    15   11  emailservice(5),frontend-6(5),productcatalogservice-4(5)
+    81    17   14  frontend-7(6),recommendationservice-1(6),recommendationservice-5(6)
+    98    17   13  frontend-8(7),recommendationservice-2(7),recommendationservice-6(7)
+   115    16   14  frontend-9(8),recommendationservice-3(8),recommendationservice-7(8)
+   131    17   13  frontend-10(9),recommendationservice-4(9),recommendationservice-8(9)
+   148    11    9  checkoutservice(10)
+   159     7    4  cartservice(11),paymentservice(11)
+   166     5    2  shippingservice(12)
+   171    19    5  adservice(13),recommendationservice-9(13)
+EUs shared by two streams: none
