@@ -1,0 +1,72 @@
+{
+ "other": {
+  "tokio": 1.064062144110243,
+  "tracing->runtime": 0.6178532072638058,
+  "": 0.18259733029907857,
+  "tower": 0.06396363527501948,
+  "linkerd_app_inbound::direct": 0.007895379884937484,
+  "linkerd_addr": 0.003024204338665667,
+  "tonic": 0.0027583892581683335,
+  "linkerd_duplex": 0.0026875444475311866
+ },
+ "telemetry": {
+  "linkerd_http_prom": 0.4347343451574533,
+  "linkerd_http_metrics": 0.1421982381615764,
+  "linkerd_io": 0.0779495255842388,
+  "linkerd_stack_metrics": 0.042985979706901205,
+  "linkerd_app_inbound::metrics": 0.03143182564606888,
+  "linkerd_app_core::metrics": 0.026950231891739892,
+  "prometheus_client": 0.02613940282431188,
+  "linkerd_http_access_log": 0.02549732873100839,
+  "tracing->linkerd_http_access_log": 0.01203293129216213,
+  "linkerd_proxy_tap": 0.0072949556553053825
+ },
+ "kernel": {
+  "kernel": 2.731495390864692
+ },
+ "l7_parsing": {
+  "h2": 1.442592846164395,
+  "hyper": 0.34086374582266454,
+  "http": 0.26599621730810113,
+  "linkerd_http_box": 0.16260557330081984,
+  "linkerd_proxy_http": 0.05086139396218572,
+  "hyper_util": 0.02899783399237412,
+  "linkerd_http_insert": 0.01871888525120213,
+  "linkerd_app_core::errors": 0.014896760014732918,
+  "linkerd_error_respond": 0.014738197997301842,
+  "linkerd_http_body_eos": 0.00990060973477477,
+  "linkerd_app_inbound::http": 0.00669574424165317,
+  "httparse": 0.003010079928961989,
+  "http_body_util": 0.0020168927234540082,
+  "linkerd_http_upgrade": 0.0014465657398747443
+ },
+ "l7_policy": {
+  "linkerd_http_classify": 0.08387646678390373,
+  "linkerd_router": 0.07548889130721297,
+  "linkerd_http_stream_timeouts": 0.06570260813988406,
+  "tower": 0.040609172077188116,
+  "linkerd_proxy_balance_queue": 0.031625064299986176,
+  "linkerd_app_outbound::http": 0.029669262693503187,
+  "linkerd_app_core::classify": 0.02310056124369549,
+  "linkerd_app_inbound::http": 0.02001745114607758,
+  "linkerd_http_route": 0.01944442548307545,
+  "linkerd_proxy_server_policy": 0.011712970244264502,
+  "linkerd_app_inbound::policy": 0.006881910760830591,
+  "linkerd_proxy_client_policy": 0.0023754038468224267
+ },
+ "mtls": {
+  "rustls": 0.1044284165078938,
+  "tokio_rustls": 0.041030584198597814,
+  "aws_lc_0_43_0_EVP_AEAD_CTX_seal": 0.02524157707841872,
+  "aws_lc_0_43_0_EVP_AEAD_CTX_open": 0.021287736622000498,
+  "aws_lc_0_43_0_aes_gcm_decrypt_avx512": 0.01928929881557854,
+  "aws_lc_0_43_0_aes_gcm_encrypt_avx512": 0.01505911495589879,
+  "aws_lc_0_43_0_CRYPTO_gcm128_setiv": 0.014291469063818604,
+  "linkerd_tls": 0.009776419706821656,
+  "aws_lc_rs": 0.007261625765998252,
+  "aws_lc_0_43_0_gcm_gmult_avx512": 0.007135772701920096,
+  "aws_lc_0_43_0_CRYPTO_memcmp": 0.005172490318900994,
+  "aws_lc_0_43_0_CRYPTO_gcm128_encrypt_ctr32": 0.003395559062928479,
+  "aws_lc_0_43_0_CRYPTO_gcm128_decrypt_ctr32": 0.0024402338845903667
+ }
+}

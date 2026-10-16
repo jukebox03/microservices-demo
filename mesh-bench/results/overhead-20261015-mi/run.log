@@ -1,0 +1,151 @@
+[14:05:16] start MeshInsight-style {"start": {"nosidecar": 4500, "l5d": 2000, "istio": 2000}, "step": 1.1, "fracs": [0.25, 0.5, 0.75, 1.0]} cpu: ['on', '1', 'performance']
+[14:05:16] == deploy nosidecar (nosidecar, pre [])
+[14:06:19]   N0-nosidecar latency1: 111 req/s  avg 8.95 p50 10.26 p90 12.18 p99 18.39 ms  fail 0.0000
+[14:06:45]   N0-nosidecar r1500: 1494 rps p50 6.9 p99 13.0 ms fail 0.0000 drop 0 | app 15.36 side 0.00 host 19.30 outside 3.94 cores | 10.27 ms/req
+[14:06:49]   perf script 4 s, 17 MB
+[14:07:16]   N0-nosidecar r3000: 3016 rps p50 5.7 p99 12.5 ms fail 0.0000 drop 0 | app 20.14 side 0.00 host 23.71 outside 3.58 cores | 6.68 ms/req
+[14:07:20]   perf script 4 s, 19 MB
+[14:07:46]   N0-nosidecar r4500: 4496 rps p50 9.0 p99 33.7 ms fail 0.0000 drop 0 | app 23.84 side 0.00 host 27.16 outside 3.31 cores | 5.30 ms/req
+[14:07:50]   perf script 4 s, 21 MB
+[14:08:20]   N0-nosidecar r6000: 5700 rps p50 652.8 p99 1149.4 ms fail 0.0000 drop 3305 | app 25.98 side 0.00 host 29.16 outside 3.17 cores | 4.56 ms/req
+[14:08:25]   perf script 4 s, 22 MB
+[14:08:25] == deploy l5d-opaque (l5d-opaque, pre [])
+[14:09:45]   L1-opaque latency1: 69 req/s  avg 14.34 p50 16.60 p90 20.34 p99 29.37 ms  fail 0.0000
+[14:10:11]   L1-opaque r750: 753 rps p50 8.8 p99 16.0 ms fail 0.0000 drop 0 | app 8.36 side 2.77 host 14.28 outside 3.15 cores | 14.79 ms/req
+[14:10:17]   perf script 6 s, 19 MB
+[14:10:43]   L1-opaque r1500: 1495 rps p50 10.0 p99 18.1 ms fail 0.0000 drop 0 | app 13.46 side 5.03 host 21.95 outside 3.46 cores | 12.37 ms/req
+[14:10:49]   perf script 6 s, 22 MB
+[14:11:16]   L1-opaque r2250: 2244 rps p50 11.4 p99 22.4 ms fail 0.0000 drop 0 | app 15.51 side 5.65 host 24.40 outside 3.23 cores | 9.43 ms/req
+[14:11:22]   perf script 6 s, 24 MB
+[14:11:48]   L1-opaque r3000: 3000 rps p50 11.6 p99 24.0 ms fail 0.0000 drop 0 | app 16.26 side 5.75 host 25.18 outside 3.17 cores | 7.34 ms/req
+[14:11:54]   perf script 6 s, 24 MB
+[14:11:54] == deploy l5d (l5d, pre [])
+[14:13:14]   L2-l7 latency1: 47 req/s  avg 21.01 p50 24.05 p90 27.93 p99 41.35 ms  fail 0.0000
+[14:13:41]   L2-l7 r750: 753 rps p50 14.9 p99 25.4 ms fail 0.0000 drop 0 | app 7.70 side 5.08 host 15.73 outside 2.94 cores | 16.97 ms/req
+[14:13:47]   perf script 6 s, 20 MB
+[14:14:13]   L2-l7 r1500: 1510 rps p50 17.0 p99 29.7 ms fail 0.0000 drop 0 | app 11.63 side 8.60 host 23.43 outside 3.20 cores | 13.40 ms/req
+[14:14:19]   perf script 6 s, 23 MB
+[14:14:46]   L2-l7 r2250: 2256 rps p50 22.9 p99 42.4 ms fail 0.0000 drop 0 | app 13.32 side 9.95 host 26.12 outside 2.86 cores | 10.32 ms/req
+[14:14:51]   perf script 6 s, 24 MB
+[14:15:18]   L2-l7 r3000: 2995 rps p50 65.4 p99 133.6 ms fail 0.0000 drop 0 | app 14.96 side 10.54 host 28.11 outside 2.61 cores | 8.52 ms/req
+[14:15:24]   perf script 6 s, 25 MB
+[14:16:16]   L3-authz latency1: 50 req/s  avg 20.10 p50 23.49 p90 27.35 p99 41.33 ms  fail 0.0000
+[14:16:42]   L3-authz r750: 752 rps p50 14.8 p99 25.0 ms fail 0.0000 drop 0 | app 7.20 side 5.06 host 15.23 outside 2.97 cores | 16.30 ms/req
+[14:16:48]   perf script 6 s, 20 MB
+[14:17:14]   L3-authz r1500: 1506 rps p50 16.8 p99 30.5 ms fail 0.0000 drop 0 | app 11.52 side 8.55 host 23.33 outside 3.26 cores | 13.33 ms/req
+[14:17:20]   perf script 6 s, 23 MB
+[14:17:46]   L3-authz r2250: 2255 rps p50 23.0 p99 41.0 ms fail 0.0000 drop 0 | app 13.26 side 10.02 host 26.11 outside 2.82 cores | 10.32 ms/req
+[14:17:52]   perf script 6 s, 24 MB
+[14:18:19]   L3-authz r3000: 2995 rps p50 65.2 p99 135.9 ms fail 0.0000 drop 0 | app 14.88 side 10.60 host 28.12 outside 2.64 cores | 8.51 ms/req
+[14:18:25]   perf script 6 s, 25 MB
+[14:19:18]   L4-traffic latency1: 48 req/s  avg 20.86 p50 24.30 p90 28.01 p99 40.59 ms  fail 0.0000
+[14:19:44]   L4-traffic r750: 751 rps p50 15.3 p99 25.7 ms fail 0.0000 drop 0 | app 7.09 side 5.18 host 15.14 outside 2.87 cores | 16.34 ms/req
+[14:19:50]   perf script 6 s, 21 MB
+[14:20:16]   L4-traffic r1500: 1503 rps p50 17.2 p99 29.8 ms fail 0.0000 drop 0 | app 11.39 side 8.80 host 23.38 outside 3.19 cores | 13.44 ms/req
+[14:20:22]   perf script 6 s, 23 MB
+[14:20:49]   L4-traffic r2250: 2236 rps p50 24.5 p99 49.2 ms fail 0.0000 drop 0 | app 13.11 side 10.22 host 26.16 outside 2.83 cores | 10.44 ms/req
+[14:20:54]   perf script 6 s, 24 MB
+[14:21:21]   L4-traffic r3000: 2999 rps p50 135.4 p99 237.3 ms fail 0.0000 drop 0 | app 14.58 side 10.72 host 27.96 outside 2.66 cores | 8.44 ms/req
+[14:21:27]   perf script 6 s, 25 MB
+[14:21:27] == deploy l5d-trace (l5d-trace, pre ['l5d-authz', 'l5d-traffic'])
+[14:23:07]   L5-telemetry latency1: 46 req/s  avg 21.73 p50 25.51 p90 29.67 p99 43.43 ms  fail 0.0000
+[14:23:33]   L5-telemetry r750: 755 rps p50 17.4 p99 29.6 ms fail 0.0000 drop 0 | app 8.06 side 6.02 host 17.90 outside 3.82 cores | 18.65 ms/req
+[14:23:39]   perf script 6 s, 21 MB
+[14:23:44]   WAIT host busy outside the pods 1.43 cores
+[14:24:20]   L5-telemetry r1500: 1501 rps p50 18.1 p99 32.1 ms fail 0.0000 drop 0 | app 10.88 side 9.20 host 23.88 outside 3.79 cores | 13.38 ms/req
+[14:24:26]   perf script 6 s, 23 MB
+[14:24:53]   L5-telemetry r2250: 2247 rps p50 47.2 p99 87.1 ms fail 0.0000 drop 0 | app 13.24 side 10.89 host 27.67 outside 3.54 cores | 10.74 ms/req
+[14:24:59]   perf script 6 s, 25 MB
+[14:25:25]   L5-telemetry r3000: 2939 rps p50 561.8 p99 800.7 ms fail 0.0000 drop 622 | app 13.50 side 11.06 host 28.25 outside 3.69 cores | 8.36 ms/req
+[14:25:31]   perf script 6 s, 25 MB
+[14:25:31] == deploy istio-l4 (istio-l4, pre [])
+[14:26:51]   I1-l4 latency1: 66 req/s  avg 15.05 p50 17.38 p90 21.13 p99 30.86 ms  fail 0.0000
+[14:27:17]   I1-l4 r750: 748 rps p50 9.5 p99 17.3 ms fail 0.0000 drop 0 | app 8.24 side 3.26 host 14.61 outside 3.11 cores | 15.38 ms/req
+[14:27:48]   perf script 31 s, 19 MB
+[14:28:15]   I1-l4 r1500: 1497 rps p50 11.3 p99 20.3 ms fail 0.0000 drop 0 | app 13.31 side 5.89 host 22.58 outside 3.38 cores | 12.82 ms/req
+[14:28:46]   perf script 32 s, 21 MB
+[14:29:13]   I1-l4 r2250: 2252 rps p50 11.1 p99 22.5 ms fail 0.0000 drop 0 | app 14.75 side 6.67 host 24.50 outside 3.08 cores | 9.51 ms/req
+[14:29:44]   perf script 31 s, 22 MB
+[14:30:11]   I1-l4 r3000: 3007 rps p50 13.1 p99 25.7 ms fail 0.0000 drop 0 | app 16.00 side 7.08 host 26.16 outside 3.08 cores | 7.68 ms/req
+[14:30:42]   perf script 31 s, 23 MB
+[14:30:42] == deploy istio-notls (istio, pre ['istio-notls'])
+[14:32:17]   I2n-l7-notls latency1: 38 req/s  avg 26.16 p50 30.96 p90 35.11 p99 50.74 ms  fail 0.0000
+[14:32:44]   I2n-l7-notls r750: 752 rps p50 23.1 p99 38.4 ms fail 0.0000 drop 0 | app 7.74 side 7.01 host 17.79 outside 3.03 cores | 19.61 ms/req
+[14:33:15]   perf script 32 s, 24 MB
+[14:33:42]   I2n-l7-notls r1500: 1502 rps p50 23.8 p99 40.6 ms fail 0.0000 drop 0 | app 10.25 side 10.47 host 23.69 outside 2.97 cores | 13.79 ms/req
+[14:34:14]   perf script 32 s, 27 MB
+[14:34:40]   I2n-l7-notls r2250: 2247 rps p50 55.5 p99 91.4 ms fail 0.0000 drop 0 | app 12.33 side 12.40 host 27.39 outside 2.65 cores | 11.01 ms/req
+[14:35:12]   perf script 32 s, 28 MB
+[14:35:39]   I2n-l7-notls r3000: 3013 rps p50 174.7 p99 253.0 ms fail 0.0000 drop 0 | app 12.81 side 12.80 host 28.08 outside 2.47 cores | 8.50 ms/req
+[14:36:10]   perf script 31 s, 28 MB
+[14:36:10] == deploy istio (istio, pre [])
+[14:37:31]   I2-l7 latency1: 37 req/s  avg 26.84 p50 31.66 p90 35.62 p99 53.72 ms  fail 0.0000
+[14:37:57]   I2-l7 r750: 748 rps p50 24.3 p99 40.4 ms fail 0.0000 drop 0 | app 7.65 side 7.44 host 18.07 outside 2.97 cores | 20.19 ms/req
+[14:38:29]   perf script 32 s, 25 MB
+[14:38:55]   I2-l7 r1500: 1498 rps p50 25.4 p99 42.5 ms fail 0.0000 drop 0 | app 10.03 side 10.79 host 23.78 outside 2.96 cores | 13.90 ms/req
+[14:39:27]   perf script 32 s, 27 MB
+[14:39:54]   I2-l7 r2250: 2256 rps p50 67.2 p99 107.6 ms fail 0.0000 drop 0 | app 12.13 side 12.86 host 27.49 outside 2.50 cores | 11.07 ms/req
+[14:40:26]   perf script 32 s, 28 MB
+[14:40:52]   I2-l7 r3000: 2997 rps p50 216.6 p99 372.1 ms fail 0.0000 drop 0 | app 12.32 side 12.94 host 28.12 outside 2.85 cores | 8.43 ms/req
+[14:41:24]   perf script 32 s, 28 MB
+[14:42:42]   I3-authz latency1: 38 req/s  avg 26.21 p50 31.44 p90 35.20 p99 53.71 ms  fail 0.0000
+[14:43:08]   I3-authz r750: 750 rps p50 24.9 p99 41.3 ms fail 0.0000 drop 0 | app 7.20 side 7.56 host 17.60 outside 2.84 cores | 19.69 ms/req
+[14:43:40]   perf script 32 s, 25 MB
+[14:44:06]   I3-authz r1500: 1495 rps p50 26.1 p99 44.1 ms fail 0.0000 drop 0 | app 9.83 side 11.00 host 23.83 outside 3.00 cores | 13.94 ms/req
+[14:44:38]   perf script 32 s, 27 MB
+[14:45:05]   I3-authz r2250: 2254 rps p50 66.1 p99 111.6 ms fail 0.0000 drop 0 | app 11.69 side 13.08 host 27.31 outside 2.54 cores | 10.99 ms/req
+[14:45:37]   perf script 32 s, 29 MB
+[14:46:03]   I3-authz r3000: 2993 rps p50 217.5 p99 320.1 ms fail 0.0000 drop 0 | app 12.34 side 13.23 host 28.05 outside 2.48 cores | 8.54 ms/req
+[14:46:35]   perf script 32 s, 28 MB
+[14:47:53]   I4-traffic latency1: 36 req/s  avg 27.81 p50 32.58 p90 36.03 p99 54.60 ms  fail 0.0000
+[14:48:19]   I4-traffic r750: 750 rps p50 25.6 p99 42.5 ms fail 0.0000 drop 0 | app 7.33 side 7.78 host 18.04 outside 2.93 cores | 20.15 ms/req
+[14:48:51]   perf script 31 s, 25 MB
+[14:49:17]   I4-traffic r1500: 1498 rps p50 26.7 p99 44.7 ms fail 0.0000 drop 0 | app 9.79 side 11.10 host 23.81 outside 2.92 cores | 13.94 ms/req
+[14:49:49]   perf script 32 s, 27 MB
+[14:50:15]   I4-traffic r2250: 2258 rps p50 75.4 p99 123.7 ms fail 0.0000 drop 0 | app 11.66 side 13.22 host 27.51 outside 2.63 cores | 11.02 ms/req
+[14:50:47]   perf script 32 s, 29 MB
+[14:51:14]   I4-traffic r3000: 3007 rps p50 246.8 p99 358.5 ms fail 0.0000 drop 0 | app 12.26 side 13.30 host 28.01 outside 2.45 cores | 8.50 ms/req
+[14:51:45]   perf script 32 s, 28 MB
+[14:51:45] == deploy istio-trace (istio-trace, pre ['istio-authz', 'istio-traffic', 'istio-telemetry'])
+[14:53:22]   I5-telemetry latency1: 34 req/s  avg 29.30 p50 34.27 p90 37.66 p99 58.71 ms  fail 0.0000
+[14:53:48]   I5-telemetry r750: 754 rps p50 28.6 p99 49.0 ms fail 0.0000 drop 0 | app 8.08 side 8.26 host 19.41 outside 3.07 cores | 21.67 ms/req
+[14:54:20]   perf script 31 s, 26 MB
+[14:54:46]   I5-telemetry r1500: 1512 rps p50 35.2 p99 61.3 ms fail 0.0000 drop 0 | app 10.41 side 11.90 host 25.39 outside 3.08 cores | 14.76 ms/req
+[14:55:18]   perf script 32 s, 28 MB
+[14:55:45]   I5-telemetry r2250: 2245 rps p50 133.2 p99 206.6 ms fail 0.0000 drop 0 | app 11.94 side 13.34 host 27.79 outside 2.51 cores | 11.26 ms/req
+[14:56:16]   perf script 32 s, 28 MB
+[14:56:43]   I5-telemetry r3000: 2970 rps p50 517.2 p99 864.3 ms fail 0.0000 drop 410 | app 12.23 side 13.21 host 27.97 outside 2.54 cores | 8.57 ms/req
+[14:57:15]   perf script 32 s, 27 MB
+[14:57:15] == deploy nosidecar-trace (nosidecar-trace, pre [])
+[14:58:30]   N0t-nosidecar-trace latency1: 106 req/s  avg 9.38 p50 10.75 p90 12.58 p99 19.29 ms  fail 0.0000
+[14:58:57]   N0t-nosidecar-trace r1500: 1502 rps p50 7.5 p99 14.6 ms fail 0.0000 drop 0 | app 16.05 side 0.00 host 19.92 outside 3.87 cores | 10.68 ms/req
+[14:59:01]   perf script 4 s, 18 MB
+[14:59:27]   N0t-nosidecar-trace r3000: 2993 rps p50 6.5 p99 17.2 ms fail 0.0000 drop 0 | app 20.61 side 0.00 host 24.02 outside 3.41 cores | 6.89 ms/req
+[14:59:32]   perf script 4 s, 19 MB
+[14:59:58]   N0t-nosidecar-trace r4500: 4503 rps p50 14.0 p99 75.9 ms fail 0.0000 drop 0 | app 24.46 side 0.00 host 27.57 outside 3.10 cores | 5.43 ms/req
+[15:00:03]   perf script 4 s, 21 MB
+[15:00:32]   N0t-nosidecar-trace r6000: 5279 rps p50 963.5 p99 1879.8 ms fail 0.0000 drop 7646 | app 25.69 side 0.00 host 28.71 outside 3.03 cores | 4.87 ms/req
+[15:00:37]   perf script 4 s, 21 MB
+[15:00:37] done
+[18:07:16] start DPUMesh point {"cfg": "D1-dpumesh", "rate": 1500, "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0"} cpu: ['on', '1', 'performance']
+[18:07:17] dpu: feature/dpa-mux cd01a50 + linkerd2-proxy 154b428b (from jet2 git archive, 2026-10-15)
+-rwxrwxr-x 2 jukebox jukebox 535716416 10-15_09:02 /home/jukebox/DPUMesh-ob-mux/linkerd2-proxy/target/release/linkerd2-proxy
+[18:07:52] dpu proxy: proxy 2952187: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 32 s
+[18:07:52] == deploy dpumesh
+[18:09:23]   D1-dpumesh latency1: 64 req/s  avg 15.55 p50 17.42 p90 22.34 p99 29.67 ms  fail 0.0000
+[18:09:50]   D1-dpumesh r1500: 1500 rps p50 14.2 p99 29.6 ms fail 0.0000 drop 0 | app 15.69 side 0.00 host 19.68 outside 3.98 cores | 10.46 ms/req
+[18:09:53]   perf script 4 s, 15 MB
+[18:10:07] dpu stop: 
+[18:10:07] dpu irq restore: 
+[18:10:09] flow_check exit 0:   5         13            8
+     5       7        5         12            8
+     6       6        6         12            8
+     7       7        5         12            8
+     8       7        6         13            8
+     9       8        6         14            8
+    10       8        6         14            8
+    11       8        6         14            8
+    12       7        6         13            8
+    13       7        6         13            8
+flows: 101 client + 82 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 183 ring adds; errors: none
+[18:10:09] done

@@ -1,0 +1,78 @@
+[12:09:00] start {"res": "../results/overhead-20261015", "reps": "1,2,3", "rates": "1000,1500", "only": "", "dry": false} cpu: ['on', '1', 'performance']
+[12:09:00] == rep1 deploy nosidecar (nosidecar, pre [])
+[12:11:07]   N0-nosidecar r1000: 999 rps p50 6.3 p99 11.4 ms fail 0.0000 drop 0 | app 10.14 side 0.00 host 12.97 outside 2.83 cores | 10.14 ms/req
+[12:11:13]   perf script 5 s, 36 MB
+[12:12:29]   N0-nosidecar r1500: 1504 rps p50 6.8 p99 12.2 ms fail 0.0000 drop 0 | app 15.18 side 0.00 host 19.07 outside 3.89 cores | 10.09 ms/req
+[12:12:35]   perf script 6 s, 39 MB
+[12:12:35] == rep1 deploy l5d-opaque (l5d-opaque, pre [])
+[12:14:59]   L1-opaque r1000: 999 rps p50 9.0 p99 16.0 ms fail 0.0000 drop 0 | app 10.50 side 3.79 host 17.91 outside 3.63 cores | 14.30 ms/req
+[12:15:07]   perf script 8 s, 46 MB
+[12:16:23]   L1-opaque r1500: 1503 rps p50 9.7 p99 17.1 ms fail 0.0000 drop 0 | app 13.38 side 5.02 host 21.97 outside 3.58 cores | 12.25 ms/req
+[12:16:31]   perf script 8 s, 49 MB
+[12:16:31] == rep1 deploy l5d (l5d, pre [])
+[12:18:56]   L2-l7 r1000: 994 rps p50 15.0 p99 25.0 ms fail 0.0000 drop 0 | app 9.04 side 6.40 host 18.83 outside 3.39 cores | 15.53 ms/req
+[12:19:04]   perf script 8 s, 48 MB
+[12:20:21]   L2-l7 r1500: 1503 rps p50 16.9 p99 28.9 ms fail 0.0000 drop 0 | app 11.57 side 8.55 host 23.33 outside 3.21 cores | 13.39 ms/req
+[12:20:29]   perf script 8 s, 51 MB
+[12:22:15]   L3-authz r1000: 1001 rps p50 15.0 p99 24.8 ms fail 0.0000 drop 0 | app 9.10 side 6.47 host 19.03 outside 3.45 cores | 15.55 ms/req
+[12:22:23]   perf script 8 s, 48 MB
+[12:23:39]   L3-authz r1500: 1499 rps p50 17.0 p99 28.7 ms fail 0.0000 drop 0 | app 11.56 side 8.57 host 23.32 outside 3.19 cores | 13.43 ms/req
+[12:23:47]   perf script 8 s, 51 MB
+[12:25:35]   L4-traffic r1000: 998 rps p50 15.4 p99 25.4 ms fail 0.0000 drop 0 | app 9.02 side 6.65 host 19.06 outside 3.39 cores | 15.71 ms/req
+[12:25:42]   perf script 8 s, 49 MB
+[12:26:59]   L4-traffic r1500: 1493 rps p50 17.3 p99 29.5 ms fail 0.0000 drop 0 | app 11.43 side 8.74 host 23.33 outside 3.16 cores | 13.51 ms/req
+[12:27:07]   perf script 8 s, 52 MB
+[12:27:07] == rep1 deploy l5d-trace (l5d-trace, pre ['l5d-authz', 'l5d-traffic'])
+[12:29:51]   L5-telemetry r1000: 1003 rps p50 17.9 p99 30.4 ms fail 0.0000 drop 0 | app 9.40 side 7.56 host 21.18 outside 4.21 cores | 16.90 ms/req
+[12:29:59]   perf script 8 s, 50 MB
+[12:31:15]   L5-telemetry r1500: 1501 rps p50 18.1 p99 32.8 ms fail 0.0000 drop 0 | app 10.77 side 9.18 host 23.81 outside 3.85 cores | 13.30 ms/req
+[12:31:23]   perf script 8 s, 52 MB
+[12:31:23] == rep1 deploy istio-l4 (istio-l4, pre [])
+[12:33:47]   I1-l4 r1000: 998 rps p50 10.0 p99 17.6 ms fail 0.0000 drop 0 | app 10.50 side 4.52 host 18.61 outside 3.59 cores | 15.04 ms/req
+[12:34:20]   perf script 33 s, 45 MB
+[12:35:37]   I1-l4 r1500: 1498 rps p50 11.1 p99 19.6 ms fail 0.0000 drop 0 | app 13.14 side 5.92 host 22.47 outside 3.40 cores | 12.73 ms/req
+[12:36:10]   perf script 33 s, 48 MB
+[12:36:10] == rep1 deploy istio-notls (istio, pre ['istio-notls'])
+[12:38:48]   I2n-l7-notls r1000: 1001 rps p50 24.8 p99 40.5 ms fail 0.0000 drop 0 | app 9.14 side 8.88 host 21.32 outside 3.30 cores | 18.00 ms/req
+[12:39:23]   perf script 34 s, 57 MB
+[12:40:39]   I2n-l7-notls r1500: 1496 rps p50 24.7 p99 41.8 ms fail 0.0000 drop 0 | app 10.29 side 10.46 host 23.66 outside 2.90 cores | 13.88 ms/req
+[12:41:14]   perf script 34 s, 59 MB
+[12:41:14] == rep1 deploy istio (istio, pre [])
+[12:43:38]   I2-l7 r1000: 1000 rps p50 26.3 p99 43.2 ms fail 0.0000 drop 0 | app 9.03 side 9.23 host 21.47 outside 3.21 cores | 18.25 ms/req
+[12:44:12]   perf script 34 s, 58 MB
+[12:45:29]   I2-l7 r1500: 1495 rps p50 25.7 p99 43.6 ms fail 0.0000 drop 0 | app 10.04 side 10.79 host 23.72 outside 2.89 cores | 13.93 ms/req
+[12:46:03]   perf script 34 s, 61 MB
+[12:48:15]   I3-authz r1000: 1000 rps p50 26.9 p99 43.8 ms fail 0.0000 drop 0 | app 9.02 side 9.40 host 21.70 outside 3.28 cores | 18.42 ms/req
+[12:48:50]   perf script 34 s, 58 MB
+[12:50:07]   I3-authz r1500: 1495 rps p50 25.8 p99 43.1 ms fail 0.0000 drop 0 | app 9.94 side 10.89 host 23.76 outside 2.93 cores | 13.93 ms/req
+[12:50:41]   perf script 34 s, 61 MB
+[12:52:53]   I4-traffic r1000: 1000 rps p50 27.8 p99 45.6 ms fail 0.0000 drop 0 | app 9.08 side 9.54 host 21.83 outside 3.21 cores | 18.62 ms/req
+[12:53:27]   perf script 34 s, 59 MB
+[12:54:44]   I4-traffic r1500: 1498 rps p50 26.4 p99 44.7 ms fail 0.0000 drop 0 | app 9.94 side 11.00 host 23.84 outside 2.89 cores | 13.98 ms/req
+[12:55:18]   perf script 34 s, 61 MB
+[12:55:18] == rep1 deploy istio-trace (istio-trace, pre ['istio-authz', 'istio-traffic', 'istio-telemetry'])
+[12:57:59]   I5-telemetry r1000: 999 rps p50 31.4 p99 52.0 ms fail 0.0000 drop 0 | app 9.27 side 10.10 host 22.57 outside 3.20 cores | 19.39 ms/req
+[12:58:33]   perf script 34 s, 60 MB
+[12:59:50]   I5-telemetry r1500: 1503 rps p50 33.3 p99 58.0 ms fail 0.0000 drop 0 | app 10.26 side 11.74 host 25.04 outside 3.04 cores | 14.64 ms/req
+[13:00:24]   perf script 35 s, 62 MB
+[13:00:24] == rep1 deploy nosidecar-trace (nosidecar-trace, pre [])
+[13:02:44]   N0t-nosidecar-trace r1000: 996 rps p50 6.9 p99 13.0 ms fail 0.0000 drop 0 | app 10.64 side 0.00 host 13.61 outside 2.97 cores | 10.68 ms/req
+[13:02:50]   perf script 6 s, 36 MB
+[13:04:07]   N0t-nosidecar-trace r1500: 1496 rps p50 7.3 p99 13.7 ms fail 0.0000 drop 0 | app 15.74 side 0.00 host 19.57 outside 3.84 cores | 10.52 ms/req
+[13:04:12]   perf script 6 s, 39 MB
+[13:04:12] == rep2 deploy nosidecar (nosidecar, pre [])
+[13:06:31]   N0-nosidecar r1000: 1002 rps p50 6.3 p99 11.4 ms fail 0.0000 drop 0 | app 10.09 side 0.00 host 12.92 outside 2.84 cores | 10.07 ms/req
+[13:06:37]   perf script 6 s, 36 MB
+[13:07:54]   N0-nosidecar r1500: 1497 rps p50 6.7 p99 12.2 ms fail 0.0000 drop 0 | app 15.10 side 0.00 host 19.01 outside 3.90 cores | 10.09 ms/req
+[13:07:59]   perf script 6 s, 39 MB
+[13:07:59] == rep2 deploy l5d-opaque (l5d-opaque, pre [])
+[13:10:24]   L1-opaque r1000: 999 rps p50 9.1 p99 16.1 ms fail 0.0000 drop 0 | app 10.46 side 3.77 host 17.93 outside 3.70 cores | 14.23 ms/req
+[13:10:31]   perf script 8 s, 46 MB
+[13:11:48]   L1-opaque r1500: 1495 rps p50 9.7 p99 17.1 ms fail 0.0000 drop 0 | app 13.36 side 5.01 host 21.93 outside 3.57 cores | 12.28 ms/req
+[13:11:56]   perf script 8 s, 49 MB
+[13:11:56] == rep2 deploy l5d (l5d, pre [])
+[13:14:21]   L2-l7 r1000: 996 rps p50 15.0 p99 25.6 ms fail 0.0000 drop 0 | app 9.06 side 6.43 host 19.08 outside 3.59 cores | 15.55 ms/req
+[13:14:28]   perf script 8 s, 48 MB
+[13:15:45]   L2-l7 r1500: 1497 rps p50 17.1 p99 29.4 ms fail 0.0000 drop 0 | app 11.60 side 8.57 host 23.36 outside 3.19 cores | 13.48 ms/req
+[13:15:53]   perf script 8 s, 51 MB
+[13:17:39]   L3-authz r1000: 998 rps p50 15.0 p99 24.9 ms fail 0.0000 drop 0 | app 9.08 side 6.46 host 18.97 outside 3.43 cores | 15.57 ms/req

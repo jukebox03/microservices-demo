@@ -1,0 +1,86 @@
+{
+ "frontend": {
+  "park/wake": 5613820322,
+  "socket I/O": 4431520321,
+  "event wait": 1282705269,
+  "entry/exit": 1026619763,
+  "other": 620108812,
+  "irq": 889633742
+ },
+ "cartservice": {
+  "entry/exit": 609952528,
+  "park/wake": 2178935934,
+  "socket I/O": 470597302,
+  "irq": 151754704,
+  "event wait": 129057984,
+  "other": 56304644
+ },
+ "productcatalogservice": {
+  "park/wake": 2549748755,
+  "event wait": 637152738,
+  "other": 242280097,
+  "socket I/O": 1661373016,
+  "irq": 347990568,
+  "entry/exit": 451383146
+ },
+ "checkoutservice": {
+  "irq": 39317962,
+  "entry/exit": 55676178,
+  "socket I/O": 200650893,
+  "other": 31345948,
+  "park/wake": 270513616,
+  "event wait": 89216331
+ },
+ "recommendationservice": {
+  "irq": 317301645,
+  "park/wake": 1486373818,
+  "event wait": 335973712,
+  "socket I/O": 724226170,
+  "entry/exit": 344273763,
+  "other": 59431997
+ },
+ "redis-cart": {
+  "socket I/O": 129738472,
+  "event wait": 66693627,
+  "entry/exit": 14601404,
+  "irq": 7362171
+ },
+ "currencyservice": {
+  "socket I/O": 732363022,
+  "entry/exit": 78053523,
+  "park/wake": 239767570,
+  "event wait": 294346853,
+  "irq": 169568718,
+  "other": 46463813
+ },
+ "emailservice": {
+  "park/wake": 57374273,
+  "event wait": 25248024,
+  "socket I/O": 38730174,
+  "entry/exit": 13766436,
+  "irq": 6896593
+ },
+ "adservice": {
+  "socket I/O": 203134493,
+  "irq": 73134145,
+  "park/wake": 255854753,
+  "event wait": 136317408,
+  "entry/exit": 74406564,
+  "other": 13776130
+ },
+ "paymentservice": {
+  "other": 7887552,
+  "irq": 17504015,
+  "park/wake": 17248437,
+  "socket I/O": 24044120,
+  "event wait": 10728842
+ },
+ "shippingservice": {
+  "event wait": 33099689,
+  "socket I/O": 99052200,
+  "park/wake": 182599188,
+  "entry/exit": 31865175,
+  "irq": 34793585,
+  "other": 6685442
+ }
+}

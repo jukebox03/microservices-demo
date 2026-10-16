@@ -1,0 +1,99 @@
+{
+ "productcatalogservice": {
+  "entry/exit": 1613698747,
+  "event wait": 3888284715,
+  "park/wake": 5062119896,
+  "irq": 849387048,
+  "timerfd": 446589965,
+  "other": 469625377,
+  "socket I/O": 457950532
+ },
+ "frontend": {
+  "timerfd": 621464740,
+  "socket I/O": 1661883155,
+  "irq": 1626266671,
+  "event wait": 5675862986,
+  "park/wake": 7551130360,
+  "entry/exit": 2460862088,
+  "other": 684011813
+ },
+ "checkoutservice": {
+  "park/wake": 511306977,
+  "event wait": 490653751,
+  "entry/exit": 215312779,
+  "socket I/O": 43924956,
+  "irq": 128057854,
+  "timerfd": 44304534,
+  "other": 29090337
+ },
+ "currencyservice": {
+  "event wait": 1535240530,
+  "socket I/O": 359338855,
+  "entry/exit": 306899900,
+  "timerfd": 251326563,
+  "irq": 234369999,
+  "park/wake": 201449957,
+  "other": 59666603
+ },
+ "cartservice": {
+  "socket I/O": 790043162,
+  "entry/exit": 809755736,
+  "park/wake": 2345598462,
+  "event wait": 729726022,
+  "irq": 239987633,
+  "timerfd": 91345681,
+  "other": 80337285
+ },
+ "redis-cart": {
+  "socket I/O": 523828464,
+  "event wait": 73601839,
+  "other": 2914253,
+  "entry/exit": 5487672,
+  "irq": 17663094
+ },
+ "recommendationservice": {
+  "event wait": 1728584266,
+  "park/wake": 933540667,
+  "irq": 368922350,
+  "entry/exit": 576140935,
+  "timerfd": 247922384,
+  "other": 145077807,
+  "socket I/O": 267184815
+ },
+ "adservice": {
+  "timerfd": 92251372,
+  "event wait": 620032390,
+  "park/wake": 219190800,
+  "socket I/O": 193014785,
+  "entry/exit": 175918483,
+  "irq": 91114972,
+  "other": 23368862
+ },
+ "shippingservice": {
+  "park/wake": 410050804,
+  "entry/exit": 138663432,
+  "timerfd": 46313752,
+  "event wait": 285861638,
+  "other": 43824068,
+  "irq": 44629188,
+  "socket I/O": 43041938
+ },
+ "emailservice": {
+  "entry/exit": 31529734,
+  "irq": 11633747,
+  "event wait": 65062024,
+  "park/wake": 44093657,
+  "socket I/O": 16529981,
+  "other": 3058116,
+  "timerfd": 8767937
+ },
+ "paymentservice": {
+  "event wait": 112752999,
+  "irq": 20016071,
+  "park/wake": 11568688,
+  "socket I/O": 14204234,
+  "entry/exit": 15249452,
+  "timerfd": 9656321,
+  "other": 3658195
+ }
+}

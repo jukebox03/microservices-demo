@@ -1,0 +1,16 @@
+D1-dpumesh at 1500 req/s: app vCPU by language; kernel split by the syscall that entered it
+language     app  kernel  socket I/O   park/wake  event wait     timerfd         irq  entry/exit       other  DPUMesh user  syscalls/req  vol cs/req
+Go         10.49    3.81        0.24        1.45        1.11        0.12        0.28        0.47        0.13          1.55        1166.4       271.1
+Python      1.99    0.48        0.03        0.10        0.19        0.03        0.04        0.07        0.02          0.21         144.9        32.2
+Node.js     1.47    0.34        0.04        0.02        0.18        0.03        0.03        0.03        0.01          0.18         125.9        23.0
+.NET        1.19    0.54        0.08        0.25        0.08        0.01        0.03        0.09        0.01          0.07         368.5        16.5
+Java        0.45    0.15        0.02        0.02        0.07        0.01        0.01        0.02        0.00          0.07          50.5         9.8
+redis       0.10    0.07        0.06        0.00        0.01        0.00        0.00        0.00        0.00          0.00           2.6         0.8
+total      15.69    5.38        0.47        1.85        1.63        0.20        0.39        0.68        0.17          2.08        1858.8       353.4
+
+top kernel entries (vCPU):
+  Go       futex 0.95, epoll_pwait 0.86, nanosleep 0.50, (entry) 0.47, (irq) 0.28, ppoll 0.19, write 0.15, timerfd_settime 0.12
+  Python   ppoll 0.16, futex 0.10, (entry) 0.07, (irq) 0.04, timerfd_settime 0.03, epoll_wait 0.03, read 0.02, write 0.01
+  Node.js  ppoll 0.14, (entry) 0.03, timerfd_settime 0.03, (irq) 0.03, write 0.02, epoll_pwait 0.02, futex 0.02, read 0.02
+  .NET     sched_yield 0.16, futex 0.09, (entry) 0.09, ppoll 0.07, sendto 0.06, (irq) 0.03, recvfrom 0.01, epoll_wait 0.01
+  Java     ppoll 0.05, futex 0.02, (entry) 0.02, epoll_wait 0.02, write 0.01, timerfd_settime 0.01, (irq) 0.01, read 0.01

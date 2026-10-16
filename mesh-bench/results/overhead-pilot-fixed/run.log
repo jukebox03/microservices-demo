@@ -1,0 +1,12 @@
+[12:00:17] start {"res": "../results/overhead-pilot-fixed", "reps": "p", "rates": "2000", "only": "I5-telemetry", "dry": false} cpu: ['on', '1', 'performance']
+[12:00:17] == repp deploy istio-trace (istio-trace, pre ['istio-authz', 'istio-traffic', 'istio-telemetry'])
+[12:02:45]   I5-telemetry r2000: 2002 rps p50 76.9 p99 128.2 ms fail 0.0000 drop 0 | app 11.54 side 13.19 host 27.45 outside 2.72 cores | 12.35 ms/req
+[12:03:19]   perf script 35 s, 64 MB
+[12:03:19] done
+[12:03:39] start {"res": "../results/overhead-pilot-fixed", "reps": "p2", "rates": "1500,1000", "only": "I5-telemetry", "dry": false} cpu: ['on', '1', 'performance']
+[12:03:39] == repp2 deploy istio-trace (istio-trace, pre ['istio-authz', 'istio-traffic', 'istio-telemetry'])
+[12:06:07]   I5-telemetry r1500: 1504 rps p50 33.2 p99 59.2 ms fail 0.0000 drop 0 | app 10.25 side 11.72 host 25.02 outside 3.04 cores | 14.62 ms/req
+[12:06:42]   perf script 35 s, 62 MB
+[12:07:59]   I5-telemetry r1000: 994 rps p50 31.4 p99 51.7 ms fail 0.0000 drop 0 | app 9.19 side 10.08 host 22.56 outside 3.29 cores | 19.40 ms/req
+[12:08:33]   perf script 34 s, 60 MB
+[12:08:33] done

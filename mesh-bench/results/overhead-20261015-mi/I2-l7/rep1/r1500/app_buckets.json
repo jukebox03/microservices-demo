@@ -1,0 +1,71 @@
+{
+ "frontend": {
+  "rpc": 12329286742,
+  "kernel": 13864408229,
+  "business": 4002665560,
+  "runtime": 10674137596,
+  "unresolved": 1495293618
+ },
+ "recommendationservice": {
+  "unresolved": 6797856390,
+  "kernel": 3267581105,
+  "rpc": 5316014448,
+  "runtime": 752258074
+ },
+ "cartservice": {
+  "kernel": 3596603096,
+  "runtime": 2510541110,
+  "unresolved": 2209662293,
+  "rpc": 122812950
+ },
+ "productcatalogservice": {
+  "runtime": 5126952241,
+  "kernel": 5889928320,
+  "rpc": 5925790837,
+  "unresolved": 734514648,
+  "business": 40827324
+ },
+ "checkoutservice": {
+  "kernel": 686720928,
+  "runtime": 582284918,
+  "rpc": 773357075,
+  "business": 29898959,
+  "unresolved": 97488685
+ },
+ "adservice": {
+  "unresolved": 1494249226,
+  "runtime": 669650251,
+  "kernel": 756623493,
+  "rpc": 42226668
+ },
+ "currencyservice": {
+  "rpc": 976304422,
+  "kernel": 1560563499,
+  "unresolved": 6456331914,
+  "runtime": 351656803
+ },
+ "paymentservice": {
+  "unresolved": 454109530,
+  "kernel": 77412966,
+  "runtime": 11235909,
+  "rpc": 31905215
+ },
+ "shippingservice": {
+  "rpc": 277333301,
+  "runtime": 276560923,
+  "unresolved": 55681382,
+  "kernel": 388095279,
+  "business": 67551307
+ },
+ "redis-cart": {
+  "kernel": 218395674,
+  "business": 257437981,
+  "unresolved": 14687514
+ },
+ "emailservice": {
+  "kernel": 142015500,
+  "unresolved": 353500688,
+  "rpc": 236486432,
+  "runtime": 54150949
+ }
+}

@@ -1,0 +1,8 @@
+[13:59:14] start MeshInsight-style {"start": {"nosidecar": 4500, "l5d": 2000, "istio": 2000}, "step": 1.1, "fracs": [0.25, 0.5, 0.75, 1.0]} cpu: ['on', '1', 'performance']
+[13:59:14] == deploy nosidecar (nosidecar, pre [])
+[14:00:26]   N0-nosidecar max-step 4500: 4498 req/s p99 37 ms drop 0 fail 0.0000 pass
+[14:00:46]   N0-nosidecar max-step 4950: 4958 req/s p99 105 ms drop 0 fail 0.0000 pass
+[14:01:05]   N0-nosidecar max-step 5445: 5443 req/s p99 239 ms drop 0 fail 0.0000 pass
+[14:01:24]   N0-nosidecar max-step 5990: 5782 req/s p99 868 ms drop 1536 fail 0.0000 FAIL
+[14:01:24]   N0-nosidecar max: 5443 req/s
+[14:01:47]   N0-nosidecar latency1: 114 req/s  avg 8.64 p50 9.99 p90 11.90 p99 17.17 ms  fail 0.0000

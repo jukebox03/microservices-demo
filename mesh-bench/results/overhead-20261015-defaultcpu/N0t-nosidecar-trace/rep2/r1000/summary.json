@@ -1,0 +1,15 @@
+{
+ "cfg": "N0t-nosidecar-trace",
+ "rate": 1000,
+ "rps": 1004.6666666666666,
+ "p50_ms": 5.589701,
+ "p99_ms": 10.31694616,
+ "fail_rate": 0,
+ "dropped": 0,
+ "app_cores": 8.949648244967918,
+ "sidecar_cores": 0.0,
+ "host_busy": 11.47610166204327,
+ "outside": 2.526453417075352,
+ "outside_before": 0.7693782755027277,
+ "ms_per_req": 8.908077217950813
+}

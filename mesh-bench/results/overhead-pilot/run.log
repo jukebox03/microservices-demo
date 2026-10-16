@@ -1,0 +1,13 @@
+[10:04:16] start {"res": "../results/overhead-pilot", "reps": "p", "rates": "1000", "only": "N0-nosidecar", "dry": false} cpu: ['on', '0', 'powersave']
+[10:04:16] == repp deploy nosidecar (nosidecar, pre [])
+[10:06:21]   N0-nosidecar r1000: 999 rps p50 5.2 p99 9.4 ms fail 0.0000 drop 0 | app 8.43 side 0.00 host 10.89 outside 2.47 cores | 8.44 ms/req
+[10:06:25]   perf script 4 s, 35 MB
+[10:06:25] done
+[10:07:07] start {"res": "../results/overhead-pilot", "reps": "p", "rates": "1000", "only": "L2-l7,I2-l7", "dry": false} cpu: ['on', '0', 'powersave']
+[10:07:07] == repp deploy l5d (l5d, pre [])
+[10:09:17]   L2-l7 r1000: 1002 rps p50 11.6 p99 19.9 ms fail 0.0000 drop 0 | app 7.63 side 5.11 host 15.58 outside 2.85 cores | 12.72 ms/req
+[10:09:21]   perf script 4 s, 37 MB
+[10:09:21] == repp deploy istio (istio, pre [])
+[10:12:14]   I2-l7 r1000: 1000 rps p50 17.5 p99 29.2 ms fail 0.0000 drop 0 | app 7.45 side 7.17 host 17.48 outside 2.86 cores | 14.62 ms/req
+[10:12:36]   perf script 22 s, 56 MB
+[10:12:36] done

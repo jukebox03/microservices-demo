@@ -1,0 +1,47 @@
+{
+ "app": {
+  "kernel": 84399518656,
+  "app_user": 108770841935,
+  "app_grpc": 74126867868
+ },
+ "sidecar": {
+  "other": 129503850026,
+  "kernel": 63696543730
+ },
+ "app_ksub": {
+  "syscall": 9258694531,
+  "epoll_futex": 8622409532,
+  "scheduler": 39364059115,
+  "kernel_other": 4198166124,
+  "net_stack": 17948685878,
+  "memory": 2844211940,
+  "netfilter": 2163291536
+ },
+ "sidecar_ksub": {
+  "net_stack": 30800609079,
+  "epoll_futex": 3098098543,
+  "syscall": 3274127946,
+  "netfilter": 8427603116,
+  "scheduler": 13234984015,
+  "memory": 2781045891,
+  "kernel_other": 2080075140
+ },
+ "unmatched_cycles": 108812082398,
+ "samples": 152237,
+ "sidecar_top": {
+  "other|[unknown]": 119488122680,
+  "other|__memmove_avx512_unaligned_erms": 6180586653,
+  "other|__memcmp_evex_movbe": 1665083055,
+  "other|__vdso_clock_gettime": 886081787,
+  "other|clock_gettime@@GLIBC_2.17": 529265214,
+  "other|__internal_syscall_cancel": 265852089,
+  "other|__exp_finite@GLIBC_2.15@plt": 129507404,
+  "other|__GI___writev": 73262205,
+  "other|recv": 72700913,
+  "other|__syscall_cancel_arch": 55415350,
+  "other|__memset_avx512_unaligned_erms": 54191859,
+  "other|epoll_wait": 44652434,
+  "other|__syscall_cancel": 30977985,
+  "other|exp@@GLIBC_2.29": 28150398
+ }
+}

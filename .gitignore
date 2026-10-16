@@ -27,3 +27,6 @@ pkg/
 release/wi-kubernetes-manifests.yaml
 vendor/
 gha-creds-*.json
+
+# mesh-bench raw perf samples (~6 GB): kept on the measuring host only
+mesh-bench/results/**/perf.txt.gz

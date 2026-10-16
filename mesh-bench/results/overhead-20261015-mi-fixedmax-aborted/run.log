@@ -1,0 +1,5 @@
+[14:01:50] start MeshInsight-style {"start": {"nosidecar": 4500, "l5d": 2000, "istio": 2000}, "step": 1.1, "fracs": [0.25, 0.5, 0.75, 1.0]} cpu: ['on', '1', 'performance']
+[14:01:50] == deploy nosidecar (nosidecar, pre [])
+[14:03:04]   N0-nosidecar latency1: 110 req/s  avg 8.96 p50 10.15 p90 12.04 p99 18.12 ms  fail 0.0000
+[14:03:31]   N0-nosidecar r1500: 1494 rps p50 6.9 p99 12.7 ms fail 0.0000 drop 0 | app 15.35 side 0.00 host 19.17 outside 3.83 cores | 10.27 ms/req
+[14:03:35]   perf script 4 s, 17 MB

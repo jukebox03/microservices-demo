@@ -1,0 +1,15 @@
+{
+ "cfg": "N0-nosidecar",
+ "rate": 1000,
+ "rps": 998.7,
+ "p50_ms": 5.168133,
+ "p99_ms": 9.368501400000008,
+ "fail_rate": 0,
+ "dropped": 0,
+ "app_cores": 8.426882682859414,
+ "sidecar_cores": 0.0,
+ "host_busy": 10.892300678333658,
+ "outside": 2.465417995474244,
+ "outside_before": 0.6671126104790752,
+ "ms_per_req": 8.437851890316825
+}

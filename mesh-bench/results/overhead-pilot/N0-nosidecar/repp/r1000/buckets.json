@@ -1,0 +1,21 @@
+{
+ "app": {
+  "app_user": 115264660823,
+  "app_grpc": 74918967370,
+  "kernel": 100538120982
+ },
+ "sidecar": {},
+ "app_ksub": {
+  "net_stack": 27342935801,
+  "scheduler": 39778079095,
+  "epoll_futex": 10783011617,
+  "syscall": 9643691435,
+  "kernel_other": 4390222397,
+  "netfilter": 5675921034,
+  "memory": 2924259603
+ },
+ "sidecar_ksub": {},
+ "unmatched_cycles": 106456113485,
+ "samples": 143125,
+ "sidecar_top": {}
+}

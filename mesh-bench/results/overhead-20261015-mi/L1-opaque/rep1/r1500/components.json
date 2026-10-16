@@ -1,0 +1,32 @@
+{
+ "other": {
+  "tokio": 0.5705559628080829,
+  "tracing->runtime": 0.23637064834951357,
+  "": 0.15002151563607768,
+  "linkerd_duplex": 0.05380999132593522
+ },
+ "kernel": {
+  "kernel": 3.4592847924081
+ },
+ "l7_policy": {
+  "linkerd_app_inbound::policy": 0.024299183277568304,
+  "linkerd_http_classify": 0.00034493802608308245
+ },
+ "mtls": {
+  "rustls": 0.16487147634745775,
+  "tokio_rustls": 0.05804157854969436,
+  "aws_lc_0_43_0_EVP_AEAD_CTX_open": 0.04097722693798267,
+  "aws_lc_0_43_0_EVP_AEAD_CTX_seal": 0.03817318112741853,
+  "aws_lc_0_43_0_aes_gcm_decrypt_avx512": 0.02883239992962544,
+  "aws_lc_0_43_0_aes_gcm_encrypt_avx512": 0.023277073022824207,
+  "aws_lc_0_43_0_CRYPTO_gcm128_setiv": 0.01638278933111338,
+  "aws_lc_0_43_0_gcm_gmult_avx512": 0.013884450719355061,
+  "aws_lc_rs": 0.01131262098221917,
+  "aws_lc_0_43_0_CRYPTO_memcmp": 0.005748371763078513,
+  "aws_lc_0_43_0_CRYPTO_gcm128_encrypt_ctr32": 0.002534533203722375,
+  "aws_lc_0_43_0_CRYPTO_gcm128_decrypt_ctr32": 0.0010099569541413653
+ },
+ "telemetry": {
+  "linkerd_io": 0.13322072298276963
+ }
+}
