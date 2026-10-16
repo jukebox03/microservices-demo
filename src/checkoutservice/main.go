@@ -171,7 +171,7 @@ func initTracing() {
 	}
 	tp := sdktrace.NewTracerProvider(
 		sdktrace.WithBatcher(exporter),
-		sdktrace.WithSampler(sdktrace.AlwaysSample()))
+		sdktrace.WithSampler(traceSampler()))
 	otel.SetTracerProvider(tp)
 
 }
