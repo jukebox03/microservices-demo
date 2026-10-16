@@ -1,0 +1,43 @@
+# DPU linkerd2-proxy for Online Boutique over DPUMesh on jet2's DPU (mesh-bench/dpumesh, overhead run).
+# jet2's DPU is shared: PF0 (03:00.0) carries the k8s rig's dpumesh-runtime pod, so this proxy
+# uses PF1 (DPU 03:00.1, host 0b:00.1).
+# Lives in <DPUMesh checkout on the DPU>/ob-bench; the proxy is that
+# checkout's linkerd2-proxy, already built (bench/grpc/dpu/build.sh).
+B=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+P=$(cd "$B/../linkerd2-proxy" && pwd)
+export LINKERD2_PROXY_ROOT=$P
+export LINKERD2_PROXY_LOG=${LINKERD2_PROXY_LOG:-warn}
+source "$P/scripts/dev-proxy-env.sh" >/dev/null
+export MOCK_IDENTITY_ADDR=127.0.0.1:17088 MOCK_POLICY_ADDR=127.0.0.1:17087 MOCK_DESTINATION_ADDR=127.0.0.1:17089
+# Every flow goes to its original destination. L7 (HTTP/2 terminated, as a
+# Linkerd sidecar does) unless OB_L7=0.
+export MOCK_POLICY_ECHO_TARGET=1
+[ "${OB_L7:-1}" = 1 ] || export MOCK_OUTBOUND_OPAQUE=1
+export LINKERD2_PROXY_IDENTITY_SVC_ADDR=127.0.0.1:17088 LINKERD2_PROXY_DESTINATION_SVC_ADDR=127.0.0.1:17089 LINKERD2_PROXY_POLICY_SVC_ADDR=127.0.0.1:17087
+export LINKERD2_PROXY_POLICY_WORKLOAD=boutique-e2e
+export LINKERD2_PROXY_OUTBOUND_LISTEN_ADDR=127.0.0.1:17140 LINKERD2_PROXY_INBOUND_LISTEN_ADDR=127.0.0.1:17143
+export LINKERD2_PROXY_ADMIN_LISTEN_ADDR=127.0.0.1:17191 LINKERD2_PROXY_CONTROL_LISTEN_ADDR=127.0.0.1:17190
+export LINKERD2_PROXY_INBOUND_DEFAULT_POLICY=all-unauthenticated
+export LINKERD2_PROXY_DOCA_DEV_PCI_ADDR=${DPU_PCI:-03:00.1} LINKERD2_PROXY_DOCA_REP_PCI_ADDR=${REP_PCI:-0b:00.1}
+export LINKERD2_PROXY_DOCA_SERVER_NAME=DPUMesh0
+# W shared-nothing workers (Comch servers DPUMesh0..DPUMesh<W-1>), each a
+# pinned current_thread runtime; the main runtime gets one core.
+export DMESH_NUM_WORKERS=${W:-10} DMESH_SHARDED=1 LINKERD2_PROXY_CORES=1 DMESH_BUSY_POLL=${DMESH_BUSY_POLL:-1}
+# jet2's DPU: the PF0 runtime has 64 DPA threads, all idle (dpa-statistics:
+# 0 executions on 2026-10-15), so the pools may use every EU from 0 as on jet1.
+export DPUMESH_DPA_EU_BASE=${DPUMESH_DPA_EU_BASE:-0}
+# DPA EUs per worker. Every DPUMesh stream holds a thread of its worker's DPA
+# pool and runs on that thread's EU; DPA threads are not preempted, so two busy
+# streams on one EU starve each other. The device takes DPA threads only below
+# EU 190. Pool k belongs to worker k (Comch server DPUMesh<k>; DPUMesh
+# feature/grpc-perf 34749be) and keeps its threads inside its range. With
+# W=14 (layout14.txt) the ranges are each worker's peak thread count, measured
+# with ../eu_check.py, plus 3 spare; for another W the pools are STRIDE apart.
+# k8sob/run.sh checks every DPUMesh run for shared EUs.
+export DPUMESH_DPA_EU_END=${DPUMESH_DPA_EU_END:-190}
+export DPUMESH_DPA_EU_STRIDE=${DPUMESH_DPA_EU_STRIDE:-$(( (DPUMESH_DPA_EU_END - DPUMESH_DPA_EU_BASE) / DMESH_NUM_WORKERS ))}
+[ "$DMESH_NUM_WORKERS" = 14 ] && export DPUMESH_DPA_EU_OFFSETS=${DPUMESH_DPA_EU_OFFSETS:-0,12,25,38,51,66,81,98,115,131,148,159,166,171}
+export LINKERD2_PROXY_DESTINATION_PROFILE_NETWORKS=127.0.0.0/8,10.99.0.0/16
+unset DMESH_NO_TEARDOWN
+R=$B/run
+mkdir -p "$R"

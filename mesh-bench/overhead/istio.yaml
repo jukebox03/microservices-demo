@@ -1,0 +1,15 @@
+# Istio 1.31.1 for the overhead ladder: minimal profile, istiod on jet1 (off the
+# measured node), an OpenTelemetry provider for the Telemetry step.
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  profile: minimal
+  meshConfig:
+    extensionProviders:
+    - name: otel
+      opentelemetry: {service: otel-collector.otel.svc.cluster.local, port: 4317}
+  components:
+    pilot:
+      k8s:
+        nodeSelector: {kubernetes.io/hostname: jet1}
+        tolerations: [{key: dpumesh.io/bench, operator: Exists, effect: NoSchedule}]

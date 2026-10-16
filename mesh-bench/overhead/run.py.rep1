@@ -1,0 +1,325 @@
+#!/usr/bin/env python3
+"""run.py [--reps 1,2,3] [--only cfg,cfg] [--rates 1000,2000] RESULTS_DIR
+
+Sidecar CPU-overhead ladder for Online Boutique on jet2 (all of its cores), k6
+on jet1. Per configuration and offered load (HTTP requests/s), one k6 run:
+
+    0 ........ 15 s warm (k6 'warm', not reported)
+    15 ....... 45 s measured window (k6 'main'): cgroup CPU snapshots at 16 and 44 s
+    45 ....... 70 s same load (k6 'prof'): perf record 46-56 s, bpftrace 57-67 s
+
+Deployments that need fresh pods are deployed once per rep; policy steps are
+applied on top of a running deployment (Linkerd: L2 -> L3 -> L4, Istio: I2 ->
+I3 -> I4), each followed by a settle period under light load. Run as jukebox;
+it uses the scratchpad sudo/ssh helpers named by $HELPERS."""
+import argparse, glob, json, os, re, subprocess, sys, time
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+HELPERS = os.environ['HELPERS']           # dir with j1 (ssh jet1) and sudo2 (sudo on jet2)
+J1, SUDO = f'{HELPERS}/j1', f'{HELPERS}/sudo2'
+NS = 'boutique'
+K6 = '/home/jukebox/k6bin'
+FRONTENDS = [f'http://10.99.0.{100 + i}' for i in range(1, 7)]
+WARM_S, MEASURE_S, PROF_S = 15, 30, 25
+A0, A1, B0, B_S, C0, C_S = 16, 44, 46, 10, 57, 10
+CG = '/sys/fs/cgroup'
+L5D_ANN = {'retry.linkerd.io/http': '5xx', 'retry.linkerd.io/grpc': 'unavailable',
+           'retry.linkerd.io/limit': '2', 'timeout.linkerd.io/request': '10s'}
+
+# (deployment, mk.py group, steps applied before warmup, [(config, steps applied in place)])
+PLAN = [
+    ('nosidecar', 'nosidecar', [], [('N0-nosidecar', [])]),
+    ('l5d-opaque', 'l5d-opaque', [], [('L1-opaque', [])]),
+    ('l5d', 'l5d', [], [('L2-l7', []), ('L3-authz', ['l5d-authz']), ('L4-traffic', ['l5d-traffic'])]),
+    ('l5d-trace', 'l5d-trace', ['l5d-authz', 'l5d-traffic'], [('L5-telemetry', [])]),
+    ('istio-l4', 'istio-l4', [], [('I1-l4', [])]),
+    ('istio-notls', 'istio', ['istio-notls'], [('I2n-l7-notls', [])]),
+    ('istio', 'istio', [], [('I2-l7', []), ('I3-authz', ['istio-authz']), ('I4-traffic', ['istio-traffic'])]),
+    ('istio-trace', 'istio-trace', ['istio-authz', 'istio-traffic', 'istio-telemetry'], [('I5-telemetry', [])]),
+    ('nosidecar-trace', 'nosidecar-trace', [], [('N0t-nosidecar-trace', [])]),
+]
+
+LOG = None
+
+
+def log(*a):
+    line = time.strftime('[%H:%M:%S] ') + ' '.join(str(x) for x in a)
+    print(line, flush=True)
+    if LOG:
+        with open(LOG, 'a') as f:
+            f.write(line + '\n')
+
+
+def sh(cmd, check=True, **kw):
+    r = subprocess.run(cmd, shell=isinstance(cmd, str), capture_output=True, text=True, **kw)
+    if check and r.returncode:
+        raise RuntimeError(f'{cmd!r} -> {r.returncode}: {r.stderr[-2000:]}')
+    return r.stdout
+
+
+def j1(cmd, check=True):
+    return sh([J1, cmd], check=check)
+
+
+def kubectl(*a, inp=None, check=True):
+    return sh(['kubectl', *a], input=inp, check=check)
+
+
+# ---------------------------------------------------------------- deployment
+
+def deploy(group, mesh):
+    kubectl('delete', 'ns', NS, '--ignore-not-found', '--wait=true', '--timeout=180s', check=False)
+    kubectl('create', 'ns', NS)
+    if mesh == 'istio':
+        kubectl('label', 'ns', NS, 'istio-injection=enabled')
+    kubectl('apply', '-f', '-', inp=sh([sys.executable, f'{HERE}/mk.py', group]))
+    kubectl('-n', NS, 'wait', '--for=condition=Ready', 'pod', '--all', '--timeout=420s')
+    pods = json.loads(kubectl('-n', NS, 'get', 'pods', '-o', 'json'))['items']
+    assert len(pods) == 24, f'{len(pods)} pods'
+    want = {'l5d': 'linkerd-proxy', 'istio': 'istio-proxy'}.get(mesh)
+    for p in pods:
+        names = [c['name'] for c in p['spec'].get('initContainers', []) + p['spec']['containers']]
+        if want:
+            assert want in names, f"{p['metadata']['name']} has no {want}: {names}"
+        else:
+            assert not {'linkerd-proxy', 'istio-proxy'} & set(names), names
+
+
+def apply_steps(group, steps):
+    for s in steps:
+        kubectl('apply', '-f', '-', inp=sh([sys.executable, f'{HERE}/mk.py', group, s]))
+        if s == 'l5d-traffic':
+            for svc in json.loads(kubectl('-n', NS, 'get', 'svc', '-o', 'json'))['items']:
+                n = svc['metadata']['name']
+                if not n.startswith(('frontend', 'redis')):
+                    kubectl('-n', NS, 'annotate', '--overwrite', 'svc', n, *[f'{k}={v}' for k, v in L5D_ANN.items()])
+
+
+def smoke():
+    bad = []
+    for fe in FRONTENDS:
+        for path in ('/', '/product/OLJCESPC7Z', '/cart'):
+            code = sh(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', '--max-time', '20', fe + path], check=False)
+            if code not in ('200', '302'):
+                bad.append((fe + path, code))
+    return bad
+
+
+def containers():
+    """container id -> (pod, container, role, cgroup dir), roles app|sidecar|redis."""
+    ids = {}
+    for root, dirs, _ in os.walk(f'{CG}/kubepods.slice'):
+        for d in dirs:
+            m = re.match(r'cri-containerd-([0-9a-f]+)\.scope$', d)
+            if m:
+                ids[m.group(1)] = os.path.join(root, d)
+    out = {}
+    for p in json.loads(kubectl('-n', NS, 'get', 'pods', '-o', 'json'))['items']:
+        pod = p['metadata']['name']
+        for st in p['status'].get('initContainerStatuses', []) + p['status'].get('containerStatuses', []):
+            cid = (st.get('containerID') or '').split('://')[-1]
+            if cid in ids and st.get('state', {}).get('running'):
+                name = st['name']
+                role = 'sidecar' if name in ('linkerd-proxy', 'istio-proxy') else ('redis' if pod == 'redis-cart' else 'app')
+                out[cid] = {'pod': pod, 'container': name, 'role': role, 'cgroup': ids[cid],
+                            'cgid': os.stat(ids[cid]).st_ino}
+    return out
+
+
+# ---------------------------------------------------------------- measurement
+
+def cpustat(path):
+    d = {}
+    try:
+        for l in open(f'{path}/cpu.stat'):
+            k, v = l.split()
+            d[k] = int(v)
+    except FileNotFoundError:
+        pass
+    return d
+
+
+def snap(ctrs):
+    stat = open('/proc/stat').read().split('\n')
+    cpu = [int(x) for x in stat[0].split()[1:9]]  # user nice system idle iowait irq softirq steal (USER_HZ)
+    sirq = {l.split(':')[0].strip(): sum(int(x) for x in l.split(':')[1].split()) for l in open('/proc/softirqs').readlines()[1:]}
+    def pk(pat):
+        return sum(int(open(f).read()) for f in glob.glob(pat))
+    return {'t': time.time(), 'ncpu': os.cpu_count(), 'online': open('/sys/devices/system/cpu/online').read().strip(),
+            'cpu': cpu, 'softirqs': sirq,
+            'veth_pkts': pk('/sys/class/net/veth*/statistics/[rt]x_packets'),
+            'lo_pkts': pk('/sys/class/net/lo/statistics/[rt]x_packets'),
+            'cg': {k: cpustat(v['cgroup']) for k, v in ctrs.items()},
+            'kubepods': cpustat(f'{CG}/kubepods.slice'), 'system': cpustat(f'{CG}/system.slice'),
+            'containerd': cpustat(f'{CG}/system.slice/containerd.service'),
+            'kubelet': cpustat(f'{CG}/system.slice/kubelet.service'), 'user': cpustat(f'{CG}/user.slice')}
+
+
+def busy_cores(a, b):
+    """Host busy cores and the cores outside the boutique pods, between two snaps."""
+    dt = b['t'] - a['t']
+    idle = (b['cpu'][3] + b['cpu'][4] - a['cpu'][3] - a['cpu'][4]) / 100 / dt
+    n = cpus_online(b['online'])
+    host = n - idle
+    pods = sum(b['cg'][k].get('usage_usec', 0) - a['cg'].get(k, {}).get('usage_usec', 0) for k in b['cg']) / 1e6 / dt
+    return host, host - pods
+
+
+def cpus_online(s):
+    n = 0
+    for part in s.split(','):
+        lo, _, hi = part.partition('-')
+        n += int(hi or lo) - int(lo) + 1
+    return n
+
+
+def others_running():
+    """Another user's experiment on jet2 (jihoon's sweep fixtures)."""
+    r = sh("pgrep -u jihoon -fa 'fixture|control.py|closed.py|idle.py|sweep' || true", check=False)
+    return r.strip()
+
+
+def wait_quiet(ctrs, limit=1.0):
+    for i in range(60):
+        o = others_running()
+        if o:
+            log('  WAIT another user is running:', o.splitlines()[0][:120]); time.sleep(30); continue
+        a = snap(ctrs); time.sleep(5); b = snap(ctrs)
+        host, outside = busy_cores(a, b)
+        if outside < limit:
+            return outside
+        log(f'  WAIT host busy outside the pods {outside:.2f} cores'); time.sleep(10)
+    raise RuntimeError('host never quiet')
+
+
+def k6_start(tag, rate, warm, measure, prof):
+    ts = time.time()
+    # only k6 goes to the background, with its own fds, so ssh returns at once
+    j1(f"cd {K6}; rm -f out-{tag}.json; GOMAXPROCS=12 nohup taskset -c 4-15 ./k6 run -q --no-color "
+       f"-e TARGET={','.join(FRONTENDS)} -e RATE={rate} -e WARM_S={warm} -e MEASURE_S={measure} -e PROF_S={prof} "
+       f"-e OUT={K6}/out-{tag}.json boutique.js > k6-{tag}.log 2>&1 < /dev/null & echo $! > {K6}/pid-{tag}")
+    return ts
+
+
+def k6_wait(tag, timeout=200):
+    t = time.time()
+    while time.time() - t < timeout:
+        out = j1(f"kill -0 $(cat {K6}/pid-{tag}) 2>/dev/null && echo running || cat {K6}/out-{tag}.json 2>/dev/null || echo missing", check=False)
+        if not out.startswith('running'):
+            if out.startswith('missing'):
+                raise RuntimeError(f'k6 {tag}: no summary; log: ' + j1(f'tail -5 {K6}/k6-{tag}.log', check=False))
+            return json.loads(out)
+        time.sleep(3)
+    raise RuntimeError(f'k6 {tag} did not finish')
+
+
+def light_load(seconds, rate=250):
+    tag = f'light-{int(time.time())}'
+    k6_start(tag, rate, 1, seconds, 0)
+    return k6_wait(tag, timeout=seconds + 120)
+
+
+BPF = r'''
+tracepoint:raw_syscalls:sys_enter { @sys[cgroup] = count(); }
+tracepoint:sched:sched_switch { @sw[cgroup, args->prev_state == 0 ? 1 : 0] = count(); }
+tracepoint:irq:softirq_entry { @sirq[args->vec] = count(); }
+interval:s:%d { exit(); }
+'''
+
+
+def measure(cfg, rate, d, ctrs):
+    os.makedirs(d, exist_ok=True)
+    outside0 = wait_quiet(ctrs)
+    tag = f'{cfg}-{rate}-{int(time.time())}'
+    t0 = k6_start(tag, rate, WARM_S, MEASURE_S, PROF_S)
+    until = lambda s: time.sleep(max(0, t0 + s - time.time()))
+    if time.time() - t0 > 5:
+        raise RuntimeError(f'k6 start took {time.time() - t0:.0f} s')
+    until(A0); a = snap(ctrs)
+    until(A1); b = snap(ctrs)
+    until(B0)
+    sh([SUDO, 'perf', 'record', '-q', '-a', '-e', 'cycles', '-F', '499', '--call-graph', 'lbr', '--all-cgroups',
+        '-o', f'{d}/perf.data', '--', 'sleep', str(B_S)])
+    until(C0)
+    bpf = sh([SUDO, 'bpftrace', '-f', 'json', '-e', BPF % C_S], check=False)
+    res = k6_wait(tag)
+    json.dump(res, open(f'{d}/k6.json', 'w'), indent=1)
+    json.dump({'a': a, 'b': b}, open(f'{d}/snap.json', 'w'))
+    open(f'{d}/bpf.json', 'w').write(bpf)
+    host, outside = busy_cores(a, b)
+    dt = b['t'] - a['t']
+    side = sum(b['cg'][k].get('usage_usec', 0) - a['cg'][k].get('usage_usec', 0) for k, v in ctrs.items() if v['role'] == 'sidecar') / 1e6 / dt
+    app = sum(b['cg'][k].get('usage_usec', 0) - a['cg'][k].get('usage_usec', 0) for k, v in ctrs.items() if v['role'] != 'sidecar') / 1e6 / dt
+    rps = res['reqs']['count'] / MEASURE_S if res.get('reqs') else 0   # k6's rate divides by the whole run
+    p99 = res['dur']['p(99)'] if res.get('dur') else None
+    fail = res['failed']['rate'] if res.get('failed') else None
+    drop = (res.get('dropped') or {}).get('count', 0)
+    summ = {'cfg': cfg, 'rate': rate, 'rps': rps, 'p50_ms': res['dur']['p(50)'], 'p99_ms': p99, 'fail_rate': fail,
+            'dropped': drop, 'app_cores': app, 'sidecar_cores': side, 'host_busy': host, 'outside': outside,
+            'outside_before': outside0, 'ms_per_req': (app + side) * 1000 / rps if rps else None}
+    json.dump(summ, open(f'{d}/summary.json', 'w'), indent=1)
+    log(f'  {cfg} r{rate}: {rps:.0f} rps p50 {res["dur"]["p(50)"]:.1f} p99 {p99:.1f} ms fail {fail:.4f} drop {drop} | '
+        f'app {app:.2f} side {side:.2f} host {host:.2f} outside {outside:.2f} cores | {summ["ms_per_req"]:.2f} ms/req')
+    # symbolize while the containers (and their binaries) are still there
+    t = time.time()
+    sh(f"{SUDO} nice -n 10 perf script -i {d}/perf.data --no-inline -F comm,pid,tid,cpu,time,period,ip,sym,dso,cgroup "
+       f"2>/dev/null | gzip -1 > {d}/perf.txt.gz && {SUDO} rm -f {d}/perf.data", check=False)
+    log(f'  perf script {time.time() - t:.0f} s, {os.path.getsize(d + "/perf.txt.gz") >> 20} MB')
+    return summ
+
+
+def main():
+    global LOG
+    ap = argparse.ArgumentParser()
+    ap.add_argument('res')
+    ap.add_argument('--reps', default='1,2,3')
+    ap.add_argument('--rates', default='1000,2000')
+    ap.add_argument('--only', default='')
+    ap.add_argument('--dry', action='store_true')
+    a = ap.parse_args()
+    os.makedirs(a.res, exist_ok=True)
+    LOG = f'{a.res}/run.log'
+    rates = [int(x) for x in a.rates.split(',')]
+    only = set(a.only.split(',')) - {''}
+    log('start', json.dumps(vars(a)), 'cpu:', sh('cat /sys/devices/system/cpu/smt/control /sys/devices/system/cpu/intel_pstate/no_turbo '
+        '/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor').split())
+    for rep in a.reps.split(','):
+        for dep, group, pre, cfgs in PLAN:
+            cfgs = [c for c in cfgs if not only or c[0] in only]
+            if not cfgs:
+                continue
+            mesh = 'l5d' if group.startswith('l5d') else ('istio' if group.startswith('istio') else None)
+            try:
+                log(f'== rep{rep} deploy {dep} ({group}, pre {pre})')
+                deploy(group, mesh)
+                apply_steps(group, pre)
+                if pre:
+                    time.sleep(15)
+                bad = smoke()
+                if bad:
+                    raise RuntimeError(f'smoke failed: {bad[:4]}')
+                ctrs = containers()
+                assert len(ctrs) == (48 if mesh else 24), f'{len(ctrs)} containers'
+                light_load(40)                       # warm the runtimes and connections
+                for cfg, steps in cfgs:
+                    if steps:
+                        apply_steps(group, steps)
+                        light_load(50 if mesh == 'istio' else 25)   # settle: drained listeners, policy watches
+                        bad = smoke()
+                        if bad:
+                            raise RuntimeError(f'smoke failed after {steps}: {bad[:4]}')
+                    meta = {'cfg': cfg, 'deployment': dep, 'group': group, 'pre': pre, 'steps': steps, 'rep': rep,
+                            'containers': ctrs, 'mesh': mesh}
+                    for rate in rates:
+                        d = f'{a.res}/{cfg}/rep{rep}/r{rate}'
+                        os.makedirs(d, exist_ok=True)
+                        json.dump(meta, open(f'{d}/meta.json', 'w'), indent=1)
+                        measure(cfg, rate, d, ctrs)
+            except Exception as e:
+                log(f'!! rep{rep} {dep}: {e}')
+    kubectl('delete', 'ns', NS, '--ignore-not-found', '--wait=false', check=False)
+    log('done')
+
+
+if __name__ == '__main__':
+    main()

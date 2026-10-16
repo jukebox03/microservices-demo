@@ -1,0 +1,55 @@
+# OTLP trace sink for the -trace configurations: on jet1 (the load node), meshed by
+# Linkerd so Linkerd proxies can export to it over mTLS; Istio sidecars and the
+# apps reach it in plaintext. Spans are counted and dropped (debug exporter, basic).
+apiVersion: v1
+kind: Namespace
+metadata: {name: otel, annotations: {linkerd.io/inject: enabled}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: otel-collector, namespace: otel}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: otel-collector, namespace: otel}
+data:
+  config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc: {endpoint: 0.0.0.0:4317}
+    processors:
+      batch: {}
+    exporters:
+      debug: {verbosity: basic}
+    service:
+      pipelines:
+        traces: {receivers: [otlp], processors: [batch], exporters: [debug]}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: otel-collector, namespace: otel}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: otel-collector}}
+  template:
+    metadata: {labels: {app: otel-collector}}
+    spec:
+      serviceAccountName: otel-collector
+      nodeSelector: {kubernetes.io/hostname: jet1}
+      tolerations: [{key: dpumesh.io/bench, operator: Exists, effect: NoSchedule}]
+      containers:
+      - name: collector
+        image: docker.io/otel/opentelemetry-collector:0.120.0
+        args: [--config=/conf/config.yaml]
+        ports: [{containerPort: 4317, name: grpc-otlp}]
+        volumeMounts: [{name: conf, mountPath: /conf}]
+      volumes: [{name: conf, configMap: {name: otel-collector}}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: otel-collector, namespace: otel}
+spec:
+  clusterIP: 10.99.0.240
+  selector: {app: otel-collector}
+  ports: [{name: grpc-otlp, port: 4317, targetPort: 4317}]
