@@ -35,7 +35,22 @@ case "$1" in
             # re-pin, so pinning needs root (SUDO_PW from the caller).
             echo "${SUDO_PW:-}" | sudo -S -p '' taskset -pc "$cpu" "$tid" >/dev/null
         done
-        echo "proxy $pid: $(grep -l '^dmesh-shard' /proc/$pid/task/*/comm | wc -l) shards pinned from CPU $SHARD_BASE" ;;
+        # Return once every worker serves. Since DPUMesh 80363ab the workers
+        # share one DPA context and create their DPA thread pools (then their
+        # DMESH_DPA_MUX threads) one after another, about 30 s for 14 workers;
+        # a host process that connects before its HELLO is served gives up
+        # after 5 s. A worker serves right after its pool and mux threads.
+        t0=$(date +%s)
+        for _ in $(seq 1 600); do
+            pools=$(grep -c 'Created DPA thread pool' "$R/proxy-$2.log")
+            muxes=$(grep -c 'DPA mux: .* threads on worker' "$R/proxy-$2.log")
+            [ "$pools" -ge "$DMESH_NUM_WORKERS" ] &&
+                { [ "${DMESH_DPA_MUX:-0}" = 0 ] || [ "$muxes" -ge "$DMESH_NUM_WORKERS" ]; } && break
+            sleep 0.2
+        done
+        sleep 1
+        echo "proxy $pid: $(grep -l '^dmesh-shard' /proc/$pid/task/*/comm | wc -l) shards pinned from CPU $SHARD_BASE," \
+             "$pools DPA pools and $muxes mux workers ready after $(( $(date +%s) - t0 )) s" ;;
     stop)
         echo "${SUDO_PW:-}" | sudo -S -p '' -v 2>/dev/null
         if pgrep -x linkerd2-proxy >/dev/null; then

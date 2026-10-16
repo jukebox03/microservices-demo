@@ -8,6 +8,8 @@
 #   MODE=tcp|dpumesh MANIFEST=<yaml> N_FE=<frontends> EXPECT_PODS=<n>
 #   MESH=linkerd|istio (tcp only), DPU_ENV=<extra env for the DPU proxy>
 #   W=<DPU workers> K6_HOST=<ssh host running k6; unset: local, CPUs 12-15>
+#   DPU_DIR=<DPUMesh checkout on the DPU holding ob-bench/; default DPUMesh-online-boutique>
+#   KEEP_MESHES=1: leave an installed Linkerd/Istio alone (no MESH runs then)
 #   SUDO_PW=... RES=... RATES="..." REPS=1 CFG=<name> ./run.sh
 set -uo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
@@ -19,6 +21,7 @@ CFG=${CFG:-dpumesh}
 RES=${RES:-$HERE/../results}
 QUIET_MAX=${QUIET_MAX:-0.5}
 DPU=192.168.100.2
+DPU_DIR=${DPU_DIR:-DPUMesh-online-boutique}
 mkdir -p "$RES"
 log() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$RES/run.log"; }
 
@@ -106,15 +109,21 @@ smoke() {
 
 setup() {  # tag
     kubectl delete ns boutique --ignore-not-found --wait=true >/dev/null 2>&1
-    ssh $DPU "cd DPUMesh-online-boutique/ob-bench && SUDO_PW=$SUDO_PW ./start.sh stop >/dev/null" >/dev/null
-    [ "${MODE:-dpumesh}" = tcp ] || ssh $DPU "cd DPUMesh-online-boutique/ob-bench && ./start.sh mocks; sleep 1; \
-        ${DPU_ENV:-} DMESH_BUSY_POLL=${DMESH_BUSY_POLL:-0} SUDO_PW=$SUDO_PW W=${W:-10} ./start.sh proxy $1" >/dev/null
+    ssh $DPU "cd $DPU_DIR/ob-bench && SUDO_PW=$SUDO_PW ./start.sh stop >/dev/null" >/dev/null
+    if [ "${MODE:-dpumesh}" != tcp ]; then
+        local started
+        started=$(ssh $DPU "cd $DPU_DIR/ob-bench && ./start.sh mocks; sleep 1; \
+            ${DPU_ENV:-} DMESH_BUSY_POLL=${DMESH_BUSY_POLL:-0} SUDO_PW=$SUDO_PW W=${W:-10} ./start.sh proxy $1" | tail -1)
+        log "  $started"
+    fi
     # MESH=linkerd|istio: a fresh mesh install, sidecars injected into the tcp pods.
-    if kubectl get ns linkerd >/dev/null 2>&1; then
+    if [ "${KEEP_MESHES:-0}" = 1 ]; then
+        [ -z "${MESH:-}" ] || { log "KEEP_MESHES=1 cannot install MESH=$MESH"; return 1; }
+    elif kubectl get ns linkerd >/dev/null 2>&1; then
         linkerd uninstall 2>/dev/null | kubectl delete --ignore-not-found -f - >/dev/null 2>&1
         kubectl delete ns linkerd --ignore-not-found --wait=true >/dev/null 2>&1
     fi
-    if kubectl get ns istio-system >/dev/null 2>&1; then
+    if [ "${KEEP_MESHES:-0}" != 1 ] && kubectl get ns istio-system >/dev/null 2>&1; then
         istioctl uninstall --purge -y >/dev/null 2>&1; kubectl delete ns istio-system --ignore-not-found --wait=true >/dev/null 2>&1
     fi
     case ${MESH:-} in
@@ -160,7 +169,7 @@ setup() {  # tag
     return 1
 }
 
-log "start: cfg=$CFG mode=${MODE:-dpumesh} reps=[$REPS] rates=[$RATES] W=${W:-10} busy_poll=${DMESH_BUSY_POLL:-0}"
+log "start: cfg=$CFG mode=${MODE:-dpumesh} reps=[$REPS] rates=[$RATES] W=${W:-10} busy_poll=${DMESH_BUSY_POLL:-0}${DPU_ENV:+ dpu_env=[$DPU_ENV]}${MANIFEST:+ manifest=$MANIFEST} dpu_dir=$DPU_DIR"
 for rep in $REPS; do
     d="$RES/$CFG/rep$rep"; mkdir -p "$d" "$RES/$CFG"
     log "== $CFG rep$rep: setup"
@@ -195,14 +204,22 @@ EOF
         [[ $line == *SAT ]] && [ "${STOP_AT_SAT:-1}" = 1 ] && { log "  saturated, ending sweep"; break; }
         sleep 5
     done
-    # DPUMesh: keep the proxy log and check that no DPA EU was shared by two
-    # streams (a shared EU stalls requests; the run is then invalid)
+    # DPUMesh: keep the proxy log and check it. A proxy with per-worker EU
+    # ranges (DPUMesh 34749be) must not have shared a DPA EU between two
+    # streams (a shared EU stalls requests; the run is then invalid). A proxy
+    # with the flow dispatcher (DPUMesh 80363ab and later) places flows itself;
+    # flow_check.py counts them per worker and fails on DPA or mux errors.
     if [ "${MODE:-dpumesh}" = dpumesh ]; then
-        ssh $DPU "gzip -c DPUMesh-online-boutique/ob-bench/run/proxy-$CFG-rep$rep.log" > "$d/proxy.log.gz"
-        zcat "$d/proxy.log.gz" | python3 ../dpumesh/eu_check.py /dev/stdin ../dpumesh/layout14.txt > "$d/eu_check.txt"
-        log "  $CFG rep$rep DPA EU check: $(tail -1 "$d/eu_check.txt")"
+        ssh $DPU "gzip -c $DPU_DIR/ob-bench/run/proxy-$CFG-rep$rep.log" > "$d/proxy.log.gz"
+        if zcat "$d/proxy.log.gz" | grep -q 'DPA cooperative pool'; then
+            zcat "$d/proxy.log.gz" | python3 ../dpumesh/eu_check.py /dev/stdin ../dpumesh/layout14.txt > "$d/eu_check.txt"
+            log "  $CFG rep$rep DPA EU check: $(tail -1 "$d/eu_check.txt")"
+        else
+            zcat "$d/proxy.log.gz" | python3 ../dpumesh/flow_check.py /dev/stdin > "$d/flow_check.txt"
+            log "  $CFG rep$rep flow check: $(tail -1 "$d/flow_check.txt")"
+        fi
     fi
 done
 kubectl delete ns boutique --ignore-not-found --wait=true >/dev/null 2>&1
-ssh $DPU "cd DPUMesh-online-boutique/ob-bench && SUDO_PW=$SUDO_PW ./start.sh stop" >/dev/null
+ssh $DPU "cd $DPU_DIR/ob-bench && SUDO_PW=$SUDO_PW ./start.sh stop" >/dev/null
 log "done"
