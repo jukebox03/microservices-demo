@@ -1,0 +1,94 @@
+[14:03:15] start: cfg=nosidecar mode=tcp reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000 8500 9000 9500 10000] W=10 busy_poll=0 manifest=tcp-nosidecar.yaml dpu_dir=DPUMesh-ob-mux
+[14:03:15] == nosidecar rep1: setup
+[14:03:21] nosidecar rep1: warmup 60 s at 250 requests/s
+[14:04:49]   nosidecar rep1 rate=1000: rps=1010 p50=6.1 p99=11.7 max=19 fail=0.0000 dropped=0 host=10.49c (app 8.55 sidecar 0.00 pods 0.01 runtime 0.92 user 0.10 system 0.92) dpu=0.50c pkt/req=113 
+[14:05:21]   nosidecar rep1 rate=2000: rps=2010 p50=9.7 p99=21.1 max=38 fail=0.0000 dropped=0 host=13.54c (app 11.59 sidecar 0.00 pods 0.01 runtime 1.15 user 0.10 system 0.69) dpu=0.13c pkt/req=94 
+[14:05:54]   nosidecar rep1 rate=3000: rps=3000 p50=18.1 p99=40.1 max=78 fail=0.0000 dropped=0 host=14.96c (app 13.14 sidecar 0.00 pods 0.01 runtime 1.29 user 0.10 system 0.41) dpu=0.50c pkt/req=69 
+[14:06:26]   nosidecar rep1 rate=3500: rps=3496 p50=17.4 p99=42.8 max=71 fail=0.0000 dropped=0 host=15.02c (app 13.24 sidecar 0.00 pods 0.01 runtime 1.28 user 0.09 system 0.40) dpu=0.13c pkt/req=67 
+[14:06:59]   nosidecar rep1 rate=4000: rps=3993 p50=17.5 p99=46.5 max=90 fail=0.0000 dropped=0 host=15.07c (app 13.33 sidecar 0.00 pods 0.01 runtime 1.26 user 0.10 system 0.37) dpu=0.51c pkt/req=64 
+[14:07:31]   nosidecar rep1 rate=4500: rps=4493 p50=19.0 p99=44.4 max=90 fail=0.0000 dropped=0 host=15.23c (app 13.47 sidecar 0.00 pods 0.01 runtime 1.23 user 0.10 system 0.44) dpu=0.13c pkt/req=61 
+[14:08:04]   nosidecar rep1 rate=5000: rps=4996 p50=27.6 p99=64.0 max=118 fail=0.0000 dropped=0 host=15.51c (app 13.87 sidecar 0.00 pods 0.01 runtime 1.24 user 0.10 system 0.30) dpu=0.50c pkt/req=53 
+[14:08:37]   nosidecar rep1 rate=5500: rps=5506 p50=43.9 p99=110.8 max=215 fail=0.0000 dropped=0 host=15.65c (app 14.07 sidecar 0.00 pods 0.00 runtime 1.22 user 0.10 system 0.26) dpu=0.13c pkt/req=46 
+[14:09:10]   nosidecar rep1 rate=6000: rps=6010 p50=75.5 p99=191.0 max=339 fail=0.0000 dropped=0 host=15.76c (app 14.22 sidecar 0.00 pods 0.01 runtime 1.20 user 0.10 system 0.24) dpu=0.40c pkt/req=40 
+[14:09:42]   nosidecar rep1 rate=6500: rps=6502 p50=156.8 p99=449.7 max=809 fail=0.0000 dropped=0 host=15.82c (app 14.23 sidecar 0.00 pods 0.00 runtime 1.10 user 0.12 system 0.37) dpu=0.14c pkt/req=34 
+[14:10:16]   nosidecar rep1 rate=7000: rps=6945 p50=374.1 p99=826.7 max=1257 fail=0.0000 dropped=588 host=15.85c (app 14.33 sidecar 0.00 pods 0.01 runtime 1.06 user 0.12 system 0.34) dpu=0.22c pkt/req=28 
+[14:10:49]   nosidecar rep1 rate=7500: rps=7279 p50=460.9 p99=1017.7 max=1667 fail=0.0000 dropped=2540 host=15.87c (app 14.42 sidecar 0.00 pods 0.01 runtime 1.10 user 0.10 system 0.24) dpu=0.35c pkt/req=26 SAT
+[14:10:49]   saturated, ending sweep
+[14:11:02] done
+[14:11:02] start: cfg=dpumesh-fe10 mode=dpumesh reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000 8500 9000 9500 10000] W=14 busy_poll=0 manifest=dpumesh-mux-fe10.yaml dpu_dir=DPUMesh-ob-mux
+[14:11:02] == dpumesh-fe10 rep1: setup
+[14:11:20]   proxy 2908786: 16 shards pinned from CPU 2, 14 DPA pools and 0 mux workers ready after 15 s
+[14:11:33] dpumesh-fe10 rep1: warmup 60 s at 250 requests/s
+[14:13:01]   dpumesh-fe10 rep1 rate=1000: rps=1003 p50=14.3 p99=23.7 max=35 fail=0.0000 dropped=0 host=11.08c (app 9.16 sidecar 0.00 pods 0.01 runtime 0.66 user 0.10 system 1.14) dpu=6.29c (busiest shard 0.48) pkt/req=9 
+[14:13:34]   dpumesh-fe10 rep1 rate=2000: rps=1995 p50=17.2 p99=30.7 max=46 fail=0.0000 dropped=0 host=13.09c (app 11.27 sidecar 0.00 pods 0.00 runtime 0.90 user 0.10 system 0.82) dpu=9.10c (busiest shard 0.73) pkt/req=8 
+[14:14:22]   dpumesh-fe10 rep1 rate=3000: rps=3008 p50=23.2 p99=47.0 max=91 fail=0.0000 dropped=0 host=4.23c (app 4.58 sidecar 0.00 pods -0.01 runtime 0.41 user 0.12 system 0.26) dpu=3.64c (busiest shard 0.28) pkt/req=2 
+[14:14:54]   dpumesh-fe10 rep1 rate=3500: rps=3506 p50=29.4 p99=62.2 max=116 fail=0.0000 dropped=0 host=14.81c (app 12.71 sidecar 0.00 pods 0.02 runtime 1.10 user 0.11 system 0.47) dpu=11.16c (busiest shard 0.87) pkt/req=8 
+[14:15:27]   dpumesh-fe10 rep1 rate=4000: rps=3991 p50=39.4 p99=95.8 max=187 fail=0.0000 dropped=0 host=15.15c (app 13.35 sidecar 0.00 pods 0.01 runtime 1.17 user 0.11 system 0.51) dpu=11.69c (busiest shard 0.87) pkt/req=8 
+[14:15:59]   dpumesh-fe10 rep1 rate=4500: rps=4492 p50=62.4 p99=501.8 max=1067 fail=0.0000 dropped=0 host=15.03c (app 12.99 sidecar 0.00 pods 0.02 runtime 1.18 user 0.13 system 0.38) dpu=10.45c (busiest shard 0.81) pkt/req=8 
+[14:16:32]   dpumesh-fe10 rep1 rate=5000: rps=5002 p50=78.4 p99=503.9 max=928 fail=0.0000 dropped=0 host=15.54c (app 13.65 sidecar 0.00 pods 0.00 runtime 1.26 user 0.12 system 0.30) dpu=11.34c (busiest shard 0.85) pkt/req=7 
+[14:17:05]   dpumesh-fe10 rep1 rate=5500: rps=5343 p50=174.2 p99=1161.3 max=1616 fail=0.0000 dropped=1742 host=15.00c (app 13.03 sidecar 0.00 pods 0.02 runtime 1.18 user 0.17 system 0.31) dpu=9.36c (busiest shard 0.73) pkt/req=7 SAT
+[14:17:05]   saturated, ending sweep
+[14:17:05]   dpumesh-fe10 rep1 flow check: flows: 97 client + 79 backend opens on 14 workers (worker 2: 14, highest slot 13); DPA: one pool thread per flow, 176 assigns; errors: none
+[14:17:20] done
+[14:17:20] start: cfg=dpumesh-fe10-mux8 mode=dpumesh reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000 8500 9000 9500 10000] W=14 busy_poll=0 dpu_env=[DMESH_DPA_MUX=8] manifest=dpumesh-mux-fe10.yaml dpu_dir=DPUMesh-ob-mux
+[14:17:20] == dpumesh-fe10-mux8 rep1: setup
+[14:17:54]   proxy 2915666: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 31 s
+[14:18:05] dpumesh-fe10-mux8 rep1: warmup 60 s at 250 requests/s
+[14:19:33]   dpumesh-fe10-mux8 rep1 rate=1000: rps=998 p50=13.6 p99=25.2 max=49 fail=0.0000 dropped=0 host=10.96c (app 9.06 sidecar 0.00 pods 0.01 runtime 0.66 user 0.10 system 1.13) dpu=6.05c (busiest shard 0.45) pkt/req=9 
+[14:20:06]   dpumesh-fe10-mux8 rep1 rate=2000: rps=1997 p50=16.5 p99=32.8 max=66 fail=0.0000 dropped=0 host=12.97c (app 11.12 sidecar 0.00 pods 0.00 runtime 0.91 user 0.10 system 0.84) dpu=8.81c (busiest shard 0.67) pkt/req=8 
+[14:20:39]   dpumesh-fe10-mux8 rep1 rate=3000: rps=3000 p50=23.1 p99=59.5 max=168 fail=0.0000 dropped=0 host=14.17c (app 12.41 sidecar 0.00 pods 0.01 runtime 1.06 user 0.10 system 0.58) dpu=10.42c (busiest shard 0.77) pkt/req=8 
+[14:21:11]   dpumesh-fe10-mux8 rep1 rate=3500: rps=3492 p50=29.2 p99=64.4 max=118 fail=0.0000 dropped=0 host=14.73c (app 13.00 sidecar 0.00 pods 0.01 runtime 1.12 user 0.11 system 0.49) dpu=10.76c (busiest shard 0.80) pkt/req=8 
+[14:21:44]   dpumesh-fe10-mux8 rep1 rate=4000: rps=4005 p50=39.8 p99=95.8 max=174 fail=0.0000 dropped=0 host=15.08c (app 13.40 sidecar 0.00 pods 0.01 runtime 1.18 user 0.11 system 0.39) dpu=10.97c (busiest shard 0.81) pkt/req=8 
+[14:22:17]   dpumesh-fe10-mux8 rep1 rate=4500: rps=4510 p50=55.1 p99=132.1 max=293 fail=0.0000 dropped=0 host=15.37c (app 13.57 sidecar 0.00 pods 0.01 runtime 1.20 user 0.11 system 0.48) dpu=10.81c (busiest shard 0.80) pkt/req=8 
+[14:22:50]   dpumesh-fe10-mux8 rep1 rate=5000: rps=5007 p50=117.8 p99=348.8 max=644 fail=0.0000 dropped=0 host=15.49c (app 13.74 sidecar 0.00 pods 0.01 runtime 1.27 user 0.20 system 0.29) dpu=10.28c (busiest shard 0.76) pkt/req=7 
+[14:23:23]   dpumesh-fe10-mux8 rep1 rate=5500: rps=5498 p50=124.2 p99=341.5 max=740 fail=0.0000 dropped=0 host=15.70c (app 13.98 sidecar 0.00 pods 0.00 runtime 1.27 user 0.19 system 0.24) dpu=10.28c (busiest shard 0.76) pkt/req=7 
+[14:23:35]   host busy outside services: 0.64 cores, waiting
+[14:24:27]   dpumesh-fe10-mux8 rep1 rate=6000: rps=5983 p50=267.9 p99=682.4 max=1149 fail=0.0000 dropped=0 host=15.60c (app 13.91 sidecar 0.00 pods 0.01 runtime 1.24 user 0.18 system 0.24) dpu=9.53c (busiest shard 0.72) pkt/req=7 
+[14:25:01]   dpumesh-fe10-mux8 rep1 rate=6500: rps=6441 p50=443.1 p99=1248.3 max=2266 fail=0.0000 dropped=716 host=15.80c (app 14.05 sidecar 0.00 pods 0.01 runtime 1.23 user 0.24 system 0.27) dpu=9.29c (busiest shard 0.71) pkt/req=7 
+[14:25:34]   dpumesh-fe10-mux8 rep1 rate=7000: rps=6702 p50=579.0 p99=2075.4 max=3386 fail=0.0000 dropped=3752 host=15.85c (app 14.05 sidecar 0.00 pods 0.01 runtime 1.17 user 0.25 system 0.37) dpu=9.19c (busiest shard 0.72) pkt/req=7 SAT
+[14:25:34]   saturated, ending sweep
+[14:25:37]   dpumesh-fe10-mux8 rep1 flow check: flows: 86 client + 73 backend opens on 14 workers (worker 0: 12, highest slot 12); DPA: mux 8-8 threads/worker, 159 ring adds; errors: backend gone x1
+[14:25:52] done
+[14:25:52] start: cfg=dpumesh-fe14rr-mux8 mode=dpumesh reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000 8500 9000 9500 10000] W=14 busy_poll=0 dpu_env=[DMESH_DPA_MUX=8] manifest=dpumesh-mux-fe14rr.yaml dpu_dir=DPUMesh-ob-mux
+[14:25:52] == dpumesh-fe14rr-mux8 rep1: setup
+[14:26:25]   proxy 2925532: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 31 s
+[14:26:37] dpumesh-fe14rr-mux8 rep1: warmup 60 s at 250 requests/s
+[14:28:06]   dpumesh-fe14rr-mux8 rep1 rate=1000: rps=999 p50=14.9 p99=31.6 max=87 fail=0.0000 dropped=0 host=11.31c (app 9.47 sidecar 0.00 pods 0.01 runtime 0.64 user 0.09 system 1.08) dpu=7.66c (busiest shard 0.49) pkt/req=9 
+[14:28:38]   dpumesh-fe14rr-mux8 rep1 rate=2000: rps=2001 p50=19.8 p99=43.4 max=122 fail=0.0000 dropped=0 host=13.56c (app 11.83 sidecar 0.00 pods 0.01 runtime 0.89 user 0.12 system 0.70) dpu=10.87c (busiest shard 0.74) pkt/req=8 
+[14:29:11]   dpumesh-fe14rr-mux8 rep1 rate=3000: rps=2997 p50=32.9 p99=77.2 max=137 fail=0.0000 dropped=0 host=15.06c (app 13.51 sidecar 0.00 pods 0.01 runtime 1.07 user 0.11 system 0.36) dpu=12.69c (busiest shard 0.87) pkt/req=8 
+[14:29:44]   dpumesh-fe14rr-mux8 rep1 rate=3500: rps=3485 p50=47.3 p99=129.1 max=288 fail=0.0000 dropped=0 host=15.41c (app 13.87 sidecar 0.00 pods 0.01 runtime 1.14 user 0.11 system 0.29) dpu=13.14c (busiest shard 0.90) pkt/req=8 
+[14:30:17]   dpumesh-fe14rr-mux8 rep1 rate=4000: rps=3992 p50=131.0 p99=395.5 max=921 fail=0.0000 dropped=0 host=15.42c (app 13.77 sidecar 0.00 pods 0.00 runtime 1.17 user 0.18 system 0.27) dpu=13.02c (busiest shard 0.89) pkt/req=7 
+[14:30:50]   dpumesh-fe14rr-mux8 rep1 rate=4500: rps=4501 p50=203.2 p99=576.8 max=1189 fail=0.0000 dropped=0 host=15.61c (app 13.80 sidecar 0.00 pods 0.01 runtime 1.14 user 0.24 system 0.41) dpu=13.02c (busiest shard 0.89) pkt/req=7 
+[14:31:23]   dpumesh-fe14rr-mux8 rep1 rate=5000: rps=5001 p50=297.0 p99=1039.8 max=2028 fail=0.0000 dropped=0 host=15.77c (app 13.94 sidecar 0.00 pods 0.00 runtime 1.16 user 0.30 system 0.37) dpu=12.78c (busiest shard 0.88) pkt/req=7 
+[14:31:56]   dpumesh-fe14rr-mux8 rep1 rate=5500: rps=5240 p50=507.4 p99=2253.8 max=5116 fail=0.0000 dropped=3188 host=15.50c (app 13.79 sidecar 0.00 pods 0.01 runtime 1.19 user 0.32 system 0.21) dpu=11.73c (busiest shard 0.81) pkt/req=7 SAT
+[14:31:56]   saturated, ending sweep
+[14:31:58]   dpumesh-fe14rr-mux8 rep1 flow check: flows: 310 client + 208 backend opens on 14 workers (worker 0: 39, highest slot 39); DPA: mux 8-8 threads/worker, 518 ring adds; errors: backend gone x4
+[14:32:13] done
+[14:32:35] start: cfg=dpumesh-fe2rr-mux8 mode=dpumesh reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000 8500 9000 9500 10000] W=14 busy_poll=0 dpu_env=[DMESH_DPA_MUX=8] manifest=dpumesh-mux-fe2rr.yaml dpu_dir=DPUMesh-ob-mux
+[14:32:35] == dpumesh-fe2rr-mux8 rep1: setup
+[14:33:09]   proxy 2933088: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 31 s
+[14:33:21] dpumesh-fe2rr-mux8 rep1: warmup 60 s at 250 requests/s
+[14:34:49]   dpumesh-fe2rr-mux8 rep1 rate=1000: rps=996 p50=12.6 p99=26.7 max=40 fail=0.0000 dropped=0 host=10.52c (app 8.58 sidecar 0.00 pods 0.01 runtime 0.69 user 0.09 system 1.16) dpu=6.74c (busiest shard 0.48) pkt/req=9 
+[14:35:21]   dpumesh-fe2rr-mux8 rep1 rate=2000: rps=2003 p50=14.8 p99=30.5 max=45 fail=0.0000 dropped=0 host=12.43c (app 10.42 sidecar 0.00 pods 0.01 runtime 0.93 user 0.09 system 0.97) dpu=9.30c (busiest shard 0.73) pkt/req=8 
+[14:35:54]   dpumesh-fe2rr-mux8 rep1 rate=3000: rps=2995 p50=20.4 p99=41.5 max=70 fail=0.0000 dropped=0 host=13.48c (app 11.56 sidecar 0.00 pods 0.01 runtime 1.06 user 0.10 system 0.75) dpu=11.15c (busiest shard 0.83) pkt/req=8 
+[14:36:27]   dpumesh-fe2rr-mux8 rep1 rate=3500: rps=3499 p50=25.3 p99=49.1 max=83 fail=0.0000 dropped=0 host=13.92c (app 12.04 sidecar 0.00 pods 0.01 runtime 1.10 user 0.10 system 0.67) dpu=11.03c (busiest shard 0.85) pkt/req=8 
+[14:37:00]   dpumesh-fe2rr-mux8 rep1 rate=4000: rps=4002 p50=33.3 p99=70.6 max=172 fail=0.0000 dropped=0 host=14.40c (app 12.59 sidecar 0.00 pods 0.01 runtime 1.13 user 0.10 system 0.58) dpu=11.50c (busiest shard 0.84) pkt/req=8 
+[14:37:32]   dpumesh-fe2rr-mux8 rep1 rate=4500: rps=4502 p50=45.0 p99=89.4 max=177 fail=0.0000 dropped=0 host=14.99c (app 13.25 sidecar 0.00 pods 0.01 runtime 1.15 user 0.09 system 0.49) dpu=10.97c (busiest shard 0.83) pkt/req=8 
+[14:38:06]   dpumesh-fe2rr-mux8 rep1 rate=5000: rps=5002 p50=67.7 p99=143.7 max=210 fail=0.0000 dropped=0 host=15.26c (app 13.64 sidecar 0.00 pods 0.01 runtime 1.16 user 0.09 system 0.35) dpu=11.15c (busiest shard 0.80) pkt/req=8 
+[14:38:38]   dpumesh-fe2rr-mux8 rep1 rate=5500: rps=5496 p50=98.8 p99=226.4 max=442 fail=0.0000 dropped=0 host=15.49c (app 13.91 sidecar 0.00 pods 0.01 runtime 1.16 user 0.10 system 0.30) dpu=10.56c (busiest shard 0.78) pkt/req=7 
+[14:39:11]   dpumesh-fe2rr-mux8 rep1 rate=6000: rps=5992 p50=180.5 p99=427.8 max=682 fail=0.0000 dropped=0 host=15.58c (app 13.99 sidecar 0.00 pods -0.00 runtime 1.11 user 0.10 system 0.37) dpu=10.47c (busiest shard 0.74) pkt/req=7 
+[14:39:44]   dpumesh-fe2rr-mux8 rep1 rate=6500: rps=6510 p50=371.2 p99=772.0 max=1163 fail=0.0000 dropped=135 host=15.66c (app 14.17 sidecar 0.00 pods 0.01 runtime 1.09 user 0.11 system 0.29) dpu=9.56c (busiest shard 0.70) pkt/req=7 
+[14:40:17]   dpumesh-fe2rr-mux8 rep1 rate=7000: rps=6763 p50=499.8 p99=1044.4 max=1825 fail=0.0000 dropped=2741 host=15.73c (app 14.21 sidecar 0.00 pods -0.01 runtime 1.06 user 0.10 system 0.37) dpu=9.60c (busiest shard 0.67) pkt/req=7 SAT
+[14:40:17]   saturated, ending sweep
+[14:40:19]   dpumesh-fe2rr-mux8 rep1 flow check: flows: 53 client + 51 backend opens on 14 workers (worker 1: 8, highest slot 8); DPA: mux 8-8 threads/worker, 104 ring adds; errors: none
+[14:40:33] done
+[14:40:33] start: cfg=dpumesh-fe4rr-mux8 mode=dpumesh reps=[1] rates=[1000 2000 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000 8500 9000 9500 10000] W=14 busy_poll=0 dpu_env=[DMESH_DPA_MUX=8] manifest=dpumesh-mux-fe4rr.yaml dpu_dir=DPUMesh-ob-mux
+[14:40:33] == dpumesh-fe4rr-mux8 rep1: setup
+[14:41:06]   proxy 2942244: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[14:41:18] dpumesh-fe4rr-mux8 rep1: warmup 60 s at 250 requests/s
+[14:42:47]   dpumesh-fe4rr-mux8 rep1 rate=1000: rps=1008 p50=13.4 p99=33.0 max=65 fail=0.0000 dropped=0 host=10.85c (app 8.89 sidecar 0.00 pods 0.01 runtime 0.69 user 0.10 system 1.18) dpu=6.98c (busiest shard 0.46) pkt/req=9 
+[14:43:19]   dpumesh-fe4rr-mux8 rep1 rate=2000: rps=1989 p50=18.1 p99=79.3 max=168 fail=0.0000 dropped=0 host=12.59c (app 10.67 sidecar 0.00 pods 0.06 runtime 0.91 user 0.09 system 0.90) dpu=11.74c (busiest shard 0.69) pkt/req=8 
+[14:43:52]   dpumesh-fe4rr-mux8 rep1 rate=3000: rps=2994 p50=48.6 p99=174.2 max=313 fail=0.0000 dropped=0 host=13.53c (app 11.53 sidecar 0.00 pods 0.14 runtime 1.01 user 0.09 system 0.75) dpu=13.57c (busiest shard 0.81) pkt/req=8 
+[14:44:25]   dpumesh-fe4rr-mux8 rep1 rate=3500: rps=3517 p50=61.0 p99=197.2 max=433 fail=0.0000 dropped=0 host=13.92c (app 11.97 sidecar 0.00 pods 0.14 runtime 1.08 user 0.10 system 0.64) dpu=14.27c (busiest shard 0.83) pkt/req=8 
+[14:44:58]   dpumesh-fe4rr-mux8 rep1 rate=4000: rps=4002 p50=91.5 p99=342.4 max=587 fail=0.0000 dropped=0 host=14.42c (app 12.46 sidecar 0.00 pods 0.12 runtime 1.11 user 0.12 system 0.60) dpu=13.77c (busiest shard 0.84) pkt/req=8 
+[14:45:05] dpumesh-fe4rr-mux8 stopped and discarded: from 14:42:28 another dpumesh_dpu (03:00.0, not ours) ran on the DPU and used 3-6 DPU cores (DPU busy minus proxy threads, 1.0 at 1000 RPS, 3.1-5.7 from 2000 RPS); the runs before it show 0.1-1.1

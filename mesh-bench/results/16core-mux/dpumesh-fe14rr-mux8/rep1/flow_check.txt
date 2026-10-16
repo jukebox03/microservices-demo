@@ -1,0 +1,16 @@
+worker  client  backend  peak_slot  mux_threads
+     0      22       17         39            8
+     1      21       16         37            8
+     2      22       16         38            8
+     3      22       14         36            8
+     4      22       14         36            8
+     5      22       14         36            8
+     6      22       16         37            8
+     7      22       15         36            8
+     8      23       15         37            8
+     9      23       13         36            8
+    10      22       14         36            8
+    11      21       16         37            8
+    12      24       14         37            8
+    13      22       14         36            8
+flows: 310 client + 208 backend opens on 14 workers (worker 0: 39, highest slot 39); DPA: mux 8-8 threads/worker, 518 ring adds; errors: backend gone x4

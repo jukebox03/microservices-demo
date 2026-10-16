@@ -34,9 +34,11 @@ ax.legend(frameon=False, loc='upper right')
 ax.grid(True, axis='y', color='#e4e3dc')
 for s in ('top', 'right'):
     ax.spines[s].set_visible(False)
-fig.text(0.01, 0.005, f'Online Boutique, Kubernetes, pods on {os.environ.get("HOST_CORES", "16")} host cores; each configuration at its best '
-         'replica counts (frontends: no-sidecar 2, Linkerd 6, Istio 4,\nDPUMesh 10 on 14 DPU workers). 1 run, 15 s per point.',
-         fontsize=7, color='#6b6a63')
+# NOTE: the footnote for a run whose replica counts or builds differ (results/16core-mux)
+note = os.environ.get('NOTE') or (
+    f'Online Boutique, Kubernetes, pods on {os.environ.get("HOST_CORES", "16")} host cores; each configuration at its best '
+    'replica counts (frontends: no-sidecar 2, Linkerd 6, Istio 4,\nDPUMesh 10 on 14 DPU workers). 1 run, 15 s per point.')
+fig.text(0.01, 0.005, note, fontsize=7, color='#6b6a63')
 fig.tight_layout(rect=(0, 0.05, 1, 1))
 fig.savefig(out, dpi=110, facecolor='white')
 print('wrote', out)
