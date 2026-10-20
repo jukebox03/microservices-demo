@@ -18,8 +18,9 @@ import run_mi as M
 
 CFG = 'D1-dpumesh'
 DPU = 'jukebox@192.168.100.2'
-OB = '~/DPUMesh-ob-mux/ob-bench'
-PROXY_ENV = 'W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0'
+# DPU_OB / DPU_PROXY_ENV: another DPU tree (its ob-bench) or proxy environment
+OB = os.environ.get('DPU_OB', '~/DPUMesh-ob-mux/ob-bench')
+PROXY_ENV = os.environ.get('DPU_PROXY_ENV', 'W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0')
 PW = os.path.join(R.HELPERS, '.pw')
 FLOW_CHECK = os.path.join(R.HERE, '..', 'dpumesh', 'flow_check.py')
 
@@ -81,7 +82,7 @@ def main():
         R.log('dpu irq restore:', dpu_sudo(f'bash {OB}/irq.sh restore', check=False))
         os.makedirs(f'{res}/{CFG}', exist_ok=True)
         log = f'{res}/{CFG}/proxy-{tag}.log'
-        subprocess.run(['scp', '-q', f'{DPU}:DPUMesh-ob-mux/ob-bench/run/proxy-{tag}.log', log], check=False)
+        subprocess.run(['scp', '-q', f'{DPU}:{OB.removeprefix("~/")}/run/proxy-{tag}.log', log], check=False)
         if os.path.exists(log):
             fc = subprocess.run([sys.executable, FLOW_CHECK, log], capture_output=True, text=True)
             open(f'{res}/{CFG}/flow_check.txt', 'w').write(fc.stdout + fc.stderr)

@@ -207,7 +207,7 @@ def run_cfg(res, cfg, knobs):
             R.log('dpu irq restore:', D.dpu_sudo(f'bash {D.OB}/irq.sh restore', check=False))
             os.makedirs(f'{res}/{cfg}', exist_ok=True)
             log = f'{res}/{cfg}/proxy-{tag}.log'
-            subprocess.run(['scp', '-q', f'{D.DPU}:DPUMesh-ob-mux/ob-bench/run/proxy-{tag}.log', log], check=False)
+            subprocess.run(['scp', '-q', f'{D.DPU}:{D.OB.removeprefix("~/")}/run/proxy-{tag}.log', log], check=False)
             if os.path.exists(log):
                 fc = subprocess.run([sys.executable, D.FLOW_CHECK, log], capture_output=True, text=True)
                 open(f'{res}/{cfg}/flow_check.txt', 'w').write(fc.stdout + fc.stderr)
