@@ -1,0 +1,16 @@
+worker  client  backend  peak_slot  mux_threads
+     0       7        6         13            0
+     1       7        7         14            0
+     2       8        7         15            0
+     3       7        7         14            0
+     4       8        7         15            0
+     5       7        6         13            0
+     6       7        6         13            0
+     7       7        7         14            0
+     8       7        6         13            0
+     9       7        6         13            0
+    10       7        6         13            0
+    11       7        6         13            0
+    12       7        6         13            0
+    13       8        6         14            0
+flows: 101 client + 89 backend opens on 14 workers (worker 2: 15, highest slot 15); DPA: one pool thread per flow, 190 assigns; errors: none
