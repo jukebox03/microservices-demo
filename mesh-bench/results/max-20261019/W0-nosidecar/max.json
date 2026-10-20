@@ -1,0 +1,60 @@
+{
+ "cfg": "W0-nosidecar",
+ "max_rps": 5449.625,
+ "start": 4500,
+ "step": 1.1,
+ "steps": [
+  {
+   "offered": 4500,
+   "achieved": 4489.375,
+   "drop": 0,
+   "fail": 0,
+   "p50": 8.531451,
+   "p99": 53.629739340000064,
+   "pass": true,
+   "host_busy_cores": 27.210217466344496,
+   "dpu_busy_cores": 0.14562817069531483,
+   "host_cpus": 32,
+   "dpu_cpus": 16
+  },
+  {
+   "offered": 4950,
+   "achieved": 4952.625,
+   "drop": 0,
+   "fail": 0,
+   "p50": 10.866779,
+   "p99": 74.00547940000013,
+   "pass": true,
+   "host_busy_cores": 27.90266432878587,
+   "dpu_busy_cores": 0.21997200954968305,
+   "host_cpus": 32,
+   "dpu_cpus": 16
+  },
+  {
+   "offered": 5445,
+   "achieved": 5449.625,
+   "drop": 0,
+   "fail": 0,
+   "p50": 24.861952,
+   "p99": 119.55691888000001,
+   "pass": true,
+   "host_busy_cores": 28.988394747988142,
+   "dpu_busy_cores": 0.05781998487267838,
+   "host_cpus": 32,
+   "dpu_cpus": 16
+  },
+  {
+   "offered": 5990,
+   "achieved": 5807.125,
+   "drop": 1311,
+   "fail": 0,
+   "p50": 567.320733,
+   "p99": 806.76772088,
+   "pass": false,
+   "host_busy_cores": 29.076760414463944,
+   "dpu_busy_cores": 0.14610760216117494,
+   "host_cpus": 32,
+   "dpu_cpus": 16
+  }
+ ]
+}

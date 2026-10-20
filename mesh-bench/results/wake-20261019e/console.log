@@ -1,0 +1,52 @@
+[17:20:34] start wake run {"cfgs": ["G1-default", "G3-custody-poll", "G4-send-wake", "G2-default-repeat", "W0-nosidecar"], "rate": 1500}
+[17:20:35] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[17:20:35] == G1-default {"knobs": {}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME"}
+[17:21:07] dpu proxy: proxy 582582: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[17:22:17]   G1-default latency1: 61 req/s  avg 16.24 p50 17.75 p90 24.52 p99 33.76 ms  fail 0.0000
+[17:22:55]   G1-default r1500: 1501 rps p50 16.0 p99 30.1 ms fail 0.0000 drop 0 | app 11.64 host 14.76 outside 3.12 cores | wait files 23
+[17:22:58]   perf script 4 s
+[17:23:14] dpu stop: proxy 582582 stopped
+[17:23:14] dpu irq restore: 
+[17:23:16] flow_check exit 1:  15            8
+    13       8        7         15            8
+DOCA ERR x11: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 88 backend opens on 14 workers (worker 12: 15, highest slot 15); DPA: mux 8-8 threads/worker, 189 ring adds; errors: mux ring stopped x11
+[17:23:16] == G3-custody-poll {"knobs": {"DPUMESH_CUSTODY_SLEEP": "0"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_CUSTODY_SLEEP=0"}
+[17:23:48] dpu proxy: proxy 584863: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[17:24:56]   G3-custody-poll latency1: 62 req/s  avg 16.10 p50 17.90 p90 24.00 p99 33.15 ms  fail 0.0000
+[17:25:34]   G3-custody-poll r1500: 1505 rps p50 16.1 p99 31.6 ms fail 0.0000 drop 0 | app 11.82 host 14.92 outside 3.10 cores | wait files 23
+[17:25:37]   perf script 3 s
+[17:25:52] dpu stop: proxy 584863 stopped
+[17:25:53] dpu irq restore: 
+[17:25:54] flow_check exit 1:   14            8
+    13       7        7         14            8
+DOCA ERR x11: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 90 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 191 ring adds; errors: mux ring stopped x11
+[17:25:54] == G4-send-wake {"knobs": {"DPUMESH_SEND_WAKE": "1"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_SEND_WAKE=1"}
+[17:26:27] dpu proxy: proxy 587441: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[17:27:37]   G4-send-wake latency1: 64 req/s  avg 15.64 p50 17.64 p90 23.98 p99 32.60 ms  fail 0.0000
+[17:28:13]   G4-send-wake r1500: 1504 rps p50 14.1 p99 27.7 ms fail 0.0000 drop 0 | app 12.57 host 15.88 outside 3.30 cores | wait files 23
+[17:28:17]   perf script 4 s
+[17:28:33] dpu stop: proxy 587441 stopped
+[17:28:33] dpu irq restore: 
+[17:28:35] flow_check exit 1:     13            8
+    13       7        6         13            8
+DOCA ERR x6: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 87 backend opens on 14 workers (worker 0: 14, highest slot 14); DPA: mux 8-8 threads/worker, 188 ring adds; errors: mux ring stopped x6
+[17:28:35] == G2-default-repeat {"knobs": {}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME"}
+[17:29:08] dpu proxy: proxy 589721: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[17:30:21]   G2-default-repeat latency1: 61 req/s  avg 16.43 p50 18.17 p90 25.10 p99 31.91 ms  fail 0.0000
+[17:30:58]   G2-default-repeat r1500: 1496 rps p50 16.2 p99 29.1 ms fail 0.0000 drop 0 | app 11.79 host 14.89 outside 3.10 cores | wait files 23
+[17:31:02]   perf script 3 s
+[17:31:18] dpu stop: proxy 589721 stopped
+[17:31:18] dpu irq restore: 
+[17:31:20] flow_check exit 1:  13            8
+    13       7        6         13            8
+DOCA ERR x17: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 88 backend opens on 14 workers (worker 11: 15, highest slot 15); DPA: mux 8-8 threads/worker, 189 ring adds; errors: mux ring stopped x17
+[17:31:20] == W0-nosidecar {"knobs": null, "extra_env": ""}
+[17:32:23]   W0-nosidecar latency1: 110 req/s  avg 9.02 p50 10.25 p90 12.15 p99 18.22 ms  fail 0.0000
+[17:33:00]   W0-nosidecar r1500: 1502 rps p50 6.9 p99 12.8 ms fail 0.0000 drop 0 | app 15.52 host 19.36 outside 3.84 cores | wait files 23
+[17:33:04]   perf script 4 s
+[17:33:16] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[17:33:16] done

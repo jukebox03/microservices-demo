@@ -1,0 +1,18 @@
+worker  client  backend  peak_slot  mux_threads
+     0       7        6         13            8
+     1       8        6         14            8
+     2       7        6         13            8
+     3       8        6         14            8
+     4       7        6         13            8
+     5       8        6         14            8
+     6       7        6         13            8
+     7       7        7         14            8
+     8       7        7         14            8
+     9       7        7         14            8
+    10       7        7         14            8
+    11       7        7         14            8
+    12       7        6         13            8
+    13       7        7         14            8
+DOCA ERR x117: fast-path producer stopped unexpectedly (from state N)
+DOCA ERR x3: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 90 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 191 ring adds; errors: mux ring stopped x3

@@ -1,0 +1,1602 @@
+diff --git a/Makefile b/Makefile
+index 9a34d90..cfde942 100644
+--- a/Makefile
++++ b/Makefile
+@@ -27,7 +27,7 @@ TRANSPORT_SRCS := $(addprefix $(TRANSPORT)/common/,object.c buffer.c common.c co
+ TRANSPORT_HDRS := $(wildcard $(TRANSPORT)/common/*.h $(TRANSPORT)/host/*.h $(TRANSPORT)/dpu/*.h)
+ LIB_SRCS := src/core/dmesh_core.c src/core/carrier.c src/core/service_resolve.c \
+     src/facade/dmesh_api.c $(TRANSPORT_SRCS)
+-HOST_TESTS := carrier_logic_test service_resolve_test native_writable_test native_polling_test native_loss_test native_core_transport_test \
++HOST_TESTS := carrier_logic_test service_resolve_test native_writable_test native_polling_test native_signaled_test native_loss_test native_core_transport_test \
+     topology_test native_api_contract_test preload_api_contract_test session_protocol_test session_flow_test \
+     channel_session_test comch_client_test session_server_test backend_dispatch_test dma_cleanup_test dpa_cleanup_test dpa_runtime_test \
+     dispatch_wake_test rx_consumed_pos_test
+@@ -117,6 +117,9 @@ $(TESTDIR)/native_writable_test: tests/native_writable_test.c src/core/dmesh_cor
+ $(TESTDIR)/native_polling_test: tests/native_polling_test.c src/core/dmesh_core.c src/core/native_transport.h tests/support/native_memory_transport.c src/facade/dmesh_api.c src/core/service_resolve.c | $(TESTDIR)
+ 	$(CC) $(HOST_CFLAGS) -ffunction-sections -fdata-sections $< src/facade/dmesh_api.c src/core/service_resolve.c -Wl,--gc-sections -pthread -o $@
+ 
++$(TESTDIR)/native_signaled_test: tests/native_signaled_test.c src/core/dmesh_core.c src/core/native_transport.h tests/support/native_memory_transport.c src/facade/dmesh_api.c src/core/service_resolve.c | $(TESTDIR)
++	$(CC) $(HOST_CFLAGS) -ffunction-sections -fdata-sections $< src/facade/dmesh_api.c src/core/service_resolve.c -Wl,--gc-sections -pthread -o $@
++
+ $(TESTDIR)/native_loss_test: tests/native_loss_test.c src/core/dmesh_core.c src/core/native_transport.h tests/support/native_memory_transport.c src/facade/dmesh_api.c src/core/service_resolve.c | $(TESTDIR)
+ 	$(CC) $(HOST_CFLAGS) -ffunction-sections -fdata-sections $< src/facade/dmesh_api.c src/core/service_resolve.c -Wl,--gc-sections -pthread -o $@
+ 
+diff --git a/src/core/carrier.c b/src/core/carrier.c
+index c7ccdf5..9f53901 100644
+--- a/src/core/carrier.c
++++ b/src/core/carrier.c
+@@ -409,15 +409,20 @@ int dmesh_native_stripe_arm(struct dmesh_native_transport *t, int stripe)
+     struct slot *s = &t->slots[stripe];
+     if (__atomic_load_n(&s->state, __ATOMIC_ACQUIRE) == SLOT_FREE) return 0;
+     pthread_mutex_lock(&s->lock);
+-    int busy = s->t_head != s->t_tail;
++    int busy = 0;
+     if (s->state == SLOT_OPEN) {
++        if (s->t_head != s->t_tail) busy = DMESH_STRIPE_CUSTODY;
+         if (!s->armed && channel_conn_arm(s->conn) == 0) s->armed = 1;
+-    } else {
+-        busy |= s->fin_pending;   /* retired by the next poll */
++    } else if (s->t_head != s->t_tail || s->fin_pending) {
++        busy = DMESH_STRIPE_RETIRING;   /* retired by the next poll */
+     }
+     pthread_mutex_unlock(&s->lock);
+     return busy;
+ }
++int dmesh_native_rx_signaled(struct dmesh_native_transport *t)
++{
++    return channel_dev_rx_signaled(t->dev);
++}
+ int dmesh_native_wake_fd(struct dmesh_native_transport *t)
+ {
+     return channel_dev_fd(t->dev);
+diff --git a/src/core/dmesh_core.c b/src/core/dmesh_core.c
+index 77ca9fc..c014894 100644
+--- a/src/core/dmesh_core.c
++++ b/src/core/dmesh_core.c
+@@ -287,6 +287,13 @@ struct dpumesh_ctx {
+     int spare_epfd;
+     /* Idle wake policy (dpumesh_eq_arm), nanoseconds; nap_min 0 = no naps. */
+     uint64_t nap_min_ns, nap_cap_ns, linger_ns, backstop_ns;
++    /* Every receive raises the wake fd by itself (dmesh_native_rx_signaled).
++     * Polling then only makes up for what has no signal: naps and linger
++     * default to off, a send does not wake its EQ, and outstanding custody
++     * keeps an EQ polling only while a sender waits for the space it frees
++     * (tx_waiters) or a closed flow still retires. */
++    int rx_signaled;
++    atomic_int tx_waiters;              /* QPs whose tx_wait_state is ARMED */
+     atomic_int live_eqs;               /* registered EQs, for the oversubscription guard */
+     atomic_int allowed_cpus;           /* sched_getaffinity, re-read every 100 ms */
+     atomic_uint_fast64_t cpus_checked_ns;
+@@ -875,6 +882,7 @@ static int tx_wait_make_ready(dpumesh_ctx_t *ctx, uint16_t port) {
+                                                   memory_order_acq_rel,
+                                                   memory_order_acquire))
+         return 0;
++    atomic_fetch_sub_explicit(&ctx->tx_waiters, 1, memory_order_relaxed);
+ 
+     pool_waiter_clear(ctx, port);   /* no-op for a per-QP reclaim waiter */
+     struct dmesh_eq *eq = __atomic_load_n(&psl->eq, __ATOMIC_ACQUIRE);
+@@ -899,8 +907,9 @@ static void tx_wait_cancel(dpumesh_ctx_t *ctx, struct dmesh_port_slot *psl,
+     if (atomic_load_explicit(&psl->tx_wait_state, memory_order_acquire) ==
+         (uint_fast32_t)DMESH_TX_WAIT_IDLE)
+         return;
+-    atomic_exchange_explicit(&psl->tx_wait_state, DMESH_TX_WAIT_IDLE,
+-                             memory_order_acq_rel);
++    if (atomic_exchange_explicit(&psl->tx_wait_state, DMESH_TX_WAIT_IDLE,
++                                 memory_order_acq_rel) == (uint_fast32_t)DMESH_TX_WAIT_ARMED)
++        atomic_fetch_sub_explicit(&ctx->tx_waiters, 1, memory_order_relaxed);
+     pool_waiter_clear(ctx, port);
+     struct dmesh_eq *eq = __atomic_load_n(&psl->eq, __ATOMIC_ACQUIRE);
+     if (eq) eq_tx_ready_clear(eq, port);
+@@ -943,8 +952,9 @@ static void tx_wait_arm(dpumesh_ctx_t *ctx, struct dmesh_port_slot *psl,
+                           memory_order_relaxed);
+     atomic_store_explicit(&psl->tx_wait_reason, (uint_fast32_t)reason,
+                           memory_order_relaxed);
++    atomic_fetch_add_explicit(&ctx->tx_waiters, 1, memory_order_seq_cst);
+     atomic_store_explicit(&psl->tx_wait_state, DMESH_TX_WAIT_ARMED,
+-                          memory_order_release);
++                          memory_order_seq_cst);
+ 
+     if (reason == DMESH_TX_WAIT_SHARED_POOL) {
+         pool_waiter_set(ctx, port);
+@@ -959,6 +969,21 @@ static void tx_wait_arm(dpumesh_ctx_t *ctx, struct dmesh_port_slot *psl,
+     } else if (tx_wait_qp_retryable(ctx, psl)) {
+         (void)tx_wait_make_ready(ctx, port);
+     }
++    /* The ACK that frees this space may sit with a sleeping EQ that did not
++     * poll for it (with signaled receives an EQ sleeps on open custody), so
++     * wake it. The waiter is counted before asleep is read here, and an EQ
++     * sets asleep before it weighs custody, so one of them sees the other. */
++    if (ctx->rx_signaled &&
++        atomic_load_explicit(&psl->tx_wait_state, memory_order_seq_cst) ==
++            (uint_fast32_t)DMESH_TX_WAIT_ARMED) {
++        if (reason == DMESH_TX_WAIT_SHARED_POOL) {
++            notify_all_eqs(ctx);
++        } else {
++            struct dmesh_eq *eq = __atomic_load_n(&psl->eq, __ATOMIC_ACQUIRE);
++            if (eq && atomic_load_explicit(&eq->asleep, memory_order_seq_cst))
++                eq_notify(eq);
++        }
++    }
+ }
+ 
+ /* Per-conn TX region lifecycle + FIFO reclaim (defined with the TX functions below).
+@@ -1232,6 +1257,7 @@ static unsigned eq_ack_doorbells(struct dmesh_eq *eq)
+ static struct {
+     atomic_uint_fast64_t naps, lingers, busy, arms, arm_failures, backstop_wakes, backstop_work;
+     atomic_uint_fast64_t fired[5];       /* EQ_FIRED_* bit i, per empty poll */
++    atomic_uint_fast64_t custody_sleeps; /* sleeps with open custody (rx_signaled) */
+     atomic_uint_fast64_t next_dump_ns;
+ } wait_stats;
+ static const char *wait_stats_dir;
+@@ -1245,12 +1271,12 @@ static void wait_stats_dump(dpumesh_ctx_t *ctx, uint64_t now, int force)
+         return;
+     uint64_t arm_msgs = 0, doorbells = 0;
+     dmesh_native_wake_counters(ctx->transport, &arm_msgs, &doorbells);
+-    char path[512], line[512];
++    char path[512], line[576];
+     snprintf(path, sizeof(path), "%s/dpumesh-wait.%d", wait_stats_dir, (int)getpid());
+     int len = snprintf(line, sizeof(line),
+         "naps=%llu lingers=%llu busy=%llu arms=%llu arm_failures=%llu backstop_wakes=%llu "
+         "backstop_work=%llu arm_msgs=%llu doorbells=%llu fired_efd=%llu fired_timer=%llu "
+-        "fired_tail=%llu fired_stripe=%llu fired_wake=%llu\n",
++        "fired_tail=%llu fired_stripe=%llu fired_wake=%llu custody_sleeps=%llu rx_signaled=%d\n",
+         (unsigned long long)atomic_load(&wait_stats.naps), (unsigned long long)atomic_load(&wait_stats.lingers),
+         (unsigned long long)atomic_load(&wait_stats.busy), (unsigned long long)atomic_load(&wait_stats.arms),
+         (unsigned long long)atomic_load(&wait_stats.arm_failures),
+@@ -1259,7 +1285,8 @@ static void wait_stats_dump(dpumesh_ctx_t *ctx, uint64_t now, int force)
+         (unsigned long long)arm_msgs, (unsigned long long)doorbells,
+         (unsigned long long)atomic_load(&wait_stats.fired[0]), (unsigned long long)atomic_load(&wait_stats.fired[1]),
+         (unsigned long long)atomic_load(&wait_stats.fired[2]), (unsigned long long)atomic_load(&wait_stats.fired[3]),
+-        (unsigned long long)atomic_load(&wait_stats.fired[4]));
++        (unsigned long long)atomic_load(&wait_stats.fired[4]),
++        (unsigned long long)atomic_load(&wait_stats.custody_sleeps), ctx->rx_signaled);
+     FILE *f = fopen(path, "w");
+     if (f) { fwrite(line, 1, (size_t)len, f); fclose(f); }
+ }
+@@ -1405,6 +1432,13 @@ void dpumesh_eq_arm(struct dmesh_eq *eq)
+         if (owner == NULL || owner == eq)
+             busy |= dmesh_native_stripe_arm(ctx->transport, stripe);
+     }
++    /* Signaled receives: open custody is reclaimed on the next wake unless a
++     * sender waits for the space it frees. */
++    if (ctx->rx_signaled && busy == DMESH_STRIPE_CUSTODY &&
++        atomic_load_explicit(&ctx->tx_waiters, memory_order_seq_cst) <= 0) {
++        busy = 0;
++        atomic_fetch_add_explicit(&wait_stats.custody_sleeps, 1, memory_order_relaxed);
++    }
+     if (busy || dmesh_native_idle_arm(ctx->transport) != 0) {
+         atomic_store_explicit(&eq->asleep, 0, memory_order_relaxed);
+         eq_timer(eq, ctx->nap_cap_ns ? ctx->nap_cap_ns : 100000ull, 0);
+@@ -1567,6 +1601,7 @@ int dpumesh_init(dpumesh_ctx_t **out, const char *service_name,
+     };
+     if (dmesh_native_open(&ctx->transport, &native) != 0)
+         goto fail;
++    ctx->rx_signaled = dmesh_native_rx_signaled(ctx->transport);
+     if (native.stripes < 1 || native.stripes > DMESH_MAX_STRIPES) {
+         DOCA_LOG_ERR("carrier exposes %d reverse stripes; at most %d supported",
+                      native.stripes, DMESH_MAX_STRIPES);
+@@ -1585,9 +1620,13 @@ int dpumesh_init(dpumesh_ctx_t **out, const char *service_name,
+     { int wfd = dmesh_native_wake_fd(ctx->transport);
+       if (wfd >= 0 && epoll_nest(ctx->spare_epfd, wfd, EQ_TAG(EQ_TAG_WAKE, 0)) != 0) goto fail; }
+     { struct { const char *name; uint64_t *out; long lo, hi, unit_ns; uint64_t def; } knobs[] = {
+-          { "DPUMESH_NAP_US", &ctx->nap_min_ns, 0, 5000, 1000, DMESH_NAP_MIN_US_DEFAULT },
++          /* Naps and linger stand in for a receive signal; signaled
++           * receives need neither unless asked for. */
++          { "DPUMESH_NAP_US", &ctx->nap_min_ns, 0, 5000, 1000,
++            ctx->rx_signaled ? 0 : DMESH_NAP_MIN_US_DEFAULT },
+           { "DPUMESH_NAP_CAP_US", &ctx->nap_cap_ns, 1, 5000, 1000, DMESH_NAP_CAP_US_DEFAULT },
+-          { "DPUMESH_LINGER_US", &ctx->linger_ns, 0, 1000000, 1000, DMESH_LINGER_US_DEFAULT },
++          { "DPUMESH_LINGER_US", &ctx->linger_ns, 0, 1000000, 1000,
++            ctx->rx_signaled ? 0 : DMESH_LINGER_US_DEFAULT },
+           { "DPUMESH_BACKSTOP_MS", &ctx->backstop_ns, 1, 10000, 1000000, DMESH_BACKSTOP_MS_DEFAULT },
+       };
+       for (size_t k = 0; k < sizeof(knobs) / sizeof(knobs[0]); ++k) {
+@@ -2263,7 +2302,10 @@ static void eq_note_tx(dpumesh_ctx_t *ctx, uint16_t port)
+     if (eq == NULL) return;
+     atomic_store_explicit(&eq->last_work_ns, monotonic_ns(), memory_order_relaxed);
+     atomic_store_explicit(&eq->kick, 1, memory_order_relaxed);
+-    if (atomic_load_explicit(&eq->asleep, memory_order_seq_cst))
++    /* With signaled receives a sleeping EQ is woken by what it waits for
++     * (the reply's completion, or tx_wait_arm); the new custody alone needs
++     * no poll. */
++    if (!ctx->rx_signaled && atomic_load_explicit(&eq->asleep, memory_order_seq_cst))
+         eq_notify(eq);
+ }
+ 
+diff --git a/src/core/native_transport.h b/src/core/native_transport.h
+index 2ca91ee..2121303 100644
+--- a/src/core/native_transport.h
++++ b/src/core/native_transport.h
+@@ -42,10 +42,17 @@ void dmesh_native_release(struct dmesh_native_transport *, int byte_offset);
+ int dmesh_native_stripe_fd(struct dmesh_native_transport *, int stripe);
+ /* The stripe carrying a port's stream, or -1. */
+ int dmesh_native_stripe_of(struct dmesh_native_transport *, uint16_t port);
+-/* Arms the stripe's doorbell before its consumer sleeps. Returns 1 while the
+- * stripe still needs polling (custody ACKs outstanding: they have no doorbell),
+- * 0 when dmesh_native_idle_arm plus the doorbell suffice. */
++/* Arms the stripe's doorbell before its consumer sleeps. Returns 0 when
++ * dmesh_native_idle_arm plus the doorbell suffice; otherwise what still needs
++ * polling (custody ACKs have no doorbell): DMESH_STRIPE_CUSTODY for an open
++ * flow's outstanding custody, DMESH_STRIPE_RETIRING for a closed flow whose
++ * custody or FIN still has to be retired. */
++enum { DMESH_STRIPE_CUSTODY = 1, DMESH_STRIPE_RETIRING = 2 };
+ int dmesh_native_stripe_arm(struct dmesh_native_transport *, int stripe);
++/* Nonzero when every receive raises the channel wake fd by itself (the
++ * Comch fast path): an idle consumer then needs neither an ARM round trip
++ * nor polling to see receives. Fixed once the carrier is open. */
++int dmesh_native_rx_signaled(struct dmesh_native_transport *);
+ /* Acknowledges a signalled doorbell; the stripe is then polled. */
+ void dmesh_native_stripe_clear(struct dmesh_native_transport *, int stripe);
+ /* Channel-wide idle wake: the fd (or -1) is raised by control messages once
+diff --git a/src/transport/common/comch_common.h b/src/transport/common/comch_common.h
+index fcd840c..b84717f 100644
+--- a/src/transport/common/comch_common.h
++++ b/src/transport/common/comch_common.h
+@@ -74,6 +74,32 @@ struct dmesh_push_desc {
+ #define DMESH_PUSH_DESC_N    128u
+ #define DMESH_PUSH_DATA_OFF  4096u
+ 
++/* Comch fast-path wake (DMESH_SESSION_WAKE_READY): instead of DMAing the 16B
++ * descriptor into the slot ring, the DPU worker sends it as the immediate
++ * data of a producer message to the host's consumer, after the data copy has
++ * completed. The host's consumer completion writes it into the same slot
++ * ring, so the receive side reads the ring as before; the completion is also
++ * what wakes an idle host (its control PE notification), with no ARM. */
++struct dmesh_wake_desc {
++    uint32_t flow_id;           /* host flow slot, 1..32 */
++    uint32_t generation;
++    uint64_t seq;
++    uint32_t pos;
++    uint32_t len;               /* 0 = end of stream */
++};
++#define DMESH_WAKE_IMM_LEN ((uint32_t)sizeof(struct dmesh_wake_desc))
++
++/* Host side: publish a fast-path descriptor into a flow's slot ring. The
++ * sequence is stored last, so a reader that sees it also sees pos and len. */
++static inline void dmesh_wake_desc_publish(volatile struct dmesh_push_desc *ring,
++                                           const struct dmesh_wake_desc *d)
++{
++    volatile struct dmesh_push_desc *slot = &ring[d->seq % DMESH_PUSH_DESC_N];
++    slot->pos = d->pos;
++    slot->len = d->len;
++    __atomic_store_n(&slot->seq, d->seq, __ATOMIC_RELEASE);
++}
++
+ /* Push flow control: the host publishes its consumption cursor at a fixed
+  * offset in its rcvbuf (the reserved gap between the desc slots and the data
+  * ring). The DPU pulls it with a small read-DMA between batches and refuses
+diff --git a/src/transport/common/object.c b/src/transport/common/object.c
+index 88a671b..a31daa7 100644
+--- a/src/transport/common/object.c
++++ b/src/transport/common/object.c
+@@ -183,6 +183,9 @@ stop_comch_ctx(struct doca_ctx *ctx, struct objects *objs)
+                  "device objects will leak until the driver reclaims them", state);
+ }
+ 
++/* dpu/comch_wake.c, linked only into DPU programs. */
++void dmesh_wake_cleanup(struct objects *) __attribute__((weak));
++
+ doca_error_t
+ cleanup_objects(struct objects *objs)
+ {
+@@ -232,6 +235,10 @@ cleanup_objects(struct objects *objs)
+         objs->connection = NULL;
+     }
+ 
++    /* Fast-path producers live on consumer_pe (DPU workers only). */
++    if (dmesh_wake_cleanup != NULL)
++        dmesh_wake_cleanup(objs);
++
+     if (objs->is_server && objs->consumer_pe != NULL) {
+         result = doca_pe_destroy(objs->consumer_pe);
+         if (result != DOCA_SUCCESS) return result;
+diff --git a/src/transport/common/object.h b/src/transport/common/object.h
+index 0fd8c65..e817a58 100644
+--- a/src/transport/common/object.h
++++ b/src/transport/common/object.h
+@@ -77,6 +77,11 @@ struct dmesh_session {
+      * and rings as a reply from dmesh_dispatch_worker_flush. */
+     bool armed;
+     uint64_t armed_epoch, doorbell_pending_epoch, doorbell_sent_epoch;
++    /* Comch fast-path wake, on the dispatcher's session: the host's consumer
++     * (0 = none) and whether WAKE_READY went out. Flows admitted after it
++     * publish through a worker producer (dpu/comch_wake.c). */
++    uint32_t wake_consumer;
++    bool wake_ready_sent;
+ };
+ 
+ /* A push descriptor reached host memory: queue one DOORBELL for an ARMed host. */
+@@ -199,6 +204,12 @@ struct dmesh_conn {
+      * batch and the host reads it as end of stream (dmesh_dma_push_fin). */
+     bool push_fin_requested, push_fin_sent;
+     struct dmesh_push_desc *push_shadow;      /* in tx_staging's reserved tail */
++    /* Comch fast-path wake: the descriptor goes as a producer message to the
++     * host's consumer instead of the desc copy. One the producer could not
++     * take yet is retried from the RUNNING advance. */
++    struct dmesh_wake_producer *wake;
++    bool wake_desc_pending;
++    struct dmesh_wake_desc wake_imm;          /* the send task points at it */
+ 
+     /* Push flow control (see struct dmesh_push_cursor). The cursor shadow
+      * lives in tx_staging's reserved tail right after push_shadow, so it is
+@@ -335,6 +346,8 @@ struct objects {
+     /* DPU multi-connection slots (see struct dmesh_conn) */
+     struct dmesh_conn conns[DMESH_MAX_CONNECTIONS];
+     struct dmesh_session sessions[DMESH_MAX_SESSIONS];
++    /* Worker: one Comch producer per session it serves fast-path flows of */
++    struct dmesh_wake_producer *wake_producers;
+ };
+ 
+ doca_error_t
+diff --git a/src/transport/common/session_protocol.h b/src/transport/common/session_protocol.h
+index 714800e..9a39fcb 100644
+--- a/src/transport/common/session_protocol.h
++++ b/src/transport/common/session_protocol.h
+@@ -42,6 +42,13 @@ enum dmesh_session_message_type {
+      * DPU proxy fails the send, and only a send notices one: the Comch
+      * client gets no event when its server process exits. */
+     DMESH_SESSION_PING = 16,
++    /* WAKE_READY (DPU -> host, session level): the host's Comch consumer is
++     * known, so every push flow opened from now on publishes its descriptors
++     * as fast-path messages to it (struct dmesh_wake_desc). Such a message
++     * is a completion on the host, so an idle host needs no ARM. Sent only
++     * to a host that created a consumer, so a host without one never sees
++     * this type. */
++    DMESH_SESSION_WAKE_READY = 17,
+ };
+ 
+ /* ARM payload: u64 epoch, u32 count, u32 zero, then count entries of
+@@ -100,7 +107,7 @@ static inline int dmesh_session_header_valid(const struct dmesh_session_header *
+                                      DMESH_SESSION_MAX_FLOWS * DMESH_SESSION_ARM_FLOW_SIZE &&
+                (h->payload_len - DMESH_SESSION_ARM_HEADER_SIZE) % DMESH_SESSION_ARM_FLOW_SIZE == 0;
+     }
+-    if (h->type == DMESH_SESSION_PING)
++    if (h->type == DMESH_SESSION_PING || h->type == DMESH_SESSION_WAKE_READY)
+         return h->flow_id == 0 && h->generation == 0 && h->payload_len == 0 && h->status == 0;
+     if (h->type == DMESH_SESSION_HELLO || h->type == DMESH_SESSION_HELLO_ACK)
+         return h->flow_id == 0 && h->generation == 0 && h->payload_len == 0 &&
+diff --git a/src/transport/dpu/comch_server.c b/src/transport/dpu/comch_server.c
+index a4b5295..513ad89 100644
+--- a/src/transport/dpu/comch_server.c
++++ b/src/transport/dpu/comch_server.c
+@@ -16,6 +16,7 @@
+ #include "comch_msgq.h"
+ #include "dma.h"
+ #include "ring.h"
++#include "comch_wake.h"
+ 
+ #include <doca_pe.h>
+ #include <doca_comch.h>
+@@ -574,6 +575,38 @@ destroy_server:
+ 	return result;
+ }
+ 
++/* A host consumer on a dispatcher session is the host asking for fast-path
++ * wake (dpu/comch_wake.c): flows admitted from now on publish through it, and
++ * dmesh_sessions_advance tells the host with WAKE_READY. */
++static struct objects *server_objs_of(struct doca_comch_connection *connection)
++{
++    union doca_data user_data;
++    struct doca_comch_server *server = doca_comch_server_get_server_ctx(connection);
++    if (server == NULL || doca_ctx_get_user_data(doca_comch_server_as_ctx(server), &user_data) != DOCA_SUCCESS)
++        return NULL;
++    return user_data.ptr;
++}
++static void server_consumer_arrived(struct doca_comch_event_consumer *event,
++                                    struct doca_comch_connection *connection, uint32_t id)
++{
++    server_new_consumer_callback(event, connection, id);
++    struct objects *objs = server_objs_of(connection);
++    if (objs == NULL || !objs->dispatcher || !dmesh_wake_enabled())
++        return;
++    struct dmesh_session *s = session_get(objs, connection, false);
++    if (s != NULL && !s->closing && s->wake_consumer == 0)
++        s->wake_consumer = id;
++}
++static void server_consumer_expired(struct doca_comch_event_consumer *event,
++                                    struct doca_comch_connection *connection, uint32_t id)
++{
++    expired_consumer_callback(event, connection, id);
++    struct objects *objs = server_objs_of(connection);
++    struct dmesh_session *s = objs ? session_get(objs, connection, false) : NULL;
++    if (s != NULL && s->wake_consumer == id)
++        s->wake_consumer = 0;
++}
++
+ doca_error_t
+ start_comch_ctrl_path_server(const char *server_name, struct objects *objs, bool is_fast_path)
+ {
+@@ -643,8 +676,8 @@ start_comch_ctrl_path_server(const char *server_name, struct objects *objs, bool
+     /* Config the data_path related events */
+ 	if (is_fast_path) {
+ 		result = doca_comch_server_event_consumer_register(objs->cc_server,
+-									server_new_consumer_callback,
+-									expired_consumer_callback);
++									server_consumer_arrived,
++									server_consumer_expired);
+ 		if (result != DOCA_SUCCESS) {
+ 			DOCA_LOG_ERR("Failed adding consumer event cb with error = %s", doca_error_get_name(result));
+ 			goto destroy_server;
+@@ -1037,6 +1070,9 @@ static doca_error_t dmesh_flow_teardown_checked(struct dmesh_conn *conn)
+     result = cleanup_dma_tasks(conn);
+     if (result != DOCA_SUCCESS)
+         return result;
++    /* The last flow of a session stops its producer before the flow retires:
++     * the dispatcher may disconnect the session right after. */
++    dmesh_wake_detach(conn);
+     result = dmesh_doca_dpa_comch_destroy_checked(conn);
+     if (result != DOCA_SUCCESS)
+         return result;
+@@ -1159,6 +1195,9 @@ void dmesh_sessions_advance(struct objects *objs)
+                 (!objs->dispatcher || dmesh_dispatcher_accepting(objs)) &&
+                 dmesh_session_send(objs, s, DMESH_SESSION_HELLO_ACK, 0, 0, NULL, 0, 0) == DOCA_SUCCESS)
+                 s->hello_pending = false;
++            if (s->wake_consumer && !s->wake_ready_sent && objs->dispatcher && !s->hello_pending &&
++                dmesh_session_send(objs, s, DMESH_SESSION_WAKE_READY, 0, 0, NULL, 0, 0) == DOCA_SUCCESS)
++                s->wake_ready_sent = true;
+             if (s->doorbell_pending_epoch != s->doorbell_sent_epoch) {
+                 uint8_t epoch[DMESH_SESSION_DOORBELL_SIZE];
+                 dmesh_session_put_u64(epoch, s->doorbell_pending_epoch);
+@@ -1364,6 +1403,7 @@ dmesh_doca_conn_advance(struct dmesh_conn *conn)
+         if (conn->multiplexed && conn->reverse_exported && !conn->ready_sent &&
+             server_send_flow_msg(conn, DMESH_SESSION_READY, NULL, 0, 0) == DOCA_SUCCESS)
+             conn->ready_sent = true;
++        dmesh_dma_push_retry_desc(conn);
+         if (conn->push_fin_requested && !conn->push_fin_sent)
+             (void)dmesh_dma_push_fin(conn);
+ 		break;
+diff --git a/src/transport/dpu/comch_wake.c b/src/transport/dpu/comch_wake.c
+new file mode 100644
+index 0000000..7158e71
+--- /dev/null
++++ b/src/transport/dpu/comch_wake.c
+@@ -0,0 +1,270 @@
++/* Comch fast-path wake, DPU side: one producer per (worker, session). See
++ * comch_wake.h. */
++#include "comch_wake.h"
++
++#include <pthread.h>
++#include <stdlib.h>
++#include <string.h>
++#include <time.h>
++#include <doca_comch_producer.h>
++#include <doca_ctx.h>
++#include <doca_log.h>
++#include <doca_pe.h>
++
++#include "object.h"
++#include "dispatcher.h"
++#include "dma.h"
++
++DOCA_LOG_REGISTER(COMCH_WAKE);
++
++/* One descriptor is in flight per flow; a worker holds at most
++ * DMESH_MAX_CONNECTIONS flows. */
++#define WAKE_SEND_TASKS DMESH_MAX_CONNECTIONS
++#define WAKE_STOP_NS 200000000ull
++
++enum wake_state { WAKE_FREE = 0, WAKE_STARTING, WAKE_RUNNING, WAKE_STOPPING, WAKE_FAILED };
++
++struct dmesh_wake_producer {
++    struct objects *objs;
++    uint64_t session_id, session_epoch;
++    struct doca_comch_producer *producer;
++    uint32_t consumer;
++    unsigned refs;
++    enum wake_state state;
++    bool idle;                 /* the context reached IDLE after a stop */
++};
++
++bool dmesh_wake_enabled(void)
++{
++    const char *v = getenv("DMESH_COMCH_WAKE");
++    return !(v && strcmp(v, "0") == 0);
++}
++
++static uint64_t wake_now_ns(void)
++{
++    struct timespec t;
++    clock_gettime(CLOCK_MONOTONIC, &t);
++    return (uint64_t)t.tv_sec * 1000000000ull + (uint64_t)t.tv_nsec;
++}
++
++/* The flow a completion belongs to: the task carries (slot, generation) and
++ * the flow must still be bound to this producer. */
++static struct dmesh_conn *wake_task_conn(struct dmesh_wake_producer *p, union doca_data task_data)
++{
++    uint32_t slot = (uint32_t)(task_data.u64 >> 32), generation = (uint32_t)task_data.u64;
++    if (slot >= DMESH_MAX_CONNECTIONS)
++        return NULL;
++    struct dmesh_conn *c = &p->objs->conns[slot];
++    return c->wake == p && c->generation == generation ? c : NULL;
++}
++
++static void wake_send_done(struct doca_comch_producer_task_send *task, union doca_data task_data,
++                           union doca_data ctx_data)
++{
++    struct dmesh_wake_producer *p = ctx_data.ptr;
++    doca_task_free(doca_comch_producer_task_send_as_task(task));
++    struct dmesh_conn *c = wake_task_conn(p, task_data);
++    if (c != NULL && c->push_state == 2)
++        dmesh_dma_push_desc_sent(c);
++}
++
++static void wake_send_failed(struct doca_comch_producer_task_send *task, union doca_data task_data,
++                             union doca_data ctx_data)
++{
++    struct dmesh_wake_producer *p = ctx_data.ptr;
++    doca_error_t status = doca_task_get_status(doca_comch_producer_task_send_as_task(task));
++    doca_task_free(doca_comch_producer_task_send_as_task(task));
++    struct dmesh_conn *c = wake_task_conn(p, task_data);
++    if (c != NULL && c->push_state == 2) {
++        DOCA_LOG_ERR("fast-path descriptor send failed (flow %u): %s", c->flow_id,
++                     doca_error_get_name(status));
++        dmesh_dma_push_desc_failed(c);
++    }
++}
++
++static void wake_state_changed(const union doca_data user_data, struct doca_ctx *ctx,
++                               enum doca_ctx_states prev, enum doca_ctx_states next)
++{
++    struct dmesh_wake_producer *p = user_data.ptr;
++    (void)ctx;
++    if (next == DOCA_CTX_STATE_RUNNING) {
++        if (p->state == WAKE_STARTING)
++            p->state = WAKE_RUNNING;
++    } else if (next == DOCA_CTX_STATE_IDLE) {
++        p->idle = true;
++        /* The usual cause is the host leaving: its consumer expires and the
++         * SDK stops the producer before the flows' teardown detaches it. A
++         * flow that still sends gets BAD_STATE and fails like a desc DMA. */
++        if (p->state == WAKE_STARTING || p->state == WAKE_RUNNING) {
++            DOCA_LOG_INFO("fast-path producer went idle with %u flows (peer gone?), from state %d",
++                          p->refs, (int)prev);
++            p->state = WAKE_FAILED;
++        }
++    }
++}
++
++static doca_error_t wake_start(struct dmesh_wake_producer *p, struct doca_comch_connection *connection)
++{
++    struct objects *o = p->objs;
++    union doca_data user_data = {.ptr = p};
++    doca_error_t result = doca_comch_producer_create(connection, &p->producer);
++    if (result != DOCA_SUCCESS)
++        return result;
++    struct doca_ctx *ctx = doca_comch_producer_as_ctx(p->producer);
++    if ((result = doca_pe_connect_ctx(o->consumer_pe, ctx)) != DOCA_SUCCESS ||
++        (result = doca_comch_producer_task_send_set_conf(p->producer, wake_send_done, wake_send_failed,
++                                                         WAKE_SEND_TASKS)) != DOCA_SUCCESS ||
++        (result = doca_ctx_set_user_data(ctx, user_data)) != DOCA_SUCCESS ||
++        (result = doca_ctx_set_state_changed_cb(ctx, wake_state_changed)) != DOCA_SUCCESS)
++        goto destroy;
++    p->state = WAKE_STARTING;
++    p->idle = false;
++    result = doca_ctx_start(ctx);
++    if (result == DOCA_SUCCESS || result == DOCA_ERROR_IN_PROGRESS)
++        return DOCA_SUCCESS;
++destroy:
++    (void)doca_comch_producer_destroy(p->producer);
++    p->producer = NULL;
++    p->state = WAKE_FREE;
++    return result;
++}
++
++/* Stop and destroy; the stop flushes nothing (one descriptor per flow, and
++ * the last flow is gone). Bounded: a producer that does not reach IDLE stays
++ * STOPPING and is retried from cleanup. */
++static void wake_stop(struct dmesh_wake_producer *p)
++{
++    struct objects *o = p->objs;
++    pthread_mutex_t *lock = dmesh_dispatch_sdk_lock(o);
++    if (p->producer == NULL) {
++        memset(p, 0, sizeof(*p));
++        return;
++    }
++    struct doca_ctx *ctx = doca_comch_producer_as_ctx(p->producer);
++    if (p->state != WAKE_STOPPING) {
++        p->state = WAKE_STOPPING;
++        if (lock) pthread_mutex_lock(lock);
++        doca_error_t r = doca_ctx_stop(ctx);
++        if (lock) pthread_mutex_unlock(lock);
++        if (r != DOCA_SUCCESS && r != DOCA_ERROR_IN_PROGRESS && r != DOCA_ERROR_BAD_STATE)
++            DOCA_LOG_WARN("fast-path producer stop: %s", doca_error_get_name(r));
++    }
++    uint64_t deadline = wake_now_ns() + WAKE_STOP_NS;
++    enum doca_ctx_states st = DOCA_CTX_STATE_STOPPING;
++    while (!p->idle && (doca_ctx_get_state(ctx, &st) != DOCA_SUCCESS || st != DOCA_CTX_STATE_IDLE) &&
++           wake_now_ns() < deadline)
++        (void)doca_pe_progress(o->consumer_pe);
++    if (!p->idle && st != DOCA_CTX_STATE_IDLE)
++        return;
++    if (lock) pthread_mutex_lock(lock);
++    doca_error_t r = doca_comch_producer_destroy(p->producer);
++    if (lock) pthread_mutex_unlock(lock);
++    if (r != DOCA_SUCCESS) {
++        DOCA_LOG_WARN("fast-path producer destroy: %s", doca_error_get_name(r));
++        return;
++    }
++    memset(p, 0, sizeof(*p));
++}
++
++doca_error_t dmesh_wake_attach(struct dmesh_conn *c, struct doca_comch_connection *connection,
++                               uint32_t consumer)
++{
++    struct objects *o = c->objs;
++    if (o->consumer_pe == NULL || connection == NULL || consumer == 0)
++        return DOCA_ERROR_INVALID_VALUE;
++    if (o->wake_producers == NULL) {
++        o->wake_producers = calloc(DMESH_MAX_SESSIONS, sizeof(*o->wake_producers));
++        if (o->wake_producers == NULL)
++            return DOCA_ERROR_NO_MEMORY;
++    }
++    struct dmesh_wake_producer *p = NULL, *free_entry = NULL;
++    for (unsigned i = 0; i < DMESH_MAX_SESSIONS; ++i) {
++        struct dmesh_wake_producer *e = &o->wake_producers[i];
++        if (e->state != WAKE_FREE && e->session_id == c->key.session_id &&
++            e->session_epoch == c->key.session_epoch && e->consumer == consumer) {
++            p = e;
++            break;
++        }
++        if (e->state == WAKE_FREE && free_entry == NULL)
++            free_entry = e;
++    }
++    if (p != NULL && (p->state == WAKE_FAILED || p->state == WAKE_STOPPING))
++        return DOCA_ERROR_BAD_STATE;
++    if (p == NULL) {
++        if (free_entry == NULL)
++            return DOCA_ERROR_FULL;
++        p = free_entry;
++        memset(p, 0, sizeof(*p));
++        p->objs = o;
++        p->session_id = c->key.session_id;
++        p->session_epoch = c->key.session_epoch;
++        p->consumer = consumer;
++        pthread_mutex_t *lock = dmesh_dispatch_sdk_lock(o);
++        if (lock) pthread_mutex_lock(lock);
++        doca_error_t r = wake_start(p, connection);
++        if (lock) pthread_mutex_unlock(lock);
++        if (r != DOCA_SUCCESS) {
++            DOCA_LOG_ERR("fast-path producer for session %lu: %s", (unsigned long)p->session_id,
++                         doca_error_get_name(r));
++            memset(p, 0, sizeof(*p));
++            return r;
++        }
++    }
++    p->refs++;
++    c->wake = p;
++    c->wake_desc_pending = false;
++    return DOCA_SUCCESS;
++}
++
++void dmesh_wake_detach(struct dmesh_conn *c)
++{
++    struct dmesh_wake_producer *p = c->wake;
++    if (p == NULL)
++        return;
++    c->wake = NULL;
++    c->wake_desc_pending = false;
++    if (p->refs > 0 && --p->refs == 0)
++        wake_stop(p);
++}
++
++doca_error_t dmesh_wake_send_desc(struct dmesh_conn *c, uint64_t seq, uint32_t pos, uint32_t len)
++{
++    struct dmesh_wake_producer *p = c->wake;
++    if (p == NULL)
++        return DOCA_ERROR_BAD_STATE;
++    if (p->state == WAKE_STARTING)
++        return DOCA_ERROR_AGAIN;
++    if (p->state != WAKE_RUNNING)
++        return DOCA_ERROR_BAD_STATE;
++    /* The task keeps a pointer to its immediate data: the flow owns it until
++     * the completion, and holds one descriptor in flight at a time. */
++    c->wake_imm = (struct dmesh_wake_desc){.flow_id = c->flow_id, .generation = c->generation,
++                                           .seq = seq, .pos = pos, .len = len};
++    struct doca_comch_producer_task_send *task;
++    doca_error_t r = doca_comch_producer_task_send_alloc_init(p->producer, NULL, (uint8_t *)&c->wake_imm,
++                                                              DMESH_WAKE_IMM_LEN, p->consumer, &task);
++    if (r == DOCA_ERROR_NO_MEMORY)
++        return DOCA_ERROR_AGAIN;
++    if (r != DOCA_SUCCESS)
++        return r;
++    union doca_data task_data = {.u64 = (uint64_t)(uint32_t)(c - p->objs->conns) << 32 | c->generation};
++    doca_task_set_user_data(doca_comch_producer_task_send_as_task(task), task_data);
++    r = doca_task_submit(doca_comch_producer_task_send_as_task(task));
++    if (r != DOCA_SUCCESS)
++        doca_task_free(doca_comch_producer_task_send_as_task(task));
++    return r;
++}
++
++void dmesh_wake_cleanup(struct objects *o)
++{
++    if (o->wake_producers == NULL)
++        return;
++    for (unsigned i = 0; i < DMESH_MAX_SESSIONS; ++i)
++        if (o->wake_producers[i].state != WAKE_FREE)
++            wake_stop(&o->wake_producers[i]);
++    for (unsigned i = 0; i < DMESH_MAX_SESSIONS; ++i)
++        if (o->wake_producers[i].state != WAKE_FREE)
++            return;                     /* retained: a producer did not stop */
++    free(o->wake_producers);
++    o->wake_producers = NULL;
++}
+diff --git a/src/transport/dpu/comch_wake.h b/src/transport/dpu/comch_wake.h
+new file mode 100644
+index 0000000..c4a0be6
+--- /dev/null
++++ b/src/transport/dpu/comch_wake.h
+@@ -0,0 +1,45 @@
++#ifndef COMCH_WAKE_H
++#define COMCH_WAKE_H
++
++/*
++ * Comch fast-path wake (DPU side). A push flow whose session has a host
++ * consumer publishes its 16B descriptor as the immediate data of a Comch
++ * producer message instead of a desc copy. The message lands as a
++ * completion in the host's control PE, which is the host's idle wake: an
++ * idle host sleeps on that PE's notification with no ARM round trip.
++ *
++ * Each worker keeps one producer per session it serves such flows of, on its
++ * own PE (consumer_pe). Producer create/start/stop/destroy go through the
++ * session's connection, which the dispatcher thread progresses, so they run
++ * under the dispatcher's SDK lock; sends and completions are worker-local.
++ */
++#include <stdbool.h>
++#include <stdint.h>
++#include <doca_comch.h>
++#include <doca_error.h>
++
++struct objects;
++struct dmesh_conn;
++
++/* DMESH_COMCH_WAKE=0 on the DPU keeps every flow on the desc copy + ARM path. */
++bool dmesh_wake_enabled(void);
++
++/* Bind a newly admitted flow to its worker's producer for the session,
++ * creating and starting the producer on first use. Worker thread. */
++doca_error_t dmesh_wake_attach(struct dmesh_conn *c, struct doca_comch_connection *connection,
++                               uint32_t consumer);
++
++/* Unbind a flow being torn down; the last flow of a session stops and
++ * destroys the producer before returning (its connection may be closed
++ * right after the flow retires). Worker thread. */
++void dmesh_wake_detach(struct dmesh_conn *c);
++
++/* Send the flow's descriptor. DOCA_ERROR_AGAIN: the producer is still
++ * starting or cannot take a task yet; retry later. On success the send
++ * completion calls dmesh_dma_push_desc_sent (or _failed). */
++doca_error_t dmesh_wake_send_desc(struct dmesh_conn *c, uint64_t seq, uint32_t pos, uint32_t len);
++
++/* Worker cleanup: destroy whatever producers remain. */
++void dmesh_wake_cleanup(struct objects *o);
++
++#endif /* COMCH_WAKE_H */
+diff --git a/src/transport/dpu/dispatcher.c b/src/transport/dpu/dispatcher.c
+index f9795c6..8a3df80 100644
+--- a/src/transport/dpu/dispatcher.c
++++ b/src/transport/dpu/dispatcher.c
+@@ -2,6 +2,7 @@
+ #include "dispatcher.h"
+ #include "placement.h"
+ #include "object.h"
++#include "comch_wake.h"
+ #include <errno.h>
+ #include <poll.h>
+ #include <pthread.h>
+@@ -23,6 +24,10 @@ struct message {
+     uint16_t type;
+     int32_t status;
+     size_t length;
++    /* OPEN of a session with a fast-path consumer: the worker creates its
++     * producer on this connection (under the SDK lock). */
++    struct doca_comch_connection *wake_connection;
++    uint32_t wake_consumer;
+     unsigned char payload[DMESH_SESSION_MAX_PAYLOAD];
+ };
+ struct queue {
+@@ -57,6 +62,7 @@ struct dmesh_dispatcher {
+     int fd;
+     pthread_t thread;
+     _Atomic unsigned remaining;
++    pthread_mutex_t sdk_lock;   /* see dmesh_dispatch_sdk_lock */
+ };
+ 
+ /* Read-only membership snapshots for Rust routing before any backend exists.
+@@ -430,6 +436,10 @@ void dmesh_dispatcher_request(struct objects *o, struct dmesh_session *s,
+         .backend_token = request_token};
+     struct message m = {.key = a->key, .location = a->location, .type = OPEN, .length = sizeof(metadata)};
+     memcpy(m.payload, &metadata, sizeof(metadata));
++    if (s->wake_consumer && s->connection && DMESH_FLOW_USES_PUSH(metadata.flow.mode)) {
++        m.wake_connection = s->connection;
++        m.wake_consumer = s->wake_consumer;
++    }
+     if (!admit(&d->workers[owner], &m)) {
+         memset(a, 0, sizeof(*a)); reply_error(o, s, h, EAGAIN); return;
+     }
+@@ -549,6 +559,10 @@ static void arm_flow(struct dmesh_conn *c, const struct message *m)
+     }
+ }
+ 
++pthread_mutex_t *dmesh_dispatch_sdk_lock(struct objects *o)
++{
++    return o && o->mailbox ? &o->mailbox->dispatcher->sdk_lock : NULL;
++}
+ int dmesh_dispatch_worker_fd(struct objects *o) { return o->mailbox->fd; }
+ void dmesh_dispatch_worker_arm(struct objects *o) { clear(o->mailbox->fd); }
+ void dmesh_dispatch_worker_ready(struct objects *o)
+@@ -582,6 +596,14 @@ void dmesh_dispatch_worker_drain(struct objects *o)
+                 memcpy(c->pending_metadata, m.payload, sizeof(*c->pending_metadata));
+                 c->state = DMESH_CONN_NEW;
+             } else { c->error_status = ENOMEM; c->state = DMESH_CONN_ERROR; }
++            /* The host of a fast-path session no longer ARMs: a flow that
++             * cannot publish through a producer must fail rather than fall
++             * back to descriptors nobody is woken for. */
++            if (c->state == DMESH_CONN_NEW && m.wake_connection &&
++                dmesh_wake_attach(c, m.wake_connection, m.wake_consumer) != DOCA_SUCCESS) {
++                c->error_status = EIO;
++                c->state = DMESH_CONN_ERROR;
++            }
+         } else if (same_key(&c->key, &m.key) &&
+                    c->location.ownership_epoch == m.location.ownership_epoch && c->state != DMESH_CONN_FREE) {
+             if (m.type == ARM) { arm_flow(c, &m); continue; }
+@@ -658,6 +680,7 @@ static void *dispatch_main(void *arg)
+     struct pollfd *fds = d->pollfds;
+     while (atomic_load(&d->remaining)) {
+         clear(d->fd);
++        pthread_mutex_lock(&d->sdk_lock);
+         for (size_t i = 0; i < d->count; ++i) {
+             (void)dmesh_doca_ctrl_arm(d->controls[i]);
+             (void)dmesh_doca_ctrl_drain(d->controls[i]);
+@@ -666,6 +689,7 @@ static void *dispatch_main(void *arg)
+         flush_commands(d);
+         flush_listeners(d);
+         for (size_t i = 0; i < d->count; ++i) dmesh_sessions_advance(d->controls[i]);
++        pthread_mutex_unlock(&d->sdk_lock);
+         /* Retry pending SDK sends/HELLO deadlines without busy polling. */
+         (void)poll(fds, d->count + 1, 10);
+     }
+@@ -700,7 +724,9 @@ static void *dispatch_main(void *arg)
+         pthread_mutex_destroy(&d->workers[i].requests.lock);
+         pthread_mutex_destroy(&d->workers[i].replies.lock);
+     }
+-    close(d->fd); free(d->controls); free(d->workers); free(d->loads); free(d->flows); free(d);
++    close(d->fd); free(d->controls); free(d->workers); free(d->loads); free(d->flows);
++    pthread_mutex_destroy(&d->sdk_lock);
++    free(d);
+     return NULL;
+ }
+ 
+@@ -710,6 +736,7 @@ doca_error_t dmesh_dispatcher_start(struct objects **controls, struct objects **
+     if (!count || count > 128 || !controls || !workers || !out) return DOCA_ERROR_INVALID_VALUE;
+     struct dmesh_dispatcher *d = calloc(1, sizeof(*d));
+     if (!d) return DOCA_ERROR_NO_MEMORY;
++    if (pthread_mutex_init(&d->sdk_lock, NULL) != 0) { free(d); return DOCA_ERROR_NO_MEMORY; }
+     d->count = count; d->fd = -1;
+     d->controls = calloc(count, sizeof(*d->controls));
+     d->workers = calloc(count, sizeof(*d->workers));
+@@ -765,6 +792,7 @@ fail_initialized:
+     }
+ fail:
+     if (d->fd >= 0) close(d->fd);
++    pthread_mutex_destroy(&d->sdk_lock);
+     free(d->pollfds); free(d->controls); free(d->workers); free(d->loads); free(d->flows); free(d);
+     return DOCA_ERROR_INITIALIZATION;
+ }
+diff --git a/src/transport/dpu/dispatcher.h b/src/transport/dpu/dispatcher.h
+index eb3876e..9f2e211 100644
+--- a/src/transport/dpu/dispatcher.h
++++ b/src/transport/dpu/dispatcher.h
+@@ -5,6 +5,7 @@
+ #include <stdbool.h>
+ #include <stddef.h>
+ #include <stdint.h>
++#include <pthread.h>
+ #include "session_protocol.h"
+ 
+ struct objects;
+@@ -47,6 +48,11 @@ void dmesh_dispatch_worker_ready(struct objects *);
+ void dmesh_dispatch_worker_depart(struct objects *);
+ bool dmesh_dispatch_worker_stop_admission(struct objects *);
+ doca_error_t dmesh_dispatch_reply(struct dmesh_conn *, uint16_t, const void *, size_t, int32_t);
++/* Held by the dispatcher while it progresses the control PEs and sends; a
++ * worker takes it around the Comch calls that go through a session's
++ * connection (fast-path producer create/start/stop/destroy). NULL without a
++ * dispatcher. */
++pthread_mutex_t *dmesh_dispatch_sdk_lock(struct objects *);
+ 
+ /* Dispatcher-only helpers implemented alongside the Comch callbacks. */
+ doca_error_t dmesh_session_send(struct objects *, struct dmesh_session *, uint16_t,
+diff --git a/src/transport/dpu/dma.c b/src/transport/dpu/dma.c
+index 63aa5d1..16efd92 100644
+--- a/src/transport/dpu/dma.c
++++ b/src/transport/dpu/dma.c
+@@ -16,6 +16,7 @@
+ #include "dpa.h"
+ #include "buffer.h"
+ #include "ring.h"
++#include "comch_wake.h"
+ 
+ DOCA_LOG_REGISTER(DMA);
+ 
+@@ -795,6 +796,20 @@ dmesh_dma_push_submit_desc(struct dmesh_conn *conn)
+ 
+     if (dma_admission_closed(conn))
+         return;
++    if (conn->wake != NULL) {
++        /* Fast-path wake: the descriptor travels as the immediate data of a
++         * producer message; its completion lands in the host's control PE
++         * (and wakes it), where it is written into the slot ring. */
++        result = dmesh_wake_send_desc(conn, next_seq, conn->push_pos, conn->push_len);
++        conn->wake_desc_pending = result == DOCA_ERROR_AGAIN;
++        if (result == DOCA_SUCCESS) {
++            conn->push_state = 2;
++            return;
++        }
++        if (result == DOCA_ERROR_AGAIN)
++            return;                     /* retried from the flow's advance */
++        goto failed;
++    }
+     conn->push_shadow = (struct dmesh_push_desc *)((uint8_t *)conn->tx_staging +
+                                                    conn->tx_staging_len - 64);
+     conn->push_shadow->seq = next_seq;
+@@ -818,9 +833,10 @@ dmesh_dma_push_submit_desc(struct dmesh_conn *conn)
+         return;
+     }
+ 
++failed:
+     /* Batch is lost to the stream if we cannot publish it - log loudly. */
+-    DOCA_LOG_ERR("backend push: failed to submit desc DMA (seq=%lu): %s",
+-                 next_seq, doca_error_get_descr(result));
++    DOCA_LOG_ERR("backend push: failed to submit desc %s (seq=%lu): %s",
++                 conn->wake != NULL ? "message" : "DMA", next_seq, doca_error_get_descr(result));
+     if (dbuf != NULL)
+         (void)doca_buf_dec_refcount(dbuf, NULL);
+     if (sbuf != NULL)
+@@ -847,6 +863,31 @@ dmesh_dma_push_desc_done(struct dmesh_conn *conn)
+     (void)dmesh_dma_push_fin(conn);
+ }
+ 
++void dmesh_dma_push_desc_sent(struct dmesh_conn *conn)
++{
++    dmesh_dma_push_desc_done(conn);
++}
++
++/* The same terminal fault as a failed desc DMA: the batch cannot be
++ * published, so the stream is broken. */
++void dmesh_dma_push_desc_failed(struct dmesh_conn *conn)
++{
++    conn->push_state = 0;
++    conn->dma_closing = true;
++    conn->state = DMESH_CONN_ERROR;
++    conn->error_status = EIO;
++}
++
++void dmesh_dma_push_retry_desc(struct dmesh_conn *conn)
++{
++    if (!conn->wake_desc_pending)
++        return;
++    if (conn->push_state == 1)
++        dmesh_dma_push_submit_desc(conn);   /* a data batch waits for its descriptor */
++    else
++        conn->wake_desc_pending = false;    /* a FIN: dmesh_dma_push_fin repeats it */
++}
++
+ int
+ dmesh_dma_push_fin(struct dmesh_conn *conn)
+ {
+diff --git a/src/transport/dpu/dma.h b/src/transport/dpu/dma.h
+index 51db981..0d47e86 100644
+--- a/src/transport/dpu/dma.h
++++ b/src/transport/dpu/dma.h
+@@ -63,6 +63,13 @@ dmesh_dma_push_staged(struct dmesh_conn *conn, uint32_t src_pos, uint32_t len);
+ int
+ dmesh_dma_push_fin(struct dmesh_conn *conn);
+ 
++/* Comch fast-path wake (comch_wake.h): the descriptor send completed or
++ * failed; and a send the producer could not take yet, retried from the
++ * flow's advance. */
++void dmesh_dma_push_desc_sent(struct dmesh_conn *conn);
++void dmesh_dma_push_desc_failed(struct dmesh_conn *conn);
++void dmesh_dma_push_retry_desc(struct dmesh_conn *conn);
++
+ doca_error_t
+ enqueue_dma_task(struct dmesh_conn *conn, const struct doca_buf *src, struct doca_buf *dst);
+ 
+diff --git a/src/transport/host/channel.c b/src/transport/host/channel.c
+index 177275d..ab63543 100644
+--- a/src/transport/host/channel.c
++++ b/src/transport/host/channel.c
+@@ -9,6 +9,8 @@
+ #include <poll.h>
+ 
+ #include <doca_buf_array.h>
++#include <doca_buf_inventory.h>
++#include <doca_mmap.h>
+ #include <doca_comch_consumer.h>
+ #include <doca_comch_producer.h>
+ #include <doca_error.h>
+@@ -86,6 +88,17 @@ struct channel_dev {
+ 	uint64_t arm_epoch;
+ 	uint64_t arms_sent, doorbells;
+ 	int host_dpa;                       /* Nonzero: the host-dpa reverse path */
++	/* Comch fast-path wake (on unless DPUMESH_COMCH_WAKE=0). A consumer on the control PE
++	 * receives the DPU's push descriptors as completions and writes them into
++	 * the flows' slot rings. Once the DPU answers with WAKE_READY it sends
++	 * every push descriptor that way (fastpath): a completion raises the
++	 * control PE's fd, so an idle EQ sleeps on it with no ARM. */
++	struct doca_comch_consumer *wake_consumer;
++	struct doca_mmap *wake_mmap;
++	struct doca_buf_inventory *wake_inv;
++	void *wake_mem;
++	int wake_running, wake_ready, fastpath;
++	uint64_t wake_descs, wake_drops;
+     struct doca_dev *reverse_dev;       /* base PF or optional SF */
+     struct doca_dpa *reverse_dpa;       /* base context or SF extension */
+     struct doca_dev *base_dev;
+@@ -244,6 +257,10 @@ static void session_message(void *owner, const uint8_t *data, size_t len)
+         }
+         return;
+     }
++	if (h.type == DMESH_SESSION_WAKE_READY) {
++		dev->wake_ready = 1;
++		return;
++	}
+ 	if (h.flow_id == 0) {
+ 		dev->session_error = h.status ? h.status : EPROTO;
+ 		return;
+@@ -364,6 +381,187 @@ static int session_wait_locked(struct channel_dev *dev, struct channel_conn *con
+ 	}
+ }
+ 
++/*
++ * ---------------------------------------------------------------------------
++ * Comch fast-path wake
++ * ---------------------------------------------------------------------------
++ */
++#define WAKE_RECV_N 512u     /* above any burst between two control progresses */
++#define WAKE_SLOT 64u        /* descriptors are immediate data; the slot stays empty */
++#define WAKE_START_MS 2000u
++#define WAKE_READY_MS_DEFAULT 200u
++
++/* Runs inside the control PE progress, under session_lock like every
++ * flow-map change. The sequence is published last (dmesh_wake_desc_publish). */
++static void wake_recv_done(struct doca_comch_consumer_task_post_recv *task,
++			   union doca_data task_data, union doca_data ctx_data)
++{
++	struct channel_dev *dev = ctx_data.ptr;
++	const uint8_t *imm = doca_comch_consumer_task_post_recv_get_imm_data(task);
++	uint32_t n = doca_comch_consumer_task_post_recv_get_imm_data_len(task);
++	struct dmesh_wake_desc d = {0};
++	struct channel_conn *conn = NULL;
++	(void)task_data;
++	if (imm != NULL && n >= DMESH_WAKE_IMM_LEN) {
++		memcpy(&d, imm, sizeof(d));
++		if (d.flow_id >= 1 && d.flow_id <= 32)
++			conn = dev->flows[d.flow_id];
++	}
++	if (conn != NULL && conn->generation == d.generation && conn->descs != NULL) {
++		dmesh_wake_desc_publish(conn->descs, &d);
++		dev->wake_descs++;
++	} else {
++		dev->wake_drops++;              /* a flow already closed, or a malformed message */
++	}
++	struct doca_buf *buf = doca_comch_consumer_task_post_recv_get_buf(task);
++	doca_buf_reset_data_len(buf);
++	if (doca_task_submit(doca_comch_consumer_task_post_recv_as_task(task)) != DOCA_SUCCESS) {
++		/* One receive fewer; the DPU producer waits once none is left. */
++		(void)doca_buf_dec_refcount(buf, NULL);
++		doca_task_free(doca_comch_consumer_task_post_recv_as_task(task));
++		DOCA_LOG_ERR("fast-path wake: receive could not be reposted");
++	}
++}
++
++static void wake_recv_failed(struct doca_comch_consumer_task_post_recv *task,
++			     union doca_data task_data, union doca_data ctx_data)
++{
++	(void)task_data; (void)ctx_data;
++	struct doca_buf *buf = doca_comch_consumer_task_post_recv_get_buf(task);
++	(void)doca_buf_dec_refcount(buf, NULL);
++	doca_task_free(doca_comch_consumer_task_post_recv_as_task(task));
++}
++
++static void wake_state_changed(const union doca_data user_data, struct doca_ctx *ctx,
++			       enum doca_ctx_states prev, enum doca_ctx_states next)
++{
++	struct channel_dev *dev = user_data.ptr;
++	(void)ctx; (void)prev;
++	dev->wake_running = next == DOCA_CTX_STATE_RUNNING;
++}
++
++/* Progress the control PE until cond holds or ms pass; the lock is dropped
++ * between passes, like session_wait_locked. */
++#define WAKE_WAIT_LOCKED(dev, cond, ms) ({ \
++	uint64_t _deadline = channel_now_ms() + (ms); int _ok = 0; \
++	const struct timespec _pause = { .tv_nsec = 10000 }; \
++	for (;;) { \
++		if (session_progress_locked(dev) != 0) break; \
++		if (cond) { _ok = 1; break; } \
++		if (channel_now_ms() >= _deadline) break; \
++		pthread_mutex_unlock(&(dev)->session_lock); \
++		nanosleep(&_pause, NULL); \
++		pthread_mutex_lock(&(dev)->session_lock); \
++	} _ok; })
++
++static void wake_close_locked(struct channel_dev *dev)
++{
++	if (dev->wake_consumer != NULL) {
++		struct doca_ctx *ctx = doca_comch_consumer_as_ctx(dev->wake_consumer);
++		(void)doca_ctx_stop(ctx);
++		if (wait_ctx_idle(ctx, dev->control->pe) != 0 ||
++		    doca_comch_consumer_destroy(dev->wake_consumer) != DOCA_SUCCESS) {
++			DOCA_LOG_ERR("fast-path wake: consumer did not stop; retained");
++			return;
++		}
++		dev->wake_consumer = NULL;
++	}
++	if (dev->wake_inv != NULL) {
++		(void)doca_buf_inventory_destroy(dev->wake_inv);
++		dev->wake_inv = NULL;
++	}
++	if (dev->wake_mmap != NULL) {
++		(void)doca_mmap_destroy(dev->wake_mmap);
++		dev->wake_mmap = NULL;
++	}
++	free(dev->wake_mem);
++	dev->wake_mem = NULL;
++	dev->wake_running = dev->fastpath = 0;
++}
++
++/* Ask the DPU for fast-path wake: create the consumer, post its receives and
++ * wait for WAKE_READY. Any failure leaves the session on ARM/DOORBELL. Runs
++ * before any flow opens, so no flow publishes by desc copy on a fastpath
++ * session. */
++static void wake_open_locked(struct channel_dev *dev)
++{
++	const char *env = getenv("DPUMESH_COMCH_WAKE");
++	if (dev->host_dpa || (env != NULL && strcmp(env, "0") == 0))
++		return;
++	const char *wait_env = getenv("DPUMESH_COMCH_WAKE_WAIT_MS");
++	uint64_t ready_ms = wait_env && *wait_env ? strtoull(wait_env, NULL, 10) : WAKE_READY_MS_DEFAULT;
++	struct dmesh_comch_client *control = dev->control;
++	union doca_data user_data = { .ptr = dev };
++	const char *step = "alloc";
++	doca_error_t result = DOCA_ERROR_NO_MEMORY;
++
++	dev->wake_mem = aligned_alloc(64, WAKE_RECV_N * WAKE_SLOT);
++	if (dev->wake_mem == NULL)
++		goto fail;
++	memset(dev->wake_mem, 0, WAKE_RECV_N * WAKE_SLOT);
++	step = "mmap";
++	if ((result = doca_mmap_create(&dev->wake_mmap)) != DOCA_SUCCESS ||
++	    (result = doca_mmap_add_dev(dev->wake_mmap, dev->dev)) != DOCA_SUCCESS ||
++	    (result = doca_mmap_set_permissions(dev->wake_mmap, DOCA_ACCESS_FLAG_PCI_READ_WRITE)) != DOCA_SUCCESS ||
++	    (result = doca_mmap_set_memrange(dev->wake_mmap, dev->wake_mem, WAKE_RECV_N * WAKE_SLOT)) != DOCA_SUCCESS ||
++	    (result = doca_mmap_start(dev->wake_mmap)) != DOCA_SUCCESS)
++		goto fail;
++	step = "inventory";
++	if ((result = doca_buf_inventory_create(WAKE_RECV_N, &dev->wake_inv)) != DOCA_SUCCESS ||
++	    (result = doca_buf_inventory_start(dev->wake_inv)) != DOCA_SUCCESS)
++		goto fail;
++	step = "consumer";
++	if ((result = doca_comch_consumer_create(control->connection, dev->wake_mmap, &dev->wake_consumer)) != DOCA_SUCCESS)
++		goto fail;
++	struct doca_ctx *ctx = doca_comch_consumer_as_ctx(dev->wake_consumer);
++	if ((result = doca_pe_connect_ctx(control->pe, ctx)) != DOCA_SUCCESS ||
++	    (result = doca_comch_consumer_set_imm_data_len(dev->wake_consumer, DMESH_WAKE_IMM_LEN)) != DOCA_SUCCESS ||
++	    (result = doca_comch_consumer_task_post_recv_set_conf(dev->wake_consumer, wake_recv_done,
++								  wake_recv_failed, WAKE_RECV_N)) != DOCA_SUCCESS ||
++	    (result = doca_ctx_set_user_data(ctx, user_data)) != DOCA_SUCCESS ||
++	    (result = doca_ctx_set_state_changed_cb(ctx, wake_state_changed)) != DOCA_SUCCESS)
++		goto fail;
++	result = doca_ctx_start(ctx);
++	if (result != DOCA_SUCCESS && result != DOCA_ERROR_IN_PROGRESS)
++		goto fail;
++	step = "start";
++	result = DOCA_ERROR_TIME_OUT;
++	if (!WAKE_WAIT_LOCKED(dev, dev->wake_running, WAKE_START_MS))
++		goto fail;
++	step = "post receives";
++	for (uint32_t i = 0; i < WAKE_RECV_N; ++i) {
++		struct doca_buf *buf;
++		struct doca_comch_consumer_task_post_recv *task;
++		if ((result = doca_buf_inventory_buf_get_by_addr(dev->wake_inv, dev->wake_mmap,
++								 (uint8_t *)dev->wake_mem + i * WAKE_SLOT,
++								 WAKE_SLOT, &buf)) != DOCA_SUCCESS)
++			goto fail;
++		if ((result = doca_comch_consumer_task_post_recv_alloc_init(dev->wake_consumer, buf, &task)) != DOCA_SUCCESS) {
++			(void)doca_buf_dec_refcount(buf, NULL);
++			goto fail;
++		}
++		if ((result = doca_task_submit(doca_comch_consumer_task_post_recv_as_task(task))) != DOCA_SUCCESS) {
++			(void)doca_buf_dec_refcount(buf, NULL);
++			doca_task_free(doca_comch_consumer_task_post_recv_as_task(task));
++			goto fail;
++		}
++	}
++	/* An older DPU never answers: the consumer is dropped and the session
++	 * keeps ARM/DOORBELL. */
++	if (!WAKE_WAIT_LOCKED(dev, dev->wake_ready, ready_ms)) {
++		DOCA_LOG_INFO("fast-path wake: no WAKE_READY from the DPU in %lu ms; using ARM/DOORBELL",
++			      (unsigned long)ready_ms);
++		wake_close_locked(dev);
++		return;
++	}
++	dev->fastpath = 1;
++	DOCA_LOG_INFO("fast-path wake on: push descriptors arrive as Comch completions");
++	return;
++fail:
++	DOCA_LOG_ERR("fast-path wake unavailable (%s: %s); using ARM/DOORBELL", step, doca_error_get_name(result));
++	wake_close_locked(dev);
++}
++
+ int channel_session_open(struct channel_dev *dev, const char *server)
+ {
+ 	if (!dev || !server || !*server) { errno = EINVAL; return -1; }
+@@ -379,6 +577,8 @@ int channel_session_open(struct channel_dev *dev, const char *server)
+ 	if (result != DOCA_SUCCESS) errno = error_number(result);
+ 	else if (session_send_locked(dev, DMESH_SESSION_HELLO, 0, 0, NULL, 0) == 0)
+ 		rc = session_wait_locked(dev, NULL, 0);
++	if (rc == 0)
++		wake_open_locked(dev);
+ 	pthread_mutex_unlock(&dev->session_lock);
+ 	return rc;
+ }
+@@ -437,6 +637,8 @@ int channel_session_close(struct channel_dev *dev)
+ 		if (dev->flows[i] && channel_conn_close(dev->flows[i]) != 0) return -1;
+ 	pthread_mutex_lock(&dev->session_lock);
+ 	struct dmesh_comch_client *control = dev->control;
++	if (control)
++		wake_close_locked(dev);
+ 	if (control && control->cc_client) {
+ 		struct doca_ctx *ctx = doca_comch_client_as_ctx(control->cc_client);
+ 		(void)doca_ctx_stop(ctx);
+@@ -1165,7 +1367,9 @@ int channel_dev_arm(struct channel_dev *dev)
+ 	/* Push batches have no completion doorbell: list, per flow, the next
+ 	 * descriptor this host has not read. The DPU rings at once if it already
+ 	 * published one, otherwise on its next publication. */
+-	if (!dev->host_dpa && !dev->arm_outstanding) {
++	/* A fastpath session needs no ARM: every push descriptor is itself a
++	 * completion on the control PE armed below. */
++	if (!dev->host_dpa && !dev->arm_outstanding && !dev->fastpath) {
+ 		struct dmesh_session_arm_flow flows[DMESH_SESSION_MAX_FLOWS];
+ 		uint8_t payload[DMESH_SESSION_ARM_HEADER_SIZE +
+ 				DMESH_SESSION_MAX_FLOWS * DMESH_SESSION_ARM_FLOW_SIZE];
+@@ -1224,6 +1428,11 @@ void channel_dev_clear(struct channel_dev *dev)
+ 	pthread_mutex_unlock(&dev->session_lock);
+ }
+ 
++int channel_dev_rx_signaled(const struct channel_dev *dev)
++{
++	return dev->fastpath;
++}
++
+ void channel_dev_wake_counters(struct channel_dev *dev, uint64_t *arms_sent, uint64_t *doorbells)
+ {
+ 	pthread_mutex_lock(&dev->session_lock);
+diff --git a/src/transport/host/channel.h b/src/transport/host/channel.h
+index cd03c46..ee71523 100644
+--- a/src/transport/host/channel.h
++++ b/src/transport/host/channel.h
+@@ -74,6 +74,9 @@ int channel_dev_fd(struct channel_dev *dev);
+ int channel_dev_arm(struct channel_dev *dev);
+ void channel_dev_clear(struct channel_dev *dev);
+ void channel_dev_wake_counters(struct channel_dev *dev, uint64_t *arms_sent, uint64_t *doorbells);
++/* Nonzero when the DPU publishes every push descriptor as a Comch fast-path
++ * completion (WAKE_READY): each receive raises channel_dev_fd without an ARM */
++int channel_dev_rx_signaled(const struct channel_dev *dev);
+ 
+ /* Memory: allocates, registers and PCI-exports `bytes`; the buffer is owned by mem */
+ int channel_mem_alloc(struct channel_dev *dev, size_t bytes, struct channel_mem **out);
+diff --git a/src/transport/meson.build b/src/transport/meson.build
+index 9b7ec06..4ec736e 100644
+--- a/src/transport/meson.build
++++ b/src/transport/meson.build
+@@ -52,6 +52,7 @@ common_nodpa_srcs = files(
+ common_srcs = common_nodpa_srcs + files('common/dpa.c', 'common/dpa_runtime.c', 'common/comch_msgq.c')
+ dpu_srcs = files(
+   'dpu/comch_server.c',
++  'dpu/comch_wake.c',
+   'dpu/dispatcher.c',
+   'dpu/placement.c',
+   'dpu/dma.c',
+diff --git a/tests/backend_dispatch_test.c b/tests/backend_dispatch_test.c
+index 3a517d5..0d0feb3 100644
+--- a/tests/backend_dispatch_test.c
++++ b/tests/backend_dispatch_test.c
+@@ -1,6 +1,13 @@
+ /* Real dispatcher policy/control queues with no DOCA device. */
+ #include <assert.h>
+ #include "src/transport/dpu/dispatcher.c"
++
++/* The fast-path producer is exercised on hardware, not here. */
++doca_error_t dmesh_wake_attach(struct dmesh_conn *c, struct doca_comch_connection *connection, uint32_t consumer)
++{
++    (void)c; (void)connection; (void)consumer;
++    return DOCA_ERROR_NOT_SUPPORTED;
++}
+ static unsigned requests, acknowledgements;
+ static uint32_t last_worker, last_token;
+ static doca_error_t send_result = DOCA_SUCCESS;
+diff --git a/tests/carrier_logic_test.c b/tests/carrier_logic_test.c
+index 4fd9db8..ee314a2 100644
+--- a/tests/carrier_logic_test.c
++++ b/tests/carrier_logic_test.c
+@@ -63,7 +63,7 @@ static void test_custody_polling(void)
+     assert(arm_calls == 1); /* preserve one-shot doorbell arming */
+     s->tickets[0] = (struct ticket){1, 1};
+     s->t_tail = 1;               /* custody outstanding: no doorbell covers its ACK */
+-    assert(dmesh_native_stripe_arm(t, 0) == 1);
++    assert(dmesh_native_stripe_arm(t, 0) == DMESH_STRIPE_CUSTODY);
+     s->t_head = 1;
+     assert(dmesh_native_stripe_arm(t, 0) == 0);
+     s->armed = 0;
+@@ -72,10 +72,10 @@ static void test_custody_polling(void)
+     s->state = SLOT_CLOSED;
+     assert(dmesh_native_stripe_arm(t, 0) == 0);
+     s->fin_pending = 1;
+-    assert(dmesh_native_stripe_arm(t, 0) == 1);
++    assert(dmesh_native_stripe_arm(t, 0) == DMESH_STRIPE_RETIRING);
+     s->fin_pending = 0;
+     s->t_tail = 2;
+-    assert(dmesh_native_stripe_arm(t, 0) == 1);
++    assert(dmesh_native_stripe_arm(t, 0) == DMESH_STRIPE_RETIRING);
+     pthread_mutex_destroy(&s->lock);
+     free(t);
+ }
+diff --git a/tests/channel_session_test.c b/tests/channel_session_test.c
+index ca29888..43a80f7 100644
+--- a/tests/channel_session_test.c
++++ b/tests/channel_session_test.c
+@@ -431,6 +431,9 @@ static void test_backend_requests(struct channel_dev *dev)
+ 
+ int main(void)
+ {
++    /* The fakes model the ARM/DOORBELL session; the fast-path consumer is
++     * exercised on hardware. */
++    setenv("DPUMESH_COMCH_WAKE", "0", 1);
+     struct channel_dev dev = {0};
+     pthread_mutex_init(&dev.session_lock, NULL);
+     assert(channel_session_open(&dev, "unit-session") == 0);
+diff --git a/tests/dispatch_wake_test.c b/tests/dispatch_wake_test.c
+index 638d52f..3170760 100644
+--- a/tests/dispatch_wake_test.c
++++ b/tests/dispatch_wake_test.c
+@@ -4,6 +4,13 @@
+ #include <assert.h>
+ #include "src/transport/dpu/dispatcher.c"
+ 
++/* The fast-path producer is exercised on hardware, not here. */
++doca_error_t dmesh_wake_attach(struct dmesh_conn *c, struct doca_comch_connection *connection, uint32_t consumer)
++{
++    (void)c; (void)connection; (void)consumer;
++    return DOCA_ERROR_NOT_SUPPORTED;
++}
++
+ doca_error_t dmesh_session_send(struct objects *o, struct dmesh_session *s, uint16_t type,
+     uint32_t id, uint32_t generation, const void *payload, size_t length, int32_t status)
+ {
+diff --git a/tests/dma_cleanup_test.c b/tests/dma_cleanup_test.c
+index 099dbb9..3073471 100644
+--- a/tests/dma_cleanup_test.c
++++ b/tests/dma_cleanup_test.c
+@@ -9,6 +9,13 @@
+ #define DMESH_DMA_STOP_MAX_POLLS 4u
+ #include "../src/transport/dpu/dma.c"
+ 
++/* The fast-path producer is exercised on hardware, not here. */
++doca_error_t dmesh_wake_send_desc(struct dmesh_conn *c, uint64_t seq, uint32_t pos, uint32_t len)
++{
++    (void)c; (void)seq; (void)pos; (void)len;
++    return DOCA_ERROR_BAD_STATE;
++}
++
+ struct test_buffer { int refs, releases; };
+ struct test_task {
+     struct dma_task_entry *entry;
+diff --git a/tests/native_signaled_test.c b/tests/native_signaled_test.c
+new file mode 100644
+index 0000000..0f290d5
+--- /dev/null
++++ b/tests/native_signaled_test.c
+@@ -0,0 +1,105 @@
++/* Idle wake with signaled receives (the Comch fast path) over the memory
++ * carrier: no naps or linger by default, a send does not wake its EQ, open
++ * custody alone does not keep an EQ polling, a sender waiting for space or a
++ * retiring flow does, and arming that wait wakes a sleeping EQ. */
++#include <assert.h>
++#include <poll.h>
++#include <stdio.h>
++#include "../src/core/dmesh_core.c"
++#include "support/native_memory_transport.c"
++
++static int readable(int fd)
++{
++    struct pollfd p = {.fd = fd, .events = POLLIN};
++    return poll(&p, 1, 0) == 1;
++}
++
++static void settle(dmesh_eq_t *eq)
++{
++    uint64_t v;
++    while (read(eq->notify_efd, &v, sizeof(v)) > 0) {}
++}
++
++static int empty_poll(dmesh_eq_t *eq)
++{
++    dmesh_event_t ev[8];
++    return dmesh_poll_eq(eq, ev, 8);
++}
++
++int main(void)
++{
++    unsetenv("DPUMESH_NAP_US");
++    unsetenv("DPUMESH_LINGER_US");
++    test_native_rx_signaled(1);
++    setenv("DPUMESH_SERVICE", "echo:80", 1);
++    dmesh_channel_t *server = dmesh_create_channel();
++    assert(server);
++    unsetenv("DPUMESH_SERVICE");
++    dmesh_channel_t *ch = dmesh_create_channel();
++    assert(ch);
++    dpumesh_ctx_t *ctx = ch->ctx;
++    assert(ctx->rx_signaled && ctx->nap_min_ns == 0 && ctx->linger_ns == 0);
++    dmesh_eq_t *eq = dmesh_create_eq(ch);
++    assert(eq && dmesh_eq_fd(eq) >= 0);
++    dmesh_qp_t *qp = dmesh_create_qp(eq, "echo:80");
++    assert(qp);
++    settle(eq);
++    test_native_sleepable(1);
++    assert(empty_poll(eq) == 0 && atomic_load(&eq->asleep) == 1);
++
++    /* A send leaves a sleeping EQ asleep: the reply's completion wakes it. */
++    test_native_hold_acks(1);
++    void *buf = dmesh_alloc(qp, 64);
++    assert(buf);
++    memset(buf, 7, 64);
++    assert(dmesh_post_send(qp, buf, 64) == 0);
++    assert(!readable(eq->notify_efd));
++
++    /* Open custody with no sender waiting: the EQ sleeps on its doorbells. */
++    test_native_custody(1);
++    uint64_t custody_sleeps = atomic_load(&wait_stats.custody_sleeps);
++    eq_notify(eq);
++    assert(empty_poll(eq) == 0);
++    assert(atomic_load(&eq->asleep) == 1 && eq->timer_backstop);
++    assert(atomic_load(&wait_stats.custody_sleeps) == custody_sleeps + 1);
++
++    /* A sender waiting for space this custody frees: arming the wait wakes
++     * the sleeping EQ, which then keeps polling. */
++    struct dmesh_port_slot *psl = &ctx->ports[qp->local_port];
++    settle(eq);
++    tx_wait_arm(ctx, psl, qp->local_port, DMESH_TX_WAIT_SU_RECLAIM);
++    assert(atomic_load(&ctx->tx_waiters) == 1);
++    assert(readable(eq->notify_efd));
++    uint64_t busy = atomic_load(&wait_stats.busy);
++    assert(empty_poll(eq) == 0);
++    assert(atomic_load(&eq->asleep) == 0 && !eq->timer_backstop);
++    assert(atomic_load(&wait_stats.busy) == busy + 1);
++
++    /* The wait ends: back to sleeping on open custody. */
++    tx_wait_cancel(ctx, psl, qp->local_port);
++    assert(atomic_load(&ctx->tx_waiters) == 0);
++    eq_notify(eq);
++    assert(empty_poll(eq) == 0 && atomic_load(&eq->asleep) == 1);
++
++    /* A closed flow still retiring keeps polling regardless. */
++    test_native_retiring(1);
++    busy = atomic_load(&wait_stats.busy);
++    eq_notify(eq);
++    assert(empty_poll(eq) == 0 && atomic_load(&eq->asleep) == 0);
++    assert(atomic_load(&wait_stats.busy) == busy + 1);
++    test_native_retiring(0);
++
++    /* Retire the held ACK so the QP closes cleanly. */
++    test_native_custody(0);
++    test_native_hold_acks(0);
++    dmesh_event_t ev[8];
++    int n;
++    while ((n = dmesh_poll_eq(eq, ev, 8)) > 0)
++        for (int i = 0; i < n; ++i) dmesh_release_rx_buffer(ch, &ev[i]);
++    assert(dmesh_destroy_qp(qp) == 0);
++    assert(dmesh_destroy_eq(eq) == 0);
++    assert(dmesh_destroy_channel(ch) == 0);
++    assert(dmesh_destroy_channel(server) == 0);
++    test_native_rx_signaled(0);
++    puts("native_signaled_test: no naps, quiet sends, custody sleeps, waiter wake and poll, retiring poll: PASS");
++}
+diff --git a/tests/session_protocol_test.c b/tests/session_protocol_test.c
+index 1eafdaf..0dcdaba 100644
+--- a/tests/session_protocol_test.c
++++ b/tests/session_protocol_test.c
+@@ -5,6 +5,7 @@
+ #include <string.h>
+ 
+ #include "src/transport/common/session_protocol.h"
++#include "src/transport/common/comch_common.h"
+ 
+ /* Check the public wire format independently of the encoder: a decoder and
+  * encoder with the same endian/layout mistake must not pass a round trip. */
+@@ -108,6 +109,11 @@ static void test_message_shapes(void)
+         {DMESH_SESSION_PING,           0, 1, 0,      0, 0},
+         {DMESH_SESSION_PING,           0, 0, 0,      8, 0},
+         {DMESH_SESSION_PING,           0, 0, EIO,    0, 0},
++        {DMESH_SESSION_WAKE_READY,     0, 0, 0,      0, 1},
++        {DMESH_SESSION_WAKE_READY,     1, 0, 0,      0, 0},
++        {DMESH_SESSION_WAKE_READY,     0, 1, 0,      0, 0},
++        {DMESH_SESSION_WAKE_READY,     0, 0, 0,      8, 0},
++        {DMESH_SESSION_WAKE_READY,     0, 0, EIO,    0, 0},
+         {DMESH_SESSION_DOORBELL,       0, 0, 0,      0, 0},
+         {DMESH_SESSION_DOORBELL,       0, 0, 0,      9, 0},
+         {DMESH_SESSION_DOORBELL,       1, 1, 0,      8, 0},
+@@ -273,8 +279,24 @@ static void test_arm_payload(void)
+     assert(dmesh_session_arm_decode(payload, (uint32_t)len, &epoch, out, &count) == -1);
+ }
+ 
++/* A fast-path descriptor lands in the slot ring exactly as the desc copy
++ * would: same slot, and the sequence (what the reader polls) last. */
++static void test_wake_desc(void)
++{
++    static struct dmesh_push_desc ring[DMESH_PUSH_DESC_N];
++    assert(DMESH_WAKE_IMM_LEN == 24 && DMESH_WAKE_IMM_LEN <= 96);   /* the consumer's imm cap */
++    struct dmesh_wake_desc d = {.flow_id = 3, .generation = 7, .seq = DMESH_PUSH_DESC_N + 5,
++                                .pos = 8192, .len = 300};
++    dmesh_wake_desc_publish(ring, &d);
++    assert(ring[5].seq == DMESH_PUSH_DESC_N + 5 && ring[5].pos == 8192 && ring[5].len == 300);
++    d.seq++; d.len = 0;                                             /* end of stream */
++    dmesh_wake_desc_publish(ring, &d);
++    assert(ring[6].seq == DMESH_PUSH_DESC_N + 6 && ring[6].len == 0 && ring[5].len == 300);
++}
++
+ int main(void)
+ {
++    test_wake_desc();
+     test_wire_layout();
+     test_arm_payload();
+     test_message_shapes();
+diff --git a/tests/session_server_test.c b/tests/session_server_test.c
+index 497cb5d..f09ce48 100644
+--- a/tests/session_server_test.c
++++ b/tests/session_server_test.c
+@@ -95,6 +95,16 @@ bool dmesh_doca_dpa_failed(struct doca_dpa *dpa)
+     return false;
+ }
+ 
++/* The fast-path producer is exercised on hardware, not here. */
++bool dmesh_wake_enabled(void) { return false; }
++doca_error_t dmesh_wake_attach(struct dmesh_conn *c, struct doca_comch_connection *connection, uint32_t consumer)
++{
++    (void)c; (void)connection; (void)consumer;
++    return DOCA_ERROR_NOT_SUPPORTED;
++}
++void dmesh_wake_detach(struct dmesh_conn *c) { (void)c; }
++void dmesh_dma_push_retry_desc(struct dmesh_conn *c) { (void)c; }
++
+ doca_error_t cleanup_dma_tasks(struct dmesh_conn *conn)
+ {
+     doca_error_t result = cleanup_phase('D');
+diff --git a/tests/support/native_memory_transport.c b/tests/support/native_memory_transport.c
+index 79edc95..b95f060 100644
+--- a/tests/support/native_memory_transport.c
++++ b/tests/support/native_memory_transport.c
+@@ -149,7 +149,19 @@ void test_native_raise_wake(void)
+ }
+ int dmesh_native_stripe_fd(struct dmesh_native_transport *t, int stripe) { (void)t; (void)stripe; return -1; }
+ int dmesh_native_stripe_of(struct dmesh_native_transport *t, uint16_t port) { (void)t; (void)port; return -1; }
+-int dmesh_native_stripe_arm(struct dmesh_native_transport *t, int stripe) { (void)t; (void)stripe; return !sleepable; }
++/* A channel that cannot sleep models open custody; test_native_retiring
++ * models a closed flow that still retires custody or its FIN. A test can
++ * also declare its receives signaled (the fast path) before opening. */
++static int retiring, custody, rx_signaled;
++void test_native_retiring(int value) { retiring = value; }
++void test_native_custody(int value) { custody = value; }   /* open custody, idle_arm still works */
++void test_native_rx_signaled(int value) { rx_signaled = value; }
++int dmesh_native_rx_signaled(struct dmesh_native_transport *t) { (void)t; return rx_signaled; }
++int dmesh_native_stripe_arm(struct dmesh_native_transport *t, int stripe)
++{
++    (void)t; (void)stripe;
++    return (sleepable && !custody ? 0 : DMESH_STRIPE_CUSTODY) | (retiring ? DMESH_STRIPE_RETIRING : 0);
++}
+ void dmesh_native_stripe_clear(struct dmesh_native_transport *t, int stripe) { (void)t; (void)stripe; }
+ int dmesh_native_wake_fd(struct dmesh_native_transport *t)
+ {

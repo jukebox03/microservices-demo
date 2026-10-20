@@ -1,0 +1,16 @@
+[12:05:59] start max probe run {"cfgs": ["G1-default"], "start": {"dpumesh": 2000, "nosidecar": 4500}, "step": 1.1, "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[12:05:59] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[12:05:59] == G1-default {"knobs": {}, "extra_env": "", "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[12:06:32] dpu proxy: proxy 1217227: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[12:07:48]   G1-default diag 5188: 5184 req/s p50 37.2 p99 67 drop 0 | host 27.3 run 26.7 rq-wait 34.05 psi 0.55 | dpu 13.7 | currencyservice/node:0.69+w0.05, currencyservice/node:0.64+w0.06, currencyservice/node:0.64+w0.06, currencyservice/node:0.63+w0.06, redis/redis-server:0.15+w0.10, paymentservice/node:0.13+w0.03
+[12:08:16]   G1-default diag 8081: 8088 req/s p50 133.3 p99 252 drop 0 | host 30.7 run 30.5 rq-wait 94.29 psi 0.78 | dpu 13.8 | currencyservice/node:0.81+w0.10, currencyservice/node:0.74+w0.13, currencyservice/node:0.73+w0.13, currencyservice/node:0.73+w0.12, recommendationservice/python:0.14+w0.39, recommendationservice/python:0.13+w0.39
+[12:08:18]   perf 5188: 872 lines
+[12:08:20]   perf 8081: 847 lines
+[12:08:35] dpu stop: proxy 1217227 stopped
+[12:08:36] dpu irq restore: 
+[12:08:37] flow_check exit 1:  18            8
+    13       9        8         17            8
+DOCA ERR x19: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 134 client + 109 backend opens on 14 workers (worker 0: 18, highest slot 18); DPA: mux 8-8 threads/worker, 243 ring adds; errors: mux ring stopped x19
+[12:08:38] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[12:08:38] done

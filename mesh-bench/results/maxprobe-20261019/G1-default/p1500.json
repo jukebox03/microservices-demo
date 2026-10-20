@@ -1,0 +1,360 @@
+{
+ "offered": 1500,
+ "achieved": 1499.2,
+ "drop": 0,
+ "fail": 0,
+ "p50": 16.103698,
+ "p99": 31.775654090000046,
+ "pass": true,
+ "containers": {
+  "c43391889fb26588f58f2833efc5663cc99f35070dc59de25ef0ab0d670ca40d": {
+   "pod": "adservice",
+   "container": "server",
+   "role": "app",
+   "cores": 0.4855541245297428,
+   "cycles": 10528214344,
+   "instructions": 8350169431
+  },
+  "a38b53db59e2e447b35f80cb2a009cc3f4e7944943a4a5b301b617d8112c0312": {
+   "pod": "cartservice",
+   "container": "server",
+   "role": "app",
+   "cores": 0.9967064884997795,
+   "cycles": 27788288031,
+   "instructions": 23767362261
+  },
+  "4eebb0690049c9ee6765a27d2b2baab05eb552a508fec2ec3553cb86e2663b5d": {
+   "pod": "checkoutservice",
+   "container": "server",
+   "role": "app",
+   "cores": 0.2653019944078839,
+   "cycles": 6893170754,
+   "instructions": 5039934595
+  },
+  "36c56304c9c8cc163d44521db1e1238685fc14c5526bf95210f1900ce2ca1182": {
+   "pod": "currencyservice-1",
+   "container": "server",
+   "role": "app",
+   "cores": 0.5471856268579065,
+   "cycles": 15655656374,
+   "instructions": 12208129486
+  },
+  "76262e069c9e84b90b0b2770c5bc6bcf577d77b5b62c39b14cef8d06d41fe573": {
+   "pod": "currencyservice-2",
+   "container": "server",
+   "role": "app",
+   "cores": 0.5105337953856884,
+   "cycles": 14584234421,
+   "instructions": 11169744852
+  },
+  "21871a60d7ebbc7c39c62099ec401f45c507a6d871201182a17edd893f928f70": {
+   "pod": "emailservice",
+   "container": "server",
+   "role": "app",
+   "cores": 0.0538994664520546,
+   "cycles": 1533892220,
+   "instructions": 779263452
+  },
+  "505736dba3d902a5b06db4b35b29be7557acbdd72b1bf7e55f6cf37068845578": {
+   "pod": "frontend-1",
+   "container": "server",
+   "role": "app",
+   "cores": 0.8237152124976538,
+   "cycles": 21394636284,
+   "instructions": 18241517490
+  },
+  "16ac91595ac862076e6745d331b7ab390c4045374789643e44aeedb1d29ee4ec": {
+   "pod": "frontend-2",
+   "container": "server",
+   "role": "app",
+   "cores": 0.8302503253058734,
+   "cycles": 21590775529,
+   "instructions": 18503306090
+  },
+  "376e1eecb057f2358c84144e4613590e987d9948fa097fa119457c781548becd": {
+   "pod": "frontend-3",
+   "container": "server",
+   "role": "app",
+   "cores": 0.828607404288715,
+   "cycles": 21615472338,
+   "instructions": 18605345527
+  },
+  "96439ad221d568bf7b2fee44689ee66f60940757f1554386ad666dd4c3e5a9f1": {
+   "pod": "frontend-4",
+   "container": "server",
+   "role": "app",
+   "cores": 0.8277306940341781,
+   "cycles": 21596341277,
+   "instructions": 18515229200
+  },
+  "1195c393d34a46dd846ce353078a67fa6a846348449ffb502df5599f84c10243": {
+   "pod": "frontend-5",
+   "container": "server",
+   "role": "app",
+   "cores": 0.8325293862551572,
+   "cycles": 21641223172,
+   "instructions": 18429468534
+  },
+  "4b65e4649deb5992438891ecb3efa61925175877be4997593ab0e7887afb8ced": {
+   "pod": "frontend-6",
+   "container": "server",
+   "role": "app",
+   "cores": 0.8140598283223826,
+   "cycles": 21177922389,
+   "instructions": 18201683487
+  },
+  "c8c3abb70e85eba06a3554513b63aa1e548003e5b8d8f3fdccc6615704b6d688": {
+   "pod": "paymentservice",
+   "container": "server",
+   "role": "app",
+   "cores": 0.059867367582640524,
+   "cycles": 1761068882,
+   "instructions": 1179740152
+  },
+  "6b22059cb31c14ed6146d6f7c88792daa2552a9e61ee2de8f90611ac38b9849d": {
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "role": "app",
+   "cores": 0.7214788968733693,
+   "cycles": 18376072610,
+   "instructions": 15415870778
+  },
+  "9e82c34448233e0b3a8e3e68bf5c5bac7904df98648591033b4f145c75403016": {
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "role": "app",
+   "cores": 0.6607246047974434,
+   "cycles": 16734198941,
+   "instructions": 14001715492
+  },
+  "0978ab387dfac7f6b0ec508a5e6fefcaaf4d12f5c08e74ad224849dabaa0dca1": {
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "role": "app",
+   "cores": 0.6529018550527289,
+   "cycles": 16564303155,
+   "instructions": 13832163246
+  },
+  "9c44f8ac865cb0c509e23b32ecf8cb631e5ef65163156afd126b31d91d76cf88": {
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "role": "app",
+   "cores": 0.660285249674773,
+   "cycles": 16723965113,
+   "instructions": 13996183513
+  },
+  "6716e5ddfcbb8f88930c5f970ca69b2174e76e0d206bc2474c2406fe81b0df6f": {
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "role": "app",
+   "cores": 0.2768105129194517,
+   "cycles": 7809678949,
+   "instructions": 4141617134
+  },
+  "74cf49f44156acc944afe6702254887575ecf336a8639bbe71a6bc834fd4782c": {
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "role": "app",
+   "cores": 0.27552959023779866,
+   "cycles": 7771466128,
+   "instructions": 4140358291
+  },
+  "609c551b6aeb6923a1e6c0a8261e9cb23620a20dc597a8aa97dfd2f6f663702d": {
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "role": "app",
+   "cores": 0.27634894361320944,
+   "cycles": 7785870425,
+   "instructions": 4152896901
+  },
+  "4caf4a7dd4eb679213d17c329ae234bf63cc63f824572390fa2da2f2acff38b1": {
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "role": "app",
+   "cores": 0.2764443003176096,
+   "cycles": 7784925407,
+   "instructions": 4138351556
+  },
+  "872f68f0f8f20bdc58b47f0e6f4d4f0e0088d3cf57b463a60673ba66b5973b2c": {
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "role": "app",
+   "cores": 0.27726443940369333,
+   "cycles": 7813654808,
+   "instructions": 4147359908
+  },
+  "850eb3651b768a092c7275f60129c484b0078b37c433346090c9be13ce958205": {
+   "pod": "redis-cart",
+   "container": "redis",
+   "role": "redis",
+   "cores": 0.08902944777899299,
+   "cycles": 2477328915,
+   "instructions": 1230053341
+  },
+  "8e667159a2ed9c158484e2de951422216d8fe846c865e54ac39d46a1f41885e0": {
+   "pod": "shippingservice",
+   "container": "server",
+   "role": "app",
+   "cores": 0.1482783182055283,
+   "cycles": 3798602640,
+   "instructions": 2895273961
+  }
+ },
+ "all_cgroups": {
+  "cycles": 430066071710,
+  "instructions": 352373553838
+ },
+ "host_busy": 14.21606286560719,
+ "host_cpu": {
+  "0": 0.6404782237403929,
+  "1": 0.4585326953748006,
+  "2": 0.456,
+  "3": 0.45055821371610844,
+  "4": 0.44940239043824703,
+  "5": 0.4392,
+  "6": 0.4455917394757744,
+  "7": 0.4634920634920635,
+  "8": 0.44772545889864324,
+  "9": 0.43432715551974216,
+  "10": 0.43422114608555284,
+  "11": 0.43488745980707394,
+  "12": 0.4352373290426388,
+  "13": 0.4363490792634107,
+  "14": 0.43945469125902165,
+  "15": 0.43306451612903224,
+  "16": 0.4166666666666667,
+  "17": 0.4463141025641026,
+  "18": 0.4344,
+  "19": 0.4326923076923077,
+  "20": 0.4289176090468498,
+  "21": 0.43260694108151737,
+  "22": 0.44204636290967225,
+  "23": 0.43785084202085006,
+  "24": 0.43464314354450684,
+  "25": 0.42857142857142855,
+  "26": 0.4368,
+  "27": 0.434052757793765,
+  "28": 0.425686591276252,
+  "29": 0.43042071197411,
+  "30": 0.4330392943063352,
+  "31": 0.43478260869565216
+ },
+ "dpu_busy": 7.375580524344569,
+ "dpu_cpu": {
+  "0": 0.01854714064914992,
+  "1": 0.06339468302658487,
+  "2": 0.511164274322169,
+  "3": 0.5951448707909162,
+  "4": 0.5754716981132075,
+  "5": 0.5814873417721519,
+  "6": 0.3613312202852615,
+  "7": 0.5957613814756672,
+  "8": 0.5353218210361067,
+  "9": 0.44031620553359685,
+  "10": 0.2586477987421384,
+  "11": 0.6244167962674961,
+  "12": 0.5521327014218009,
+  "13": 0.46735668789808915,
+  "14": 0.6162246489859594,
+  "15": 0.4928115015974441
+ },
+ "jet1_busy": 0.6636413142131058,
+ "jet1_cpus": 16,
+ "dpu_threads": {
+  "623609": {
+   "comm": "linkerd2-proxy",
+   "cores": 0.0007651109410860487,
+   "last_cpu": 1
+  },
+  "623616": {
+   "comm": "dmesh-control",
+   "cores": 0.02218821729149541,
+   "last_cpu": 1
+  },
+  "623617": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.5072685539400502,
+   "last_cpu": 2
+  },
+  "623618": {
+   "comm": "dmesh-shard-1",
+   "cores": 0.582249426166483,
+   "last_cpu": 3
+  },
+  "623619": {
+   "comm": "dmesh-shard-2",
+   "cores": 0.5638867635804179,
+   "last_cpu": 4
+  },
+  "623620": {
+   "comm": "dmesh-shard-3",
+   "cores": 0.5723029839323645,
+   "last_cpu": 5
+  },
+  "623621": {
+   "comm": "dmesh-shard-4",
+   "cores": 0.35960214231044285,
+   "last_cpu": 6
+  },
+  "623622": {
+   "comm": "dmesh-shard-5",
+   "cores": 0.5853098699308272,
+   "last_cpu": 7
+  },
+  "623623": {
+   "comm": "dmesh-shard-6",
+   "cores": 0.5263963274672014,
+   "last_cpu": 8
+  },
+  "623624": {
+   "comm": "dmesh-shard-7",
+   "cores": 0.43687834736013376,
+   "last_cpu": 9
+  },
+  "623625": {
+   "comm": "dmesh-shard-8",
+   "cores": 0.25707727620491233,
+   "last_cpu": 10
+  },
+  "623626": {
+   "comm": "dmesh-shard-9",
+   "cores": 0.6120887528688389,
+   "last_cpu": 11
+  },
+  "623627": {
+   "comm": "dmesh-shard-10",
+   "cores": 0.5439938791121806,
+   "last_cpu": 12
+  },
+  "623628": {
+   "comm": "dmesh-shard-11",
+   "cores": 0.46671767406248965,
+   "last_cpu": 13
+  },
+  "623629": {
+   "comm": "dmesh-shard-12",
+   "cores": 0.6021423106347202,
+   "last_cpu": 14
+  },
+  "623630": {
+   "comm": "dmesh-shard-13",
+   "cores": 0.49196633511832927,
+   "last_cpu": 15
+  },
+  "623631": {
+   "comm": "admin",
+   "cores": 0.0,
+   "last_cpu": 9
+  },
+  "623640": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.0,
+   "last_cpu": 15
+  },
+  "623641": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.0,
+   "last_cpu": 15
+  }
+ }
+}

@@ -1,0 +1,52 @@
+[16:35:16] start wake run {"cfgs": ["W1-dpumesh", "W2-linger0", "W3-doorbell", "W0-nosidecar"], "rate": 1500}
+[16:35:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:36:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:37:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:38:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:39:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:40:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:41:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:42:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:43:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:44:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:45:16]   WAIT another user is running: 3693722 python3 /tmp/dpumesh-write-imm-bench-session/control.py
+[16:46:17] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[16:46:17] == W1-dpumesh {"knobs": {}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME"}
+[16:46:52] dpu proxy: proxy 90393: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[16:48:23]   W1-dpumesh latency1: 63 req/s  avg 15.86 p50 17.42 p90 24.57 p99 32.80 ms  fail 0.0000
+[16:49:01]   W1-dpumesh r1500: 1494 rps p50 14.0 p99 29.7 ms fail 0.0000 drop 0 | app 15.61 host 19.50 outside 3.90 cores | wait files 23
+[16:49:05]   perf script 4 s
+[16:49:20] dpu stop: proxy 90393 stopped
+[16:49:21] dpu irq restore: 
+[16:49:23] flow_check exit 1:     13            8
+    13       7        7         14            8
+DOCA ERR x2: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 87 backend opens on 14 workers (worker 0: 14, highest slot 14); DPA: mux 8-8 threads/worker, 188 ring adds; errors: mux ring stopped x2
+[16:49:23] == W2-linger0 {"knobs": {"DPUMESH_LINGER_US": "0"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_LINGER_US=0"}
+[16:49:57] dpu proxy: proxy 94791: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 31 s
+[16:51:31]   W2-linger0 latency1: 60 req/s  avg 16.56 p50 18.49 p90 25.33 p99 34.54 ms  fail 0.0000
+[16:52:09]   W2-linger0 r1500: 1496 rps p50 14.8 p99 29.5 ms fail 0.0000 drop 0 | app 14.38 host 18.10 outside 3.72 cores | wait files 23
+[16:52:13]   perf script 3 s
+[16:52:28] dpu stop: proxy 94791 stopped
+[16:52:29] dpu irq restore: 
+[16:52:31] flow_check exit 1:     14            8
+    13       8        6         14            8
+DOCA ERR x2: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 84 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 185 ring adds; errors: mux ring stopped x2
+[16:52:31] == W3-doorbell {"knobs": {"DPUMESH_NAP_US": "0", "DPUMESH_LINGER_US": "0"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_NAP_US=0,DPUMESH_LINGER_US=0"}
+[16:53:06] dpu proxy: proxy 99213: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 31 s
+[16:54:41]   W3-doorbell latency1: 57 req/s  avg 17.61 p50 19.88 p90 25.42 p99 35.24 ms  fail 0.0000
+[16:55:19]   W3-doorbell r1500: 1496 rps p50 20.6 p99 38.9 ms fail 0.0000 drop 0 | app 11.88 host 16.05 outside 4.17 cores | wait files 23
+[16:55:22]   perf script 4 s
+[16:55:38] dpu stop: proxy 99213 stopped
+[16:55:39] dpu irq restore: 
+[16:55:41] flow_check exit 1:     14            8
+    13       7        6         13            8
+DOCA ERR x5: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 88 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 189 ring adds; errors: mux ring stopped x5
+[16:55:41] == W0-nosidecar {"knobs": null, "extra_env": ""}
+[16:56:45]   W0-nosidecar latency1: 113 req/s  avg 8.72 p50 9.99 p90 11.99 p99 17.44 ms  fail 0.0000
+[16:57:22]   W0-nosidecar r1500: 1493 rps p50 6.9 p99 12.7 ms fail 0.0000 drop 0 | app 15.41 host 19.24 outside 3.83 cores | wait files 23
+[16:57:26]   perf script 4 s
+[16:57:38] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[16:57:38] done

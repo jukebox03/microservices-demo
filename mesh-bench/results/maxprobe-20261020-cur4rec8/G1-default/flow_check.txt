@@ -1,0 +1,17 @@
+worker  client  backend  peak_slot  mux_threads
+     0       9        8         17            8
+     1       9        8         17            8
+     2       9        8         17            8
+     3      10        7         17            8
+     4      10        8         18            8
+     5       9        8         17            8
+     6      11        8         19            8
+     7      10        7         17            8
+     8       9        9         18            8
+     9      10        7         17            8
+    10       9        8         17            8
+    11      10        8         18            8
+    12       9        9         18            8
+    13      10        8         18            8
+DOCA ERR x20: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 134 client + 111 backend opens on 14 workers (worker 6: 19, highest slot 19); DPA: mux 8-8 threads/worker, 245 ring adds; errors: mux ring stopped x20

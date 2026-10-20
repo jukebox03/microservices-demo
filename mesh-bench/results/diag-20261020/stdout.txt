@@ -1,0 +1,22 @@
+[12:00:31] start max probe run {"cfgs": ["G1-default", "W0-nosidecar"], "start": {"dpumesh": 2000, "nosidecar": 4500}, "step": 1.1, "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[12:00:32] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[12:00:32] == G1-default {"knobs": {}, "extra_env": "", "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[12:01:05] dpu proxy: proxy 1211808: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[12:02:22]   G1-default diag 5188: 5192 req/s p50 39.2 p99 80 drop 0 | host 27.4 run 26.7 rq-wait 34.40 psi 0.55 | dpu 13.9 | currencyservice/node:0.69+w0.06, currencyservice/node:0.64+w0.07, currencyservice/node:0.64+w0.06, currencyservice/node:0.64+w0.07, redis/redis-server:0.15+w0.11, cartservice/dmesh-reactor:0.13+w0.28
+[12:02:50]   G1-default diag 7846: 7840 req/s p50 111.8 p99 210 drop 0 | host 30.3 run 30.0 rq-wait 89.95 psi 0.76 | dpu 14.0 | currencyservice/node:0.79+w0.11, currencyservice/node:0.73+w0.12, currencyservice/node:0.73+w0.12, currencyservice/node:0.73+w0.11, recommendationservice/python:0.13+w0.37, recommendationservice/python:0.13+w0.36
+[12:03:19]   G1-default diag 8081: 8089 req/s p50 136.1 p99 281 drop 0 | host 30.5 run 30.2 rq-wait 95.54 psi 0.77 | dpu 14.5 | currencyservice/node:0.80+w0.10, currencyservice/node:0.74+w0.11, currencyservice/node:0.74+w0.12, currencyservice/node:0.72+w0.13, recommendationservice/python:0.13+w0.38, recommendationservice/python:0.13+w0.39
+[12:03:20]   perf 5188: 157 lines
+[12:03:21]   perf 7846: 150 lines
+[12:03:22]   perf 8081: 161 lines
+[12:03:37] dpu stop: proxy 1211808 stopped
+[12:03:37] dpu irq restore: 
+[12:03:39] flow_check exit 1:  19            8
+    13      10        9         19            8
+DOCA ERR x13: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 134 client + 125 backend opens on 14 workers (worker 0: 19, highest slot 19); DPA: mux 8-8 threads/worker, 259 ring adds; errors: mux ring stopped x13
+[12:03:39] == W0-nosidecar {"knobs": null, "extra_env": "", "proxy_env": null, "start_env": null, "irq_cpus": "0-1"}
+[12:04:49]   W0-nosidecar diag 5188: 5178 req/s p50 12.9 p99 37 drop 0 | host 29.3 run 28.9 rq-wait 69.69 psi 0.72 | dpu 0.0 | currencyservice/node:0.74+w0.11, currencyservice/node:0.69+w0.11, currencyservice/node:0.68+w0.11, currencyservice/node:0.67+w0.11, paymentservice/node:0.13+w0.06, redis/redis-server:0.12+w0.11
+[12:05:17]   W0-nosidecar diag 6971: 6966 req/s p50 39.2 p99 94 drop 0 | host 31.0 run 30.7 rq-wait 136.04 psi 0.84 | dpu 0.1 | currencyservice/node:0.79+w0.13, currencyservice/node:0.74+w0.13, currencyservice/node:0.74+w0.13, currencyservice/node:0.71+w0.14, recommendationservice/python:0.12+w0.39, recommendationservice/python:0.12+w0.39
+[12:05:45]   W0-nosidecar diag 7180: 7166 req/s p50 60.1 p99 264 drop 0 | host 31.2 run 31.0 rq-wait 152.40 psi 0.85 | dpu 0.2 | currencyservice/node:0.78+w0.13, currencyservice/node:0.74+w0.13, currencyservice/node:0.73+w0.14, currencyservice/node:0.70+w0.15, recommendationservice/python:0.12+w0.42, recommendationservice/python:0.12+w0.43
+[12:05:58] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[12:05:58] done

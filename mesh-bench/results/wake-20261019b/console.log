@@ -1,0 +1,26 @@
+[14:51:37] start wake run {"cfgs": ["V1-watcher", "V3-watcher-doorbell"], "rate": 1500}
+[14:51:38] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[14:51:38] == V1-watcher {"knobs": {"DPUMESH_WATCHER": "1"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_WATCHER=1"}
+[14:52:13] dpu proxy: proxy 462527: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 32 s
+[14:53:44]   V1-watcher latency1: 60 req/s  avg 16.57 p50 19.16 p90 24.73 p99 37.27 ms  fail 0.0000
+[14:54:22]   V1-watcher r1500: 1493 rps p50 15.7 p99 31.5 ms fail 0.0000 drop 0 | app 15.19 host 19.13 outside 3.94 cores | wait files 23
+[14:54:25]   perf script 3 s
+[14:54:40] dpu stop: proxy 462527 stopped
+[14:54:41] dpu irq restore: 
+[14:54:42] flow_check exit 1:     13            8
+    13       7        7         14            8
+DOCA ERR x4: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 90 backend opens on 14 workers (worker 6: 15, highest slot 15); DPA: mux 8-8 threads/worker, 191 ring adds; errors: mux ring stopped x4
+[14:54:42] == V3-watcher-doorbell {"knobs": {"DPUMESH_WATCHER": "1", "DPUMESH_NAP_US": "0", "DPUMESH_LINGER_US": "0"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_WATCHER=1,DPUMESH_NAP_US=0,DPUMESH_LINGER_US=0"}
+[14:55:17] dpu proxy: proxy 466784: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 31 s
+[14:56:52]   V3-watcher-doorbell latency1: 56 req/s  avg 17.64 p50 19.54 p90 25.48 p99 37.50 ms  fail 0.0000
+[14:57:38]   V3-watcher-doorbell r1500: 1496 rps p50 24.5 p99 44.7 ms fail 0.0000 drop 0 | app 11.01 host 13.97 outside 2.96 cores | wait files 23
+[14:57:41]   perf script 3 s
+[14:57:57] dpu stop: proxy 466784 stopped
+[14:57:57] dpu irq restore: 
+[14:57:59] flow_check exit 1:     12            8
+    13       7        6         13            8
+DOCA ERR x1: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 86 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 187 ring adds; errors: mux ring stopped x1
+[14:57:59] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[14:57:59] done

@@ -1,0 +1,81 @@
+{
+ "currencyservice": {
+  "kernel": 1793638809,
+  "dpumesh": 1032123722,
+  "unresolved": 6751134459,
+  "rpc": 985202182,
+  "runtime": 365364638
+ },
+ "productcatalogservice": {
+  "runtime": 6619673886,
+  "unresolved": 958551738,
+  "kernel": 8772452639,
+  "rpc": 5429523581,
+  "dpumesh": 4018343263,
+  "business": 31172321
+ },
+ "frontend": {
+  "rpc": 10277538241,
+  "runtime": 11661948082,
+  "dpumesh": 6896042408,
+  "kernel": 15418856961,
+  "business": 3318465893,
+  "unresolved": 1641752721
+ },
+ "recommendationservice": {
+  "unresolved": 5917411456,
+  "rpc": 4424470731,
+  "dpumesh": 776340588,
+  "kernel": 2255509052,
+  "runtime": 579118905
+ },
+ "checkoutservice": {
+  "rpc": 688967895,
+  "dpumesh": 541633031,
+  "unresolved": 158491907,
+  "kernel": 956072270,
+  "runtime": 700599755,
+  "business": 30452433
+ },
+ "adservice": {
+  "unresolved": 1520906206,
+  "dpumesh": 254760657,
+  "kernel": 821950036,
+  "runtime": 683812477,
+  "rpc": 22940782
+ },
+ "cartservice": {
+  "runtime": 3167955890,
+  "rpc": 99736038,
+  "kernel": 4319034838,
+  "unresolved": 2104585245,
+  "dpumesh": 409620703
+ },
+ "shippingservice": {
+  "business": 70790847,
+  "rpc": 215336535,
+  "dpumesh": 236522347,
+  "kernel": 539433856,
+  "runtime": 320936894,
+  "unresolved": 80505478
+ },
+ "paymentservice": {
+  "rpc": 39579509,
+  "unresolved": 396919423,
+  "kernel": 74174821,
+  "dpumesh": 41663894,
+  "runtime": 21733250
+ },
+ "emailservice": {
+  "rpc": 137129677,
+  "runtime": 23587712,
+  "kernel": 104453557,
+  "dpumesh": 15840575,
+  "unresolved": 260198708
+ },
+ "redis-cart": {
+  "kernel": 608008090,
+  "business": 277351376,
+  "unresolved": 5053448
+ }
+}

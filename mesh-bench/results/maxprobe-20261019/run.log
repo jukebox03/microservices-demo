@@ -1,0 +1,57 @@
+[18:18:47] start max probe run {"cfgs": ["G1-default", "L1-legacy", "W0-nosidecar"], "start": {"dpumesh": 2000, "nosidecar": 4500}, "step": 1.1, "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[18:18:48] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[18:18:48] == G1-default {"knobs": {}, "extra_env": "", "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[18:19:20] dpu proxy: proxy 623609: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[18:20:30]   G1-default p1500: 1499 req/s p50 16.1 ms | app 12.10 cores IPC 0.796 (11.29 M instr/req) | host 14.2 dpu 7.4 jet1 0.7
+[18:20:46]   G1-default max-step 2000: 1988 req/s p50 16.8 p99 34 ms drop 0 | host 17.1 IPC 0.81 jet1 0.8 | dpu 9.5 per-cpu 20 38 64 71 70 71 49 72 66 56 36 75 69 58 74 62 | top threads dmesh-shard-9:0.74 dmesh-shard-12:0.72 dmesh-shard-5:0.71 dmesh-shard-1:0.70 pass
+[18:21:06]   G1-default max-step 2200: 2180 req/s p50 17.2 p99 33 ms drop 0 | host 18.7 IPC 0.80 jet1 1.0 | dpu 9.7 per-cpu 3 10 68 76 75 76 50 77 70 59 36 79 72 63 78 66 | top threads dmesh-shard-9:0.78 dmesh-shard-12:0.77 dmesh-shard-5:0.75 dmesh-shard-3:0.74 pass
+[18:21:23]   G1-default max-step 2420: 2428 req/s p50 17.8 p99 35 ms drop 0 | host 20.3 IPC 0.78 jet1 1.0 | dpu 10.4 per-cpu 5 11 72 80 80 80 55 82 74 63 39 83 78 69 83 70 | top threads dmesh-shard-9:0.82 dmesh-shard-12:0.81 dmesh-shard-5:0.80 dmesh-shard-3:0.78 pass
+[18:21:43]   G1-default max-step 2662: 2667 req/s p50 18.4 p99 36 ms drop 0 | host 21.5 IPC 0.77 jet1 1.2 | dpu 10.9 per-cpu 4 13 76 83 83 84 59 84 78 66 40 87 81 72 86 74 | top threads dmesh-shard-9:0.86 dmesh-shard-12:0.85 dmesh-shard-5:0.84 dmesh-shard-3:0.82 pass
+[18:22:13]   G1-default max-step 2928: 2934 req/s p50 19.4 p99 39 ms drop 0 | host 11.7 IPC 0.98 jet1 0.4 | dpu 5.9 per-cpu 2 4 42 45 45 45 33 46 43 38 23 47 44 39 47 41 | top threads dmesh-shard-9:0.45 dmesh-shard-12:0.45 dmesh-shard-5:0.45 dmesh-shard-1:0.45 pass
+[18:22:31]   G1-default max-step 3221: 3214 req/s p50 20.6 p99 42 ms drop 0 | host 23.2 IPC 0.78 jet1 1.4 | dpu 12.0 per-cpu 5 17 85 90 90 90 66 90 85 76 48 93 88 80 92 84 | top threads dmesh-shard-9:0.91 dmesh-shard-12:0.91 dmesh-shard-5:0.89 dmesh-shard-1:0.89 pass
+[18:23:02]   G1-default max-step 3543: 3543 req/s p50 22.1 p99 44 ms drop 0 | host 23.9 IPC 0.78 jet1 0.6 | dpu 12.4 per-cpu 4 14 88 93 93 93 72 94 89 79 52 95 92 85 95 87 | top threads dmesh-shard-9:0.94 dmesh-shard-12:0.94 dmesh-shard-5:0.93 dmesh-shard-1:0.92 pass
+[18:23:22]   G1-default max-step 3897: 3907 req/s p50 24.7 p99 50 ms drop 0 | host 24.7 IPC 0.79 jet1 1.6 | dpu 12.8 per-cpu 5 14 90 95 95 95 76 95 91 83 55 96 94 88 96 90 | top threads dmesh-shard-12:0.96 dmesh-shard-9:0.96 dmesh-shard-5:0.95 dmesh-shard-1:0.94 pass
+[18:23:40]   G1-default max-step 4287: 4290 req/s p50 28.3 p99 58 ms drop 0 | host 25.5 IPC 0.82 jet1 1.7 | dpu 13.1 per-cpu 6 17 93 96 97 96 78 96 93 86 59 97 96 91 97 92 | top threads dmesh-shard-12:0.98 dmesh-shard-9:0.97 dmesh-shard-5:0.97 dmesh-shard-2:0.97 pass
+[18:23:56]   G1-default max-step 4716: 4721 req/s p50 33.3 p99 68 ms drop 0 | host 26.1 IPC 0.82 jet1 1.8 | dpu 13.6 per-cpu 17 23 95 97 97 97 83 98 95 89 64 98 97 93 98 94 | top threads dmesh-shard-9:0.99 dmesh-shard-12:0.99 dmesh-shard-5:0.98 dmesh-shard-2:0.97 pass
+[18:24:16]   G1-default max-step 5188: 5168 req/s p50 43.8 p99 93 ms drop 0 | host 26.9 IPC 0.85 jet1 2.0 | dpu 13.5 per-cpu 5 14 96 97 98 97 86 98 96 91 66 97 97 94 98 96 | top threads dmesh-shard-12:0.98 dmesh-shard-2:0.98 dmesh-shard-5:0.98 dmesh-shard-9:0.97 pass
+[18:24:35]   G1-default max-step 5707: 5698 req/s p50 167.6 p99 436 ms drop 0 | host 27.4 IPC 0.87 jet1 2.2 | dpu 13.6 per-cpu 5 11 97 97 98 97 89 98 97 93 70 98 98 96 98 97 | top threads dmesh-shard-12:0.98 dmesh-shard-5:0.98 dmesh-shard-2:0.98 dmesh-shard-9:0.98 pass
+[18:25:00]   G1-default max-step 6278: 5839 req/s p50 678.3 p99 991 ms drop 2893 | host 24.9 IPC 1.01 jet1 0.4 | dpu 11.6 per-cpu 4 8 83 85 85 84 76 85 80 80 58 85 85 82 85 83 | top threads dmesh-shard-2:0.84 dmesh-shard-5:0.84 dmesh-shard-1:0.84 dmesh-shard-9:0.83 FAIL
+[18:25:00]   G1-default max: 5698 req/s
+[18:25:15] dpu stop: proxy 623609 stopped
+[18:25:16] dpu irq restore: 
+[18:25:19] flow_check exit 1:     14            8
+    13       7        6         13            8
+DOCA ERR x4: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 85 backend opens on 14 workers (worker 0: 14, highest slot 14); DPA: mux 8-8 threads/worker, 186 ring adds; errors: mux ring stopped x4
+[18:25:19] == L1-legacy {"knobs": {"DPUMESH_COMCH_WAKE": "0"}, "extra_env": "DPUMESH_COMCH_WAKE=0", "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[18:25:52] dpu proxy: proxy 631744: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[18:27:29]   L1-legacy p1500: 1499 req/s p50 13.4 ms | app 16.54 cores IPC 0.842 (15.60 M instr/req) | host 19.6 dpu 8.0 jet1 0.6
+[18:27:48]   L1-legacy max-step 2000: 2005 req/s p50 14.1 p99 29 ms drop 0 | host 20.6 IPC 0.83 jet1 0.8 | dpu 9.7 per-cpu 21 53 69 66 70 64 60 66 56 55 58 56 67 64 74 66 | top threads dmesh-shard-12:0.73 dmesh-shard-2:0.68 dmesh-shard-0:0.67 dmesh-shard-13:0.65 pass
+[18:28:08]   L1-legacy max-step 2200: 2196 req/s p50 14.5 p99 30 ms drop 0 | host 21.3 IPC 0.83 jet1 0.9 | dpu 10.1 per-cpu 18 56 71 69 73 67 63 69 59 59 61 60 70 67 78 70 | top threads dmesh-shard-12:0.76 dmesh-shard-2:0.71 dmesh-shard-0:0.70 dmesh-shard-13:0.68 pass
+[18:28:25]   L1-legacy max-step 2420: 2408 req/s p50 15.1 p99 30 ms drop 0 | host 22.0 IPC 0.83 jet1 1.0 | dpu 10.5 per-cpu 19 55 76 73 76 71 66 72 61 61 62 63 73 71 81 74 | top threads dmesh-shard-12:0.80 dmesh-shard-2:0.75 dmesh-shard-0:0.75 dmesh-shard-13:0.73 pass
+[18:28:41]   L1-legacy max-step 2662: 2669 req/s p50 16.0 p99 31 ms drop 0 | host 22.9 IPC 0.84 jet1 1.3 | dpu 11.4 per-cpu 16 60 81 79 82 76 71 78 67 67 68 68 78 76 86 80 | top threads dmesh-shard-12:0.84 dmesh-shard-2:0.80 dmesh-shard-0:0.79 dmesh-shard-13:0.78 pass
+[18:28:57]   L1-legacy max-step 2928: 2932 req/s p50 16.8 p99 34 ms drop 0 | host 23.5 IPC 0.84 jet1 1.3 | dpu 11.9 per-cpu 11 69 85 83 84 80 76 82 70 70 72 71 82 80 89 83 | top threads dmesh-shard-12:0.88 dmesh-shard-2:0.83 dmesh-shard-0:0.83 dmesh-shard-13:0.82 pass
+[18:29:13]   L1-legacy max-step 3221: 3206 req/s p50 18.1 p99 37 ms drop 0 | host 24.2 IPC 0.84 jet1 1.5 | dpu 12.5 per-cpu 26 52 88 86 88 84 80 86 74 75 76 76 86 84 93 87 | top threads dmesh-shard-12:0.92 dmesh-shard-2:0.87 dmesh-shard-0:0.87 dmesh-shard-13:0.86 pass
+[18:29:29]   L1-legacy max-step 3543: 3542 req/s p50 19.6 p99 40 ms drop 0 | host 24.9 IPC 0.86 jet1 1.5 | dpu 12.8 per-cpu 16 56 91 89 91 87 84 89 79 78 80 78 88 87 95 90 | top threads dmesh-shard-12:0.93 dmesh-shard-2:0.90 dmesh-shard-0:0.89 dmesh-shard-13:0.89 pass
+[18:29:46]   L1-legacy max-step 3897: 3900 req/s p50 21.8 p99 43 ms drop 0 | host 25.7 IPC 0.86 jet1 1.7 | dpu 13.3 per-cpu 13 55 94 92 94 90 88 92 83 82 84 83 91 91 96 93 | top threads dmesh-shard-12:0.96 dmesh-shard-2:0.93 dmesh-shard-0:0.93 dmesh-shard-13:0.92 pass
+[18:30:05]   L1-legacy max-step 4287: 4298 req/s p50 24.7 p99 50 ms drop 0 | host 26.3 IPC 0.89 jet1 1.7 | dpu 13.6 per-cpu 9 61 96 95 96 92 91 94 86 85 88 86 94 93 97 95 | top threads dmesh-shard-12:0.98 dmesh-shard-2:0.95 dmesh-shard-0:0.95 dmesh-shard-13:0.95 pass
+[18:30:25]   L1-legacy max-step 4716: 4695 req/s p50 29.9 p99 69 ms drop 0 | host 26.8 IPC 0.90 jet1 1.7 | dpu 14.3 per-cpu 45 72 96 96 96 94 93 95 88 88 90 88 95 94 98 96 | top threads dmesh-shard-12:0.96 dmesh-shard-2:0.96 dmesh-shard-0:0.96 dmesh-shard-13:0.95 pass
+[18:30:41]   L1-legacy max-step 5188: 5208 req/s p50 41.2 p99 101 ms drop 0 | host 27.5 IPC 0.92 jet1 2.0 | dpu 14.0 per-cpu 6 62 97 98 98 95 95 97 91 90 92 91 96 96 98 97 | top threads dmesh-shard-2:0.98 dmesh-shard-1:0.97 dmesh-shard-12:0.97 dmesh-shard-0:0.97 pass
+[18:31:01]   L1-legacy max-step 5707: 5706 req/s p50 263.8 p99 712 ms drop 0 | host 27.8 IPC 0.93 jet1 2.2 | dpu 14.1 per-cpu 8 51 98 98 98 97 95 97 93 91 94 92 96 97 98 98 | top threads dmesh-shard-12:0.98 dmesh-shard-1:0.98 dmesh-shard-2:0.98 dmesh-shard-13:0.98 pass
+[18:31:20]   L1-legacy max-step 6278: 5803 req/s p50 697.0 p99 1047 ms drop 3190 | host 27.8 IPC 0.93 jet1 2.5 | dpu 14.1 per-cpu 6 56 97 98 98 97 96 97 93 91 93 93 96 97 98 98 | top threads dmesh-shard-2:0.97 dmesh-shard-1:0.97 dmesh-shard-0:0.97 dmesh-shard-12:0.97 FAIL
+[18:31:20]   L1-legacy max: 5706 req/s
+[18:31:35] dpu stop: proxy 631744 stopped
+[18:31:36] dpu irq restore: 
+[18:31:40] flow_check exit 1:     14            8
+    13       7        6         13            8
+DOCA ERR x4: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 87 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 188 ring adds; errors: mux ring stopped x4
+[18:31:40] == W0-nosidecar {"knobs": null, "extra_env": "", "proxy_env": null, "start_env": null, "irq_cpus": "0-1"}
+[18:32:44]   W0-nosidecar p1500: 1495 req/s p50 7.0 ms | app 16.27 cores IPC 0.566 (11.27 M instr/req) | host 19.5 dpu 0.1 jet1 0.7
+[18:33:03]   W0-nosidecar max-step 4500: 4496 req/s p50 8.5 p99 48 ms drop 0 | host 26.9 IPC 0.79 jet1 1.9 | dpu 0.1 per-cpu 1 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 | top threads  pass
+[18:33:23]   W0-nosidecar max-step 4950: 4962 req/s p50 10.7 p99 78 ms drop 0 | host 27.8 IPC 0.81 jet1 2.0 | dpu 0.0 per-cpu 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 | top threads  pass
+[18:33:42]   W0-nosidecar max-step 5445: 5430 req/s p50 18.6 p99 118 ms drop 0 | host 28.9 IPC 0.83 jet1 2.1 | dpu 0.1 per-cpu 1 0 0 0 0 1 0 1 0 1 0 0 0 0 0 0 | top threads  pass
+[18:34:01]   W0-nosidecar max-step 5990: 5789 req/s p50 565.5 p99 880 ms drop 1376 | host 29.1 IPC 0.83 jet1 2.3 | dpu 0.1 per-cpu 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 | top threads  FAIL
+[18:34:01]   W0-nosidecar max: 5430 req/s
+[18:34:14] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[18:34:14] done

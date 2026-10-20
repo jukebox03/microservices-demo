@@ -1,0 +1,6166 @@
+{
+ "offered": 5669,
+ "achieved": 5694.375,
+ "drop": 0,
+ "fail": 0,
+ "p50": 165.28735,
+ "p99": 356.55356525999997,
+ "pass": true,
+ "threads": [
+  {
+   "tid": "2161796",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.9208947055277938
+  },
+  {
+   "tid": "2161696",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.8814277895766026
+  },
+  {
+   "tid": "2163123",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.1907567604307573
+  },
+  {
+   "tid": "2163085",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.18944119656571756
+  },
+  {
+   "tid": "2163142",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.18944119656571756
+  },
+  {
+   "tid": "2163066",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.18812563270067786
+  },
+  {
+   "tid": "2163122",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.18549450497059844
+  },
+  {
+   "tid": "2160681",
+   "pod": "redis-cart",
+   "container": "redis",
+   "comm": "redis-server",
+   "cores": 0.14602758901940732
+  },
+  {
+   "tid": "2163196",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.1447120251543676
+  },
+  {
+   "tid": "2162633",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.13681864196412938
+  },
+  {
+   "tid": "2162999",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.13418751423404995
+  },
+  {
+   "tid": "2163004",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.12892525877389113
+  },
+  {
+   "tid": "2163124",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.12892525877389113
+  },
+  {
+   "tid": "2163003",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.12760969490885143
+  },
+  {
+   "tid": "2163048",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.12760969490885143
+  },
+  {
+   "tid": "2163104",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.1262941310438117
+  },
+  {
+   "tid": "2163086",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.12497856717877201
+  },
+  {
+   "tid": "2163149",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.1236630033137323
+  },
+  {
+   "tid": "2163067",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.12234743944869261
+  },
+  {
+   "tid": "2162986",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0960361621478985
+  },
+  {
+   "tid": "2162907",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "C2 CompilerThre",
+   "cores": 0.08814277895766026
+  },
+  {
+   "tid": "2164338",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.08814277895766026
+  },
+  {
+   "tid": "2163170",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.08682721509262056
+  },
+  {
+   "tid": "2164155",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.08551165122758085
+  },
+  {
+   "tid": "2164133",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.08419608736254115
+  },
+  {
+   "tid": "2162771",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.08288052349750144
+  },
+  {
+   "tid": "2162980",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.08156495963246173
+  },
+  {
+   "tid": "2164142",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.08156495963246173
+  },
+  {
+   "tid": "2164924",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.08024939576742203
+  },
+  {
+   "tid": "2162784",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.07630270417230291
+  },
+  {
+   "tid": "2163197",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.07630270417230291
+  },
+  {
+   "tid": "2162783",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.07367157644222351
+  },
+  {
+   "tid": "2164140",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.07367157644222351
+  },
+  {
+   "tid": "2164158",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.07367157644222351
+  },
+  {
+   "tid": "2164473",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.07367157644222351
+  },
+  {
+   "tid": "2161364",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.07367157644222351
+  },
+  {
+   "tid": "2164266",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0723560125771838
+  },
+  {
+   "tid": "2162948",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0723560125771838
+  },
+  {
+   "tid": "2164902",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0723560125771838
+  },
+  {
+   "tid": "2164881",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0723560125771838
+  },
+  {
+   "tid": "2164802",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0710404487121441
+  },
+  {
+   "tid": "2164123",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0710404487121441
+  },
+  {
+   "tid": "2164276",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0710404487121441
+  },
+  {
+   "tid": "2162992",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0710404487121441
+  },
+  {
+   "tid": "2164319",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06972488484710439
+  },
+  {
+   "tid": "2164032",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164528",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164118",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164134",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164873",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164791",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164345",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164929",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164348",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06840932098206469
+  },
+  {
+   "tid": "2164122",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06709375711702498
+  },
+  {
+   "tid": "2164868",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06709375711702498
+  },
+  {
+   "tid": "2163168",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2162954",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2162983",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2164277",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2164867",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2164427",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2164479",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2164361",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06577819325198526
+  },
+  {
+   "tid": "2162874",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06446262938694557
+  },
+  {
+   "tid": "2164360",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06446262938694557
+  },
+  {
+   "tid": "2164612",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06446262938694557
+  },
+  {
+   "tid": "2162942",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06446262938694557
+  },
+  {
+   "tid": "2161463",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06446262938694557
+  },
+  {
+   "tid": "2164421",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06314706552190585
+  },
+  {
+   "tid": "2164448",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06314706552190585
+  },
+  {
+   "tid": "2164156",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06314706552190585
+  },
+  {
+   "tid": "2164159",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06314706552190585
+  },
+  {
+   "tid": "2164124",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.06183150165686615
+  },
+  {
+   "tid": "2163173",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06183150165686615
+  },
+  {
+   "tid": "2162949",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06183150165686615
+  },
+  {
+   "tid": "2164337",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06183150165686615
+  },
+  {
+   "tid": "2164343",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06183150165686615
+  },
+  {
+   "tid": "2161837",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06183150165686615
+  },
+  {
+   "tid": "2163145",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2164111",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2162774",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2164130",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2164157",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2161362",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2164547",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2161440",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2161836",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2164362",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.06051593779182645
+  },
+  {
+   "tid": "2164727",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.059200373926786745
+  },
+  {
+   "tid": "2164799",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.059200373926786745
+  },
+  {
+   "tid": "2164866",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.059200373926786745
+  },
+  {
+   "tid": "2164143",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.059200373926786745
+  },
+  {
+   "tid": "2164318",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.059200373926786745
+  },
+  {
+   "tid": "2164465",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.059200373926786745
+  },
+  {
+   "tid": "2161533",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.059200373926786745
+  },
+  {
+   "tid": "2164890",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2163171",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2164317",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2164471",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2162747",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2161460",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2164295",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2164336",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05788481006174704
+  },
+  {
+   "tid": "2163044",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2164349",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2164511",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2164030",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2162995",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2164305",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2162887",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2164298",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2164909",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.056569246196707335
+  },
+  {
+   "tid": "2164036",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164430",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164119",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164518",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164428",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2161443",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164274",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164320",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164380",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164928",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05525368233166762
+  },
+  {
+   "tid": "2164889",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.05393811846662792
+  },
+  {
+   "tid": "2164798",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05393811846662792
+  },
+  {
+   "tid": "2162947",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05393811846662792
+  },
+  {
+   "tid": "2161454",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05393811846662792
+  },
+  {
+   "tid": "2161461",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05393811846662792
+  },
+  {
+   "tid": "2161505",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05393811846662792
+  },
+  {
+   "tid": "2164865",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2164470",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2164139",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2164141",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2161470",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2161474",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2161522",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2161444",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2164273",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2164297",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05262255460158822
+  },
+  {
+   "tid": "2164275",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05130699073654851
+  },
+  {
+   "tid": "2164033",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05130699073654851
+  },
+  {
+   "tid": "2162981",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05130699073654851
+  },
+  {
+   "tid": "2164904",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.05130699073654851
+  },
+  {
+   "tid": "2161811",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05130699073654851
+  },
+  {
+   "tid": "2161835",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.05130699073654851
+  },
+  {
+   "tid": "2163172",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2164035",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2162996",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2164870",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2162939",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2164339",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2162988",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2164161",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2161447",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2161526",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2164489",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2161353",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04999142687150881
+  },
+  {
+   "tid": "2164922",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2162515",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2164804",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2161360",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2161467",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2161525",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2161529",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2161439",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2161834",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0486758630064691
+  },
+  {
+   "tid": "2164288",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.04736029914142939
+  },
+  {
+   "tid": "2164128",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04736029914142939
+  },
+  {
+   "tid": "2164131",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04736029914142939
+  },
+  {
+   "tid": "2164469",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04736029914142939
+  },
+  {
+   "tid": "2162990",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04736029914142939
+  },
+  {
+   "tid": "2161457",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04736029914142939
+  },
+  {
+   "tid": "2164449",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04736029914142939
+  },
+  {
+   "tid": "2164031",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.046044735276389685
+  },
+  {
+   "tid": "2162994",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.046044735276389685
+  },
+  {
+   "tid": "2162940",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.046044735276389685
+  },
+  {
+   "tid": "2164543",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.046044735276389685
+  },
+  {
+   "tid": "2162989",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.046044735276389685
+  },
+  {
+   "tid": "2161527",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04472917141134999
+  },
+  {
+   "tid": "2161812",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04472917141134999
+  },
+  {
+   "tid": "2164679",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2164921",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2162773",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2164905",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2164304",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2164340",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2161445",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2161828",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2161830",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.04341360754631028
+  },
+  {
+   "tid": "2164341",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.042098043681270576
+  },
+  {
+   "tid": "2164316",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.042098043681270576
+  },
+  {
+   "tid": "2162946",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.042098043681270576
+  },
+  {
+   "tid": "2161530",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.042098043681270576
+  },
+  {
+   "tid": "2161825",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.042098043681270576
+  },
+  {
+   "tid": "2163195",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2164919",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2162901",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2164800",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2162755",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2164114",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2164872",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2162938",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.040782479816230864
+  },
+  {
+   "tid": "2164681",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.03946691595119116
+  },
+  {
+   "tid": "2164918",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.03946691595119116
+  },
+  {
+   "tid": "2161355",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.03946691595119116
+  },
+  {
+   "tid": "2161838",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.03946691595119116
+  },
+  {
+   "tid": "2164803",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.038151352086151454
+  },
+  {
+   "tid": "2164466",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.038151352086151454
+  },
+  {
+   "tid": "2164933",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.038151352086151454
+  },
+  {
+   "tid": "2161357",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.038151352086151454
+  },
+  {
+   "tid": "2164917",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164311",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164312",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164490",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2162944",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2162945",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164034",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164037",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164129",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164901",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2161459",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2161528",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.036835788221111755
+  },
+  {
+   "tid": "2164896",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.03552022435607205
+  },
+  {
+   "tid": "2164925",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.03552022435607205
+  },
+  {
+   "tid": "2164321",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.03552022435607205
+  },
+  {
+   "tid": "2162993",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03552022435607205
+  },
+  {
+   "tid": "2164315",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03552022435607205
+  },
+  {
+   "tid": "2162902",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2162906",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2164308",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2162247",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2164113",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2164344",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2164177",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2164296",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.034204660491032345
+  },
+  {
+   "tid": "2164892",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2164941",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2162245",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2162979",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2164120",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2162911",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2164932",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2161354",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2162776",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.03288909662599263
+  },
+  {
+   "tid": "2163182",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164891",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164310",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164352",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2162244",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2162770",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164350",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164906",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2162987",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164930",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2161456",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164346",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164429",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2161826",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2163771",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.03157353276095293
+  },
+  {
+   "tid": "2164759",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.030257968895913225
+  },
+  {
+   "tid": "2164302",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.030257968895913225
+  },
+  {
+   "tid": "2164940",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.030257968895913225
+  },
+  {
+   "tid": "2162248",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.030257968895913225
+  },
+  {
+   "tid": "2164512",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.030257968895913225
+  },
+  {
+   "tid": "2164869",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.030257968895913225
+  },
+  {
+   "tid": "2164160",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.030257968895913225
+  },
+  {
+   "tid": "2164309",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.02894240503087352
+  },
+  {
+   "tid": "2162220",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.02894240503087352
+  },
+  {
+   "tid": "2164132",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.02894240503087352
+  },
+  {
+   "tid": "2161435",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.02894240503087352
+  },
+  {
+   "tid": "2161813",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.02894240503087352
+  },
+  {
+   "tid": "2164944",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.02762684116583381
+  },
+  {
+   "tid": "2162214",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.02762684116583381
+  },
+  {
+   "tid": "2162216",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.02762684116583381
+  },
+  {
+   "tid": "2163169",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.02762684116583381
+  },
+  {
+   "tid": "2162998",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.02762684116583381
+  },
+  {
+   "tid": "2164931",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.02762684116583381
+  },
+  {
+   "tid": "2163233",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2164911",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2164934",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2163183",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2163185",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2163187",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2163192",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2164725",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2163143",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.02631127730079411
+  },
+  {
+   "tid": "2164910",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2163184",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2163186",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2163188",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2163189",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2163190",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2163191",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2162218",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2164527",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2164871",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2164351",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2162540",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.024995713435754404
+  },
+  {
+   "tid": "2164754",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164912",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164689",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164347",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164874",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164261",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164323",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164422",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.023680149570714695
+  },
+  {
+   "tid": "2164946",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164948",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2162632",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164342",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164719",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164855",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164324",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164326",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164468",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.022364585705674993
+  },
+  {
+   "tid": "2164762",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.021049021840635288
+  },
+  {
+   "tid": "2163193",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.021049021840635288
+  },
+  {
+   "tid": "2164313",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.021049021840635288
+  },
+  {
+   "tid": "2164269",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.021049021840635288
+  },
+  {
+   "tid": "2164707",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2162904",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164682",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164748",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164778",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164807",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164811",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164272",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164699",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164747",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164796",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164816",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164830",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164703",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164709",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164712",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164733",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164755",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164880",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164259",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164705",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164708",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164723",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164758",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164810",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164819",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164852",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164264",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164720",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164724",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164728",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164745",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164765",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164785",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2162779",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164322",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.01973345797559558
+  },
+  {
+   "tid": "2164737",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164920",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164038",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2163236",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164287",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164290",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164291",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164294",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164685",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164692",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164711",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164713",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164734",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164777",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164792",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164808",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164814",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164815",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164823",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164826",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164828",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164831",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164833",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164834",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164836",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164837",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164839",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164875",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164268",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164270",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164694",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164697",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164714",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164717",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164738",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164780",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164783",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164787",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164809",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164813",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164824",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164843",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164846",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164862",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164886",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164281",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164285",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164286",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164684",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164691",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164710",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164716",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164736",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164750",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164753",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164763",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164766",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164769",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164771",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164773",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164774",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164776",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164844",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164849",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164858",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164860",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164879",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164260",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164683",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164693",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164698",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164706",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164729",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164735",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164739",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164743",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164749",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164775",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164789",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164794",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164795",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164812",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164817",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164847",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164859",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164861",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2163492",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164278",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164715",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164730",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164741",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164757",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164761",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164779",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164781",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164782",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164788",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164790",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164820",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164827",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164835",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164838",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164841",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.018417894110555878
+  },
+  {
+   "tid": "2164688",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164806",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164292",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164701",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164731",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164732",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164740",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164784",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164818",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164829",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164137",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164267",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164271",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164687",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164722",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164752",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164768",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164832",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164840",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164845",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164856",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164878",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164882",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164884",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164885",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164887",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164152",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164282",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164283",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164284",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164760",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164764",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164767",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164772",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164851",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164853",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164863",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164116",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164467",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164686",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164696",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164718",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164721",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164744",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164805",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164848",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164857",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164864",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164894",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164279",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164280",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164690",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164695",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164700",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164704",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164726",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164742",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164746",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164751",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164756",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164786",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164793",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164797",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2164801",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.017102330245516172
+  },
+  {
+   "tid": "2163232",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.015786766380476464
+  },
+  {
+   "tid": "2164903",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.015786766380476464
+  },
+  {
+   "tid": "2164854",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.015786766380476464
+  },
+  {
+   "tid": "2164293",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.015786766380476464
+  },
+  {
+   "tid": "2164825",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.015786766380476464
+  },
+  {
+   "tid": "2164526",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.015786766380476464
+  },
+  {
+   "tid": "2164899",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.01447120251543676
+  },
+  {
+   "tid": "2164914",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.01447120251543676
+  },
+  {
+   "tid": "2164935",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.01447120251543676
+  },
+  {
+   "tid": "2164262",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.01447120251543676
+  },
+  {
+   "tid": "2163046",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "dmesh-reactor",
+   "cores": 0.01447120251543676
+  },
+  {
+   "tid": "2164947",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.013155638650397055
+  },
+  {
+   "tid": "2164877",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.013155638650397055
+  },
+  {
+   "tid": "2162778",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.013155638650397055
+  },
+  {
+   "tid": "2164306",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.011840074785357348
+  },
+  {
+   "tid": "2164121",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.011840074785357348
+  },
+  {
+   "tid": "2164472",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.011840074785357348
+  },
+  {
+   "tid": "2164876",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164330",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164923",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164332",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164333",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164334",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164335",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164821",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164897",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164898",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2162897",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2161534",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164327",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.010524510920317644
+  },
+  {
+   "tid": "2164770",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164900",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2162164",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164822",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164888",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164893",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2162895",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2162896",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164883",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164325",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164491",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.009208947055277939
+  },
+  {
+   "tid": "2164942",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.007893383190238232
+  },
+  {
+   "tid": "2164680",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.007893383190238232
+  },
+  {
+   "tid": "2164301",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.006577819325198527
+  },
+  {
+   "tid": "2162450",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.006577819325198527
+  },
+  {
+   "tid": "2162451",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.006577819325198527
+  },
+  {
+   "tid": "2162452",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.006577819325198527
+  },
+  {
+   "tid": "2162453",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.006577819325198527
+  },
+  {
+   "tid": "2162894",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.006577819325198527
+  },
+  {
+   "tid": "2162495",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.005262255460158822
+  },
+  {
+   "tid": "2162496",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.005262255460158822
+  },
+  {
+   "tid": "2162497",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.005262255460158822
+  },
+  {
+   "tid": "2162498",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.005262255460158822
+  },
+  {
+   "tid": "2162982",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.005262255460158822
+  },
+  {
+   "tid": "2162777",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.005262255460158822
+  },
+  {
+   "tid": "2164580",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.003946691595119116
+  },
+  {
+   "tid": "2164513",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.003946691595119116
+  },
+  {
+   "tid": "2162909",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "C1 CompilerThre",
+   "cores": 0.002631127730079411
+  },
+  {
+   "tid": "2164675",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.002631127730079411
+  },
+  {
+   "tid": "2161423",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.002631127730079411
+  },
+  {
+   "tid": "2162809",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#0",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2162866",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "VM Periodic Tas",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2162875",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "VM Thread",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163211",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#8",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163212",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#9",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163213",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#10",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163214",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#11",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163220",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#17",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163223",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#20",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163224",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#21",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2164329",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2162970",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2162971",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2162972",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2162973",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "libuv-worker",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2161442",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163064",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163110",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163119",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2163068",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0013155638650397055
+  },
+  {
+   "tid": "2162554",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "java",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162782",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "java",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162811",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Main Marker",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162813",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Conc#0",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162826",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Refine#0",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162827",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Service",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162892",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "Reference Handl",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162899",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "Finalizer",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162900",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "Signal Dispatch",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162903",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "Service Thread",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162905",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "Monitor Deflati",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162923",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "Notification Th",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162927",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "Common-Cleaner",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163146",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163204",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#1",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163205",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#2",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163206",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#3",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163207",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#4",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163208",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#5",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163209",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#6",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163210",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#7",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163215",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#12",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163216",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#13",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163217",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#14",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163218",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#15",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163219",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#16",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163221",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#18",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163222",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#19",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163225",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "GC Thread#22",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163226",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Conc#1",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163227",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Conc#2",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163228",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Conc#3",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163229",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Conc#4",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163230",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "G1 Conc#5",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163231",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164299",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164702",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164842",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164895",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164915",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164936",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164943",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2164945",
+   "pod": "adservice",
+   "container": "server",
+   "comm": "grpc-default-ex",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161625",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162152",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": ".NET SynchManag",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162154",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": ".NET EventPipe",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162161",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": ".NET DebugPipe",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162163",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": ".NET Debugger",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162165",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162167",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162169",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162171",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162173",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162178",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162179",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162180",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162181",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162182",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162184",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162192",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162193",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162194",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162196",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162198",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162199",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162200",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162201",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162204",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162206",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162207",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162209",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162210",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162211",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162213",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162221",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162225",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162227",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162230",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162231",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162283",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162627",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162807",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162858",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": ".NET SigHandler",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162913",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162963",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162985",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163194",
+   "pod": "cartservice",
+   "container": "server",
+   "comm": "dotnet",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162908",
+   "pod": "checkoutservice",
+   "container": "server",
+   "comm": "checkoutservice",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162242",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "DelayedTaskSche",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162355",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162953",
+   "pod": "currencyservice-1",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162212",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "DelayedTaskSche",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162306",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162952",
+   "pod": "currencyservice-2",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162679",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163026",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "grpc_global_tim",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163027",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163028",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163029",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163030",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163031",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163032",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163033",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163034",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163035",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163036",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163037",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163038",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163039",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163040",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163041",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163042",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163043",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "lifeguard",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163045",
+   "pod": "emailservice",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162775",
+   "pod": "frontend-1",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162950",
+   "pod": "frontend-2",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162984",
+   "pod": "frontend-3",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162997",
+   "pod": "frontend-4",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162941",
+   "pod": "frontend-5",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162991",
+   "pod": "frontend-6",
+   "container": "server",
+   "comm": "frontend",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162889",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "DelayedTaskSche",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162937",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "node",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163013",
+   "pod": "paymentservice",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161046",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161363",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161365",
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161081",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161469",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161475",
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161021",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161358",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161431",
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161256",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161814",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161815",
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "comm": "productcatalogs",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162688",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163019",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "grpc_global_tim",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163020",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163087",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163088",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163089",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163090",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163091",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163092",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163093",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163094",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163095",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163096",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163097",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163098",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163099",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163100",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163101",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163102",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163103",
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "comm": "lifeguard",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162658",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163014",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "grpc_global_tim",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163015",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163049",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163050",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163051",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163052",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163053",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163054",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163055",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163056",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163057",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163058",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163059",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163060",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163061",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163062",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163063",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163065",
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "comm": "lifeguard",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162667",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163021",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "grpc_global_tim",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163022",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163105",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163106",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163107",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163108",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163109",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163111",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163112",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163113",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163114",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163115",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163116",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163117",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163118",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163120",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163121",
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "comm": "lifeguard",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162665",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163017",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "grpc_global_tim",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163018",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163069",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163070",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163071",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163072",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163073",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163074",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163075",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163076",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163077",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163078",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163079",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163080",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163081",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163082",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163083",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163084",
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "comm": "lifeguard",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162706",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "python",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163023",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "grpc_global_tim",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163024",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "dmesh-callback",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163125",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163126",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163127",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163128",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163129",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163130",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163131",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163132",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163133",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163134",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163135",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163136",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163137",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163138",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163139",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163140",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "event_engine",
+   "cores": 0.0
+  },
+  {
+   "tid": "2163141",
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "comm": "lifeguard",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161134",
+   "pod": "redis-cart",
+   "container": "redis",
+   "comm": "iou-sqp-2160681",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161137",
+   "pod": "redis-cart",
+   "container": "redis",
+   "comm": "bio_close_file",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161138",
+   "pod": "redis-cart",
+   "container": "redis",
+   "comm": "bio_aof",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161139",
+   "pod": "redis-cart",
+   "container": "redis",
+   "comm": "bio_lazy_free",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161140",
+   "pod": "redis-cart",
+   "container": "redis",
+   "comm": "jemalloc_bg_thd",
+   "cores": 0.0
+  },
+  {
+   "tid": "2161141",
+   "pod": "redis-cart",
+   "container": "redis",
+   "comm": "jemalloc_bg_thd",
+   "cores": 0.0
+  },
+  {
+   "tid": "2162780",
+   "pod": "shippingservice",
+   "container": "server",
+   "comm": "shippingservice",
+   "cores": 0.0
+  }
+ ],
+ "containers": {
+  "bdc92bc783227ba4b0651ae281c5464656de970ec219db33f1e3a191a7ae87b5": {
+   "pod": "adservice",
+   "container": "server",
+   "cores": 1.3230253486130512
+  },
+  "683d05531cf48a966a84d745693117a2e0b15abfe062f4e65570fb5055bc1df4": {
+   "pod": "cartservice",
+   "container": "server",
+   "cores": 1.4786234016378492
+  },
+  "3fd9012a1bdbf38ee594a007fa141a9ae22b8b09e5b9cb2ce717a669c0b0c514": {
+   "pod": "checkoutservice",
+   "container": "server",
+   "cores": 0.5698797701931082
+  },
+  "e882f3b1d9708fbca7f5d34d4bb3556931292452d3230eb597c26a8536fea4f3": {
+   "pod": "currencyservice-1",
+   "container": "server",
+   "cores": 1.205826499906578
+  },
+  "3869ae5efbbd96bed2306a62062f011c4c582abffd319b990a9c33773c7f002b": {
+   "pod": "currencyservice-2",
+   "container": "server",
+   "cores": 1.1409238144067766
+  },
+  "eb0039322539733d87450ed787e2b13e6ea86531e4bfb87f758fc3868d9d435c": {
+   "pod": "emailservice",
+   "container": "server",
+   "cores": 0.18846044370433046
+  },
+  "1ce8dad7e8b5ffa35747e78829f3f8c7dc1839dca2b7568dd50bcd31313710a8": {
+   "pod": "frontend-1",
+   "container": "server",
+   "cores": 1.4774086099648716
+  },
+  "e18b8d640ca426e539a1f1299fe52a0236daf6eaeafbdc106bc5c37aafdfcdd4": {
+   "pod": "frontend-2",
+   "container": "server",
+   "cores": 1.466452067871275
+  },
+  "1dd4654b9c0871bf476a3f850b623d80cd874e1f91900a538c0633297571911e": {
+   "pod": "frontend-3",
+   "container": "server",
+   "cores": 1.4986314177920788
+  },
+  "8f06641fc41532e694d00a241cde521a153af053f9485d46be84bc1f411eb7ee": {
+   "pod": "frontend-4",
+   "container": "server",
+   "cores": 1.4643795285582912
+  },
+  "d09615b21ce7957ccfdf4b0abb12b95d2ad52942978f85609440ece384589cbf": {
+   "pod": "frontend-5",
+   "container": "server",
+   "cores": 1.4522049058820545
+  },
+  "e25b543d4ad959499b585a1b49d6ad0aac6ac2b5c857210afbacc55da6da0594": {
+   "pod": "frontend-6",
+   "container": "server",
+   "cores": 1.4691196367204158
+  },
+  "40335dc2841ee0de535e76b1ffeac2aa0282d3f2ceed2a63787d74d949b125bb": {
+   "pod": "paymentservice",
+   "container": "server",
+   "cores": 0.1942031430880018
+  },
+  "4bc02ee854bba8373e9350d489fbd8808b898bf823beb01949ee7e92a479d51c": {
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "cores": 1.058782243132268
+  },
+  "d12a2a675b8a8ba5a7b9c0bced51a06e95385317c531738a75993ffee603cf00": {
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "cores": 0.9149313860839553
+  },
+  "0b30d3af9513ab1c83e6d9bc45c5eb91b760164389b6a2eface4cac88a93c7e8": {
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "cores": 0.9567693427891076
+  },
+  "1388677604b38097a5368b3886708c2d340d21e89736aca565285a155c85872e": {
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "cores": 0.984501560620531
+  },
+  "f46d3682f9eeb08d2736d1b1906b844a0a59cc381fc99145f4aeb1663ed8f0b0": {
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "cores": 1.0527080216546065
+  },
+  "5c7a232e32c6b4cf8e4198f383f682e8095f83538dedc1723a7ad3544b40b6d0": {
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "cores": 1.0512070948409828
+  },
+  "941a913b1a795d13cb28780fbf3ab59fa5a7b24adde262aa7b1ab1e634bddc3e": {
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "cores": 1.0546562401823438
+  },
+  "86850e13df4b5f1a01f6d9ff7cb8aef48035185b6d6c3b2c179c4692ea12bbe8": {
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "cores": 1.050498137474113
+  },
+  "43125494c7a8ea048d3b909750dafaf78d63766955888c2a35a091ead4b6aa90": {
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "cores": 1.045563720529122
+  },
+  "e4d4686e9eb874e89002a068b713a2c16783b5e6d7f5f930fd7e2246c2fa908c": {
+   "pod": "redis-cart",
+   "container": "redis",
+   "cores": 0.14664564092320295
+  },
+  "bac1941f66d3ad467cbcdbee5a66748596675520533298a3e8f5387fbe1e8f34": {
+   "pod": "shippingservice",
+   "container": "server",
+   "cores": 0.35967516070185546
+  }
+ },
+ "host_busy": 27.716709002454042,
+ "host_cpu": {
+  "0": 0.9879839786381842,
+  "1": 0.8689655172413793,
+  "2": 0.8646408839779005,
+  "3": 0.8593103448275862,
+  "4": 0.8603042876901799,
+  "5": 0.8614540466392319,
+  "6": 0.8625,
+  "7": 0.8626373626373627,
+  "8": 0.8632596685082873,
+  "9": 0.855755894590846,
+  "10": 0.8646408839779005,
+  "11": 0.8569463548830811,
+  "12": 0.8695054945054945,
+  "13": 0.863448275862069,
+  "14": 0.8611111111111112,
+  "15": 0.8630705394190872,
+  "16": 0.9073569482288828,
+  "17": 0.8529819694868238,
+  "18": 0.8698630136986302,
+  "19": 0.861878453038674,
+  "20": 0.8567493112947658,
+  "21": 0.8547717842323651,
+  "22": 0.8428372739916551,
+  "23": 0.853625170998632,
+  "24": 0.8630705394190872,
+  "25": 0.8541953232462174,
+  "26": 0.8628808864265928,
+  "27": 0.8533886583679114,
+  "28": 0.8581267217630854,
+  "29": 0.8638239339752407,
+  "30": 0.8593103448275862,
+  "31": 0.8734693877551021
+ },
+ "dpu_busy": 13.655489940946852,
+ "dpu_cpu": {
+  "0": 0.12128146453089245,
+  "1": 0.056162246489859596,
+  "2": 0.9768160741885626,
+  "3": 0.9589257503949447,
+  "4": 0.9767441860465116,
+  "5": 0.9702194357366771,
+  "6": 0.9813664596273292,
+  "7": 0.9219745222929936,
+  "8": 0.9686520376175548,
+  "9": 0.9124203821656051,
+  "10": 0.9150641025641025,
+  "11": 0.8432,
+  "12": 0.9704510108864697,
+  "13": 0.9768518518518519,
+  "14": 0.9020866773675762,
+  "15": 0.9736842105263158
+ },
+ "jet1_busy": 2.0455245593017284,
+ "jet1_cpus": 16,
+ "dpu_threads": {
+  "654677": {
+   "comm": "linkerd2-proxy",
+   "cores": 0.0,
+   "last_cpu": 0
+  },
+  "654684": {
+   "comm": "dmesh-control",
+   "cores": 0.018575851393128597,
+   "last_cpu": 0
+  },
+  "654685": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.9752321981392514,
+   "last_cpu": 2
+  },
+  "654686": {
+   "comm": "dmesh-shard-1",
+   "cores": 0.9520123838978407,
+   "last_cpu": 3
+  },
+  "654687": {
+   "comm": "dmesh-shard-2",
+   "cores": 0.9736842105231573,
+   "last_cpu": 4
+  },
+  "654688": {
+   "comm": "dmesh-shard-3",
+   "cores": 0.9659442724426872,
+   "last_cpu": 5
+  },
+  "654689": {
+   "comm": "dmesh-shard-4",
+   "cores": 0.9767801857553454,
+   "last_cpu": 6
+  },
+  "654690": {
+   "comm": "dmesh-shard-5",
+   "cores": 0.9117647058793953,
+   "last_cpu": 7
+  },
+  "654691": {
+   "comm": "dmesh-shard-6",
+   "cores": 0.962848297210499,
+   "last_cpu": 8
+  },
+  "654692": {
+   "comm": "dmesh-shard-7",
+   "cores": 0.8993808049506429,
+   "last_cpu": 9
+  },
+  "654693": {
+   "comm": "dmesh-shard-8",
+   "cores": 0.9024767801828311,
+   "last_cpu": 10
+  },
+  "654694": {
+   "comm": "dmesh-shard-9",
+   "cores": 0.8250773993781286,
+   "last_cpu": 11
+  },
+  "654695": {
+   "comm": "dmesh-shard-10",
+   "cores": 0.9705882352909693,
+   "last_cpu": 12
+  },
+  "654696": {
+   "comm": "dmesh-shard-11",
+   "cores": 0.9767801857553454,
+   "last_cpu": 13
+  },
+  "654697": {
+   "comm": "dmesh-shard-12",
+   "cores": 0.8916408668701727,
+   "last_cpu": 14
+  },
+  "654698": {
+   "comm": "dmesh-shard-13",
+   "cores": 0.9752321981392514,
+   "last_cpu": 15
+  },
+  "654699": {
+   "comm": "admin",
+   "cores": 0.0,
+   "last_cpu": 12
+  },
+  "654708": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.0,
+   "last_cpu": 15
+  },
+  "654709": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.0,
+   "last_cpu": 15
+  }
+ }
+}

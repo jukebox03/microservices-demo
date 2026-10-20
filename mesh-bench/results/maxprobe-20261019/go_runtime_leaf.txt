@@ -1,0 +1,27 @@
+                                            W0-nosidecar       L1-legacy      G1-default
+Go services cgroup CPU                              9.68           10.48            7.56
+idle: findRunnable/steal/netpoll/park              1.017           1.431           0.912
+wake: wakep/startm/ready                           0.073           0.055           0.066
+syscall enter/exit                                 0.057           0.064           0.022
+GC                                                 0.919           0.579           0.611
+stack/preempt/other                                0.451           0.405           0.306
+runtime total                                      2.518           2.533           1.918
+--- top claiming runtime functions (vCPU)
+runtime.stealWork                                  0.270           0.503           0.306
+runtime.copystack                                  0.220           0.202           0.165
+runtime.findRunnable                               0.186           0.255           0.134
+runtime.schedule                                   0.154           0.165           0.130
+runtime.tryDeferToSpanScan                         0.158           0.103           0.102
+runtime.scanframeworker                            0.166           0.086           0.100
+runtime.scanblock                                  0.179           0.077           0.094
+runtime.lock2                                      0.107           0.108           0.086
+runtime.scanstack                                  0.072           0.072           0.076
+runtime.unlock2                                    0.076           0.073           0.066
+runtime.retake                                     0.076           0.066           0.040
+runtime.systemstack.abi0                           0.072           0.050           0.043
+runtime.netpoll                                    0.036           0.089           0.026
+runtime.scanObject                                 0.056           0.048           0.038
+runtime.sysmon                                     0.036           0.050           0.028
+runtime.checkTimersNoP                             0.022           0.051           0.037
+runtime.runqgrab                                   0.040           0.036           0.034
+runtime.stopm                                      0.051           0.031           0.027

@@ -1,0 +1,201 @@
+{
+ "cfg": "W0-nosidecar+fine",
+ "knobs": null,
+ "extra_env": "",
+ "containers": {
+  "0dd485d3fb831a979a5eabcbd421c631bb6278a78d898d5274db92fda1f4f97d": {
+   "pod": "adservice",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod7a7a7419_8f33_4551_89c5_0589d642162f.slice/cri-containerd-0dd485d3fb831a979a5eabcbd421c631bb6278a78d898d5274db92fda1f4f97d.scope",
+   "cgid": 861308,
+   "pid": 2145078
+  },
+  "dcc95c9c1699822729274ca19f509f9620aec1be59a4a08ce26354516c38bdc0": {
+   "pod": "cartservice",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod5b815890_712c_49c8_b642_e9161d2ec92f.slice/cri-containerd-dcc95c9c1699822729274ca19f509f9620aec1be59a4a08ce26354516c38bdc0.scope",
+   "cgid": 860676,
+   "pid": 2144806
+  },
+  "013a5bbd03b5d0d9e2335ef972a4ba0987de085743f19c1de5e4bccc02eaee68": {
+   "pod": "checkoutservice",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod0cb08351_5256_42c1_9f77_974963de3fa3.slice/cri-containerd-013a5bbd03b5d0d9e2335ef972a4ba0987de085743f19c1de5e4bccc02eaee68.scope",
+   "cgid": 862493,
+   "pid": 2146013
+  },
+  "b617c18eb2a8ce4989d505c7cf00e1b383c5c59dee48081d6c78a7e5d31d12b3": {
+   "pod": "currencyservice-1",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod32a0886c_d149_49d9_9c1c_08db92cbc7f7.slice/cri-containerd-b617c18eb2a8ce4989d505c7cf00e1b383c5c59dee48081d6c78a7e5d31d12b3.scope",
+   "cgid": 860281,
+   "pid": 2144495
+  },
+  "37d928df0a6a365b380084cc48f7148dbb1b2c94112043505195dbc0d2680bfc": {
+   "pod": "currencyservice-2",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podf29670ed_4dc5_4b7b_b852_c2b6d37af8bc.slice/cri-containerd-37d928df0a6a365b380084cc48f7148dbb1b2c94112043505195dbc0d2680bfc.scope",
+   "cgid": 860597,
+   "pid": 2144727
+  },
+  "61e03da8c718fdc5a4760043147fb4c8f74c996b91d2631fe7eec4052a05ea51": {
+   "pod": "emailservice",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podf63f7b8c_999f_4e31_8302_e15e4abfef6c.slice/cri-containerd-61e03da8c718fdc5a4760043147fb4c8f74c996b91d2631fe7eec4052a05ea51.scope",
+   "cgid": 861466,
+   "pid": 2145236
+  },
+  "c2a35cdd30d7e3ac5bc9ebb4686b1e0d8367ebb362903e357fbc34d59b2098cd": {
+   "pod": "frontend-1",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod1c0e5b0d_4549_4070_b719_759dd866a1d1.slice/cri-containerd-c2a35cdd30d7e3ac5bc9ebb4686b1e0d8367ebb362903e357fbc34d59b2098cd.scope",
+   "cgid": 862651,
+   "pid": 2146091
+  },
+  "2368d34c49286261c91b9bd7dcbce25b20732fa815cb9e208166352bd335ef40": {
+   "pod": "frontend-2",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-poddbf5e3a3_3ea2_4616_bdd5_0363a7ab25e9.slice/cri-containerd-2368d34c49286261c91b9bd7dcbce25b20732fa815cb9e208166352bd335ef40.scope",
+   "cgid": 862730,
+   "pid": 2146255
+  },
+  "911b5a7214263b0a0b488f0e0034d8e02ab014b1ceaaecdffc40cd006235350a": {
+   "pod": "frontend-3",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod74f7eba1_1bfe_4be1_b0dd_6a242455861e.slice/cri-containerd-911b5a7214263b0a0b488f0e0034d8e02ab014b1ceaaecdffc40cd006235350a.scope",
+   "cgid": 862967,
+   "pid": 2146309
+  },
+  "57a36f0c081767a90e3c8d0b96fc4916939436f6289c4891e794f76e50cbdb2e": {
+   "pod": "frontend-4",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod9b62899b_e856_4ec9_bac9_1aeae415ff59.slice/cri-containerd-57a36f0c081767a90e3c8d0b96fc4916939436f6289c4891e794f76e50cbdb2e.scope",
+   "cgid": 863125,
+   "pid": 2146510
+  },
+  "ad690089daa2ea9878badb5c82946eddc6441e407219f7cc255420a5fdd726e0": {
+   "pod": "frontend-5",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-poddd3ae065_117b_49bf_8bbe_544b3a3825c5.slice/cri-containerd-ad690089daa2ea9878badb5c82946eddc6441e407219f7cc255420a5fdd726e0.scope",
+   "cgid": 863204,
+   "pid": 2146511
+  },
+  "bf037ff909b42ea37e63593078c230f1a7c853bbe9db445e3ae706e97bc19ce4": {
+   "pod": "frontend-6",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podb298e404_af2f_476b_98c6_3732f326531f.slice/cri-containerd-bf037ff909b42ea37e63593078c230f1a7c853bbe9db445e3ae706e97bc19ce4.scope",
+   "cgid": 863283,
+   "pid": 2146519
+  },
+  "338c9aeab41a82701c0e8861c5d3d611543d5f023b66642e0f33301d3fd9ae3b": {
+   "pod": "paymentservice",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod17ddaf09_d4fe_4471_91b7_2e43dd438204.slice/cri-containerd-338c9aeab41a82701c0e8861c5d3d611543d5f023b66642e0f33301d3fd9ae3b.scope",
+   "cgid": 861624,
+   "pid": 2145408
+  },
+  "48718653da125e2c6bdd553d2103e13fb9625d47d8b372c54b18a125ef05e998": {
+   "pod": "productcatalogservice-1",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod43f0d988_714f_421a_b930_e813166399ef.slice/cri-containerd-48718653da125e2c6bdd553d2103e13fb9625d47d8b372c54b18a125ef05e998.scope",
+   "cgid": 859393,
+   "pid": 2144074
+  },
+  "87c9ca93ac44c3c6c8770e68b78e056f5a5b178a4d1e7bff20c11f7df273e0fc": {
+   "pod": "productcatalogservice-2",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod01207b8a_f1d6_417e_a681_612e18211594.slice/cri-containerd-87c9ca93ac44c3c6c8770e68b78e056f5a5b178a4d1e7bff20c11f7df273e0fc.scope",
+   "cgid": 859570,
+   "pid": 2144137
+  },
+  "0e3708cfee602ff6974ae04ef6cfba273cbe28dd9d8dc141ab9adbc465414b84": {
+   "pod": "productcatalogservice-3",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod595cff12_76cb_4290_ac82_f37d001fd5fc.slice/cri-containerd-0e3708cfee602ff6974ae04ef6cfba273cbe28dd9d8dc141ab9adbc465414b84.scope",
+   "cgid": 859807,
+   "pid": 2144376
+  },
+  "6272c530fcf981309179b919420298b0cd13d7ddcc1299e5ab51d47ade01f013": {
+   "pod": "productcatalogservice-4",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podfbfe0dc0_999f_40ff_818b_13abe9a334b4.slice/cri-containerd-6272c530fcf981309179b919420298b0cd13d7ddcc1299e5ab51d47ade01f013.scope",
+   "cgid": 860044,
+   "pid": 2144404
+  },
+  "00d20bf86d33d45bf8111799bcecc5446be4d233367d693d9b3fa11921ac6afe": {
+   "pod": "recommendationservice-1",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod7b631ef2_178a_4613_a063_b60d5e7ffdaf.slice/cri-containerd-00d20bf86d33d45bf8111799bcecc5446be4d233367d693d9b3fa11921ac6afe.scope",
+   "cgid": 861782,
+   "pid": 2145491
+  },
+  "bde1fc0fcbd3473f9136006427f02929ba0bd5da7cd264a5ec74d163ab261c7c": {
+   "pod": "recommendationservice-2",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod94e28275_988c_4a1f_b227_253fafbf6383.slice/cri-containerd-bde1fc0fcbd3473f9136006427f02929ba0bd5da7cd264a5ec74d163ab261c7c.scope",
+   "cgid": 861861,
+   "pid": 2145508
+  },
+  "e21bc38cb52817a8ebfa106cfbfac5aa1ccf190670b4389ceb44c2abfa558df2": {
+   "pod": "recommendationservice-3",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podced55fef_b4d8_4c47_82a3_9d6b14c70c46.slice/cri-containerd-e21bc38cb52817a8ebfa106cfbfac5aa1ccf190670b4389ceb44c2abfa558df2.scope",
+   "cgid": 862098,
+   "pid": 2145755
+  },
+  "397bea562439bdcfa79157cf8fdcddd145ecce385474ee1dd1428cbbaa4bed5d": {
+   "pod": "recommendationservice-4",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podf439191e_3eff_4a90_bd3d_20981c957b5a.slice/cri-containerd-397bea562439bdcfa79157cf8fdcddd145ecce385474ee1dd1428cbbaa4bed5d.scope",
+   "cgid": 862256,
+   "pid": 2145794
+  },
+  "e8892b95e3d4051bc6290203710edf213c3ad7759959c79407cb46886316aefa": {
+   "pod": "recommendationservice-5",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod5029dff7_df36_4ccd_b9e7_ded8cad80309.slice/cri-containerd-e8892b95e3d4051bc6290203710edf213c3ad7759959c79407cb46886316aefa.scope",
+   "cgid": 862395,
+   "pid": 2145978
+  },
+  "92542e65be459002ecb57f3d7fda33c8f3c1d2a0dad9d8186b730b85ddae4076": {
+   "pod": "redis-cart",
+   "container": "redis",
+   "role": "redis",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc6a83a8c_cd50_4b08_a9ea_9f3c106d6f35.slice/cri-containerd-92542e65be459002ecb57f3d7fda33c8f3c1d2a0dad9d8186b730b85ddae4076.scope",
+   "cgid": 859254,
+   "pid": 2144025
+  },
+  "16d58b3000a331d189543d61ee9ca92eb496159a148b4a49c662071628067191": {
+   "pod": "shippingservice",
+   "container": "server",
+   "role": "app",
+   "cgroup": "/sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-pod0fd2b145_c016_4861_a64e_277157e375a9.slice/cri-containerd-16d58b3000a331d189543d61ee9ca92eb496159a148b4a49c662071628067191.scope",
+   "cgid": 861071,
+   "pid": 2144995
+  }
+ },
+ "host_lib": null,
+ "dpu": null
+}

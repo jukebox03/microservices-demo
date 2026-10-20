@@ -1,0 +1,15 @@
+{
+ "cfg": "G1-default",
+ "knobs": {},
+ "extra_env": "",
+ "host_lib": {
+  "branch": "feature/comch-wake",
+  "commit": "ece30c2",
+  "dirty": true,
+  "lib_mtime": "2026-10-19 17:19:10"
+ },
+ "dpu": {
+  "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0",
+  "rev": "feature/dpa-mux cd01a50 + linkerd2-proxy 154b428b + comch-wake (DPU rebuilt 08:05 UTC)"
+ }
+}

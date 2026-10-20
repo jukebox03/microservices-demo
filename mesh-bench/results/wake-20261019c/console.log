@@ -1,0 +1,50 @@
+[15:50:39] start wake run {"cfgs": ["W1-dpumesh", "F1-comchwake", "F3-comchwake-sleep", "W3-doorbell", "W0-nosidecar"], "rate": 1500}
+[15:50:40] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[15:50:40] == W1-dpumesh {"knobs": {}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME"}
+[15:51:13] dpu proxy: proxy 527587: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[15:52:45]   W1-dpumesh latency1: 69 req/s  avg 14.34 p50 15.77 p90 20.48 p99 27.96 ms  fail 0.0000
+[15:53:23]   W1-dpumesh r1500: 1494 rps p50 13.2 p99 28.8 ms fail 0.0000 drop 0 | app 15.50 host 19.46 outside 3.95 cores | wait files 23
+[15:53:26]   perf script 3 s
+[15:53:41] dpu stop: proxy 527587 stopped
+[15:53:42] dpu irq restore: 
+[15:53:43] flow_check exit 1:     14            8
+    13       7        7         14            8
+DOCA ERR x6: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 81 backend opens on 14 workers (worker 6: 14, highest slot 14); DPA: mux 8-8 threads/worker, 182 ring adds; errors: mux ring stopped x6
+[15:53:43] == F1-comchwake {"knobs": {"DPUMESH_COMCH_WAKE": "1"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_COMCH_WAKE=1"}
+[15:54:16] dpu proxy: proxy 530295: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[15:55:24]   F1-comchwake latency1: 73 req/s  avg 13.57 p50 15.06 p90 19.13 p99 28.72 ms  fail 0.0000
+[15:56:01]   F1-comchwake r1500: 1502 rps p50 13.4 p99 28.0 ms fail 0.0000 drop 0 | app 16.05 host 19.84 outside 3.79 cores | wait files 23
+[15:56:04]   perf script 3 s
+[15:56:20] dpu stop: proxy 530295 stopped
+[15:56:20] dpu irq restore: 
+[15:56:22] flow_check exit 1:  ERR x115: fast-path producer stopped unexpectedly (from state N)
+DOCA ERR x17: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 85 backend opens on 14 workers (worker 0: 14, highest slot 14); DPA: mux 8-8 threads/worker, 186 ring adds; errors: mux ring stopped x17
+[15:56:22] == F3-comchwake-sleep {"knobs": {"DPUMESH_COMCH_WAKE": "1", "DPUMESH_NAP_US": "0", "DPUMESH_LINGER_US": "0"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_COMCH_WAKE=1,DPUMESH_NAP_US=0,DPUMESH_LINGER_US=0"}
+[15:56:55] dpu proxy: proxy 532876: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[15:58:04]   F3-comchwake-sleep latency1: 64 req/s  avg 15.57 p50 17.60 p90 23.13 p99 33.84 ms  fail 0.0000
+[15:58:42]   F3-comchwake-sleep r1500: 1499 rps p50 14.8 p99 28.9 ms fail 0.0000 drop 0 | app 12.68 host 16.04 outside 3.36 cores | wait files 23
+[15:58:45]   perf script 3 s
+[15:59:01] dpu stop: proxy 532876 stopped
+[15:59:01] dpu irq restore: 
+[15:59:03] flow_check exit 1: CA ERR x117: fast-path producer stopped unexpectedly (from state N)
+DOCA ERR x3: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 90 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 191 ring adds; errors: mux ring stopped x3
+[15:59:03] == W3-doorbell {"knobs": {"DPUMESH_NAP_US": "0", "DPUMESH_LINGER_US": "0"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_NAP_US=0,DPUMESH_LINGER_US=0"}
+[15:59:35] dpu proxy: proxy 535181: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[16:01:11]   W3-doorbell latency1: 62 req/s  avg 16.02 p50 18.49 p90 24.48 p99 31.43 ms  fail 0.0000
+[16:01:49]   W3-doorbell r1500: 1499 rps p50 19.2 p99 37.7 ms fail 0.0000 drop 0 | app 11.64 host 14.71 outside 3.07 cores | wait files 23
+[16:01:52]   perf script 3 s
+[16:02:07] dpu stop: proxy 535181 stopped
+[16:02:08] dpu irq restore: 
+[16:02:10] flow_check exit 1:     12            8
+    13       7        6         13            8
+DOCA ERR x1: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 78 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 179 ring adds; errors: mux ring stopped x1
+[16:02:10] == W0-nosidecar {"knobs": null, "extra_env": ""}
+[16:03:12]   W0-nosidecar latency1: 106 req/s  avg 9.29 p50 10.42 p90 12.33 p99 18.03 ms  fail 0.0000
+[16:03:49]   W0-nosidecar r1500: 1499 rps p50 6.9 p99 12.9 ms fail 0.0000 drop 0 | app 15.50 host 19.25 outside 3.75 cores | wait files 23
+[16:03:52]   perf script 4 s
+[16:04:04] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[16:04:04] done

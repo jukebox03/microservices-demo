@@ -1,0 +1,97 @@
+{
+ "recommendationservice": {
+  "park/wake": 832635564,
+  "event wait": 1800859919,
+  "entry/exit": 507917214,
+  "irq": 378307853,
+  "timerfd": 242591164,
+  "other": 134826621,
+  "socket I/O": 236912202
+ },
+ "currencyservice": {
+  "socket I/O": 291619123,
+  "event wait": 1668860844,
+  "timerfd": 189715874,
+  "entry/exit": 384647125,
+  "park/wake": 236971044,
+  "other": 67440018,
+  "irq": 199502295
+ },
+ "frontend": {
+  "socket I/O": 1798736871,
+  "event wait": 5561955973,
+  "other": 743257886,
+  "entry/exit": 2290934701,
+  "park/wake": 7503554506,
+  "irq": 1653958278,
+  "timerfd": 673017554
+ },
+ "productcatalogservice": {
+  "event wait": 3764306197,
+  "irq": 877860359,
+  "park/wake": 4887263345,
+  "entry/exit": 1467195755,
+  "other": 352230263,
+  "timerfd": 533994516,
+  "socket I/O": 473429167
+ },
+ "cartservice": {
+  "event wait": 726694812,
+  "socket I/O": 699869596,
+  "entry/exit": 779480821,
+  "park/wake": 2271178551,
+  "irq": 144990516,
+  "other": 80260359,
+  "timerfd": 59376430
+ },
+ "adservice": {
+  "event wait": 592725362,
+  "entry/exit": 165684152,
+  "timerfd": 53730644,
+  "socket I/O": 162297726,
+  "park/wake": 195935710,
+  "irq": 97938975,
+  "other": 28734641
+ },
+ "checkoutservice": {
+  "park/wake": 471458451,
+  "entry/exit": 164715965,
+  "event wait": 408756210,
+  "socket I/O": 34222876,
+  "other": 71513399,
+  "irq": 88891572,
+  "timerfd": 52697194
+ },
+ "paymentservice": {
+  "event wait": 80141050,
+  "timerfd": 6306955,
+  "other": 9995935,
+  "entry/exit": 11194513,
+  "socket I/O": 2932074,
+  "park/wake": 17788897,
+  "irq": 14485875
+ },
+ "shippingservice": {
+  "other": 32234024,
+  "event wait": 319679206,
+  "entry/exit": 133539022,
+  "irq": 90048327,
+  "park/wake": 451507832,
+  "timerfd": 33989002,
+  "socket I/O": 22639181
+ },
+ "redis-cart": {
+  "socket I/O": 503134137,
+  "entry/exit": 11377762,
+  "event wait": 79880450,
+  "irq": 8781399
+ },
+ "emailservice": {
+  "park/wake": 22591775,
+  "entry/exit": 24816697,
+  "timerfd": 9047453,
+  "event wait": 39963877,
+  "irq": 13848246,
+  "socket I/O": 5916379
+ }
+}

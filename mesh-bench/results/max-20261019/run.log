@@ -1,0 +1,54 @@
+[17:47:42] start max run {"cfgs": ["G1-default", "L1-legacy", "W0-nosidecar"], "start": {"dpumesh": 2000, "nosidecar": 4500}, "step": 1.1}
+[17:47:43] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[17:47:43] == G1-default {"knobs": {}, "extra_env": ""}
+[17:48:15] dpu proxy: proxy 601103: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[17:49:20]   G1-default max-step 2000: 2007 req/s p50 16.9 p99 31 ms drop 0 fail 0.0000 | host 17.9/32 dpu 9.2/16 cores pass
+[17:49:39]   G1-default max-step 2200: 2203 req/s p50 17.3 p99 32 ms drop 0 fail 0.0000 | host 19.0/32 dpu 9.8/16 cores pass
+[17:49:59]   G1-default max-step 2420: 2418 req/s p50 17.8 p99 34 ms drop 0 fail 0.0000 | host 20.2/32 dpu 10.4/16 cores pass
+[17:50:18]   G1-default max-step 2662: 2664 req/s p50 18.6 p99 40 ms drop 0 fail 0.0000 | host 21.4/32 dpu 11.5/16 cores pass
+[17:50:37]   G1-default max-step 2928: 2910 req/s p50 19.2 p99 37 ms drop 0 fail 0.0000 | host 22.3/32 dpu 11.5/16 cores pass
+[17:50:57]   G1-default max-step 3221: 3203 req/s p50 20.5 p99 39 ms drop 0 fail 0.0000 | host 23.3/32 dpu 12.1/16 cores pass
+[17:51:14]   G1-default max-step 3543: 3543 req/s p50 22.4 p99 44 ms drop 0 fail 0.0000 | host 23.9/32 dpu 11.9/16 cores pass
+[17:51:33]   G1-default max-step 3897: 3880 req/s p50 24.9 p99 51 ms drop 0 fail 0.0000 | host 24.8/32 dpu 12.9/16 cores pass
+[17:51:52]   G1-default max-step 4287: 4275 req/s p50 28.3 p99 57 ms drop 0 fail 0.0000 | host 25.5/32 dpu 13.2/16 cores pass
+[17:52:11]   G1-default max-step 4716: 4714 req/s p50 32.7 p99 65 ms drop 0 fail 0.0000 | host 26.1/32 dpu 13.5/16 cores pass
+[17:52:31]   G1-default max-step 5188: 5192 req/s p50 43.3 p99 92 ms drop 0 fail 0.0000 | host 26.8/32 dpu 13.6/16 cores pass
+[17:52:50]   G1-default max-step 5707: 5733 req/s p50 177.3 p99 376 ms drop 0 fail 0.0000 | host 27.5/32 dpu 13.7/16 cores pass
+[17:53:09]   G1-default max-step 6278: 5875 req/s p50 663.3 p99 979 ms drop 2503 fail 0.0000 | host 27.5/32 dpu 13.7/16 cores FAIL
+[17:53:09]   G1-default max: 5733 req/s
+[17:53:25] dpu stop: proxy 601103 stopped
+[17:53:25] dpu irq restore: 
+[17:53:29] flow_check exit 1:     12            8
+    13       8        5         13            8
+DOCA ERR x9: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 89 backend opens on 14 workers (worker 0: 14, highest slot 14); DPA: mux 8-8 threads/worker, 190 ring adds; errors: mux ring stopped x9
+[17:53:29] == L1-legacy {"knobs": {"DPUMESH_COMCH_WAKE": "0"}, "extra_env": "DPUMESH_COMCH_WAKE=0"}
+[17:54:02] dpu proxy: proxy 606738: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[17:55:30]   L1-legacy max-step 2000: 2000 req/s p50 14.2 p99 38 ms drop 0 fail 0.0000 | host 20.5/32 dpu 9.8/16 cores pass
+[17:55:50]   L1-legacy max-step 2200: 2212 req/s p50 14.5 p99 31 ms drop 0 fail 0.0000 | host 21.4/32 dpu 10.0/16 cores pass
+[17:56:09]   L1-legacy max-step 2420: 2402 req/s p50 15.0 p99 32 ms drop 0 fail 0.0000 | host 22.0/32 dpu 10.5/16 cores pass
+[17:56:28]   L1-legacy max-step 2662: 2665 req/s p50 15.8 p99 34 ms drop 0 fail 0.0000 | host 22.8/32 dpu 11.1/16 cores pass
+[17:56:47]   L1-legacy max-step 2928: 2925 req/s p50 16.6 p99 34 ms drop 0 fail 0.0000 | host 23.5/32 dpu 11.7/16 cores pass
+[17:57:07]   L1-legacy max-step 3221: 3236 req/s p50 18.0 p99 38 ms drop 0 fail 0.0000 | host 24.4/32 dpu 12.2/16 cores pass
+[17:57:23]   L1-legacy max-step 3543: 3552 req/s p50 19.6 p99 42 ms drop 0 fail 0.0000 | host 24.9/32 dpu 12.1/16 cores pass
+[17:57:43]   L1-legacy max-step 3897: 3904 req/s p50 22.1 p99 65 ms drop 0 fail 0.0000 | host 25.5/32 dpu 13.5/16 cores pass
+[17:58:02]   L1-legacy max-step 4287: 4288 req/s p50 24.8 p99 51 ms drop 0 fail 0.0000 | host 26.2/32 dpu 13.4/16 cores pass
+[17:58:21]   L1-legacy max-step 4716: 4718 req/s p50 29.1 p99 60 ms drop 0 fail 0.0000 | host 26.8/32 dpu 13.7/16 cores pass
+[17:58:41]   L1-legacy max-step 5188: 5190 req/s p50 46.0 p99 116 ms drop 0 fail 0.0000 | host 27.4/32 dpu 14.1/16 cores pass
+[17:59:00]   L1-legacy max-step 5707: 5708 req/s p50 296.2 p99 602 ms drop 0 fail 0.0000 | host 27.8/32 dpu 14.0/16 cores pass
+[17:59:19]   L1-legacy max-step 6278: 5771 req/s p50 716.9 p99 1060 ms drop 3334 fail 0.0000 | host 27.7/32 dpu 14.0/16 cores FAIL
+[17:59:19]   L1-legacy max: 5708 req/s
+[17:59:34] dpu stop: proxy 606738 stopped
+[17:59:35] dpu irq restore: 
+[17:59:38] flow_check exit 1:     13            8
+    13       7        6         13            8
+DOCA ERR x3: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 88 backend opens on 14 workers (worker 0: 14, highest slot 14); DPA: mux 8-8 threads/worker, 189 ring adds; errors: mux ring stopped x3
+[17:59:38] == W0-nosidecar {"knobs": null, "extra_env": ""}
+[18:00:36]   W0-nosidecar max-step 4500: 4489 req/s p50 8.5 p99 54 ms drop 0 fail 0.0000 | host 27.2/32 dpu 0.1/16 cores pass
+[18:01:02]   W0-nosidecar max-step 4950: 4953 req/s p50 10.9 p99 74 ms drop 0 fail 0.0000 | host 27.9/32 dpu 0.2/16 cores pass
+[18:01:21]   W0-nosidecar max-step 5445: 5450 req/s p50 24.9 p99 120 ms drop 0 fail 0.0000 | host 29.0/32 dpu 0.1/16 cores pass
+[18:01:41]   W0-nosidecar max-step 5990: 5807 req/s p50 567.3 p99 807 ms drop 1311 fail 0.0000 | host 29.1/32 dpu 0.1/16 cores FAIL
+[18:01:41]   W0-nosidecar max: 5450 req/s
+[18:01:53] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[18:01:53] done

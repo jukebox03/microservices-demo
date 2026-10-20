@@ -1,0 +1,806 @@
+diff --git a/Makefile b/Makefile
+index 9a34d90..55f4cfd 100644
+--- a/Makefile
++++ b/Makefile
+@@ -27,7 +27,7 @@ TRANSPORT_SRCS := $(addprefix $(TRANSPORT)/common/,object.c buffer.c common.c co
+ TRANSPORT_HDRS := $(wildcard $(TRANSPORT)/common/*.h $(TRANSPORT)/host/*.h $(TRANSPORT)/dpu/*.h)
+ LIB_SRCS := src/core/dmesh_core.c src/core/carrier.c src/core/service_resolve.c \
+     src/facade/dmesh_api.c $(TRANSPORT_SRCS)
+-HOST_TESTS := carrier_logic_test service_resolve_test native_writable_test native_polling_test native_loss_test native_core_transport_test \
++HOST_TESTS := carrier_logic_test service_resolve_test native_writable_test native_polling_test native_watcher_test native_loss_test native_core_transport_test \
+     topology_test native_api_contract_test preload_api_contract_test session_protocol_test session_flow_test \
+     channel_session_test comch_client_test session_server_test backend_dispatch_test dma_cleanup_test dpa_cleanup_test dpa_runtime_test \
+     dispatch_wake_test rx_consumed_pos_test
+@@ -117,6 +117,9 @@ $(TESTDIR)/native_writable_test: tests/native_writable_test.c src/core/dmesh_cor
+ $(TESTDIR)/native_polling_test: tests/native_polling_test.c src/core/dmesh_core.c src/core/native_transport.h tests/support/native_memory_transport.c src/facade/dmesh_api.c src/core/service_resolve.c | $(TESTDIR)
+ 	$(CC) $(HOST_CFLAGS) -ffunction-sections -fdata-sections $< src/facade/dmesh_api.c src/core/service_resolve.c -Wl,--gc-sections -pthread -o $@
+ 
++$(TESTDIR)/native_watcher_test: tests/native_watcher_test.c src/core/dmesh_core.c src/core/native_transport.h tests/support/native_memory_transport.c src/facade/dmesh_api.c src/core/service_resolve.c | $(TESTDIR)
++	$(CC) $(HOST_CFLAGS) -ffunction-sections -fdata-sections $< src/facade/dmesh_api.c src/core/service_resolve.c -Wl,--gc-sections -pthread -o $@
++
+ $(TESTDIR)/native_loss_test: tests/native_loss_test.c src/core/dmesh_core.c src/core/native_transport.h tests/support/native_memory_transport.c src/facade/dmesh_api.c src/core/service_resolve.c | $(TESTDIR)
+ 	$(CC) $(HOST_CFLAGS) -ffunction-sections -fdata-sections $< src/facade/dmesh_api.c src/core/service_resolve.c -Wl,--gc-sections -pthread -o $@
+ 
+diff --git a/src/core/carrier.c b/src/core/carrier.c
+index c7ccdf5..bc7b303 100644
+--- a/src/core/carrier.c
++++ b/src/core/carrier.c
+@@ -434,6 +434,35 @@ void dmesh_native_wake_counters(struct dmesh_native_transport *t, uint64_t *arms
+ {
+     channel_dev_wake_counters(t->dev, arms, doorbells);
+ }
++int dmesh_native_peekable(struct dmesh_native_transport *t)
++{
++    return !channel_dev_host_dpa(t->dev);
++}
++uint32_t dmesh_native_active(struct dmesh_native_transport *t)
++{
++    return __atomic_load_n(&t->active_stripes, __ATOMIC_ACQUIRE);
++}
++/* The checks of dmesh_native_poll, minus the peer-gone report (a control
++ * message, seen once the control PE progresses). A held lock means another
++ * thread is polling or closing the slot, so the watcher looks again later. */
++int dmesh_native_peek(struct dmesh_native_transport *t, int stripe)
++{
++    if (stripe < 0 || stripe >= SLOTS) return 0;
++    struct slot *s = &t->slots[stripe];
++    if (__atomic_load_n(&s->state, __ATOMIC_ACQUIRE) == SLOT_FREE) return 0;
++    if (pthread_mutex_trylock(&s->lock) != 0) return 0;
++    int r = 0;
++    if (s->state == SLOT_OPEN && s->conn) {
++        if (s->t_head != s->t_tail)
++            r |= s->tickets[s->t_head % TICKETS].ticket <= channel_conn_consumed(s->conn) ?
++                 DMESH_PEEK_WORK : DMESH_PEEK_CUSTODY;
++        if (channel_conn_rx_ready(s->conn)) r |= DMESH_PEEK_WORK;
++    } else if (s->state == SLOT_CLOSED && (s->t_head != s->t_tail || s->fin_pending)) {
++        r |= DMESH_PEEK_WORK;
++    }
++    pthread_mutex_unlock(&s->lock);
++    return r;
++}
+ void dmesh_native_stripe_clear(struct dmesh_native_transport *t, int stripe)
+ {
+     if (stripe < 0 || stripe >= SLOTS) return;
+diff --git a/src/core/dmesh_core.c b/src/core/dmesh_core.c
+index 77ca9fc..2063f9f 100644
+--- a/src/core/dmesh_core.c
++++ b/src/core/dmesh_core.c
+@@ -16,8 +16,11 @@
+ #include <limits.h>
+ #include <time.h>
+ #include <unistd.h>
++#include <poll.h>
++#include <signal.h>
+ #include <sys/epoll.h>
+ #include <sys/eventfd.h>
++#include <sys/prctl.h>
+ #include <sys/timerfd.h>
+ #include <dpumesh/dmesh_topology.h>
+ 
+@@ -275,7 +278,7 @@ struct dpumesh_ctx {
+     atomic_uint_fast32_t rx_deq;       /* consumer position (workers CAS) */
+     char _rx_pad2[64];
+ 
+-    /* Reverse stripes. There is no background thread: an awake EQ thread
++    /* Reverse stripes. No background thread drains: an awake EQ thread
+      * drains every stripe in line (dpumesh_eq_drain) and the per-stripe locks
+      * admit one drainer at a time. A stripe's doorbell (the carrier's fd) is
+      * nested in the epoll fd of the EQ owning the stream on it, so that EQ
+@@ -285,8 +288,18 @@ struct dpumesh_ctx {
+     unsigned int stripe_lock[DMESH_MAX_STRIPES];
+     struct dmesh_eq *stripe_owner[DMESH_MAX_STRIPES];
+     int spare_epfd;
+-    /* Idle wake policy (dpumesh_eq_arm), nanoseconds; nap_min 0 = no naps. */
+-    uint64_t nap_min_ns, nap_cap_ns, linger_ns, backstop_ns;
++    /* Idle wake policy (dpumesh_eq_arm), nanoseconds; nap_min 0 = no naps.
++     * nap_span is the naps' total, nap_min doubling while within nap_cap. */
++    uint64_t nap_min_ns, nap_cap_ns, linger_ns, backstop_ns, nap_span_ns;
++    /* Idle watcher (DPUMESH_WATCHER=1). One thread makes the naps and linger
++     * polls of every EQ that went idle, with lock-free carrier peeks, and
++     * wakes an EQ only for work or at the end of its window, so an empty
++     * check no longer runs the application's event loop. EQs still sleep on
++     * their own fds; the doorbells are armed by the EQ thread as before. */
++    int watcher_on, watcher_efd;
++    pthread_t watcher;
++    atomic_int watcher_stop;
++    atomic_uint_fast64_t watcher_until; /* sleeping until then; 0 while scanning */
+     atomic_int live_eqs;               /* registered EQs, for the oversubscription guard */
+     atomic_int allowed_cpus;           /* sched_getaffinity, re-read every 100 ms */
+     atomic_uint_fast64_t cpus_checked_ns;
+@@ -1232,6 +1245,9 @@ static unsigned eq_ack_doorbells(struct dmesh_eq *eq)
+ static struct {
+     atomic_uint_fast64_t naps, lingers, busy, arms, arm_failures, backstop_wakes, backstop_work;
+     atomic_uint_fast64_t fired[5];       /* EQ_FIRED_* bit i, per empty poll */
++    /* Idle watcher: EQs handed over, its checks, wakes for work and at a
++     * window's end, and kicks that cut its sleep short. */
++    atomic_uint_fast64_t watches, watch_checks, watch_found, watch_expired, watch_kicks;
+     atomic_uint_fast64_t next_dump_ns;
+ } wait_stats;
+ static const char *wait_stats_dir;
+@@ -1245,12 +1261,13 @@ static void wait_stats_dump(dpumesh_ctx_t *ctx, uint64_t now, int force)
+         return;
+     uint64_t arm_msgs = 0, doorbells = 0;
+     dmesh_native_wake_counters(ctx->transport, &arm_msgs, &doorbells);
+-    char path[512], line[512];
++    char path[512], line[640];
+     snprintf(path, sizeof(path), "%s/dpumesh-wait.%d", wait_stats_dir, (int)getpid());
+     int len = snprintf(line, sizeof(line),
+         "naps=%llu lingers=%llu busy=%llu arms=%llu arm_failures=%llu backstop_wakes=%llu "
+         "backstop_work=%llu arm_msgs=%llu doorbells=%llu fired_efd=%llu fired_timer=%llu "
+-        "fired_tail=%llu fired_stripe=%llu fired_wake=%llu\n",
++        "fired_tail=%llu fired_stripe=%llu fired_wake=%llu watches=%llu watch_checks=%llu "
++        "watch_found=%llu watch_expired=%llu watch_kicks=%llu\n",
+         (unsigned long long)atomic_load(&wait_stats.naps), (unsigned long long)atomic_load(&wait_stats.lingers),
+         (unsigned long long)atomic_load(&wait_stats.busy), (unsigned long long)atomic_load(&wait_stats.arms),
+         (unsigned long long)atomic_load(&wait_stats.arm_failures),
+@@ -1259,7 +1276,10 @@ static void wait_stats_dump(dpumesh_ctx_t *ctx, uint64_t now, int force)
+         (unsigned long long)arm_msgs, (unsigned long long)doorbells,
+         (unsigned long long)atomic_load(&wait_stats.fired[0]), (unsigned long long)atomic_load(&wait_stats.fired[1]),
+         (unsigned long long)atomic_load(&wait_stats.fired[2]), (unsigned long long)atomic_load(&wait_stats.fired[3]),
+-        (unsigned long long)atomic_load(&wait_stats.fired[4]));
++        (unsigned long long)atomic_load(&wait_stats.fired[4]),
++        (unsigned long long)atomic_load(&wait_stats.watches), (unsigned long long)atomic_load(&wait_stats.watch_checks),
++        (unsigned long long)atomic_load(&wait_stats.watch_found), (unsigned long long)atomic_load(&wait_stats.watch_expired),
++        (unsigned long long)atomic_load(&wait_stats.watch_kicks));
+     FILE *f = fopen(path, "w");
+     if (f) { fwrite(line, 1, (size_t)len, f); fclose(f); }
+ }
+@@ -1273,6 +1293,7 @@ static void eq_timer(struct dmesh_eq *eq, uint64_t ns, int backstop)
+     if (its.it_value.tv_sec == 0 && its.it_value.tv_nsec == 0) its.it_value.tv_nsec = 1;
+     (void)timerfd_settime(eq->tick_fd, 0, &its, NULL);
+     eq->timer_backstop = backstop;
++    eq->tick_deadline_ns = monotonic_ns() + ns;
+ }
+ 
+ /* More live EQs than CPUs this process may run on: a nap then lands in the
+@@ -1303,12 +1324,194 @@ void dpumesh_eq_note_work(struct dmesh_eq *eq)
+     if (eq != NULL && eq->ch != NULL && eq->ch->ctx != NULL) eq_note_work(eq);
+ }
+ 
+-/* The EQ's thread is polling again: submitters need not wake it. Not cleared
+- * by the re-check drain that follows an arm, which still counts as asleep. */
++/* The EQ's thread is polling again: submitters need not wake it, nor the
++ * watcher. Not cleared by the re-check drain that follows an arm, which
++ * still counts as asleep. */
+ void dpumesh_eq_awake(struct dmesh_eq *eq)
+ {
+-    if (eq != NULL && atomic_load_explicit(&eq->asleep, memory_order_relaxed))
++    if (eq == NULL) return;
++    if (atomic_load_explicit(&eq->asleep, memory_order_relaxed))
+         atomic_store_explicit(&eq->asleep, 0, memory_order_relaxed);
++    if (atomic_load_explicit(&eq->watch_due_ns, memory_order_relaxed))
++        atomic_store_explicit(&eq->watch_due_ns, 0, memory_order_relaxed);
++}
++
++/* ====================================================================
++ * Idle watcher (DPUMESH_WATCHER=1)
++ *
++ * An EQ that ran empty within its nap or linger window hands its polls to
++ * one thread per channel instead of re-polling on its own timer. The
++ * watcher keeps the same schedule, but a check is a few loads per stripe
++ * (dmesh_native_peek) rather than a wake of the application's event loop
++ * and a full drain. It wakes the EQ through its eventfd when a peek finds
++ * work, and at the end of the window so the EQ arms its doorbells and
++ * sleeps as before. Custody ACKs have no doorbell: while one is
++ * outstanding the watcher keeps polling past the window, waking the EQ
++ * once per WATCH_REFRESH_NS so its control events are not held back.
++ * ==================================================================== */
++#define WATCH_REFRESH_NS 1000000ull
++
++/* The next check after now on the ladder that started at `anchor` (work, a
++ * send or a DOORBELL): nap_min doubling while within nap_cap, then every
++ * nap_cap, the times the EQ's own timer would have fired. */
++static uint64_t watch_next(const dpumesh_ctx_t *ctx, uint64_t anchor, uint64_t now)
++{
++    uint64_t cap = ctx->nap_cap_ns, step = ctx->nap_min_ns ? ctx->nap_min_ns : cap;
++    uint64_t t = anchor + step;
++    while (t <= now && step < cap) {
++        step = step * 2 < cap ? step * 2 : cap;
++        t += step;
++    }
++    if (t <= now) t += ((now - t) / cap + 1) * cap;
++    return t;
++}
++
++/* The window ends after the naps from the anchor and the linger from the
++ * last work or send, whichever is later. */
++static uint64_t watch_until(const dpumesh_ctx_t *ctx, uint64_t anchor, uint64_t last)
++{
++    uint64_t naps = anchor + ctx->nap_span_ns, linger = ctx->linger_ns ? last + ctx->linger_ns : 0;
++    return naps > linger ? naps : linger;
++}
++
++static uint64_t eq_watch_anchor(struct dmesh_eq *eq)
++{
++    uint64_t anchor = atomic_load_explicit(&eq->watch_anchor_ns, memory_order_relaxed);
++    uint64_t last = atomic_load_explicit(&eq->last_work_ns, memory_order_relaxed);
++    return anchor > last ? anchor : last;
++}
++
++/* Hand an idle EQ to the watcher. The EQ's thread sleeps on its fd as
++ * before, with the backstop as the bound on a missed wake. The kick pairs
++ * with the watcher's look after publishing watcher_until: either the
++ * watcher sees this due, or this sees the sleep it must cut short. */
++static void eq_watch(struct dmesh_eq *eq, uint64_t now)
++{
++    dpumesh_ctx_t *ctx = eq->ch->ctx;
++    uint64_t due = watch_next(ctx, eq_watch_anchor(eq), now);
++    if (eq->tick_deadline_ns < now + ctx->backstop_ns / 2)
++        eq_timer(eq, ctx->backstop_ns, 1);
++    else
++        eq->timer_backstop = 1;            /* still the backstop of an earlier hand-off */
++    atomic_store_explicit(&eq->watch_since_ns, now, memory_order_relaxed);
++    atomic_fetch_add_explicit(&wait_stats.watches, 1, memory_order_relaxed);
++    atomic_store_explicit(&eq->watch_due_ns, due, memory_order_seq_cst);
++    if (atomic_load_explicit(&ctx->watcher_until, memory_order_seq_cst) > due) {
++        uint64_t one = 1;
++        ssize_t w = write(ctx->watcher_efd, &one, sizeof(one));
++        (void)w;
++        atomic_fetch_add_explicit(&wait_stats.watch_kicks, 1, memory_order_relaxed);
++    }
++}
++
++/* The watcher's wake ignores suppress_notify. The EQ may be inside the
++ * re-check drain that follows its hand-off; a wake held back there is lost
++ * when that drain returns empty, since the EQ then sleeps neither watched
++ * nor armed. A spare wake costs one empty poll. */
++static void eq_notify_from_watcher(struct dmesh_eq *eq)
++{
++    if (eq->notify_efd >= 0 && atomic_load_explicit(&eq->wants_notify, memory_order_seq_cst)) {
++        uint64_t one = 1;
++        ssize_t w = write(eq->notify_efd, &one, sizeof(one));
++        (void)w;
++    }
++}
++
++/* One check of a watched EQ whose due time has come. Returns its next due,
++ * or 0 after waking it. A stripe owned by another EQ is that EQ's to wake;
++ * one being drained will be delivered by its drainer. */
++static uint64_t watch_check(dpumesh_ctx_t *ctx, struct dmesh_eq *eq, uint64_t due,
++                            uint32_t active, uint64_t now)
++{
++    int seen = 0;
++    atomic_fetch_add_explicit(&wait_stats.watch_checks, 1, memory_order_relaxed);
++    for (int stripe = 0; stripe < ctx->landing_stripes; ++stripe) {
++        if (!(active & (UINT32_C(1) << stripe))) continue;
++        struct dmesh_eq *owner = __atomic_load_n(&ctx->stripe_owner[stripe], __ATOMIC_ACQUIRE);
++        if ((owner != NULL && owner != eq) ||
++            __atomic_load_n(&ctx->stripe_lock[stripe], __ATOMIC_ACQUIRE))
++            continue;
++        seen |= dmesh_native_peek(ctx->transport, stripe);
++    }
++    uint64_t anchor = eq_watch_anchor(eq);
++    uint64_t until = watch_until(ctx, anchor, atomic_load_explicit(&eq->last_work_ns, memory_order_relaxed));
++    uint64_t since = atomic_load_explicit(&eq->watch_since_ns, memory_order_relaxed);
++    int wake = 0;
++    if (seen & DMESH_PEEK_WORK) {
++        wake = 1;
++        atomic_fetch_add_explicit(&wait_stats.watch_found, 1, memory_order_relaxed);
++    } else if (now >= until && (!(seen & DMESH_PEEK_CUSTODY) ||
++                                now - (since > until ? since : until) >= WATCH_REFRESH_NS)) {
++        wake = 1;
++        atomic_fetch_add_explicit(&wait_stats.watch_expired, 1, memory_order_relaxed);
++    }
++    uint64_t next = 0;
++    if (!wake) {
++        next = now >= until ? now + ctx->nap_cap_ns : watch_next(ctx, anchor, now);
++        if (now < until && next > until) next = until;
++    }
++    /* The EQ's thread clears the due when it polls again; never revive it. */
++    if (!atomic_compare_exchange_strong_explicit(&eq->watch_due_ns, &due, next,
++                                                 memory_order_seq_cst, memory_order_relaxed))
++        return 0;
++    if (wake) eq_notify_from_watcher(eq);
++    return next;
++}
++
++static uint64_t watcher_scan(dpumesh_ctx_t *ctx, uint64_t now)
++{
++    uint64_t earliest = UINT64_MAX;
++    uint32_t active = 0;
++    int have_active = 0;
++    pthread_mutex_lock(&ctx->eq_lock);
++    for (int i = 0; i < ctx->n_eqs; ++i) {
++        struct dmesh_eq *eq = ctx->eqs[i];
++        if (eq == NULL) continue;
++        uint64_t due = atomic_load_explicit(&eq->watch_due_ns, memory_order_seq_cst);
++        if (due == 0) continue;
++        if (due <= now) {
++            if (!have_active) { active = dmesh_native_active(ctx->transport); have_active = 1; }
++            due = watch_check(ctx, eq, due, active, now);
++            if (due == 0) continue;
++        }
++        if (due < earliest) earliest = due;
++    }
++    pthread_mutex_unlock(&ctx->eq_lock);
++    return earliest;
++}
++
++static void *watcher_main(void *arg)
++{
++    dpumesh_ctx_t *ctx = arg;
++    sigset_t all;
++    sigfillset(&all);
++    (void)pthread_sigmask(SIG_BLOCK, &all, NULL);   /* the application's signals go elsewhere */
++    (void)prctl(PR_SET_TIMERSLACK, 1UL, 0UL, 0UL, 0UL); /* naps are tens of µs */
++    /* Named from inside: pthread_setname_np on another thread goes through
++     * /proc, which a chrooted process may lack. */
++    (void)prctl(PR_SET_NAME, (unsigned long)"dpumesh-watch", 0UL, 0UL, 0UL);
++    while (!atomic_load_explicit(&ctx->watcher_stop, memory_order_acquire)) {
++        atomic_store_explicit(&ctx->watcher_until, 0, memory_order_seq_cst);
++        uint64_t next = watcher_scan(ctx, monotonic_ns());
++        atomic_store_explicit(&ctx->watcher_until, next, memory_order_seq_cst);
++        /* An EQ that handed over during the scan saw 0 and did not kick. */
++        uint64_t now = monotonic_ns();
++        if (watcher_scan(ctx, now) < next) continue;
++        struct timespec ts, *timeout = NULL;
++        if (next != UINT64_MAX) {
++            uint64_t wait = next > now ? next - now : 0;
++            ts.tv_sec = (time_t)(wait / 1000000000ull);
++            ts.tv_nsec = (long)(wait % 1000000000ull);
++            timeout = &ts;
++        }
++        struct pollfd p = { .fd = ctx->watcher_efd, .events = POLLIN };
++        if (ppoll(&p, 1, timeout, NULL) > 0) {
++            uint64_t v;
++            ssize_t r = read(ctx->watcher_efd, &v, sizeof(v));
++            (void)r;
++        }
++    }
++    return NULL;
+ }
+ 
+ /* In-line drain by an awake EQ thread: interprets whatever reverse entries
+@@ -1337,7 +1540,9 @@ int dpumesh_eq_drain(struct dmesh_eq *eq)
+  *   sleep   set asleep, arm the stripes' doorbells, and unless custody is
+  *           outstanding ask the channel to ring (idle_arm); only the backstop
+  *           timer remains. dmesh_poll_eq drains once more after this, so a
+- *           completion that landed before the arm is not slept through. */
++ *           completion that landed before the arm is not slept through.
++ * With the idle watcher, nap, linger and the custody polls are handed to it
++ * (eq_watch) instead of the timer; it wakes the EQ for work or to sleep. */
+ void dpumesh_eq_arm(struct dmesh_eq *eq)
+ {
+     if (eq == NULL || eq->ch == NULL || eq->ch->ctx == NULL ||
+@@ -1382,17 +1587,31 @@ void dpumesh_eq_arm(struct dmesh_eq *eq)
+ 
+     uint64_t now = monotonic_ns();
+     if (!eq_oversubscribed(ctx, now)) {
+-        if (eq->nap_ns != 0 && eq->nap_ns <= ctx->nap_cap_ns) {
+-            eq_timer(eq, eq->nap_ns, 0);
+-            eq->nap_ns *= 2;
+-            atomic_fetch_add(&wait_stats.naps, 1);
+-            goto out;
+-        }
+         uint64_t last = atomic_load_explicit(&eq->last_work_ns, memory_order_relaxed);
+-        if (ctx->linger_ns != 0 && now - last < ctx->linger_ns) {
+-            eq_timer(eq, ctx->nap_cap_ns, 0);
+-            atomic_fetch_add(&wait_stats.lingers, 1);
+-            goto out;
++        if (ctx->watcher_on) {
++            /* The watcher makes the naps and the linger polls. Work, a send
++             * or a DOORBELL restarted the naps: its ladder starts now. */
++            int fresh = eq->nap_ns != 0 && eq->nap_ns <= ctx->nap_cap_ns;
++            if (fresh) {
++                atomic_store_explicit(&eq->watch_anchor_ns, now, memory_order_relaxed);
++                eq->nap_ns = ctx->nap_cap_ns + 1;
++            }
++            if (fresh || (ctx->linger_ns != 0 && now - last < ctx->linger_ns)) {
++                eq_watch(eq, now);
++                goto out;
++            }
++        } else {
++            if (eq->nap_ns != 0 && eq->nap_ns <= ctx->nap_cap_ns) {
++                eq_timer(eq, eq->nap_ns, 0);
++                eq->nap_ns *= 2;
++                atomic_fetch_add(&wait_stats.naps, 1);
++                goto out;
++            }
++            if (ctx->linger_ns != 0 && now - last < ctx->linger_ns) {
++                eq_timer(eq, ctx->nap_cap_ns, 0);
++                atomic_fetch_add(&wait_stats.lingers, 1);
++                goto out;
++            }
+         }
+     }
+     /* Sleep. The flag is set before custody is read under each slot lock; a
+@@ -1407,7 +1626,10 @@ void dpumesh_eq_arm(struct dmesh_eq *eq)
+     }
+     if (busy || dmesh_native_idle_arm(ctx->transport) != 0) {
+         atomic_store_explicit(&eq->asleep, 0, memory_order_relaxed);
+-        eq_timer(eq, ctx->nap_cap_ns ? ctx->nap_cap_ns : 100000ull, 0);
++        if (busy && ctx->watcher_on)
++            eq_watch(eq, now);             /* the watcher polls the custody */
++        else
++            eq_timer(eq, ctx->nap_cap_ns ? ctx->nap_cap_ns : 100000ull, 0);
+         atomic_fetch_add(busy ? &wait_stats.busy : &wait_stats.arm_failures, 1);
+         goto out;
+     }
+@@ -1538,6 +1760,7 @@ int dpumesh_init(dpumesh_ctx_t **out, const char *service_name,
+     dpumesh_ctx_t *ctx = (dpumesh_ctx_t *)calloc(1, sizeof(dpumesh_ctx_t));
+     if (!ctx) { errno = ENOMEM; return -1; }
+     ctx->spare_epfd = -1;
++    ctx->watcher_efd = -1;
+     int prc = pthread_mutex_init(&ctx->eq_lock, NULL);
+     if (prc != 0) { errno = prc; goto fail; }
+     ctx->eq_lock_initialized = 1;
+@@ -1597,6 +1820,8 @@ int dpumesh_init(dpumesh_ctx_t **out, const char *service_name,
+                           (uint64_t)knobs[k].unit_ns;
+       }
+       if (ctx->nap_cap_ns < ctx->nap_min_ns) ctx->nap_cap_ns = ctx->nap_min_ns;
++      for (uint64_t step = ctx->nap_min_ns; step != 0 && step <= ctx->nap_cap_ns; step *= 2)
++          ctx->nap_span_ns += step;
+       static int warned;
+       if (!warned && ((getenv("DPUMESH_SPIN_US") && *getenv("DPUMESH_SPIN_US")) ||
+                       (getenv("DPUMESH_TICK_US") && *getenv("DPUMESH_TICK_US")))) {
+@@ -1675,6 +1900,19 @@ int dpumesh_init(dpumesh_ctx_t **out, const char *service_name,
+     ctx->next_port = 1;
+     ctx->port_span = DMESH_PORT_SPAN_MIN;
+ 
++    { const char *watch = getenv("DPUMESH_WATCHER");
++      if (watch && strcmp(watch, "1") == 0) {
++          if (!dmesh_native_peekable(ctx->transport)) {
++              DOCA_LOG_WARN("DPUMESH_WATCHER needs the push reverse path; the EQs keep their own idle polls");
++          } else {
++              ctx->watcher_efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
++              if (ctx->watcher_efd < 0) goto fail;
++              prc = pthread_create(&ctx->watcher, NULL, watcher_main, ctx);
++              if (prc != 0) { errno = prc; goto fail; }
++              ctx->watcher_on = 1;
++          }
++      } }
++
+     *out = ctx;
+     return 0;
+ 
+@@ -1690,6 +1928,16 @@ fail:
+ static int cleanup_ctx(dpumesh_ctx_t *ctx)
+ {
+     if (!ctx) return 0;
++    /* The watcher peeks the carrier and walks the EQs: stop it first. */
++    if (ctx->watcher_on) {
++        uint64_t one = 1;
++        atomic_store_explicit(&ctx->watcher_stop, 1, memory_order_release);
++        ssize_t w = write(ctx->watcher_efd, &one, sizeof(one));
++        (void)w;
++        (void)pthread_join(ctx->watcher, NULL);
++        ctx->watcher_on = 0;
++    }
++    if (ctx->watcher_efd >= 0) { close(ctx->watcher_efd); ctx->watcher_efd = -1; }
+     /* A failed quiesce retains exported memory and callback ownership. */
+     /* No EQ remains. Reclaim deliveries
+      * the core has not handed to an application. Held public RX event leases
+diff --git a/src/core/dmesh_core.h b/src/core/dmesh_core.h
+index 0ae2d6a..ee0d712 100644
+--- a/src/core/dmesh_core.h
++++ b/src/core/dmesh_core.h
+@@ -96,6 +96,12 @@ struct dmesh_eq {
+     atomic_int         asleep;      /* doorbells armed: a submit on this EQ must wake it */
+     atomic_int         kick;        /* a send on this EQ: naps restart */
+     atomic_uint_fast64_t last_work_ns; /* last work or send, for the linger */
++    /* Idle watcher (DPUMESH_WATCHER): its next check of this EQ, 0 while the
++     * EQ's thread polls for itself, and where the current nap ladder started. */
++    atomic_uint_fast64_t watch_due_ns;
++    atomic_uint_fast64_t watch_anchor_ns;
++    atomic_uint_fast64_t watch_since_ns;  /* the latest hand-off */
++    uint64_t           tick_deadline_ns; /* when tick_fd expires; EQ thread only */
+     /* Set when dmesh_eq_fd exposes epfd. Poll-only EQs skip eventfd writes and
+      * never arm doorbells. */
+     atomic_int         wants_notify;
+diff --git a/src/core/native_transport.h b/src/core/native_transport.h
+index 2ca91ee..85049da 100644
+--- a/src/core/native_transport.h
++++ b/src/core/native_transport.h
+@@ -57,6 +57,16 @@ int dmesh_native_idle_arm(struct dmesh_native_transport *);
+ void dmesh_native_wake_clear(struct dmesh_native_transport *);
+ /* ARM messages sent and DOORBELLs received, for diagnostics. */
+ void dmesh_native_wake_counters(struct dmesh_native_transport *, uint64_t *arms, uint64_t *doorbells);
++/* Idle watcher (DPUMESH_WATCHER): looks at a stripe from any thread without
++ * consuming it or advancing the control PE. WORK when a poll would return an
++ * event, CUSTODY while a custody ACK is outstanding; a stripe another thread
++ * holds reports nothing. peekable is 0 when receives are invisible to a peek
++ * (the host-dpa path), and active is the progress snapshot without the
++ * progress. */
++enum { DMESH_PEEK_WORK = 1, DMESH_PEEK_CUSTODY = 2 };
++int dmesh_native_peekable(struct dmesh_native_transport *);
++uint32_t dmesh_native_active(struct dmesh_native_transport *);
++int dmesh_native_peek(struct dmesh_native_transport *, int stripe);
+ int dmesh_native_resolve(struct dmesh_native_transport *, const char *name, uint32_t addr, uint16_t port);
+ /* A client port's stream exists from connect until its FIN or disconnect. */
+ int dmesh_native_connect(struct dmesh_native_transport *, uint16_t port, int service_id);
+diff --git a/src/transport/host/channel.c b/src/transport/host/channel.c
+index 177275d..641d543 100644
+--- a/src/transport/host/channel.c
++++ b/src/transport/host/channel.c
+@@ -1410,6 +1410,16 @@ int channel_conn_rx_next(struct channel_conn *conn, uint64_t *seq, uint32_t *pos
+ 	return 1;
+ }
+ 
++int channel_conn_rx_ready(const struct channel_conn *conn)
++{
++	if (conn->dev->host_dpa || conn->descs == NULL || conn->rx_ended)
++		return 0;
++	/* Read beside the consumer: a stale expected names a batch already
++	 * taken, which only costs the watcher one spurious wake. */
++	uint64_t expected = __atomic_load_n(&conn->expected, __ATOMIC_RELAXED);
++	return conn->descs[expected % DMESH_PUSH_DESC_N].seq == expected;
++}
++
+ /**
+  * Host-dpa reverse path: update the kernel's RX consumed position
+  *
+diff --git a/src/transport/host/channel.h b/src/transport/host/channel.h
+index cd03c46..497a716 100644
+--- a/src/transport/host/channel.h
++++ b/src/transport/host/channel.h
+@@ -115,6 +115,10 @@ uint64_t channel_conn_consumed(const struct channel_conn *conn);
+  * Returns 1 with a batch, 0 when none, -1 at end of stream (a zero-length
+  * batch) or on a malformed batch */
+ int channel_conn_rx_next(struct channel_conn *conn, uint64_t *seq, uint32_t *pos, uint32_t *len);
++/* Whether rx_next would return something, without taking it. Lock-free, for
++ * an idle watcher; push path only (0 on the host-dpa path, whose batches need
++ * its PE progressed) */
++int channel_conn_rx_ready(const struct channel_conn *conn);
+ /* Publishes the consumption cursor: every batch up to `seq` is released */
+ void channel_conn_rx_consumed(struct channel_conn *conn, uint64_t seq, uint64_t bytes);
+ 
+diff --git a/tests/carrier_logic_test.c b/tests/carrier_logic_test.c
+index 4fd9db8..dabfadd 100644
+--- a/tests/carrier_logic_test.c
++++ b/tests/carrier_logic_test.c
+@@ -80,10 +80,51 @@ static void test_custody_polling(void)
+     free(t);
+ }
+ 
++/* The idle watcher's peek reports what a poll would deliver without taking
++ * it, and leaves a slot another thread holds alone. */
++static uint64_t consumed;
++static int rx_ready;
++uint64_t channel_conn_consumed(const struct channel_conn *conn) { (void)conn; return consumed; }
++int channel_conn_rx_ready(const struct channel_conn *conn) { (void)conn; return rx_ready; }
++
++static void test_watcher_peek(void)
++{
++    struct dmesh_native_transport *t = calloc(1, sizeof(*t));
++    assert(t);
++    struct slot *s = &t->slots[0];
++    assert(pthread_mutex_init(&s->lock, NULL) == 0);
++    assert(dmesh_native_peek(t, -1) == 0 && dmesh_native_peek(t, SLOTS) == 0);
++    assert(dmesh_native_peek(t, 0) == 0);                       /* free slot */
++    s->state = SLOT_OPEN;
++    s->conn = (struct channel_conn *)t;                         /* never dereferenced here */
++    assert(dmesh_native_peek(t, 0) == 0);
++    rx_ready = 1;
++    assert(dmesh_native_peek(t, 0) == DMESH_PEEK_WORK);
++    rx_ready = 0;
++    s->tickets[0] = (struct ticket){1, 5};
++    s->t_tail = 1;
++    consumed = 4;
++    assert(dmesh_native_peek(t, 0) == DMESH_PEEK_CUSTODY);      /* not consumed yet */
++    consumed = 5;
++    assert(dmesh_native_peek(t, 0) == DMESH_PEEK_WORK);         /* its ACK is due */
++    assert(pthread_mutex_lock(&s->lock) == 0);
++    assert(dmesh_native_peek(t, 0) == 0);                       /* held: looked at later */
++    assert(pthread_mutex_unlock(&s->lock) == 0);
++    s->t_head = 1;
++    s->state = SLOT_CLOSED;
++    s->conn = NULL;
++    assert(dmesh_native_peek(t, 0) == 0);
++    s->fin_pending = 1;
++    assert(dmesh_native_peek(t, 0) == DMESH_PEEK_WORK);         /* retirement pending */
++    pthread_mutex_destroy(&s->lock);
++    free(t);
++}
++
+ int main(void)
+ {
+     test_closed_stripe_stays_pollable_until_retired();
+     test_custody_polling();
++    test_watcher_peek();
+     uint32_t p[2];
+     assert(carrier_chunks(0, p) == 0);
+     assert(carrier_chunks(1, p) == 1 && p[0] == 1);
+@@ -107,6 +148,6 @@ int main(void)
+     assert(carrier_window_release(&w, 384) == 0);
+     assert(carrier_window_advance(&w, &seq, &bytes) && seq == 3 && bytes == 600);
+     assert(carrier_window_add(&w, 1 + CHANNEL_DESC_N, 0, 8) == 0);  /* slot reuse after retirement */
+-    puts("carrier logic: chunking, release window, custody polling: PASS");
++    puts("carrier logic: chunking, release window, custody polling, watcher peek: PASS");
+     return 0;
+ }
+diff --git a/tests/support/native_memory_transport.c b/tests/support/native_memory_transport.c
+index 79edc95..9a52a46 100644
+--- a/tests/support/native_memory_transport.c
++++ b/tests/support/native_memory_transport.c
+@@ -177,6 +177,16 @@ void dmesh_native_wake_counters(struct dmesh_native_transport *t, uint64_t *arms
+     *arms = idle_arms;
+     *doorbells = wake_clears;
+ }
++/* The watcher sees queued events as work and, like stripe_arm, a channel
++ * that cannot sleep as outstanding custody. */
++int dmesh_native_peekable(struct dmesh_native_transport *t) { (void)t; return 1; }
++uint32_t dmesh_native_active(struct dmesh_native_transport *t) { return (UINT32_C(1) << t->stripes) - 1; }
++int dmesh_native_peek(struct dmesh_native_transport *t, int stripe) {
++    pthread_mutex_lock(&lock);
++    int r = (t->first[stripe] ? DMESH_PEEK_WORK : 0) | (!sleepable ? DMESH_PEEK_CUSTODY : 0);
++    pthread_mutex_unlock(&lock);
++    return r;
++}
+ int dmesh_native_connect(struct dmesh_native_transport *t, uint16_t port, int service_id) {
+     (void)t; (void)port; (void)service_id;
+     if (lost_errno) { errno = lost_errno; return -1; }
+diff --git a/tests/native_watcher_test.c b/tests/native_watcher_test.c
+new file mode 100644
+index 0000000..59fe505
+--- /dev/null
++++ b/tests/native_watcher_test.c
+@@ -0,0 +1,169 @@
++/* Idle watcher (DPUMESH_WATCHER=1) of the production core over the memory
++ * carrier: the ladder it keeps, the hand-off of naps, linger and custody
++ * polls, the wake for work, the wake at the end of a window, the custody
++ * refresh and the DOORBELL restart. Time is asserted only as lower bounds
++ * the watcher must respect; upper bounds are generous timeouts. */
++#include <assert.h>
++#include <poll.h>
++#include <stdio.h>
++#include "../src/core/dmesh_core.c"
++#include "support/native_memory_transport.c"
++
++static uint64_t timer_ns(dmesh_eq_t *eq)
++{
++    struct itimerspec its;
++    assert(timerfd_gettime(eq->tick_fd, &its) == 0);
++    return (uint64_t)its.it_value.tv_sec * 1000000000ull + (uint64_t)its.it_value.tv_nsec;
++}
++
++static int wait_readable(int fd, int ms)
++{
++    struct pollfd p = {.fd = fd, .events = POLLIN};
++    return poll(&p, 1, ms) == 1;
++}
++
++static int poll_all(dmesh_channel_t *ch, dmesh_eq_t *eq)
++{
++    dmesh_event_t ev[8];
++    int n, total = 0;
++    while ((n = dmesh_poll_eq(eq, ev, 8)) > 0) {
++        for (int i = 0; i < n; ++i) dmesh_release_rx_buffer(ch, &ev[i]);
++        total += n;
++    }
++    assert(n == 0);
++    return total;
++}
++
++static void ladder(void)
++{
++    dpumesh_ctx_t c = {0};
++    c.nap_min_ns = 10000; c.nap_cap_ns = 100000; c.linger_ns = 1000000; c.nap_span_ns = 150000;
++    const uint64_t points[] = {10000, 30000, 70000, 150000, 250000, 350000};
++    uint64_t now = 0;
++    for (size_t i = 0; i < sizeof(points) / sizeof(points[0]); ++i) {
++        now = watch_next(&c, 0, now);
++        assert(now == points[i]);
++    }
++    uint64_t far = watch_next(&c, 0, 1000000000ull);
++    assert(far > 1000000000ull && far <= 1000000000ull + c.nap_cap_ns);
++    assert(watch_until(&c, 0, 0) == 1000000 && watch_until(&c, 5000000, 0) == 5150000);
++    c.nap_min_ns = 0; c.nap_span_ns = 0;
++    assert(watch_next(&c, 0, 0) == c.nap_cap_ns);
++}
++
++int main(void)
++{
++    ladder();
++
++    setenv("DPUMESH_WATCHER", "1", 1);
++    setenv("DPUMESH_LINGER_US", "1000000", 1);   /* 1 s while a test needs the EQ watched */
++    setenv("DPUMESH_SERVICE", "echo:80", 1);
++    dmesh_channel_t *server = dmesh_create_channel();
++    assert(server);
++    unsetenv("DPUMESH_SERVICE");
++    dmesh_channel_t *ch = dmesh_create_channel();
++    assert(ch);
++    dpumesh_ctx_t *ctx = ch->ctx;
++    assert(ctx->watcher_on && ctx->nap_span_ns == 150000);
++    dmesh_eq_t *eq = dmesh_create_eq(ch);
++    assert(eq && dmesh_eq_fd(eq) >= 0);
++    dmesh_qp_t *qp = dmesh_create_qp(eq, "echo:80");
++    assert(qp);
++    test_native_sleepable(1);
++    (void)poll_all(ch, eq);
++
++    /* Born idle: the EQ sleeps on its doorbells; the watcher has no part. */
++    assert(atomic_load(&eq->asleep) == 1 && atomic_load(&eq->watch_due_ns) == 0);
++
++    /* A send with its ACK held: it wakes the EQ, which runs empty and hands
++     * its naps to the watcher. Only the backstop stays on its timer. */
++    test_native_hold_acks(1);
++    void *buf = dmesh_alloc(qp, 64);
++    assert(buf);
++    memset(buf, 7, 64);
++    assert(dmesh_post_send(qp, buf, 64) == 0);
++    assert(wait_readable(eq->notify_efd, 0));
++    uint64_t watches = atomic_load(&wait_stats.watches);
++    (void)poll_all(ch, eq);
++    assert(atomic_load(&wait_stats.watches) == watches + 1);
++    assert(atomic_load(&eq->watch_due_ns) != 0 && atomic_load(&eq->asleep) == 0);
++    assert(eq->timer_backstop && timer_ns(eq) > ctx->backstop_ns / 2);
++
++    /* The ACK lands: the watcher finds it and wakes the EQ. */
++    uint64_t found = atomic_load(&wait_stats.watch_found);
++    test_native_hold_acks(0);
++    assert(wait_readable(eq->notify_efd, 1000));
++    assert(atomic_load(&wait_stats.watch_found) == found + 1);
++    (void)poll_all(ch, eq);                       /* reclaims the ACK, then hands over again */
++    assert(atomic_load(&eq->watch_due_ns) != 0);
++
++    /* Nothing more: the watcher wakes the EQ only once its linger is over,
++     * and the EQ then sleeps on its doorbells. */
++    ctx->linger_ns = 2000000;
++    uint64_t expired = atomic_load(&wait_stats.watch_expired);
++    assert(wait_readable(eq->notify_efd, 1000));
++    assert(monotonic_ns() >= atomic_load(&eq->last_work_ns) + ctx->linger_ns);
++    assert(atomic_load(&wait_stats.watch_expired) == expired + 1);
++    unsigned arms = test_native_idle_arms();
++    (void)poll_all(ch, eq);
++    assert(atomic_load(&eq->asleep) == 1 && atomic_load(&eq->watch_due_ns) == 0);
++    assert(test_native_idle_arms() == arms + 1);
++
++    /* Outstanding custody keeps the watcher polling past the window; it
++     * still wakes the EQ once per WATCH_REFRESH_NS. */
++    ctx->linger_ns = 0;
++    test_native_sleepable(0);
++    atomic_store(&eq->kick, 1);
++    eq_notify(eq);
++    (void)poll_all(ch, eq);
++    uint64_t since = atomic_load(&eq->watch_since_ns);
++    assert(since != 0 && atomic_load(&eq->watch_due_ns) != 0);
++    expired = atomic_load(&wait_stats.watch_expired);
++    assert(wait_readable(eq->notify_efd, 1000));
++    assert(monotonic_ns() >= since + ctx->nap_span_ns + WATCH_REFRESH_NS);
++    assert(atomic_load(&wait_stats.watch_expired) == expired + 1);
++    /* Past the window with custody outstanding, the EQ hands over again. */
++    uint64_t busy = atomic_load(&wait_stats.busy);
++    (void)poll_all(ch, eq);
++    assert(atomic_load(&wait_stats.busy) == busy + 1);
++    assert(atomic_load(&eq->watch_due_ns) != 0 && atomic_load(&eq->asleep) == 0);
++
++    /* Custody retired: the watcher lets the EQ go to sleep. */
++    test_native_sleepable(1);
++    assert(wait_readable(eq->notify_efd, 1000));
++    arms = test_native_idle_arms();
++    (void)poll_all(ch, eq);
++    assert(atomic_load(&eq->asleep) == 1 && test_native_idle_arms() == arms + 1);
++
++    /* A DOORBELL whose batch is not visible yet restarts the ladder at once. */
++    test_native_raise_wake();
++    assert(wait_readable(eq->epfd, 0));
++    (void)poll_all(ch, eq);
++    uint64_t anchor = atomic_load(&eq->watch_anchor_ns), due = atomic_load(&eq->watch_due_ns);
++    assert(due == 0 || due == anchor + ctx->nap_min_ns);  /* 0 if it already expired */
++    assert(atomic_load(&wait_stats.backstop_work) == 0);
++
++    /* A wake that lands while the EQ drains (its own notifications
++     * suppressed, as in the re-check drain after a hand-off) still makes its
++     * fd readable: otherwise an EQ whose drain found only ACKs would sleep
++     * neither watched nor armed. The due is far off, so the watcher thread
++     * leaves this EQ to the direct call. */
++    assert(wait_readable(eq->notify_efd, 1000));          /* the window above ends */
++    (void)poll_all(ch, eq);
++    uint64_t v;
++    while (read(eq->notify_efd, &v, sizeof(v)) > 0) {}
++    uint64_t far = monotonic_ns() + 10000000000ull;
++    atomic_store(&eq->watch_due_ns, far);
++    dmesh_eq_suppress_notify(eq, 1);
++    assert(watch_check(ctx, eq, far, 0, far + ctx->backstop_ns) == 0);
++    dmesh_eq_suppress_notify(eq, -1);
++    assert(wait_readable(eq->notify_efd, 0) && atomic_load(&eq->watch_due_ns) == 0);
++
++    assert(dmesh_destroy_qp(qp) == 0);
++    assert(dmesh_destroy_eq(eq) == 0);
++    assert(dmesh_destroy_channel(ch) == 0);
++    assert(dmesh_destroy_channel(server) == 0);
++    unsetenv("DPUMESH_WATCHER");
++    unsetenv("DPUMESH_LINGER_US");
++    puts("native_watcher_test: ladder, hand-off, wake for work, window end, custody refresh, doorbell, wake during a drain: PASS");
++}

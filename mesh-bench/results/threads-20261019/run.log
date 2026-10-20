@@ -1,0 +1,16 @@
+[18:46:49] start max probe run {"cfgs": ["W0-nosidecar", "G1-default"], "start": {"dpumesh": 2000, "nosidecar": 4500}, "step": 1.1, "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[18:46:49] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[18:46:49] == W0-nosidecar {"knobs": null, "extra_env": "", "proxy_env": null, "start_env": null, "irq_cpus": "0-1"}
+[18:47:49]   W0-nosidecar step 5669: 5606 req/s p50 532.8 p99 719 ms drop 436 | host 29.4 dpu 0.1 | top threads currencyservice/node:0.89, currencyservice/node:0.89, recommendationservice/python:0.18, recommendationservice/python:0.18, recommendationservice/python:0.17, recommendationservice/python:0.17, recommendationservice/python:0.17, paymentservice/node:0.14
+[18:48:02] == G1-default {"knobs": {}, "extra_env": "", "proxy_env": "W=14 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "", "irq_cpus": "0-1"}
+[18:48:35] dpu proxy: proxy 654677: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 30 s
+[18:49:51]   G1-default step 5669: 5694 req/s p50 165.3 p99 357 ms drop 0 | host 27.7 dpu 13.7 | top threads currencyservice/node:0.92, currencyservice/node:0.88, recommendationservice/python:0.19, recommendationservice/python:0.19, recommendationservice/python:0.19, recommendationservice/python:0.19, recommendationservice/python:0.19, redis/redis-server:0.15
+[18:50:06] dpu stop: proxy 654677 stopped
+[18:50:06] dpu irq restore: 
+[18:50:08] flow_check exit 1:   13            8
+    13       7        7         14            8
+DOCA ERR x11: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 89 backend opens on 14 workers (worker 9: 15, highest slot 15); DPA: mux 8-8 threads/worker, 190 ring adds; errors: mux ring stopped x11
+[18:50:08] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[18:50:08] done
+ALLDONE

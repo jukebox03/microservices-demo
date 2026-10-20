@@ -1,0 +1,847 @@
+## by comm
+7.32%  dmesh-shard-2 
+     7.30%  dmesh-shard-10
+     7.29%  dmesh-shard-1 
+     7.27%  dmesh-shard-11
+     7.26%  dmesh-shard-9 
+     7.26%  dmesh-shard-12
+     7.23%  dmesh-shard-3 
+     7.21%  dmesh-shard-0 
+     7.18%  dmesh-shard-13
+     7.17%  dmesh-shard-4 
+     7.12%  dmesh-shard-8 
+     7.00%  dmesh-shard-5 
+     6.94%  dmesh-shard-7 
+     6.19%  dmesh-shard-6 
+     0.26%  dmesh-control 
+     0.00%  linkerd2-proxy
+
+
+## by dso
+    74.75%  linkerd2-proxy            
+     7.24%  [kernel.kallsyms]         
+     6.85%  libdoca_common.so.3.5.0098
+     6.22%  libc.so.6                 
+     3.14%  libdoca_comch.so.3.5.0098 
+     1.07%  libdoca_dma.so.3.5.0098   
+     0.56%  [vdso]                    
+     0.14%  libmlx5.so.1.27.64.0      
+     0.02%  libflexio.so              
+     0.01%  libdoca_dpa.so.3.5.0098   
+     0.00%  libm.so.6                 
+     0.00%  libibverbs.so.1.17.64.0   
+
+
+## by dso,sym
+     4.29%  libc.so.6                   [.] __memcpy_generic
+     2.64%  linkerd2-proxy              [.] h2::frame::headers::HeaderBlock::into_encoding
+     1.72%  [kernel.kallsyms]           [k] el0_svc_common.constprop.0
+     0.94%  libc.so.6                   [.] memcmp
+     0.87%  linkerd2-proxy              [.] tokio::runtime::context::scoped::Scoped<T>::set
+     0.81%  libdoca_common.so.3.5.0098  [.] priv_doca_cq_empty
+     0.75%  libdoca_common.so.3.5.0098  [.] 0x00000000000e17ec
+     0.70%  linkerd2-proxy              [.] h2::proto::connection::DynConnection<B>::recv_frame
+     0.66%  linkerd2-proxy              [.] <h2::hpack::header::Header<T> as core::clone::Clone>::clone
+     0.66%  libdoca_common.so.3.5.0098  [.] priv_doca_pe_resume_ctx
+     0.64%  linkerd2-proxy              [.] _rjem_malloc
+     0.62%  [kernel.kallsyms]           [k] __check_object_size.part.0
+     0.62%  linkerd2-proxy              [.] tokio::runtime::task::waker::wake_by_val
+     0.61%  linkerd2-proxy              [.] tokio::runtime::scheduler::current_thread::<impl tokio::runtime::task::Schedule for alloc::sync::Arc<tokio::runtime::scheduler::current_thread::Handle>>::release
+     0.60%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::pop_frame
+     0.56%  [kernel.kallsyms]           [k] __fget_files
+     0.54%  linkerd2-proxy              [.] linkerd_http_prom::record_response::end_stream
+     0.54%  [kernel.kallsyms]           [k] devx_async_event_read
+     0.52%  linkerd2-proxy              [.] h2::share::RecvStream::is_end_stream
+     0.52%  linkerd2-proxy              [.] tokio::runtime::task::list::OwnedTasks<S>::bind_inner
+     0.49%  linkerd2-proxy              [.] linkerd_http_metrics::requests::service::ResponseBody<B,C>::record_latency
+     0.49%  linkerd2-proxy              [.] h2::proto::streams::buffer::Deque::pop_front
+     0.47%  libdoca_common.so.3.5.0098  [.] 0x00000000000e17f0
+     0.46%  linkerd2-proxy              [.] slab::Slab<T>::insert_at
+     0.46%  linkerd2-proxy              [.] <tracing::instrument::Instrumented<T> as core::future::future::Future>::poll
+     0.46%  linkerd2-proxy              [.] <hyper::server::conn::http2::Connection<I,S,E> as core::future::future::Future>::poll
+     0.46%  libdoca_common.so.3.5.0098  [.] priv_doca_ctx_is_datapath_on_gpu
+     0.45%  linkerd2-proxy              [.] <linkerd_http_box::body::Data as bytes::buf::buf_impl::Buf>::remaining
+     0.44%  linkerd2-proxy              [.] h2::proto::connection::Connection<T,P,B>::poll
+     0.44%  linkerd2-proxy              [.] h2::proto::connection::Connection<T,P,B>::poll
+     0.43%  [kernel.kallsyms]           [k] get_random_u32
+     0.42%  libc.so.6                   [.] read
+     0.42%  linkerd2-proxy              [.] h2::codec::framed_read::decode_frame
+     0.41%  linkerd2-proxy              [.] bytes::bytes_mut::shared_v_drop
+     0.41%  linkerd2-proxy              [.] <h2::frame::headers::Iter as core::iter::traits::iterator::Iterator>::next
+     0.40%  linkerd2-proxy              [.] <dmesh_doca::io::DmeshIo as tokio::io::async_read::AsyncRead>::poll_read
+     0.38%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.38%  linkerd2-proxy              [.] <linkerd_app_core::errors::respond::NewRespond<R> as linkerd_error_respond::NewRespond<http::request::Request<B>>>::new_respond
+     0.37%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::poll_reset
+     0.36%  linkerd2-proxy              [.] h2::frame::headers::HeaderBlock::load
+     0.36%  libdoca_comch.so.3.5.0098   [.] 0x0000000000017310
+     0.36%  linkerd2-proxy              [.] <core::hash::sip::Hasher<S> as core::hash::Hasher>::write
+     0.36%  linkerd2-proxy              [.] slab::Slab<T>::insert_at
+     0.35%  linkerd2-proxy              [.] linkerd_app_core::classify::grpc_code
+     0.34%  linkerd2-proxy              [.] dmesh_doca_conn_state_get
+     0.34%  libdoca_comch.so.3.5.0098   [.] 0x0000000000017404
+     0.34%  linkerd2-proxy              [.] dmesh_doca::driver::Driver::pump_send
+     0.33%  linkerd2-proxy              [.] <linkerd_app_outbound::http::dmesh_pool::Handle as tower_service::Service<http::request::Request<linkerd_http_box::body::BoxBody>>>::call
+     0.33%  linkerd2-proxy              [.] linkerd_http_prom::record_response::end_stream
+     0.33%  linkerd2-proxy              [.] tokio::runtime::task::waker::drop_waker
+     0.33%  linkerd2-proxy              [.] _$LT$linkerd_app_outbound..http..dmesh_pool..NewPool$LT$T$GT$$u20$as$u20$linkerd_stack..new_service..NewService$LT$T$GT$$GT$::new_service::_$u7b$$u7b$closure$u7d$$u7d$::h40325396f1ed0a1d
+     0.32%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.31%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::recv_headers
+     0.31%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.30%  linkerd2-proxy              [.] <h2::proto::streams::streams::OpaqueStreamRef as core::ops::drop::Drop>::drop
+     0.30%  libdoca_common.so.3.5.0098  [.] 0x00000000000e4ad4
+     0.29%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::contains_key
+     0.29%  linkerd2-proxy              [.] hyper::proto::h2::strip_connection_headers
+     0.29%  linkerd2-proxy              [.] dmesh_doca::io::DmeshIoHandle::advance_completed
+     0.29%  linkerd2-proxy              [.] bytes::bytes_mut::BytesMut::split_to
+     0.29%  linkerd2-proxy              [.] <linkerd_http_prom::body_data::response::RecordBodyData<S> as tower_service::Service<http::request::Request<ReqB>>>::call
+     0.28%  [kernel.kallsyms]           [k] eventfd_write
+     0.28%  linkerd2-proxy              [.] <tokio::runtime::io::scheduled_io::Readiness as core::future::future::Future>::poll
+     0.27%  linkerd2-proxy              [.] <linkerd_router::MemoOneshotRoute<Req,Sel,N> as tower_service::Service<Req>>::call
+     0.27%  linkerd2-proxy              [.] <linkerd_app_outbound::http::dmesh_pool::Handle as tower_service::Service<http::request::Request<linkerd_http_box::body::BoxBody>>>::call::{{closure}}
+     0.27%  linkerd2-proxy              [.] h2::proto::streams::store::Ptr::unlink
+     0.27%  libdoca_common.so.3.5.0098  [.] doca_task_get_user_data
+     0.27%  linkerd2-proxy              [.] <linkerd_http_stream_timeouts::ResponseFuture<F> as core::future::future::Future>::poll
+     0.27%  linkerd2-proxy              [.] <linkerd_error_respond::RespondService<R,S> as tower_service::Service<Req>>::call
+     0.27%  linkerd2-proxy              [.] dmesh_doca::driver::Driver::run::{{closure}}
+     0.27%  linkerd2-proxy              [.] h2::hpack::encoder::encode_str
+     0.26%  libdoca_common.so.3.5.0098  [.] 0x00000000000e4ad0
+     0.26%  linkerd2-proxy              [.] <linkerd_http_prom::body_data::body::Body<B> as http_body::Body>::poll_frame
+     0.26%  linkerd2-proxy              [.] h2::frame::headers::HeaderBlock::load::{{closure}}
+     0.26%  linkerd2-proxy              [.] <linkerd_io::sensor::SensorIo<T,S> as tokio::io::async_read::AsyncRead>::poll_read
+     0.26%  linkerd2-proxy              [.] <hyper::proto::h2::client::ClientTask<B,E,T> as core::future::future::Future>::poll
+     0.25%  libdoca_common.so.3.5.0098  [.] doca_buf_inventory_buf_get_by_args
+     0.25%  linkerd2-proxy              [.] _rjem_sdallocx
+     0.25%  linkerd2-proxy              [.] h2::codec::framed_write::Encoder<B>::buffer
+     0.25%  linkerd2-proxy              [.] h2::proto::streams::buffer::Deque::pop_front
+     0.25%  linkerd2-proxy              [.] <linkerd_http_prom::body_data::body::Body<B> as http_body::Body>::poll_frame
+     0.24%  linkerd2-proxy              [.] <linkerd_http_metrics::requests::service::HttpMetrics<S,C> as tower_service::Service<http::request::Request<A>>>::call
+     0.24%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.24%  linkerd2-proxy              [.] tokio::runtime::task::waker::clone_waker
+     0.24%  linkerd2-proxy              [.] <core::pin::Pin<P> as core::future::future::Future>::poll
+     0.24%  linkerd2-proxy              [.] do_rallocx
+     0.24%  libdoca_common.so.3.5.0098  [.] 0x00000000000e4acc
+     0.24%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::pop
+     0.24%  linkerd2-proxy              [.] h2::proto::streams::store::Store::find_entry
+     0.23%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.23%  linkerd2-proxy              [.] <tower::buffer::worker::Worker<T,Request> as core::future::future::Future>::poll
+     0.23%  linkerd2-proxy              [.] <linkerd_io::sensor::SensorIo<T,S> as tokio::io::async_write::AsyncWrite>::poll_write
+     0.23%  linkerd2-proxy              [.] tokio::sync::notify::NotifiedProject::poll_notified
+     0.23%  linkerd2-proxy              [.] tokio::sync::mpsc::list::Rx<T>::pop
+     0.23%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.23%  linkerd2-proxy              [.] _$LT$linkerd_http_detect..Detect$LT$N$GT$$u20$as$u20$tower_service..Service$LT$I$GT$$GT$::call::_$u7b$$u7b$closure$u7d$$u7d$::hb20418839ca55d2d
+     0.23%  linkerd2-proxy              [.] tokio_util::sync::mpsc::PollSender<T>::send_item
+     0.23%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.22%  linkerd2-proxy              [.] dmesh_dispatch_worker_flush
+     0.22%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::policy::route::metrics::ExtractBodyDataMetrics<X> as linkerd_stack::ExtractParam<linkerd_http_prom::body_data::metrics::BodyDataMetrics,http::request::Request<B>>>::extract_param
+     0.22%  libdoca_comch.so.3.5.0098   [.] 0x0000000000014a90
+     0.22%  linkerd2-proxy              [.] h2::proto::streams::streams::Streams<B,h2::client::Peer>::poll_pending_open
+     0.21%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::get
+     0.21%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.21%  libdoca_comch.so.3.5.0098   [.] 0x00000000000158cc
+     0.21%  linkerd2-proxy              [.] <linkerd_io::sensor::SensorIo<T,S> as tokio::io::async_write::AsyncWrite>::poll_write
+     0.21%  linkerd2-proxy              [.] <hyper::proto::h2::server::H2Stream<F,B,Ex> as core::future::future::Future>::poll
+     0.21%  [kernel.kallsyms]           [k] apparmor_file_permission
+     0.20%  linkerd2-proxy              [.] bytes::bytes::shared_drop
+     0.20%  linkerd2-proxy              [.] dmesh_doca_conn_received
+     0.20%  linkerd2-proxy              [.] mux_received
+     0.20%  libdoca_common.so.3.5.0098  [.] 0x00000000000e17f4
+     0.19%  libdoca_common.so.3.5.0098  [.] priv_doca_task_pool_allocate_task
+     0.19%  linkerd2-proxy              [.] <h2::client::ResponseFuture as core::future::future::Future>::poll
+     0.19%  linkerd2-proxy              [.] <futures_channel::mpsc::Receiver<T> as futures_core::stream::Stream>::poll_next
+     0.19%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.19%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.19%  linkerd2-proxy              [.] <linkerd_http_retry::HttpRetry<P,L,ReqX,S> as tower_service::Service<http::request::Request<linkerd_http_box::body::BoxBody>>>::call
+     0.19%  linkerd2-proxy              [.] <dmesh_doca::io::DmeshIo as tokio::io::async_write::AsyncWrite>::poll_write
+     0.19%  linkerd2-proxy              [.] slab::Slab<T>::insert_at
+     0.19%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.19%  linkerd2-proxy              [.] <tracing::instrument::Instrumented<T> as core::future::future::Future>::poll
+     0.19%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.19%  linkerd2-proxy              [.] dmesh_doca_dpa_msgq_recv_cb
+     0.18%  linkerd2-proxy              [.] linkerd_http_prom::status::RecordStatusFuture<F,SL,L>::on_eos
+     0.18%  libdoca_common.so.3.5.0098  [.] 0x00000000000e17fc
+     0.18%  linkerd2-proxy              [.] <h2::server::Peer as h2::proto::peer::Peer>::convert_poll_message
+     0.18%  linkerd2-proxy              [.] tokio::sync::oneshot::Sender<T>::send
+     0.18%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::recv_data
+     0.18%  linkerd2-proxy              [.] prometheus_client::metrics::family::Family<S,M,C>::get_or_create
+     0.18%  linkerd2-proxy              [.] dmesh_doca::io::DmeshIoHandle::get_dpu_rx_consumed_pos
+     0.18%  libdoca_common.so.3.5.0098  [.] doca_pe_request_notification
+     0.18%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.18%  linkerd2-proxy              [.] tracing::instrument::_::<impl core::ops::drop::Drop for tracing::instrument::Instrumented<T>>::drop
+     0.17%  linkerd2-proxy              [.] <linkerd_http_metrics::requests::service::RequestBody<B,C> as http_body::Body>::poll_frame
+     0.17%  linkerd2-proxy              [.] dmesh_dma_push_desc_sent
+     0.17%  linkerd2-proxy              [.] h2::proto::streams::streams::Streams<B,P>::has_streams_or_other_references
+     0.17%  linkerd2-proxy              [.] dmesh_doca::io::DmeshIoHandle::poll_driver_ready
+     0.17%  linkerd2-proxy              [.] dmesh_doca_dpa_dma_task_completed_cb
+     0.17%  linkerd2-proxy              [.] h2::proto::streams::counts::Counts::transition_after
+     0.17%  linkerd2-proxy              [.] <linkerd_app_core::classify::Request as linkerd_http_classify::Classify>::classify
+     0.17%  linkerd2-proxy              [.] tokio::sync::task::atomic_waker::AtomicWaker::register_by_ref
+     0.16%  linkerd2-proxy              [.] _rjem_je_arena_ralloc_no_move
+     0.16%  linkerd2-proxy              [.] <tracing::instrument::Instrumented<T> as core::future::future::Future>::poll
+     0.16%  libdoca_common.so.3.5.0098  [.] 0x0000000000098cec
+     0.16%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::is_end_stream
+     0.16%  linkerd2-proxy              [.] linkerd_http_prom::record_response::request::<impl tower_service::Service<http::request::Request<ReqB>> for linkerd_http_prom::record_response::RecordDuration<L,linkerd_http_prom::record_response::request::RequestMetrics<<L as linkerd_http_prom::stream_label::MkStreamLabel>::DurationLabels>,S>>::call
+     0.16%  linkerd2-proxy              [.] h2::share::RecvStream::poll_data
+     0.16%  [vdso]                      [.] 0x00000000000004c8
+     0.16%  linkerd2-proxy              [.] tokio::runtime::scheduler::current_thread::<impl tokio::runtime::task::Schedule for alloc::sync::Arc<tokio::runtime::scheduler::current_thread::Handle>>::schedule
+     0.16%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::try_assign_capacity
+     0.16%  linkerd2-proxy              [.] <tracing_subscriber::registry::sharded::Registry as tracing_core::subscriber::Subscriber>::current_span
+     0.16%  [kernel.kallsyms]           [k] __fget_light
+     0.16%  linkerd2-proxy              [.] http::header::map::hash_elem_using
+     0.16%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_outbound::http::logical::Concrete<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>>>
+     0.16%  libdoca_dma.so.3.5.0098     [.] 0x000000000000a1d8
+     0.16%  [vdso]                      [.] 0x00000000000004b8
+     0.16%  libdoca_comch.so.3.5.0098   [.] 0x0000000000015894
+     0.16%  linkerd2-proxy              [.] prometheus_client::metrics::family::Family<S,M,C>::get_or_create
+     0.15%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.15%  linkerd2-proxy              [.] <bytes::bytes::Bytes as bytes::buf::buf_impl::Buf>::remaining
+     0.15%  linkerd2-proxy              [.] linkerd_http_prom::record_response::response::<impl tower_service::Service<http::request::Request<linkerd_http_box::body::BoxBody>> for linkerd_http_prom::record_response::RecordDuration<M,linkerd_http_prom::record_response::response::ResponseMetrics<<M as linkerd_http_prom::stream_label::MkStreamLabel>::DurationLabels>,S>>::call
+     0.15%  linkerd2-proxy              [.] tokio::sync::oneshot::Sender<T>::poll_closed
+     0.15%  linkerd2-proxy              [.] <hyper::body::incoming::Incoming as http_body::Body>::poll_frame
+     0.15%  [kernel.kallsyms]           [k] memblock_is_map_memory
+     0.15%  linkerd2-proxy              [.] http::header::map::hash_elem_using
+     0.15%  linkerd2-proxy              [.] prometheus_client::metrics::family::Family<S,M,C>::get_or_create
+     0.15%  linkerd2-proxy              [.] hyper::client::conn::http2::SendRequest<B>::send_request::{{closure}}
+     0.15%  linkerd2-proxy              [.] <tokio::time::sleep::Sleep as core::future::future::Future>::poll
+     0.15%  linkerd2-proxy              [.] <core::pin::Pin<P> as futures_core::stream::Stream>::poll_next
+     0.15%  linkerd2-proxy              [.] prometheus_client::metrics::family::Family<S,M,C>::get_or_create
+     0.15%  linkerd2-proxy              [.] tokio::runtime::scheduler::current_thread::Core::next_task
+     0.15%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.15%  linkerd2-proxy              [.] <&str as http::header::map::as_header_name::Sealed>::find
+     0.15%  linkerd2-proxy              [.] tokio::task::spawn::spawn
+     0.15%  linkerd2-proxy              [.] <linkerd_app_core::errors::respond::Respond<R> as linkerd_error_respond::Respond<http::response::Response<B>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>::respond
+     0.14%  linkerd2-proxy              [.] tokio::runtime::task::waker::wake_by_ref
+     0.14%  linkerd2-proxy              [.] tokio::sync::oneshot::Sender<T>::send
+     0.14%  linkerd2-proxy              [.] dmesh_doca::io::DmeshIoHandle::push_segment
+     0.14%  linkerd2-proxy              [.] <linkerd_distribute::service::Distribute<K,S> as tower_service::Service<Req>>::poll_ready
+     0.14%  [kernel.kallsyms]           [k] fsnotify_perm.part.0
+     0.14%  [kernel.kallsyms]           [k] aa_file_perm
+     0.14%  linkerd2-proxy              [.] tokio::sync::mpsc::chan::Tx<T,S>::send
+     0.14%  linkerd2-proxy              [.] h2::frame::headers::Headers::encode
+     0.14%  linkerd2-proxy              [.] <tokio::sync::oneshot::Receiver<T> as core::future::future::Future>::poll
+     0.14%  linkerd2-proxy              [.] <h2::codec::framed_read::FramedRead<T> as futures_core::stream::Stream>::poll_next
+     0.14%  linkerd2-proxy              [.] tokio::task::spawn::spawn
+     0.14%  [vdso]                      [.] 0x00000000000004d8
+     0.14%  linkerd2-proxy              [.] hashbrown::raw::RawTable<T,A>::reserve_rehash
+     0.14%  [kernel.kallsyms]           [k] invoke_syscall
+     0.14%  linkerd2-proxy              [.] <linkerd_io::sensor::SensorIo<T,S> as tokio::io::async_read::AsyncRead>::poll_read
+     0.14%  linkerd2-proxy              [.] tokio::sync::mpsc::list::Rx<T>::pop
+     0.14%  libdoca_comch.so.3.5.0098   [.] 0x0000000000017400
+     0.14%  libdoca_common.so.3.5.0098  [.] 0x00000000000e228c
+     0.14%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::pop
+     0.14%  linkerd2-proxy              [.] tokio::sync::mpsc::chan::Rx<T,S>::recv
+     0.14%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.13%  linkerd2-proxy              [.] <linkerd_app_outbound::http::handle_proxy_error_headers::ResponseFuture<F> as core::future::future::Future>::poll
+     0.13%  linkerd2-proxy              [.] <linkerd_http_prom::status::RecordStatusCode<S,ML,L> as tower_service::Service<http::request::Request<ReqB>>>::call
+     0.13%  [kernel.kallsyms]           [k] ep_send_events
+     0.13%  [kernel.kallsyms]           [k] eventfd_poll
+     0.13%  linkerd2-proxy              [.] <core::future::poll_fn::PollFn<F> as core::future::future::Future>::poll
+     0.13%  linkerd2-proxy              [.] _rjem_mallocx
+     0.13%  linkerd2-proxy              [.] h2::proto::streams::counts::Counts::transition
+     0.13%  linkerd2-proxy              [.] <h2::codec::framed_read::FramedRead<T> as futures_core::stream::Stream>::poll_next
+     0.13%  [kernel.kallsyms]           [k] ep_item_poll.isra.0
+     0.13%  linkerd2-proxy              [.] prometheus_client::metrics::family::Family<S,M,C>::get_or_create
+     0.13%  libdoca_dma.so.3.5.0098     [.] 0x000000000000c398
+     0.13%  linkerd2-proxy              [.] <linkerd_proxy_http::h2::Connection<B> as tower_service::Service<http::request::Request<B>>>::call
+     0.13%  linkerd2-proxy              [.] <tracing::instrument::Instrumented<T> as core::future::future::Future>::poll
+     0.13%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.13%  linkerd2-proxy              [.] dmesh_dma_tx_completed
+     0.13%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.13%  linkerd2-proxy              [.] <linkerd_app_outbound::http::dmesh_pool::Handle as tower_service::Service<http::request::Request<linkerd_http_box::body::BoxBody>>>::poll_ready
+     0.13%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::try_append2
+     0.12%  linkerd2-proxy              [.] bytes::bytes::shared_clone
+     0.12%  libdoca_dma.so.3.5.0098     [.] 0x000000000000c3bc
+     0.12%  linkerd2-proxy              [.] dmesh_doca::driver::Driver::emit_conn_events
+     0.12%  linkerd2-proxy              [.] <linkerd_proxy_client_policy::Meta as core::cmp::PartialEq>::eq
+     0.12%  libdoca_common.so.3.5.0098  [.] doca_pe_progress
+     0.12%  linkerd2-proxy              [.] bytes::bytes_mut::shared_v_clone
+     0.12%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::poll_complete
+     0.12%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::Concrete<T> as core::clone::Clone>::clone
+     0.12%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::get_all
+     0.12%  linkerd2-proxy              [.] linkerd_http_prom::status::RecordStatusFuture<F,SL,L>::on_eos
+     0.12%  linkerd2-proxy              [.] memcpy@plt
+     0.12%  libmlx5.so.1.27.64.0        [.] mlx5dv_devx_get_event
+     0.12%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<linkerd_http_prom::body_data::body::Body<linkerd_http_box::body::BoxBody>>>
+     0.12%  libdoca_common.so.3.5.0098  [.] priv_doca_ctx_on_arm
+     0.12%  linkerd2-proxy              [.] <linkerd_stack::failfast::ResponseFuture<F> as core::future::future::Future>::poll
+     0.12%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::send_response
+     0.12%  linkerd2-proxy              [.] <tower::buffer::future::ResponseFuture<F> as core::future::future::Future>::poll
+     0.12%  linkerd2-proxy              [.] <linkerd_stack_tracing::Instrument<T,G,S> as tower_service::Service<Req>>::poll_ready
+     0.12%  linkerd2-proxy              [.] _rjem_je_sdallocx_default
+     0.12%  linkerd2-proxy              [.] bytes::bytes_mut::BytesMut::advance_unchecked
+     0.12%  linkerd2-proxy              [.] core::hash::BuildHasher::hash_one
+     0.12%  linkerd2-proxy              [.] <linkerd_stack::gate::Gate<S> as tower_service::Service<Req>>::poll_ready
+     0.11%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::complete
+     0.11%  linkerd2-proxy              [.] hyper::proto::h2::client::ClientTask<B,E,T>::poll_pipe
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::queue_frame
+     0.11%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::try_insert_entry
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::streams::Streams<B,P>::next_incoming
+     0.11%  linkerd2-proxy              [.] hashbrown::rustc_entry::<impl hashbrown::map::HashMap<K,V,S,A>>::rustc_entry
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::send_data
+     0.11%  linkerd2-proxy              [.] <hyper::proto::h2::PipeToSendStream<S> as core::future::future::Future>::poll
+     0.11%  linkerd2-proxy              [.] <linkerd_stack::watch::SpawnWatch<S> as tower_service::Service<Req>>::poll_ready
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::poll_complete
+     0.11%  linkerd2-proxy              [.] <core::future::poll_fn::PollFn<F> as core::future::future::Future>::poll
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::send_data
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::push
+     0.11%  libdoca_dma.so.3.5.0098     [.] 0x000000000000c394
+     0.11%  linkerd2-proxy              [.] dmesh_doca::io::DmeshIoHandle::take_fin
+     0.11%  linkerd2-proxy              [.] http::uri::authority::Authority::from_shared
+     0.11%  linkerd2-proxy              [.] http::header::map::hash_elem_using
+     0.11%  linkerd2-proxy              [.] h2::client::Peer::convert_send_message
+     0.11%  linkerd2-proxy              [.] h2::frame::head::Head::encode
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::send::Send::send_headers
+     0.11%  linkerd2-proxy              [.] <bytes::bytes_mut::BytesMut as core::ops::drop::Drop>::drop
+     0.11%  linkerd2-proxy              [.] <h2::proto::streams::streams::OpaqueStreamRef as core::clone::Clone>::clone
+     0.11%  linkerd2-proxy              [.] http::header::name::StandardHeader::from_bytes
+     0.11%  linkerd2-proxy              [.] <tower::util::future_service::FutureService<F,S> as tower_service::Service<R>>::poll_ready
+     0.11%  linkerd2-proxy              [.] h2::proto::streams::streams::Streams<B,P>::send_request
+     0.11%  linkerd2-proxy              [.] http::request::Builder::and_then
+     0.11%  linkerd2-proxy              [.] hyper::client::dispatch::Receiver<T,U>::poll_recv
+     0.10%  linkerd2-proxy              [.] dmesh_dispatch_worker_arm
+     0.10%  linkerd2-proxy              [.] h2::proto::streams::counts::Counts::transition
+     0.10%  linkerd2-proxy              [.] tokio::sync::mpsc::list::Rx<T>::pop
+     0.10%  linkerd2-proxy              [.] <core::future::poll_fn::PollFn<F> as core::future::future::Future>::poll
+     0.10%  linkerd2-proxy              [.] h2::proto::streams::streams::Streams<B,P>::clear_expired_reset_streams
+     0.10%  linkerd2-proxy              [.] dmesh_doca::driver::Driver::pump_recv
+     0.10%  linkerd2-proxy              [.] <linkerd_reconnect::Reconnect<T,R,N> as tower_service::Service<Req>>::poll_ready
+     0.10%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::reclaim_frame
+     0.10%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.10%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.10%  linkerd2-proxy              [.] <linkerd_http_metrics::requests::service::ResponseFuture<F,C> as core::future::future::Future>::poll
+     0.10%  [kernel.kallsyms]           [k] fput_many
+     0.10%  libdoca_comch.so.3.5.0098   [.] 0x0000000000014a58
+     0.10%  linkerd2-proxy              [.] <tokio_util::codec::length_delimited::LengthDelimitedCodec as tokio_util::codec::decoder::Decoder>::decode
+     0.10%  linkerd2-proxy              [.] linkerd_http_metrics::requests::service::measure_class
+     0.10%  libc.so.6                   [.] epoll_pwait
+     0.10%  linkerd2-proxy              [.] <linkerd_io::prefixed::PrefixedIo<I> as tokio::io::async_read::AsyncRead>::poll_read
+     0.10%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),linkerd_stack::map_err::ResponseFuture<linkerd_app_outbound::http::logical::policy::route::backend::<impl linkerd_app_outbound::http::logical::policy::route::Matched<linkerd_http_route::grpc::match::RouteMatch,linkerd_app_outbound::http::logical::policy::route::backend::Backend<linkerd_app_outbound::http::Http<linkerd_app_gateway::http::Target>,linkerd_proxy_client_policy::grpc::Filter>>>::layer<linkerd_distribute::cache::BackendCache<linkerd_app_outbound::http::logical::Concrete<linkerd_app_outbound::http::Http<linkerd_app_gateway::http::Target>>,linkerd_stack::box_service::BoxCloneSyncService<http::request::Request<linkerd_http_box::body::BoxBody>,http::response::Response<linkerd_http_box::body::BoxBody>>>,linkerd_stack::box_service::BoxCloneSyncService<http::request::Request<linkerd_http_box::body::BoxBody>,http::response::Response<linkerd_http_box::body::BoxBody>>>::{{closure}}::{{closure}}::{{closure}},core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>>>
+     0.10%  linkerd2-proxy              [.] <tokio_util::codec::framed_impl::FramedImpl<T,U,R> as futures_core::stream::Stream>::poll_next
+     0.10%  libdoca_dma.so.3.5.0098     [.] 0x000000000000c38c
+     0.10%  linkerd2-proxy              [.] std::sync::poison::mutex::Mutex<T>::lock
+     0.10%  libdoca_comch.so.3.5.0098   [.] 0x0000000000017348
+     0.10%  linkerd2-proxy              [.] dmesh_doca_ctrl_arm
+     0.09%  [kernel.kallsyms]           [k] eventfd_read
+     0.09%  [kernel.kallsyms]           [k] mutex_lock
+     0.09%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::reclaim_frame
+     0.09%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.09%  linkerd2-proxy              [.] _rjem_je_arena_palloc
+     0.09%  linkerd2-proxy              [.] tokio::sync::oneshot::Sender<T>::poll_closed
+     0.09%  linkerd2-proxy              [.] tokio::sync::mpsc::chan::Rx<T,S>::recv
+     0.09%  linkerd2-proxy              [.] tokio::sync::oneshot::Sender<T>::send
+     0.09%  linkerd2-proxy              [.] <core::future::poll_fn::PollFn<F> as core::future::future::Future>::poll
+     0.09%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.09%  linkerd2-proxy              [.] h2::proto::streams::store::Store::insert
+     0.09%  linkerd2-proxy              [.] <linkerd_app_outbound::tls::logical::route::RouteLabels as core::hash::Hash>::hash
+     0.09%  linkerd2-proxy              [.] hashbrown::raw::RawTableInner::drop_elements
+     0.09%  linkerd2-proxy              [.] h2::codec::framed_write::FramedWrite<T,B>::flush
+     0.09%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.09%  linkerd2-proxy              [.] h2::frame::head::Head::encode
+     0.09%  linkerd2-proxy              [.] <linkerd_error_respond::RespondService<R,S> as tower_service::Service<Req>>::call
+     0.09%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::is_end_stream
+     0.09%  libdoca_common.so.3.5.0098  [.] 0x000000000003b79c
+     0.09%  linkerd2-proxy              [.] linkerd2_proxy::main::_$u7b$$u7b$closure$u7d$$u7d$::_$u7b$$u7b$closure$u7d$$u7d$::_$u7b$$u7b$closure$u7d$$u7d$::_$u7b$$u7b$closure$u7d$$u7d$::h3e18fb5b95e5fe43
+     0.09%  linkerd2-proxy              [.] dmesh_wake_send_desc
+     0.09%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.09%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_outbound::http::logical::policy::route::Matched<linkerd_http_route::http::match::RequestMatch,linkerd_app_outbound::http::logical::policy::route::backend::Backend<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>,linkerd_proxy_client_policy::http::Filter>>>
+     0.09%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::get
+     0.09%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_error_respond::RespondFuture<linkerd_app_core::errors::respond::Respond<linkerd_app_outbound::http::server::ServerRescue>,linkerd_stack::monitor::MonitorFuture<linkerd_app_outbound::metrics::error::http::Http,futures_util::future::either::Either<futures_util::future::try_future::MapErr<tower::limit::concurrency::future::ResponseFuture<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>>>
+     0.09%  libdoca_common.so.3.5.0098  [.] 0x00000000000e2298
+     0.09%  libdoca_dma.so.3.5.0098     [.] 0x000000000000c384
+     0.09%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<linkerd_http_prom::body_data::body::Body<http_body_util::either::Either<linkerd_http_body_eos::BodyWithEosFn<linkerd_http_prom::record_response::ResponseBody<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::RouteBackend>,linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::ops::function::FnOnce<(linkerd_http_body_eos::EosRef<alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,)>+Output = ()+core::marker::Send>>,linkerd_http_prom::record_response::ResponseBody<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::RouteBackend>,linkerd_http_box::body::BoxBody>>>>>
+     0.09%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.09%  linkerd2-proxy              [.] std::thread::local::LocalKey<T>::try_with
+     0.09%  [kernel.kallsyms]           [k] arch_local_irq_enable
+     0.09%  linkerd2-proxy              [.] dmesh_doca_ctrl_advance
+     0.09%  linkerd2-proxy              [.] http::header::name::StandardHeader::as_str
+     0.09%  linkerd2-proxy              [.] bytes::bytes_mut::BytesMut::freeze
+     0.09%  linkerd2-proxy              [.] h2::hpack::decoder::get_static
+     0.09%  libdoca_comch.so.3.5.0098   [.] 0x0000000000011708
+     0.09%  libdoca_common.so.3.5.0098  [.] 0x00000000000e4ac8
+     0.09%  linkerd2-proxy              [.] tokio::runtime::task::raw::dealloc
+     0.09%  linkerd2-proxy              [.] dmesh_sessions_advance
+     0.09%  [kernel.kallsyms]           [k] devx_async_event_poll
+     0.09%  linkerd2-proxy              [.] http::header::name::StandardHeader::as_str
+     0.09%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::policy::route::extensions::SetExtensions<S> as tower_service::Service<http::request::Request<B>>>::call
+     0.08%  linkerd2-proxy              [.] <tokio_util::codec::framed_impl::FramedImpl<T,U,R> as futures_core::stream::Stream>::poll_next
+     0.08%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_core::classify::Response>
+     0.08%  linkerd2-proxy              [.] tokio::io::async_fd::AsyncFd<T>::readable::{{closure}}
+     0.08%  linkerd2-proxy              [.] <core::future::poll_fn::PollFn<F> as core::future::future::Future>::poll
+     0.08%  linkerd2-proxy              [.] <linkerd_stack_tracing::Instrument<T,G,S> as tower_service::Service<Req>>::call
+     0.08%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::poll_ready
+     0.08%  linkerd2-proxy              [.] tokio::sync::oneshot::Sender<T>::send
+     0.08%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::poll_complete
+     0.08%  linkerd2-proxy              [.] <bytes::bytes_mut::BytesMut as bytes::buf::buf_mut::BufMut>::put
+     0.08%  linkerd2-proxy              [.] tokio::runtime::io::driver::Driver::turn
+     0.08%  linkerd2-proxy              [.] linkerd_http_route::find::{{closure}}
+     0.08%  linkerd2-proxy              [.] tracing::span::Span::in_scope
+     0.08%  linkerd2-proxy              [.] linkerd_proxy_http::client_handle::ClientHandle::new::_$u7b$$u7b$closure$u7d$$u7d$::h752a357a3fa4849d
+     0.08%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::reserve_capacity
+     0.08%  linkerd2-proxy              [.] tokio::runtime::task::core::Cell<T,S>::new
+     0.08%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.08%  linkerd2-proxy              [.] <tower::buffer::service::Buffer<Req,F> as tower_service::Service<Req>>::call
+     0.08%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::recv_trailers
+     0.08%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::reclaim_frame_inner
+     0.08%  libdoca_common.so.3.5.0098  [.] doca_task_submit
+     0.08%  linkerd2-proxy              [.] <linkerd_app_core::classify::Eos as linkerd_http_classify::ClassifyEos>::eos
+     0.08%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::remove
+     0.08%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::contains_key
+     0.08%  linkerd2-proxy              [.] dmesh_doca::driver::Driver::drain_registrations
+     0.08%  linkerd2-proxy              [.] _rjem_je_arena_ralloc
+     0.08%  linkerd2-proxy              [.] core::ptr::drop_in_place<futures_channel::mpsc::Sender<core::convert::Infallible>>
+     0.08%  linkerd2-proxy              [.] tcache_bin_flush_edatas_lookup.constprop.0
+     0.08%  linkerd2-proxy              [.] http::uri::path::PathAndQuery::from_shared
+     0.08%  linkerd2-proxy              [.] tokio::runtime::time::entry::TimerEntry::reset
+     0.08%  linkerd2-proxy              [.] <linkerd_http_route::http::match::MatchRequest as linkerd_http_route::Match>::match_request
+     0.08%  linkerd2-proxy              [.] h2::proto::settings::Settings::poll_send
+     0.08%  [kernel.kallsyms]           [k] ep_poll
+     0.08%  linkerd2-proxy              [.] doca_dma_task_memcpy_as_task@plt
+     0.08%  [kernel.kallsyms]           [k] __ep_eventpoll_poll.isra.0
+     0.08%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::pop
+     0.08%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::pop_pending_open
+     0.08%  linkerd2-proxy              [.] dmesh_doca::driver::Driver::advance
+     0.07%  linkerd2-proxy              [.] tokio::runtime::task::raw::dealloc
+     0.07%  linkerd2-proxy              [.] tokio::time::interval::Interval::poll_tick
+     0.07%  linkerd2-proxy              [.] h2::proto::streams::send::Send::poll_reset
+     0.07%  linkerd2-proxy              [.] <tokio::sync::batch_semaphore::Acquire as core::future::future::Future>::poll
+     0.07%  linkerd2-proxy              [.] h2::proto::streams::send::Send::check_headers
+     0.07%  linkerd2-proxy              [.] _rjem_je_tcache_bin_flush_small
+     0.07%  libdoca_comch.so.3.5.0098   [.] 0x000000000001589c
+     0.07%  linkerd2-proxy              [.] <linkerd_proxy_tap::service::TapHttp<S,I> as tower_service::Service<http::request::Request<A>>>::call
+     0.07%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<linkerd_http_prom::record_response::response::RequestBody<linkerd_http_box::body::BoxBody>>>
+     0.07%  libdoca_comch.so.3.5.0098   [.] 0x000000000001734c
+     0.07%  libc.so.6                   [.] __GI___libc_write
+     0.07%  linkerd2-proxy              [.] <linkerd_http_metrics::requests::service::ResponseBody<B,C> as http_body::Body>::poll_frame
+     0.07%  linkerd2-proxy              [.] h2::proto::streams::state::State::recv_close
+     0.07%  libdoca_comch.so.3.5.0098   [.] 0x0000000000014a54
+     0.07%  linkerd2-proxy              [.] core::ptr::drop_in_place<http::header::map::IntoIter<http::header::value::HeaderValue>>
+     0.07%  [kernel.kallsyms]           [k] security_file_permission
+     0.07%  linkerd2-proxy              [.] <linkerd_trace_context::service::TraceContext<K,S> as tower_service::Service<http::request::Request<ReqB>>>::call
+     0.07%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::schedule_send
+     0.07%  linkerd2-proxy              [.] <linkerd_proxy_tap::service::Body<B> as http_body::Body>::poll_frame
+     0.07%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::policy::route::metrics::labels::RouteBackend as core::hash::Hash>::hash
+     0.07%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.07%  [kernel.kallsyms]           [k] __arm64_sys_epoll_pwait
+     0.07%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_outbound::http::logical::policy::route::metrics::labels::RouteBackend>
+     0.07%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.07%  linkerd2-proxy              [.] hashbrown::map::HashMap<K,V,S,A>::insert
+     0.07%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::push
+     0.07%  linkerd2-proxy              [.] tokio::sync::mpsc::chan::Rx<T,S>::recv
+     0.07%  linkerd2-proxy              [.] <linkerd_http_prom::record_response::ResponseFuture<L,F> as core::future::future::Future>::poll
+     0.07%  linkerd2-proxy              [.] dmesh_doca_conn_recv_pop
+     0.07%  [kernel.kallsyms]           [k] __check_heap_object
+     0.07%  linkerd2-proxy              [.] linkerd_app_outbound::http::dmesh_pool::run::_$u7b$$u7b$closure$u7d$$u7d$::_$u7b$$u7b$closure$u7d$$u7d$::he091b761b7249c14
+     0.07%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::open
+     0.07%  linkerd2-proxy              [.] tracing::span::Span::current
+     0.07%  linkerd2-proxy              [.] core::ptr::drop_in_place<h2::proto::streams::streams::StreamRef<hyper::proto::h2::SendBuf<linkerd_http_box::body::Data>>>
+     0.07%  linkerd2-proxy              [.] tokio::sync::mpsc::chan::Rx<T,S>::recv
+     0.07%  linkerd2-proxy              [.] <linkerd_stack::result::ResultService<S> as tower_service::Service<T>>::poll_ready
+     0.07%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.07%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::reserve_capacity
+     0.07%  linkerd2-proxy              [.] <linkerd_app_core::errors::body::ResponseBody<R,B> as http_body::Body>::poll_frame
+     0.07%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::call
+     0.07%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.06%  linkerd2-proxy              [.] tokio::runtime::task::raw::dealloc
+     0.06%  linkerd2-proxy              [.] _rjem_je_arena_cache_bin_fill_small
+     0.06%  linkerd2-proxy              [.] <linkerd_proxy_http::client::Client<C,T,B> as tower_service::Service<http::request::Request<B>>>::call
+     0.06%  libdoca_common.so.3.5.0098  [.] 0x00000000000e177c
+     0.06%  linkerd2-proxy              [.] bytes::bytes_mut::BytesMut::reserve_inner
+     0.06%  linkerd2-proxy              [.] <T as hyper::service::http::HttpService<B1>>::call
+     0.06%  linkerd2-proxy              [.] tokio::runtime::time::Driver::park_internal
+     0.06%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::poll_complete
+     0.06%  linkerd2-proxy              [.] http::extensions::Extensions::remove
+     0.06%  libdoca_comch.so.3.5.0098   [.] 0x0000000000015ce0
+     0.06%  linkerd2-proxy              [.] <tower::limit::concurrency::service::ConcurrencyLimit<S> as tower_service::Service<Request>>::poll_ready
+     0.06%  linkerd2-proxy              [.] <tokio::sync::oneshot::Receiver<T> as core::future::future::Future>::poll
+     0.06%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::send_pending_refusal
+     0.06%  linkerd2-proxy              [.] core::ptr::drop_in_place<h2::hpack::header::Header>
+     0.06%  linkerd2-proxy              [.] <futures_channel::mpsc::BoundedSenderInner<T> as core::clone::Clone>::clone
+     0.06%  linkerd2-proxy              [.] h2::proto::streams::streams::Actions::reset_on_recv_stream_err
+     0.06%  libdoca_comch.so.3.5.0098   [.] 0x0000000000025474
+     0.06%  linkerd2-proxy              [.] <h2::proto::streams::store::Ptr as core::ops::deref::DerefMut>::deref_mut
+     0.06%  linkerd2-proxy              [.] <linkerd_stack::failfast::FailFast<S> as tower_service::Service<T>>::poll_ready
+     0.06%  linkerd2-proxy              [.] alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle
+     0.06%  [kernel.kallsyms]           [k] do_epoll_wait
+     0.06%  linkerd2-proxy              [.] h2::share::FlowControl::release_capacity
+     0.06%  linkerd2-proxy              [.] std::thread::local::LocalKey<T>::try_with
+     0.06%  linkerd2-proxy              [.] tokio::runtime::scheduler::current_thread::Handle::spawn
+     0.06%  linkerd2-proxy              [.] h2::proto::ping_pong::PingPong::send_pending_ping
+     0.06%  linkerd2-proxy              [.] tokio::task::spawn::spawn
+     0.06%  linkerd2-proxy              [.] linkerd_app_core::classify::is_grpc
+     0.06%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::poll_frame
+     0.06%  libc.so.6                   [.] clock_gettime@@GLIBC_2.17
+     0.06%  libc.so.6                   [.] pthread_mutex_trylock@@GLIBC_2.34
+     0.06%  linkerd2-proxy              [.] core::ptr::drop_in_place<hyper::body::incoming::Incoming>
+     0.06%  linkerd2-proxy              [.] tokio::sync::mpsc::list::Rx<T>::pop
+     0.06%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::capacity
+     0.06%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::complete
+     0.06%  linkerd2-proxy              [.] core::slice::memchr::memchr_aligned
+     0.06%  linkerd2-proxy              [.] h2::codec::framed_write::FramedWrite<T,B>::flush
+     0.06%  linkerd2-proxy              [.] _rjem_je_te_event_trigger
+     0.06%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::set_stage
+     0.06%  linkerd2-proxy              [.] tokio::runtime::time::entry::_::<impl core::ops::drop::Drop for tokio::runtime::time::entry::TimerEntry>::drop
+     0.06%  linkerd2-proxy              [.] <tower::util::oneshot::Oneshot<S,Req> as core::future::future::Future>::poll
+     0.06%  linkerd2-proxy              [.] std::sys::pal::unix::time::Timespec::now
+     0.06%  linkerd2-proxy              [.] core::ptr::drop_in_place<futures_util::future::try_future::into_future::IntoFuture<linkerd_http_prom::status::RecordStatusFuture<linkerd_http_prom::record_response::ResponseFuture<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>,futures_util::future::either::Either<futures_util::future::either::Either<futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>,futures_util::future::try_future::ErrInto<linkerd_app_outbound::http::logical::policy::route::filters::ResponseFuture<linkerd_app_outbound::http::logical::policy::route::Matched<linkerd_http_route::http::match::RequestMatch,alloc::sync::Arc<linkerd_app_outbound::http::logical::policy::route::Route<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>,linkerd_proxy_client_policy::http::Filter,linkerd_proxy_client_policy::http::RouteParams>>>,futures_util::future::either::Either<futures_util::future::try_future::MapErr<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>,core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>>,linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>,linkerd_app_outbound::http::logical::policy::route::metrics::labels::Rsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route,linkerd_app_outbound::http::logical::policy::route::metrics::labels::HttpRsp>>>>
+     0.06%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::poll_frame
+     0.06%  linkerd2-proxy              [.] core::ptr::drop_in_place<std::sync::poison::mutex::MutexGuard<h2::proto::streams::buffer::Buffer<h2::frame::Frame<hyper::proto::h2::SendBuf<bytes::bytes::Bytes>>>>>
+     0.06%  linkerd2-proxy              [.] tokio::sync::mpsc::bounded::Receiver<T>::try_recv
+     0.06%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::try_entry2
+     0.06%  linkerd2-proxy              [.] h2::hpack::header::Header::len
+     0.06%  [kernel.kallsyms]           [k] ep_done_scan
+     0.06%  linkerd2-proxy              [.] hyper::common::date::update_and_header_value
+     0.06%  linkerd2-proxy              [.] <linkerd_http_prom::record_response::response::RequestBody<B> as http_body::Body>::poll_frame
+     0.06%  [kernel.kallsyms]           [k] ksys_read
+     0.06%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_outbound::http::logical::policy::route::metrics::labels::RouteBackend>
+     0.06%  linkerd2-proxy              [.] tokio::sync::mpsc::list::Rx<T>::pop
+     0.06%  libc.so.6                   [.] __GI___pthread_enable_asynccancel
+     0.06%  linkerd2-proxy              [.] http::extensions::Extensions::remove
+     0.06%  linkerd2-proxy              [.] core::ptr::drop_in_place<bytes::bytes::Bytes>
+     0.06%  linkerd2-proxy              [.] tokio::time::sleep::Sleep::new_timeout
+     0.05%  linkerd2-proxy              [.] <linkerd_stack::result::ResultService<S> as tower_service::Service<T>>::poll_ready
+     0.05%  linkerd2-proxy              [.] <hyper_util::rt::tokio::TokioIo<T> as hyper::rt::io::Read>::poll_read
+     0.05%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.05%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.05%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::remove
+     0.05%  linkerd2-proxy              [.] <linkerd_http_override_authority::OverrideAuthority<S,H> as tower_service::Service<http::request::Request<B>>>::call
+     0.05%  linkerd2-proxy              [.] tokio_util::sync::poll_semaphore::PollSemaphore::poll_acquire_many
+     0.05%  linkerd2-proxy              [.] std::thread::local::LocalKey<T>::try_with
+     0.05%  libdoca_comch.so.3.5.0098   [.] 0x00000000000172c0
+     0.05%  libdoca_common.so.3.5.0098  [.] priv_doca_cq_datapath_objects_get
+     0.05%  libdoca_comch.so.3.5.0098   [.] doca_comch_producer_task_send_alloc_init
+     0.05%  linkerd2-proxy              [.] <linkerd_stack_tracing::Instrument<T,G,S> as tower_service::Service<Req>>::poll_ready
+     0.05%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::policy::route::filters::ApplyFilters<A,S> as tower_service::Service<http::request::Request<B>>>::call
+     0.05%  linkerd2-proxy              [.] linkerd_http_route::find::{{closure}}::{{closure}}
+     0.05%  linkerd2-proxy              [.] core::ptr::drop_in_place<tokio_util::sync::mpsc::make_acquire_future<linkerd_app_outbound::http::dmesh_pool::Message>::{{closure}}>
+     0.05%  [kernel.kallsyms]           [k] vfs_read
+     0.05%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.05%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),linkerd_stack::map_err::ResponseFuture<linkerd_stack::map_err::WrapFromTarget<linkerd_app_outbound::http::concrete::Endpoint<linkerd_app_outbound::http::logical::Concrete<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>>>,linkerd_app_outbound::http::endpoint::EndpointError>,futures_util::future::try_future::MapErr<tower::spawn_ready::future::ResponseFuture<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>
+     0.05%  [kernel.kallsyms]           [k] new_sync_read
+     0.05%  linkerd2-proxy              [.] tokio::sync::mpsc::list::Rx<T>::pop
+     0.05%  libdoca_comch.so.3.5.0098   [.] 0x0000000000015c80
+     0.05%  linkerd2-proxy              [.] <hyper::proto::h2::client::ResponseFutMap<B,E> as core::future::future::Future>::poll
+     0.05%  linkerd2-proxy              [.] core::ptr::drop_in_place$LT$futures_util..future..try_future..into_future..IntoFuture$LT$tower..limit..concurrency..future..ResponseFuture$LT$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$GT$$GT$::h87cf4ed561e8df40
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::counts::Counts::transition
+     0.05%  libdoca_dma.so.3.5.0098     [.] 0x000000000000b340
+     0.05%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.05%  linkerd2-proxy              [.] <linkerd_app_core::classify::Response as linkerd_http_classify::ClassifyResponse>::start
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::flow_control::FlowControl::send_data
+     0.05%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_metrics::requests::service::RequestBody<linkerd_http_box::body::BoxBody,linkerd_app_core::classify::Class>>
+     0.05%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::release_connection_capacity
+     0.05%  linkerd2-proxy              [.] <h2::share::RecvStream as core::ops::drop::Drop>::drop
+     0.05%  linkerd2-proxy              [.] tokio::sync::mpsc::list::Tx<T>::find_block
+     0.05%  linkerd2-proxy              [.] wake_send_done
+     0.05%  linkerd2-proxy              [.] h2::proto::settings::Settings::poll_send
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::store::Ptr::remove
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::consume_connection_window
+     0.05%  linkerd2-proxy              [.] tokio_util::sync::mpsc::make_acquire_future::{{closure}}
+     0.05%  linkerd2-proxy              [.] <std::hash::random::DefaultHasher as core::hash::Hasher>::write
+     0.05%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::policy::route::filters::ApplyFilters<A,S> as tower_service::Service<http::request::Request<B>>>::call
+     0.05%  linkerd2-proxy              [.] http::header::map::HeaderMap<T>::try_reserve_one
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::release_capacity
+     0.05%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.05%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_metrics::requests::service::ResponseFuture<futures_util::future::either::Either<futures_util::future::try_future::MapOk<linkerd_error_respond::RespondFuture<linkerd_app_core::errors::respond::Respond<linkerd_app_outbound::http::endpoint::ClientRescue>,linkerd_http_stream_timeouts::ResponseFuture<linkerd_app_outbound::http::handle_proxy_error_headers::ResponseFuture<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>>>,fn(http::response::Response<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::endpoint::ClientRescue,linkerd_http_stream_timeouts::ResponseBody<linkerd_http_box::body::BoxBody>>>) .> http::response::Response<linkerd_proxy_tap::service::Body<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::endpoint::ClientRescue,linkerd_http_stream_timeouts::ResponseBody<linkerd_http_box::body::BoxBody>>>>>,core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_proxy_tap::service::Body<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::endpoint::ClientRescue,linkerd_http_stream_timeouts::ResponseBody<linkerd_http_box::body::BoxBody>>>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>,linkerd_app_core::classify::Response>>
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::send_trailers
+     0.05%  linkerd2-proxy              [.] tokio_util::sync::mpsc::make_acquire_future::{{closure}}
+     0.05%  linkerd2-proxy              [.] core::hash::BuildHasher::hash_one
+     0.05%  linkerd2-proxy              [.] dmesh_doca_data_arm
+     0.05%  libdoca_common.so.3.5.0098  [.] 0x00000000000e4af8
+     0.05%  linkerd2-proxy              [.] tokio_util::sync::mpsc::PollSender<T>::poll_reserve
+     0.05%  linkerd2-proxy              [.] <linkerd_proxy_http::normalize_uri::MarkAbsoluteForm<S> as tower_service::Service<http::request::Request<B>>>::call
+     0.05%  linkerd2-proxy              [.] _rjem_je_edata_heap_remove_first
+     0.05%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::is_end_stream
+     0.05%  linkerd2-proxy              [.] indexmap::inner::Core<K,V>::push_entry
+     0.05%  linkerd2-proxy              [.] <linkerd_stack_metrics::service::TrackService<S> as tower_service::Service<T>>::poll_ready
+     0.05%  linkerd2-proxy              [.] <linkerd_stack_tracing::Instrument<T,G,S> as tower_service::Service<Req>>::call
+     0.05%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::clear_expired_reset_streams
+     0.05%  linkerd2-proxy              [.] <linkerd_http_prom::record_response::ResponseBody<L,B> as http_body::Body>::poll_frame
+     0.05%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.05%  linkerd2-proxy              [.] core::ops::function::FnOnce::call_once
+     0.05%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::complete
+     0.05%  linkerd2-proxy              [.] <linkerd_trace_context::service::TraceContext<K,S> as tower_service::Service<http::request::Request<ReqB>>>::call
+     0.05%  linkerd2-proxy              [.] h2::hpack::decoder::take
+     0.05%  linkerd2-proxy              [.] <linkerd_app_core::errors::body::ResponseBody<R,B> as http_body::Body>::poll_frame
+     0.05%  linkerd2-proxy              [.] <hyper::common::io::compat::Compat<T> as tokio::io::async_read::AsyncRead>::poll_read
+     0.05%  linkerd2-proxy              [.] tracing::span::Span::in_scope
+     0.05%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.05%  linkerd2-proxy              [.] <linkerd_http_stream_timeouts::ResponseBody<B> as http_body::Body>::poll_frame
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::streams::maybe_cancel
+     0.04%  linkerd2-proxy              [.] _rjem_je_malloc_default
+     0.04%  linkerd2-proxy              [.] http::extensions::Extensions::insert
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::either::vendor::Either<A,B> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::store::Store::find_mut
+     0.04%  linkerd2-proxy              [.] <linkerd_http_body_eos::BodyWithEosFn<B,F> as http_body::Body>::poll_frame
+     0.04%  linkerd2-proxy              [.] tokio::sync::batch_semaphore::Semaphore::add_permits_locked
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::pop
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::buffer::Deque::push_back
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<hyper::proto::h2::PipeToSendStream<linkerd_http_box::body::BoxBody>>
+     0.04%  libdoca_comch.so.3.5.0098   [.] 0x00000000000158a0
+     0.04%  linkerd2-proxy              [.] _ZN4core3ptr1925drop_in_place$LT$futures_util..future..try_future..into_future..IntoFuture$LT$linkerd_http_prom..status..RecordStatusFuture$LT$linkerd_http_prom..record_response..ResponseFuture$LT$linkerd_app_outbound..http..logical..policy..route..metrics..LabelHttpRsp$LT$linkerd_app_outbound..http..logical..policy..route..metrics..labels..RouteBackend$GT$$C$futures_util..future..either..Either$LT$futures_util..future..ready..Ready$LT$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$C$futures_util..future..try_future..ErrInto$LT$linkerd_app_outbound..http..logical..policy..route..filters..ResponseFuture$LT$linkerd_app_outbound..http..logical..policy..route..Matched$LT$linkerd_http_route..http..match..RequestMatch$C$linkerd_app_outbound..http..logical..policy..route..backend..Backend$LT$linkerd_app_outbound..http..Http$LT$linkerd_app_outbound..sidecar..HttpSidecar$GT$$C$linkerd_proxy_client_policy..http..Filter$GT$$GT$$C$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$GT$$C$linkerd_app_outbound..http..logical..policy..route..metrics..LabelHttpRsp$LT$linkerd_app_outbound..http..logical..policy..route..metrics..labels..RouteBackend$GT$$C$linkerd_app_outbound..http..logical..policy..route..metrics..labels..Rsp$LT$linkerd_app_outbound..http..logical..policy..route..metrics..labels..RouteBackend$C$linkerd_app_outbound..http..logical..policy..route..metrics..labels..HttpRsp$GT$$GT$$GT$$GT$17h95840d22ac4a7ca2E.llvm.6858097957147977812
+     0.04%  libdoca_comch.so.3.5.0098   [.] 0x0000000000014a00
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::is_pending_open
+     0.04%  libdoca_comch.so.3.5.0098   [.] 0x0000000000016e6c
+     0.04%  linkerd2-proxy              [.] h2::proto::ping_pong::PingPong::send_pending_pong
+     0.04%  linkerd2-proxy              [.] alloc::sync::Arc<T,A>::drop_slow
+     0.04%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.04%  linkerd2-proxy              [.] <alloc::vec::drain::Drain<T,A> as core::ops::drop::Drop>::drop
+     0.04%  linkerd2-proxy              [.] http::header::map::hash_elem_using
+     0.04%  linkerd2-proxy              [.] h2::proto::ping_pong::PingPong::send_pending_pong
+     0.04%  linkerd2-proxy              [.] dmesh_dma_push_staged
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<(tokio::io::async_fd::AsyncFd<dmesh_doca::driver::PeFd>::readable::{{closure}},tokio::io::async_fd::AsyncFd<dmesh_doca::driver::PeFd>::readable::{{closure}},tokio::sync::mpsc::bounded::Receiver<core::net::socket_addr::SocketAddr>::recv::{{closure}},tokio::sync::mpsc::unbounded::UnboundedReceiver<(usize,dmesh_doca::driver::FlowKey,dmesh_doca::driver::FlowLocation,dmesh_doca::io::DmeshIoHandle)>::recv::{{closure}},core::future::poll_fn::PollFn<dmesh_doca::driver::Driver::run::{{closure}}::{{closure}}>,tokio::time::sleep::Sleep)>
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] <linkerd_error_respond::RespondFuture<R,F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] core::ops::function::FnOnce::call_once
+     0.04%  linkerd2-proxy              [.] _ZN4core3ptr967drop_in_place$LT$tracing..instrument..Instrumented$LT$hyper..proto..h2..server..H2Stream$LT$futures_util..future..either..Either$LT$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$C$tower..util..oneshot..Oneshot$LT$linkerd_http_box..request..BoxRequest$LT$hyper..body..incoming..Incoming$C$linkerd_proxy_http..client_handle..SetClientHandle$LT$linkerd_stack..box_service..BoxCloneSyncService$LT$http..request..Request$LT$linkerd_http_box..body..BoxBody$GT$$C$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$GT$$GT$$GT$$C$http..request..Request$LT$hyper..body..incoming..Incoming$GT$$GT$$GT$$C$linkerd_http_box..body..BoxBody$C$hyper_util..rt..tokio..TokioExecutor$GT$$GT$$GT$17hf08d07060d1371c6E.llvm.435045892632882095
+     0.04%  linkerd2-proxy              [.] <tokio::task::coop::Coop<F> as core::future::future::Future>::poll
+     0.04%  [vdso]                      [.] 0x00000000000004ac
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.04%  linkerd2-proxy              [.] tokio::runtime::time::wheel::Wheel::remove
+     0.04%  linkerd2-proxy              [.] <tokio::time::timeout::Timeout<T> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::poll_ready
+     0.04%  linkerd2-proxy              [.] core::hash::BuildHasher::hash_one
+     0.04%  linkerd2-proxy              [.] <linkerd_http_body_eos::BodyWithEosFn<B,F> as http_body::Body>::poll_frame
+     0.04%  linkerd2-proxy              [.] dmesh_dpa_mux_watch
+     0.04%  linkerd2-proxy              [.] h2::frame::headers::calculate_headermap_size
+     0.04%  linkerd2-proxy              [.] core::ops::function::FnOnce::call_once
+     0.04%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::is_end_stream
+     0.04%  libdoca_dma.so.3.5.0098     [.] 0x000000000000a150
+     0.04%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.04%  [kernel.kallsyms]           [k] set_user_sigmask
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<http::uri::Uri>
+     0.04%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.04%  linkerd2-proxy              [.] hyper::headers::content_length_parse_all
+     0.04%  [kernel.kallsyms]           [k] __arch_copy_to_user
+     0.04%  linkerd2-proxy              [.] h2::hpack::decoder::Decoder::decode_literal
+     0.04%  linkerd2-proxy              [.] h2::client::SendRequest<B>::poll_ready
+     0.04%  linkerd2-proxy              [.] <T as core::any::Any>::type_id
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_proxy_http::client_handle::ClientHandle>
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<linkerd_http_box::body::BoxBody>>
+     0.04%  linkerd2-proxy              [.] h2::codec::framed_write::Encoder<B>::unset_frame
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::stream::Stream::send_data
+     0.04%  linkerd2-proxy              [.] <linkerd_app_outbound::http::require_id_header::RequireIdentity<S> as tower_service::Service<http::request::Request<B>>>::call
+     0.04%  linkerd2-proxy              [.] h2::proto::ping_pong::PingPong::send_pending_ping
+     0.04%  linkerd2-proxy              [.] http::extensions::Extensions::insert
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::result::ResultService<S> as tower_service::Service<T>>::poll_ready
+     0.04%  linkerd2-proxy              [.] <Q as hashbrown::Equivalent<K>>::equivalent
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.04%  [vdso]                      [.] 0x00000000000004bc
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::take_request
+     0.04%  linkerd2-proxy              [.] std::thread::local::LocalKey<T>::try_with
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<tokio::sync::mpsc::bounded::Sender<linkerd_app_outbound::http::dmesh_pool::Message>::reserve_owned::{{closure}}>
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::state::State::send_close
+     0.04%  linkerd2-proxy              [.] dmesh_dispatch_worker_drain
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),linkerd_stack::map_err::ResponseFuture<linkerd_app_outbound::http::logical::policy::route::Matched<linkerd_http_route::http::match::RequestMatch,alloc::sync::Arc<linkerd_app_outbound::http::logical::policy::route::Route<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>,linkerd_proxy_client_policy::http::Filter,linkerd_proxy_client_policy::http::RouteParams>>>::layer<linkerd_distribute::cache::BackendCache<linkerd_app_outbound::http::logical::Concrete<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>>,linkerd_stack::box_service::BoxCloneSyncService<http::request::Request<linkerd_http_box::body::BoxBody>,http::response::Response<linkerd_http_box::body::BoxBody>>>,linkerd_stack::box_service::BoxCloneSyncService<http::request::Request<linkerd_http_box::body::BoxBody>,http::response::Response<linkerd_http_box::body::BoxBody>>>::{{closure}}::{{closure}}::{{closure}},futures_util::future::try_future::MapOk<linkerd_http_prom::status::RecordStatusFuture<linkerd_http_prom::record_response::ResponseFuture<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>,futures_util::future::either::Either<futures_util::future::either::Either<futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>,futures_util::future::try_future::ErrInto<linkerd_app_outbound::http::logical::policy::route::filters::ResponseFuture<linkerd_app_outbound::http::logical::policy::route::Matched<linkerd_http_route::http::match::RequestMatch,alloc::sync::Arc<linkerd_app_outbound::http::logical::policy::route::Route<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>,linkerd_proxy_client_policy::http::Filter,linkerd_proxy_client_policy::http::RouteParams>>>,futures_util::future::either::Either<futures_util::future::try_future::MapErr<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>,core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>>,linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>,linkerd_app_outbound::http::logical::policy::route::metrics::labels::Rsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route,linkerd_app_outbound::http::logical::policy::route::metrics::labels::HttpRsp>>,fn(http::response::Response<http_body_util::either::Either<linkerd_http_body_eos::BodyWithEosFn<linkerd_http_prom::record_response::ResponseBody<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>,linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::ops::function::FnOnce<(linkerd_http_body_eos::EosRef<alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,)>+Output = ()+core::marker::Send>>,linkerd_http_prom::record_response::ResponseBody<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>,linkerd_http_box::body::BoxBody>>>) .> http::response::Response<linkerd_http_box::body::BoxBody>>>>>
+     0.04%  libc.so.6                   [.] __GI___memset_generic
+     0.04%  linkerd2-proxy              [.] <linkerd_app_core::errors::respond::Respond<R> as linkerd_error_respond::Respond<http::response::Response<B>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>::respond
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::prioritize::Prioritize::queue_open
+     0.04%  linkerd2-proxy              [.] core::hash::BuildHasher::hash_one
+     0.04%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] tokio::runtime::task::core::Cell<T,S>::new
+     0.04%  linkerd2-proxy              [.] _rjem_je_tcache_gc_event_handler
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<[http::header::map::Bucket<http::header::value::HeaderValue>]>
+     0.04%  linkerd2-proxy              [.] <core::future::poll_fn::PollFn<F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::loadshed::LoadShed<S> as tower_service::Service<Req>>::poll_ready
+     0.04%  libdoca_comch.so.3.5.0098   [.] 0x0000000000016fc4
+     0.04%  linkerd2-proxy              [.] linkerd_proxy_http::server::poll_conn
+     0.04%  linkerd2-proxy              [.] http::header::map::Entry<T>::or_try_insert_with
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<hyper::client::dispatch::Callback<http::request::Request<linkerd_http_box::body::BoxBody>,http::response::Response<hyper::body::incoming::Incoming>>>
+     0.04%  linkerd2-proxy              [.] h2::share::RecvStream::poll_trailers
+     0.04%  linkerd2-proxy              [.] h2::proto::streams::send::Send::recv_connection_window_update
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),linkerd_stack::map_err::ResponseFuture<linkerd_stack::map_err::WrapFromTarget<linkerd_app_outbound::http::logical::RouterParams<linkerd_app_outbound::http::Http<linkerd_app_outbound::sidecar::HttpSidecar>>,linkerd_app_outbound::http::logical::LogicalError>,futures_util::future::try_future::ErrInto<linkerd_stack::either::vendor::Either<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>,futures_util::future::try_future::ErrInto<linkerd_stack::either::vendor::Either<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>,core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>
+     0.04%  linkerd2-proxy              [.] bytes::bytes::promotable_even_clone
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),futures_util::future::either::Either<futures_util::future::try_future::ErrInto<futures_util::future::try_future::MapOk<futures_util::future::either::Either<linkerd_error_respond::RespondFuture<linkerd_app_core::errors::respond::Respond<linkerd_app_outbound::http::server::ServerRescue>,linkerd_stack::monitor::MonitorFuture<linkerd_app_outbound::metrics::error::http::Http,futures_util::future::either::Either<futures_util::future::try_future::MapErr<tower::limit::concurrency::future::ResponseFuture<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>>,core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::server::ServerRescue,linkerd_http_box::body::BoxBody>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>,fn(http::response::Response<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::server::ServerRescue,linkerd_http_box::body::BoxBody>>) .> http::response::Response<linkerd_http_box::body::BoxBody>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>>
+     0.04%  linkerd2-proxy              [.] tracing::instrument::_::<impl core::ops::drop::Drop for tracing::instrument::Instrumented<T>>::drop
+     0.04%  libdoca_dma.so.3.5.0098     [.] 0x000000000000a080
+     0.04%  linkerd2-proxy              [.] core::ptr::drop_in_place$LT$futures_util..future..try_future..into_future..IntoFuture$LT$linkerd_stack..either..vendor..Either$LT$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$C$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$GT$$GT$::h54a3862a95c9948f
+     0.04%  libdoca_comch.so.3.5.0098   [.] priv_doca_pe_resume_ctx@plt
+     0.04%  linkerd2-proxy              [.] <linkerd_http_prom::record_response::ResponseFuture<L,F> as core::future::future::Future>::poll
+     0.04%  linkerd2-proxy              [.] <linkerd_stack::loadshed::LoadShed<S> as tower_service::Service<Req>>::call
+     0.04%  linkerd2-proxy              [.] tokio_util::sync::reusable_box::ReusableBoxFuture<T>::set
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<alloc::vec::Vec<http::header::map::ExtraValue<http::header::value::HeaderValue>>>
+     0.03%  linkerd2-proxy              [.] http::extensions::Extensions::remove
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::counts::Counts::transition
+     0.03%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::call
+     0.03%  linkerd2-proxy              [.] <linkerd_stack::map_err::ResponseFuture<W,F> as core::future::future::Future>::poll
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<tokio_util::sync::mpsc::make_acquire_future<tower::buffer::message::Message<http::request::Request<linkerd_http_box::body::BoxBody>,core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>>::{{closure}}>
+     0.03%  linkerd2-proxy              [.] _rjem_je_tcache_bin_flush_stashed
+     0.03%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.03%  linkerd2-proxy              [.] <tokio::sync::oneshot::Receiver<T> as core::ops::drop::Drop>::drop
+     0.03%  linkerd2-proxy              [.] http::extensions::Extensions::remove
+     0.03%  linkerd2-proxy              [.] tokio::runtime::scheduler::current_thread::Handle::spawn
+     0.03%  linkerd2-proxy              [.] dmesh_doca::driver::Driver::pump_tx_completions
+     0.03%  linkerd2-proxy              [.] http::extensions::Extensions::insert
+     0.03%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::call
+     0.03%  linkerd2-proxy              [.] tracing::span::Span::in_scope
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::store::VacantEntry::insert
+     0.03%  linkerd2-proxy              [.] <http::uri::Parts as core::convert::From<http::uri::Uri>>::from
+     0.03%  linkerd2-proxy              [.] linkerd_proxy_tap::service::untapped
+     0.03%  linkerd2-proxy              [.] hyper::client::dispatch::Callback<T,U>::send
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::recv::Recv::send_pending_refusal
+     0.03%  linkerd2-proxy              [.] http::uri::Uri::from_parts
+     0.03%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.03%  linkerd2-proxy              [.] h2::hpack::huffman::decode
+     0.03%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::poll_frame
+     0.03%  linkerd2-proxy              [.] std::time::Instant::now
+     0.03%  linkerd2-proxy              [.] h2::hpack::encoder::encode_not_indexed
+     0.03%  linkerd2-proxy              [.] http::header::name::HeaderName::from_lowercase
+     0.03%  linkerd2-proxy              [.] alloc::sync::Arc<T,A>::drop_slow
+     0.03%  linkerd2-proxy              [.] get_free_dma_task
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<(),alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>>
+     0.03%  linkerd2-proxy              [.] h2::hpack::decoder::Decoder::try_decode_string
+     0.03%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.03%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::poll_ready
+     0.03%  libdoca_comch.so.3.5.0098   [.] 0x00000000000149ec
+     0.03%  linkerd2-proxy              [.] <linkerd_io::either::EitherIo<L,R> as tokio::io::async_write::AsyncWrite>::poll_write
+     0.03%  libdoca_dma.so.3.5.0098     [.] 0x000000000000a0e0
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place$LT$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$::he78015fe768b4042
+     0.03%  libdoca_common.so.3.5.0098  [.] doca_buf_dec_refcount
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::state::State::send_open
+     0.03%  linkerd2-proxy              [.] h2::hpack::header::Header::new
+     0.03%  libdoca_comch.so.3.5.0098   [.] 0x0000000000017464
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<h2::frame::headers::Pseudo>
+     0.03%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.03%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::poll_ready
+     0.03%  linkerd2-proxy              [.] tokio_util::util::poll_buf::poll_read_buf
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<core::option::Option<linkerd_http_prom::record_response::ResponseState<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>>>>
+     0.03%  linkerd2-proxy              [.] _rjem_je_edata_heap_insert
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<linkerd_http_metrics::requests::service::ResponseBody<linkerd_proxy_tap::service::Body<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::endpoint::ClientRescue,linkerd_http_stream_timeouts::ResponseBody<linkerd_http_box::body::BoxBody>>>,linkerd_app_core::classify::Eos>>>
+     0.03%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::policy::route::backend::Backend<T,F> as core::clone::Clone>::clone
+     0.03%  linkerd2-proxy              [.] linkerd_app_outbound::http::logical::policy::route::filters::apply_http_request
+     0.03%  linkerd2-proxy              [.] <linkerd_stack::either::vendor::Either<A,B> as tower_service::Service<Request>>::call
+     0.03%  libc.so.6                   [.] __errno_location
+     0.03%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::poll_frame
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_metrics::requests::service::ResponseBody<linkerd_proxy_tap::service::Body<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::endpoint::ClientRescue,linkerd_http_stream_timeouts::ResponseBody<linkerd_http_box::body::BoxBody>>>,linkerd_app_core::classify::Eos>>
+     0.03%  linkerd2-proxy              [.] linkerd_proxy_tap::service::Body<B>::new
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::push_front
+     0.03%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::set_stage
+     0.03%  linkerd2-proxy              [.] drain::Watch::signaled::_$u7b$$u7b$closure$u7d$$u7d$::hf3e8b4c98301d8cf
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::poll_capacity
+     0.03%  linkerd2-proxy              [.] linkerd_http_route::http::match::path::MatchPath::match_length
+     0.03%  [kernel.kallsyms]           [k] rw_verify_area
+     0.03%  linkerd2-proxy              [.] alloc::sync::Arc<T,A>::drop_slow
+     0.03%  linkerd2-proxy              [.] put_free_dma_task
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<tracing::instrument::Instrumented<hyper::proto::h2::client::H2ClientFuture<linkerd_http_box::body::BoxBody,hyper_util::rt::tokio::TokioIo<linkerd_io::sensor::SensorIo<linkerd_io::sensor::SensorIo<linkerd_io::either::EitherIo<linkerd_io::either::EitherIo<linkerd_io::scoped::ScopedIo<tokio::net::tcp::stream::TcpStream>,dmesh_doca::io::DmeshIo>,linkerd_meshtls::client::ClientIo<linkerd_io::either::EitherIo<linkerd_io::scoped::ScopedIo<tokio::net::tcp::stream::TcpStream>,dmesh_doca::io::DmeshIo>>>,linkerd_transport_metrics::sensor::Sensor>,linkerd_transport_metrics::zone::sensor::ZoneMetricsSensor>>,hyper_util::rt::tokio::TokioExecutor>>>
+     0.03%  libc.so.6                   [.] __GI___pthread_mutex_unlock_usercnt
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<core::option::Option<linkerd_http_prom::record_response::ResponseState<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::RouteBackend>>>>
+     0.03%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::set_stage
+     0.03%  linkerd2-proxy              [.] <linkerd_io::sensor::SensorIo<T,S> as tokio::io::async_write::AsyncWrite>::poll_flush
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place$LT$futures_util..future..try_future..into_future..IntoFuture$LT$linkerd_app_outbound..http..logical..policy..route..filters..ResponseFuture$LT$linkerd_app_outbound..http..logical..policy..route..Matched$LT$linkerd_http_route..http..match..RequestMatch$C$linkerd_app_outbound..http..logical..policy..route..backend..Backend$LT$linkerd_app_outbound..http..Http$LT$linkerd_app_outbound..sidecar..HttpSidecar$GT$$C$linkerd_proxy_client_policy..http..Filter$GT$$GT$$C$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$GT$$GT$::h7237b912e824e743
+     0.03%  linkerd2-proxy              [.] <linkerd_http_box::body::Data as bytes::buf::buf_impl::Buf>::chunk
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::streams::StreamRef<B>::take_request
+     0.03%  linkerd2-proxy              [.] tokio::sync::mpsc::chan::Rx<T,S>::recv
+     0.03%  linkerd2-proxy              [.] tokio::runtime::time::<impl tokio::runtime::time::handle::Handle>::process_at_time
+     0.03%  linkerd2-proxy              [.] <linkerd_app_outbound::http::logical::policy::route::Matched<M,P> as core::cmp::PartialEq>::eq
+     0.03%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::is_end_stream
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::send::Send::send_trailers
+     0.03%  linkerd2-proxy              [.] tokio::runtime::task::core::Cell<T,S>::new
+     0.03%  linkerd2-proxy              [.] std::sys::pal::unix::time::Timespec::sub_timespec
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<hyper::client::conn::http2::SendRequest<linkerd_http_box::body::BoxBody>::send_request::{{closure}}>
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),futures_util::future::either::Either<futures_util::future::try_future::MapErr<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::either::Either<futures_util::future::try_future::MapErr<tower::util::oneshot::Oneshot<linkerd_stack::box_service::BoxCloneSyncService<http::request::Request<linkerd_http_box::body::BoxBody>,http::response::Response<linkerd_http_box::body::BoxBody>>,http::request::Request<linkerd_http_box::body::BoxBody>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>>>
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place$LT$core..option..Option$LT$alloc..boxed..Box$LT$std..collections..hash..map..HashMap$LT$core..any..TypeId$C$alloc..boxed..Box$LT$dyn$u20$http..extensions..AnyClone$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$C$core..hash..BuildHasherDefault$LT$http..extensions..IdHasher$GT$$GT$$GT$$GT$$GT$::h8612010cfe3ba3a5
+     0.03%  linkerd2-proxy              [.] tokio::runtime::io::scheduled_io::ScheduledIo::wake
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::counts::Counts::transition
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_prom::record_response::ResponseBody<linkerd_app_outbound::http::logical::policy::route::metrics::LabelHttpRsp<linkerd_app_outbound::http::logical::policy::route::metrics::labels::RouteBackend>,linkerd_http_box::body::BoxBody>>
+     0.03%  linkerd2-proxy              [.] <tracing_subscriber::layer::layered::Layered<L,S> as tracing_core::subscriber::Subscriber>::current_span
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::stream::Stream::new
+     0.03%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.03%  linkerd2-proxy              [.] core::hash::BuildHasher::hash_one
+     0.03%  linkerd2-proxy              [.] core::hash::BuildHasher::hash_one
+     0.03%  linkerd2-proxy              [.] h2::frame::ping::Ping::encode
+     0.03%  linkerd2-proxy              [.] h2::server::Peer::convert_send_message
+     0.03%  linkerd2-proxy              [.] <linkerd_stack::result::ResultService<S> as tower_service::Service<T>>::call
+     0.03%  libdoca_common.so.3.5.0098  [.] 0x0000000000098e40
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<h2::proto::streams::stream::Stream>
+     0.03%  libdoca_dma.so.3.5.0098     [.] 0x000000000000c3c0
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route>
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::send::Send::poll_capacity
+     0.03%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::poll_frame
+     0.03%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.03%  linkerd2-proxy              [.] h2::proto::streams::store::Queue<N>::push
+     0.03%  libdoca_common.so.3.5.0098  [.] 0x00000000000e4aa0
+     0.03%  linkerd2-proxy              [.] parking_lot::raw_rwlock::RawRwLock::lock_exclusive_slow
+     0.03%  libdoca_comch.so.3.5.0098   [.] 0x00000000000172e0
+     0.03%  libdoca_common.so.3.5.0098  [.] 0x0000000000098f74
+     0.03%  linkerd2-proxy              [.] tracing::instrument::_::<impl core::ops::drop::Drop for tracing::instrument::Instrumented<T>>::drop
+     0.03%  linkerd2-proxy              [.] linkerd_http_prom::record_response::_::<impl core::ops::drop::Drop for linkerd_http_prom::record_response::ResponseBody<L,B>>::drop
+     0.03%  linkerd2-proxy              [.] tokio::runtime::scheduler::current_thread::Context::park_yield
+     0.03%  linkerd2-proxy              [.] <linkerd_http_prom::record_response::ResponseBody<L,B> as http_body::Body>::poll_frame
+     0.03%  [kernel.kallsyms]           [k] vfs_write
+     0.03%  linkerd2-proxy              [.] tokio_util::util::poll_buf::poll_write_buf
+     0.03%  linkerd2-proxy              [.] core::ptr::drop_in_place<http::header::map::HeaderMap>
+     0.03%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.03%  linkerd2-proxy              [.] dispatch_main
+     0.03%  linkerd2-proxy              [.] <linkerd_http_box::body::Inner<B> as http_body::Body>::poll_frame
+     0.03%  linkerd2-proxy              [.] <tokio::sync::batch_semaphore::Acquire as core::ops::drop::Drop>::drop
+     0.03%  linkerd2-proxy              [.] <tower::buffer::service::Buffer<Req,F> as tower_service::Service<Req>>::poll_ready
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<futures_util::future::either::Either<futures_util::future::try_future::MapErr<tower::limit::concurrency::future::ResponseFuture<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>,fn(alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>) .> alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,futures_util::future::ready::Ready<core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>>
+     0.02%  linkerd2-proxy              [.] tokio_util::util::poll_buf::poll_write_buf
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_proxy_tap::service::Body<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::endpoint::ClientRescue,linkerd_http_stream_timeouts::ResponseBody<linkerd_http_box::body::BoxBody>>>>
+     0.02%  linkerd2-proxy              [.] _ZN4core3ptr1399drop_in_place$LT$linkerd_http_prom..record_response..ResponseFuture$LT$linkerd_app_outbound..http..logical..policy..route..metrics..LabelHttpRsp$LT$linkerd_app_outbound..http..logical..policy..route..metrics..labels..RouteBackend$GT$$C$futures_util..future..either..Either$LT$futures_util..future..ready..Ready$LT$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$C$futures_util..future..try_future..ErrInto$LT$linkerd_app_outbound..http..logical..policy..route..filters..ResponseFuture$LT$linkerd_app_outbound..http..logical..policy..route..Matched$LT$linkerd_http_route..http..match..RequestMatch$C$linkerd_app_outbound..http..logical..policy..route..backend..Backend$LT$linkerd_app_outbound..http..Http$LT$linkerd_app_outbound..sidecar..HttpSidecar$GT$$C$linkerd_proxy_client_policy..http..Filter$GT$$GT$$C$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$GT$$GT$17h321eb68e0d4d686aE.llvm.6858097957147977812
+     0.02%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.02%  linkerd2-proxy              [.] tokio::runtime::metrics::batch::MetricsBatch::end_poll
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_stack::map_err::ResponseFuture<(),futures_util::future::try_future::ErrInto<linkerd_stack::either::vendor::Either<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>,core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<linkerd_http_box::body::BoxBody>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>+core::marker::Send>>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>>>
+     0.02%  libc.so.6                   [.] epoll_wait
+     0.02%  libdoca_comch.so.3.5.0098   [.] priv_doca_cq_datapath_objects_get@plt
+     0.02%  linkerd2-proxy              [.] h2::hpack::header::Header::value_slice
+     0.02%  linkerd2-proxy              [.] <tower::util::map_future::MapFuture<S,F> as tower_service::Service<R>>::poll_ready
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<core::option::Option<linkerd_http_stream_timeouts::Idle>>
+     0.02%  linkerd2-proxy              [.] hyper::proto::h2::ping::Recorder::record_non_data
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::endpoint::ClientRescue,linkerd_http_stream_timeouts::ResponseBody<linkerd_http_box::body::BoxBody>>>
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<linkerd_app_core::errors::body::ResponseBody<linkerd_app_outbound::http::server::ServerRescue,linkerd_http_box::body::BoxBody>>>
+     0.02%  linkerd2-proxy              [.] hyper::proto::h2::ping::Recorder::record_data
+     0.02%  linkerd2-proxy              [.] <linkerd_distribute::service::Distribute<K,S> as tower_service::Service<Req>>::call
+     0.02%  linkerd2-proxy              [.] __aarch64_ldadd8_relax
+     0.02%  [kernel.kallsyms]           [k] do_epoll_pwait.part.0
+     0.02%  [kernel.kallsyms]           [k] pfn_is_map_memory
+     0.02%  linkerd2-proxy              [.] alloc::sync::Arc<T,A>::drop_slow
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<futures_util::future::try_future::MapOk<futures_util::future::try_future::ErrInto<core::pin::Pin<alloc::boxed::Box<dyn core::future::future::Future+Output = core::result::Result<http::response::Response<hyper::body::incoming::Incoming>,hyper::error::Error>+core::marker::Send>>,alloc::boxed::Box<dyn core::error::Error+core::marker::Sync+core::marker::Send>>,<linkerd_proxy_http::client::Client<linkerd_stack::map_target::MapTargetService<linkerd_stack::connect::MakeConnectionService<linkerd_transport_metrics::zone::client::ZoneMetricsClient<linkerd_transport_metrics::zone::TcpZoneMetricsParams<linkerd_app_outbound::zone::TcpZoneOpLabel>,linkerd_transport_metrics::client::Client<linkerd_app_core::transport::Metrics,linkerd_stack::box_future::BoxFuture<linkerd_stack::map_err::MapErr<linkerd_app_core::svc::Stack<linkerd_app_outbound::tcp::tagged_transport::TaggedTransport<linkerd_tls::client::Client<linkerd_meshtls::client::NewClient,linkerd_app_outbound::tcp::connect::DmeshOrTcp>>>::push_connect_timeout::{{closure}},linkerd_stack::timeout::Timeout<linkerd_app_outbound::tcp::tagged_transport::TaggedTransport<linkerd_tls::client::Client<linkerd_meshtls::client::NewClient,linkerd_app_outbound::tcp::connect::DmeshOrTcp>>>>>>>>,linkerd_app_outbound::http::endpoint::<impl linkerd_app_outbound::Outbound<linkerd_transport_metrics::zone::client::ZoneMetricsClient<linkerd_transport_metrics::zone::TcpZoneMetricsParams<linkerd_app_outbound::zone::TcpZoneOpLabel>,linkerd_transport_metrics::client::Client<linkerd_app_core::transport::Metrics,linkerd_stack::box_future::BoxFuture<linkerd_stack::map_err::MapErr<linkerd_app_core::svc::Stack<linkerd_app_outbound::tcp::tagged_transport::TaggedTransport<linkerd_tls::client::Client<linkerd_meshtls::client::NewClient,linkerd_app_outbound::tcp::connect::DmeshOrTcp>>>::push_connect_timeout::{{closure}},linkerd_stack::timeout::Timeout<linkerd_app_outbound::tcp::tagged_transport::TaggedTransport<linkerd_tls::client::Client<linkerd_meshtls::client::NewClient,linkerd_app_outbound::tcp::connect::DmeshOrTcp>>>>>>>>>::push_http_tcp_client<linkerd_app_outbound::http::concrete::Endpoint<linkerd_app_outbound::http::logical::Concrete<linkerd_app_outbound::http::Http<linkerd_app_gateway::http::Target>>>,linkerd_http_box::body::BoxBody>::{{closure}}::{{closure}}>,linkerd_app_outbound::http::concrete::Endpoint<linkerd_app_outbound::http::logical::Concrete<linkerd_app_outbound::http::Http<linkerd_app_gateway::http::Target>>>,linkerd_http_box::body::BoxBody> as tower_service::Service<http::request::Request<linkerd_http_box::body::BoxBody>>>::call::{{closure}}::{{closure}}>>
+     0.02%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.02%  linkerd2-proxy              [.] <linkerd_stack::result::ResultService<S> as tower_service::Service<T>>::poll_ready
+     0.02%  linkerd2-proxy              [.] h2::client::SendRequest<B>::send_request
+     0.02%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::call
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<hyper::body::incoming::Incoming>>
+     0.02%  linkerd2-proxy              [.] h2::proto::streams::store::OccupiedEntry::key
+     0.02%  linkerd2-proxy              [.] tokio::runtime::scheduler::defer::Defer::defer
+     0.02%  linkerd2-proxy              [.] tokio::runtime::task::raw::poll
+     0.02%  [kernel.kallsyms]           [k] __arm64_sys_read
+     0.02%  linkerd2-proxy              [.] _ZN4core3ptr1788drop_in_place$LT$futures_util..future..either..Either$LT$futures_util..future..ready..Ready$LT$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$C$futures_util..future..try_future..ErrInto$LT$linkerd_app_outbound..http..logical..policy..route..filters..ResponseFuture$LT$linkerd_app_outbound..http..logical..policy..route..Matched$LT$linkerd_http_route..http..match..RequestMatch$C$alloc..sync..Arc$LT$linkerd_app_outbound..http..logical..policy..route..Route$LT$linkerd_app_outbound..http..Http$LT$linkerd_app_outbound..sidecar..HttpSidecar$GT$$C$linkerd_proxy_client_policy..http..Filter$C$linkerd_proxy_client_policy..http..RouteParams$GT$$GT$$GT$$C$futures_util..future..either..Either$LT$futures_util..future..try_future..MapErr$LT$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$C$fn$LP$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$RP$$u20$.$GT$$u20$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$C$futures_util..future..ready..Ready$LT$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$GT$$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$GT$17hd519db800f5be8bcE.llvm.6858097957147977812
+     0.02%  linkerd2-proxy              [.] tokio::runtime::task::harness::Harness<T,S>::poll
+     0.02%  linkerd2-proxy              [.] h2::proto::streams::flow_control::FlowControl::inc_window
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place$LT$linkerd_http_box..body..Inner$LT$http_body_util..either..Either$LT$linkerd_http_body_eos..BodyWithEosFn$LT$linkerd_http_prom..record_response..ResponseBody$LT$linkerd_app_outbound..http..logical..policy..route..metrics..LabelHttpRsp$LT$linkerd_app_outbound..http..logical..policy..route..metrics..labels..Route$GT$$C$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..ops..function..FnOnce$LT$$LP$linkerd_http_body_eos..EosRef$LT$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$C$$RP$$GT$$u2b$Output$u20$$u3d$$u20$$LP$$RP$$u2b$core..marker..Send$GT$$GT$$C$linkerd_http_prom..record_response..ResponseBody$LT$linkerd_app_outbound..http..logical..policy..route..metrics..LabelHttpRsp$LT$linkerd_app_outbound..http..logical..policy..route..metrics..labels..Route$GT$$C$linkerd_http_box..body..BoxBody$GT$$GT$$GT$$GT$::ha107aacebe02fd5a
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place$LT$linkerd_app_outbound..http..dmesh_pool..run$LT$$LT$linkerd_app_outbound..http..dmesh_pool..NewPool$LT$linkerd_app_outbound..http..concrete..Endpoint$LT$linkerd_app_outbound..http..logical..Concrete$LT$linkerd_app_outbound..http..Http$LT$linkerd_app_outbound..ingress..Http$LT$linkerd_app_outbound..ingress..Logical$GT$$GT$$GT$$GT$$GT$$u20$as$u20$linkerd_stack..new_service..NewService$LT$linkerd_app_outbound..http..concrete..Endpoint$LT$linkerd_app_outbound..http..logical..Concrete$LT$linkerd_app_outbound..http..Http$LT$linkerd_app_outbound..ingress..Http$LT$linkerd_app_outbound..ingress..Logical$GT$$GT$$GT$$GT$$GT$$GT$..new_service..$u7b$$u7b$closure$u7d$$u7d$..$u7b$$u7b$closure$u7d$$u7d$$GT$..$u7b$$u7b$closure$u7d$$u7d$..$u7b$$u7b$closure$u7d$$u7d$$GT$::h346be8f05d588326
+     0.02%  linkerd2-proxy              [.] _rjem_je_tcache_gc_dalloc_event_handler
+     0.02%  linkerd2-proxy              [.] tokio::runtime::time::wheel::Wheel::next_expiration
+     0.02%  linkerd2-proxy              [.] tokio::runtime::task::core::Core<T,S>::poll
+     0.02%  linkerd2-proxy              [.] _ZN4core3ptr3445drop_in_place$LT$futures_util..future..try_future..into_future..IntoFuture$LT$tracing..instrument..Instrumented$LT$futures_util..future..either..Either$LT$futures_util..future..ready..Ready$LT$core..result..Result$LT$http..response..Response$LT$linkerd_http_metrics..requests..service..ResponseBody$LT$linkerd_proxy_tap..service..Body$LT$linkerd_app_core..errors..body..ResponseBody$LT$linkerd_app_outbound..http..endpoint..ClientRescue$C$linkerd_http_stream_timeouts..ResponseBody$LT$linkerd_http_box..body..BoxBody$GT$$GT$$GT$$C$linkerd_app_core..classify..Eos$GT$$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$C$futures_util..future..try_future..MapErr$LT$futures_util..future..either..Either$LT$linkerd_http_metrics..requests..service..ResponseFuture$LT$futures_util..future..either..Either$LT$futures_util..future..try_future..MapOk$LT$linkerd_error_respond..RespondFuture$LT$linkerd_app_core..errors..respond..Respond$LT$linkerd_app_outbound..http..endpoint..ClientRescue$GT$$C$linkerd_http_stream_timeouts..ResponseFuture$LT$linkerd_app_outbound..http..handle_proxy_error_headers..ResponseFuture$LT$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_box..body..BoxBody$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$GT$$GT$$C$fn$LP$http..response..Response$LT$linkerd_app_core..errors..body..ResponseBody$LT$linkerd_app_outbound..http..endpoint..ClientRescue$C$linkerd_http_stream_timeouts..ResponseBody$LT$linkerd_http_box..body..BoxBody$GT$$GT$$GT$$RP$$u20$.$GT$$u20$http..response..Response$LT$linkerd_proxy_tap..service..Body$LT$linkerd_app_core..errors..body..ResponseBody$LT$linkerd_app_outbound..http..endpoint..ClientRescue$C$linkerd_http_stream_timeouts..ResponseBody$LT$linkerd_http_box..body..BoxBody$GT$$GT$$GT$$GT$$GT$$C$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_proxy_tap..service..Body$LT$linkerd_app_core..errors..body..ResponseBody$LT$linkerd_app_outbound..http..endpoint..ClientRescue$C$linkerd_http_stream_timeouts..ResponseBody$LT$linkerd_http_box..body..BoxBody$GT$$GT$$GT$$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$C$linkerd_app_core..classify..Response$GT$$C$core..pin..Pin$LT$alloc..boxed..Box$LT$dyn$u20$core..future..future..Future$u2b$Output$u20$$u3d$$u20$core..result..Result$LT$http..response..Response$LT$linkerd_http_metrics..requests..service..ResponseBody$LT$linkerd_proxy_tap..service..Body$LT$linkerd_app_core..errors..body..ResponseBody$LT$linkerd_app_outbound..http..endpoint..ClientRescue$C$linkerd_http_stream_timeouts..ResponseBody$LT$linkerd_http_box..body..BoxBody$GT$$GT$$GT$$C$linkerd_app_core..classify..Eos$GT$$GT$$C$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$u2b$core..marker..Send$GT$$GT$$GT$$C$fn$LP$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$RP$$u20$.$GT$$u20$alloc..boxed..Box$LT$dyn$u20$core..error..Error$u2b$core..marker..Sync$u2b$core..marker..Send$GT$$GT$$GT$$GT$$GT$$GT$17hbfc07a623874b30aE.llvm.6858097957147977812
+     0.02%  linkerd2-proxy              [.] <futures_util::future::future::map::Map<Fut,F> as core::future::future::Future>::poll
+     0.02%  linkerd2-proxy              [.] linkerd_app_outbound::http::logical::policy::route::metrics::labels::Route::new
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<tracing::span::EnteredSpan>
+     0.02%  linkerd2-proxy              [.] http::extensions::Extensions::remove
+     0.02%  libc.so.6                   [.] __aarch64_swp4_rel
+     0.02%  linkerd2-proxy              [.] core::ops::function::FnOnce::call_once{{vtable.shim}}
+     0.02%  linkerd2-proxy              [.] linkerd_http_prom::record_response::_::<impl core::ops::drop::Drop for linkerd_http_prom::record_response::ResponseBody<L,B>>::drop
+     0.02%  linkerd2-proxy              [.] std::time::Instant::elapsed
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<linkerd_http_box::body::Inner<linkerd_http_stream_timeouts::RequestBody<linkerd_http_metrics::requests::service::RequestBody<linkerd_http_box::body::BoxBody,linkerd_app_core::classify::Class>>>>
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<core::option::Option<h2::proto::error::Error>>
+     0.02%  linkerd2-proxy              [.] h2::proto::streams::streams::OpaqueStreamRef::new
+     0.02%  linkerd2-proxy              [.] linkerd_http_stream_timeouts::poll_body_timeout
+     0.02%  linkerd2-proxy              [.] <hyper::client::dispatch::Callback<T,U> as core::ops::drop::Drop>::drop
+     0.02%  libdoca_common.so.3.5.0098  [.] 0x0000000000098c98
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<tokio_util::sync::mpsc::State<linkerd_app_outbound::http::dmesh_pool::Message>>
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<h2::share::RecvStream>
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<std::sync::poison::mutex::MutexGuard<h2::proto::streams::streams::Inner>>
+     0.02%  libdoca_comch.so.3.5.0098   [.] 0x0000000000014a60
+     0.02%  linkerd2-proxy              [.] <linkerd_stack::box_future::BoxFuture<T> as tower_service::Service<R>>::poll_ready
+     0.02%  libdoca_comch.so.3.5.0098   [.] 0x00000000000149e0
+     0.02%  linkerd2-proxy              [.] tokio::runtime::context::defer
+     0.02%  linkerd2-proxy              [.] <linkerd_stack::either::vendor::Either<A,B> as core::future::future::Future>::poll
+     0.02%  linkerd2-proxy              [.] tokio::runtime::scheduler::current_thread::Context::park_internal
+     0.02%  linkerd2-proxy              [.] <T as core::any::Any>::type_id
+     0.02%  linkerd2-proxy              [.] <linkerd_http_box::body::Data as bytes::buf::buf_impl::Buf>::advance
+     0.02%  libdoca_common.so.3.5.0098  [.] __errno_location@plt
+     0.02%  linkerd2-proxy              [.] tokio_util::util::poll_buf::poll_read_buf
+     0.02%  linkerd2-proxy              [.] core::ptr::drop_in_place<tokio::time::sleep::Sleep>

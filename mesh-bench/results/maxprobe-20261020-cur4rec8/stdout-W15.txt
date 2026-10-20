@@ -1,0 +1,31 @@
+[12:08:58] start max probe run {"cfgs": ["G1-default+W15"], "start": {"dpumesh": 5188, "nosidecar": 5188}, "step": 1.03, "proxy_env": "W=15 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "SHARD_BASE=1 MAIN_CPUS=0 MOCK_CPUS=0", "irq_cpus": "0"}
+[12:08:59] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[12:08:59] == G1-default+W15 {"knobs": {}, "extra_env": "", "proxy_env": "W=15 DMESH_DPA_MUX=8 DMESH_BUSY_POLL=0", "start_env": "SHARD_BASE=1 MAIN_CPUS=0 MOCK_CPUS=0", "irq_cpus": "0"}
+[12:09:34] dpu proxy: proxy 1220671: 17 shards pinned from CPU 1, 15 DPA pools and 15 mux workers ready after 32 s
+[12:10:42]   G1-default+W15 max-step 5188: 5180 req/s p50 37.1 p99 69 ms drop 0 | host 27.4 IPC 0.83 jet1 2.0 | dpu 14.7 per-cpu 43 99 97 86 89 90 87 86 98 97 94 96 98 98 97 98 | top threads dmesh-shard-0:0.99 dmesh-shard-1:0.96 dmesh-shard-7:0.95 dmesh-shard-8:0.93 pass
+[12:10:58]   G1-default+W15 max-step 5344: 5352 req/s p50 38.9 p99 74 ms drop 0 | host 27.5 IPC 0.83 jet1 1.9 | dpu 14.7 per-cpu 34 99 97 88 90 91 87 86 98 97 95 96 98 98 97 98 | top threads dmesh-shard-0:0.98 dmesh-shard-7:0.97 dmesh-shard-1:0.97 dmesh-shard-8:0.97 pass
+[12:11:15]   G1-default+W15 max-step 5504: 5506 req/s p50 41.1 p99 77 ms drop 0 | host 27.7 IPC 0.83 jet1 1.9 | dpu 14.7 per-cpu 34 98 97 89 90 92 88 87 98 97 96 97 97 98 98 98 | top threads dmesh-shard-0:0.98 dmesh-shard-7:0.98 dmesh-shard-1:0.98 dmesh-shard-12:0.97 pass
+[12:11:31]   G1-default+W15 max-step 5669: 5669 req/s p50 45.6 p99 120 ms drop 0 | host 27.9 IPC 0.84 jet1 2.0 | dpu 14.9 per-cpu 68 98 97 89 91 92 88 88 97 97 95 97 97 98 96 98 | top threads dmesh-shard-0:0.97 dmesh-shard-7:0.95 dmesh-shard-12:0.95 dmesh-shard-11:0.95 pass
+[12:11:51]   G1-default+W15 max-step 5839: 5864 req/s p50 46.4 p99 86 ms drop 0 | host 28.2 IPC 0.88 jet1 2.2 | dpu 14.9 per-cpu 43 98 98 90 92 93 90 88 98 97 96 97 97 98 97 98 | top threads dmesh-shard-0:0.98 dmesh-shard-1:0.97 dmesh-shard-7:0.97 dmesh-shard-8:0.97 pass
+[12:12:07]   G1-default+W15 max-step 6014: 6027 req/s p50 48.5 p99 88 ms drop 0 | host 28.4 IPC 0.86 jet1 2.3 | dpu 14.9 per-cpu 32 99 97 91 93 94 91 90 98 98 97 97 98 98 97 98 | top threads dmesh-shard-0:0.98 dmesh-shard-7:0.98 dmesh-shard-12:0.98 dmesh-shard-11:0.97 pass
+[12:12:23]   G1-default+W15 max-step 6194: 6206 req/s p50 52.5 p99 96 ms drop 0 | host 28.5 IPC 0.86 jet1 2.3 | dpu 14.9 per-cpu 34 99 97 92 93 94 90 90 98 97 97 97 97 98 97 97 | top threads dmesh-shard-0:0.99 dmesh-shard-7:0.98 dmesh-shard-12:0.98 dmesh-shard-8:0.97 pass
+[12:12:40]   G1-default+W15 max-step 6380: 6375 req/s p50 58.3 p99 139 ms drop 0 | host 28.7 IPC 0.87 jet1 2.4 | dpu 15.3 per-cpu 88 98 97 92 94 95 92 90 98 98 97 97 97 98 97 97 | top threads dmesh-shard-0:0.97 dmesh-shard-8:0.97 dmesh-shard-7:0.96 dmesh-shard-1:0.96 pass
+[12:12:59]   G1-default+W15 max-step 6571: 6577 req/s p50 58.5 p99 107 ms drop 0 | host 29.0 IPC 0.89 jet1 2.4 | dpu 15.0 per-cpu 37 99 98 93 95 95 92 91 98 99 97 98 98 98 98 98 | top threads dmesh-shard-8:0.99 dmesh-shard-12:0.98 dmesh-shard-7:0.98 dmesh-shard-14:0.98 pass
+[12:13:16]   G1-default+W15 max-step 6768: 6751 req/s p50 62.8 p99 112 ms drop 0 | host 29.2 IPC 0.88 jet1 2.5 | dpu 15.0 per-cpu 31 98 98 93 95 95 92 91 98 98 97 98 98 98 97 98 | top threads dmesh-shard-7:0.98 dmesh-shard-12:0.98 dmesh-shard-0:0.98 dmesh-shard-1:0.98 pass
+[12:13:35]   G1-default+W15 max-step 6971: 6972 req/s p50 68.4 p99 125 ms drop 0 | host 29.5 IPC 0.88 jet1 2.6 | dpu 15.0 per-cpu 33 99 98 93 95 95 92 92 98 98 97 98 97 97 98 98 | top threads dmesh-shard-0:0.98 dmesh-shard-7:0.98 dmesh-shard-14:0.98 dmesh-shard-13:0.98 pass
+[12:13:53]   G1-default+W15 max-step 7180: 7171 req/s p50 73.8 p99 132 ms drop 0 | host 29.8 IPC 0.89 jet1 2.6 | dpu 13.8 per-cpu 39 94 89 86 88 87 85 84 91 90 89 90 90 90 90 90 | top threads dmesh-shard-0:0.90 dmesh-shard-1:0.88 dmesh-shard-7:0.88 dmesh-shard-8:0.87 pass
+[12:14:13]   G1-default+W15 max-step 7395: 7394 req/s p50 80.8 p99 151 ms drop 0 | host 30.0 IPC 0.90 jet1 2.7 | dpu 15.0 per-cpu 33 98 98 94 96 95 93 92 98 97 97 98 97 97 97 98 | top threads dmesh-shard-0:0.98 dmesh-shard-7:0.98 dmesh-shard-14:0.97 dmesh-shard-10:0.97 pass
+[12:14:33]   G1-default+W15 max-step 7617: 7630 req/s p50 90.6 p99 192 ms drop 0 | host 30.3 IPC 0.91 jet1 2.8 | dpu 14.9 per-cpu 31 98 97 94 95 96 92 92 98 97 97 97 98 97 97 97 | top threads dmesh-shard-11:0.98 dmesh-shard-0:0.98 dmesh-shard-7:0.98 dmesh-shard-12:0.98 pass
+[12:14:53]   G1-default+W15 max-step 7846: 7863 req/s p50 132.1 p99 298 ms drop 0 | host 30.3 IPC 0.92 jet1 2.8 | dpu 15.0 per-cpu 77 97 96 92 94 93 90 90 97 96 96 96 95 97 95 96 | top threads dmesh-shard-12:0.97 dmesh-shard-7:0.97 dmesh-shard-0:0.96 dmesh-shard-14:0.96 pass
+[12:15:11]   G1-default+W15 max-step 8081: 8096 req/s p50 137.5 p99 267 ms drop 0 | host 30.7 IPC 0.92 jet1 2.9 | dpu 14.9 per-cpu 35 98 97 94 95 95 92 91 98 97 97 98 98 97 97 98 | top threads dmesh-shard-7:0.98 dmesh-shard-11:0.98 dmesh-shard-14:0.98 dmesh-shard-10:0.97 pass
+[12:15:31]   G1-default+W15 max-step 8323: 8321 req/s p50 204.4 p99 549 ms drop 0 | host 30.9 IPC 0.93 jet1 2.7 | dpu 14.9 per-cpu 27 98 97 94 95 95 93 91 98 98 97 97 97 98 97 98 | top threads dmesh-shard-8:0.98 dmesh-shard-0:0.98 dmesh-shard-12:0.98 dmesh-shard-7:0.98 pass
+[12:15:51]   G1-default+W15 max-step 8573: 8438 req/s p50 405.9 p99 778 ms drop 758 | host 31.0 IPC 0.93 jet1 3.0 | dpu 14.8 per-cpu 26 98 97 93 95 95 91 91 98 97 97 98 97 97 98 98 | top threads dmesh-shard-14:0.98 dmesh-shard-7:0.98 dmesh-shard-13:0.98 dmesh-shard-12:0.98 FAIL
+[12:15:51]   G1-default+W15 max: 8321 req/s
+[12:16:08] dpu stop: proxy 1220671 stopped
+[12:16:09] dpu irq restore: 
+[12:16:13] flow_check exit 1:  16            8
+    14       9        8         17            8
+DOCA ERR x20: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 134 client + 116 backend opens on 15 workers (worker 0: 18, highest slot 18); DPA: mux 8-8 threads/worker, 250 ring adds; errors: mux ring stopped x20
+[12:16:13] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[12:16:13] done

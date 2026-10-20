@@ -1,0 +1,38 @@
+[14:30:03] start wake run {"cfgs": ["W1-dpumesh", "V1-watcher", "V3-watcher-doorbell"], "rate": 1500}
+[14:30:03] cpu fix: smt=on no_turbo=1 gov=performance min=2300000 max=2300000
+[14:30:03] == W1-dpumesh {"knobs": {}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME"}
+[14:30:38] dpu proxy: proxy 435721: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 32 s
+[14:32:05]   W1-dpumesh latency1: 66 req/s  avg 15.13 p50 17.00 p90 22.01 p99 28.44 ms  fail 0.0000
+[14:32:42]   W1-dpumesh r1500: 1495 rps p50 13.9 p99 26.3 ms fail 0.0000 drop 0 | app 15.73 host 19.60 outside 3.87 cores | wait files 23
+[14:32:45]   perf script 3 s
+[14:33:02] dpu stop: proxy 435721 stopped
+[14:33:02] dpu irq restore: 
+[14:33:04] flow_check exit 0: 14            8
+    11       7        5         12            8
+    12       6        6         12            8
+    13       6        6         12            8
+flows: 101 client + 77 backend opens on 14 workers (worker 2: 14, highest slot 14); DPA: mux 8-8 threads/worker, 178 ring adds; errors: none
+[14:33:04] == V1-watcher {"knobs": {"DPUMESH_WATCHER": "1"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_WATCHER=1"}
+[14:33:39] dpu proxy: proxy 440096: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 31 s
+[14:35:11]   V1-watcher latency1: 59 req/s  avg 16.83 p50 18.84 p90 24.36 p99 32.79 ms  fail 0.0000
+[14:36:07]   V1-watcher r1500: 1503 rps p50 16.3 p99 225.7 ms fail 0.0000 drop 0 | app 14.43 host 18.17 outside 3.74 cores | wait files 23
+[14:36:10]   perf script 3 s
+[14:36:26] dpu stop: proxy 440096 stopped
+[14:36:27] dpu irq restore: 
+[14:36:29] flow_check exit 1:   13            8
+    13       7        6         13            8
+DOCA ERR x12: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 85 backend opens on 14 workers (worker 1: 14, highest slot 14); DPA: mux 8-8 threads/worker, 186 ring adds; errors: mux ring stopped x12
+[14:36:29] == V3-watcher-doorbell {"knobs": {"DPUMESH_WATCHER": "1", "DPUMESH_NAP_US": "0", "DPUMESH_LINGER_US": "0"}, "extra_env": "DPUMESH_WAIT_STATS=/tmp/dmesh-wait/$HOSTNAME,DPUMESH_WATCHER=1,DPUMESH_NAP_US=0,DPUMESH_LINGER_US=0"}
+[14:37:04] dpu proxy: proxy 444805: 16 shards pinned from CPU 2, 14 DPA pools and 14 mux workers ready after 32 s
+[14:38:46]   V3-watcher-doorbell latency1: 58 req/s  avg 17.08 p50 19.74 p90 25.33 p99 32.40 ms  fail 0.0000
+[14:39:23]   V3-watcher-doorbell r1500: 1507 rps p50 24.4 p99 56.2 ms fail 0.0000 drop 0 | app 11.08 host 14.13 outside 3.05 cores | wait files 23
+[14:39:27]   perf script 3 s
+[14:39:43] dpu stop: proxy 444805 stopped
+[14:39:43] dpu irq restore: 
+[14:39:45] flow_check exit 1:     13            8
+    13       8        6         14            8
+DOCA ERR x6: DPA mux thread N ring N (slot N): forward ring stopped, error N
+flows: 101 client + 82 backend opens on 14 workers (worker 6: 14, highest slot 14); DPA: mux 8-8 threads/worker, 183 ring adds; errors: mux ring stopped x6
+[14:39:45] cpu restore: smt=on no_turbo=0 gov=powersave min=800000 max=3800000
+[14:39:45] done

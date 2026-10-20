@@ -1,0 +1,8159 @@
+{
+ "offered": 5188,
+ "achieved": 5192.4375,
+ "drop": 0,
+ "fail": 0,
+ "p50": 39.210613,
+ "p99": 80.11661318000002,
+ "pass": true,
+ "dt": 7.999918699264526,
+ "psi_some": 0.5519777345244727,
+ "sched": {
+  "0": {
+   "run": 0.980253051536755,
+   "wait": 2.0259494896479424
+  },
+  "1": {
+   "run": 0.8283344845253512,
+   "wait": 0.9983523960980081
+  },
+  "2": {
+   "run": 0.8340497553573165,
+   "wait": 1.041181921356996
+  },
+  "3": {
+   "run": 0.820084340682506,
+   "wait": 1.0166110639033983
+  },
+  "4": {
+   "run": 0.8322776864735035,
+   "wait": 1.0600260612373
+  },
+  "5": {
+   "run": 0.8272358994858797,
+   "wait": 1.0593610032285867
+  },
+  "6": {
+   "run": 0.8302702736979867,
+   "wait": 1.0314412762417946
+  },
+  "7": {
+   "run": 0.8222424764897596,
+   "wait": 1.0206335691574777
+  },
+  "8": {
+   "run": 0.8227270410391914,
+   "wait": 0.9857391597898345
+  },
+  "9": {
+   "run": 0.8339278923688727,
+   "wait": 0.9684417521283389
+  },
+  "10": {
+   "run": 0.8296072032094719,
+   "wait": 1.0240218873415727
+  },
+  "11": {
+   "run": 0.8288812915823283,
+   "wait": 1.064613176729283
+  },
+  "12": {
+   "run": 0.8318157849043863,
+   "wait": 1.0707869824711513
+  },
+  "13": {
+   "run": 0.8249663969218513,
+   "wait": 1.0173102068835032
+  },
+  "14": {
+   "run": 0.8285645051129567,
+   "wait": 1.1124966469744513
+  },
+  "15": {
+   "run": 0.8307704722813007,
+   "wait": 1.059986313583361
+  },
+  "16": {
+   "run": 0.8923137249702642,
+   "wait": 1.0425945248377089
+  },
+  "17": {
+   "run": 0.8299966949177172,
+   "wait": 1.0281600403959337
+  },
+  "18": {
+   "run": 0.8362618722131574,
+   "wait": 1.0524828424536457
+  },
+  "19": {
+   "run": 0.8351920182156679,
+   "wait": 1.06003546533287
+  },
+  "20": {
+   "run": 0.8307982640637374,
+   "wait": 1.0675899553560693
+  },
+  "21": {
+   "run": 0.8263009436093048,
+   "wait": 1.0542150461823252
+  },
+  "22": {
+   "run": 0.8236201773657714,
+   "wait": 1.0085539726474677
+  },
+  "23": {
+   "run": 0.8322752106983433,
+   "wait": 1.0694567810778575
+  },
+  "24": {
+   "run": 0.826033856645009,
+   "wait": 1.0219116357709472
+  },
+  "25": {
+   "run": 0.8311424733117955,
+   "wait": 1.0246977635852272
+  },
+  "26": {
+   "run": 0.8327214794835909,
+   "wait": 1.0909589900960333
+  },
+  "27": {
+   "run": 0.8327489182624399,
+   "wait": 1.0740608682423165
+  },
+  "28": {
+   "run": 0.8162859214557213,
+   "wait": 1.0072013059008675
+  },
+  "29": {
+   "run": 0.8255776011332704,
+   "wait": 1.03701942755527
+  },
+  "30": {
+   "run": 0.8270906150094129,
+   "wait": 1.0865005394116183
+  },
+  "31": {
+   "run": 0.8313497371681334,
+   "wait": 1.1129840919281555
+  }
+ },
+ "run_cores": 26.735718064192753,
+ "wait_tasks": 34.39537615754731,
+ "pods": {
+  "adservice/server": {
+   "cores": 0.9960537474877802,
+   "some": 0.03771025823396616,
+   "full": 0.02788390837278232
+  },
+  "cartservice/server": {
+   "cores": 1.4823134391466006,
+   "some": 0.07284486529264046,
+   "full": 0.0425960578863543
+  },
+  "checkoutservice/server": {
+   "cores": 0.5429460177388207,
+   "some": 0.028894043638374826,
+   "full": 0.020536083699838566
+  },
+  "currencyservice-1/server": {
+   "cores": 0.8566747060354578,
+   "some": 0.030686186851194987,
+   "full": 0.02775528206560565
+  },
+  "currencyservice-2/server": {
+   "cores": 0.7899235276704709,
+   "some": 0.025662885801436254,
+   "full": 0.022106599660351403
+  },
+  "currencyservice-3/server": {
+   "cores": 0.7916809205301375,
+   "some": 0.027004274433421547,
+   "full": 0.023878367666106647
+  },
+  "currencyservice-4/server": {
+   "cores": 0.7980443601991781,
+   "some": 0.02663814571260476,
+   "full": 0.023874742629266876
+  },
+  "emailservice/server": {
+   "cores": 0.17919294606478836,
+   "some": 0.009821099807829692,
+   "full": 0.0067418185143504564
+  },
+  "frontend-1/server": {
+   "cores": 1.4269283762908076,
+   "some": 0.05041801237768592,
+   "full": 0.029204296791351017
+  },
+  "frontend-2/server": {
+   "cores": 1.412953609270953,
+   "some": 0.04956237868222983,
+   "full": 0.02892691897247343
+  },
+  "frontend-3/server": {
+   "cores": 1.417572281208631,
+   "some": 0.050260135773250426,
+   "full": 0.029583300643012504
+  },
+  "frontend-4/server": {
+   "cores": 1.4068972977231302,
+   "some": 0.051380897163091084,
+   "full": 0.0301215561130832
+  },
+  "frontend-5/server": {
+   "cores": 1.4198584294418228,
+   "some": 0.051274521082034376,
+   "full": 0.030029805180655917
+  },
+  "frontend-6/server": {
+   "cores": 1.4226279575874072,
+   "some": 0.051333771684174065,
+   "full": 0.0305419353852262
+  },
+  "paymentservice/server": {
+   "cores": 0.17391126738924323,
+   "some": 0.007643827681101539,
+   "full": 0.00523555320679079
+  },
+  "productcatalogservice-1/server": {
+   "cores": 0.9895865567643599,
+   "some": 0.043098062988027305,
+   "full": 0.0281609111878489
+  },
+  "productcatalogservice-2/server": {
+   "cores": 0.9663784459097998,
+   "some": 0.04316931371211934,
+   "full": 0.02848078943864103
+  },
+  "productcatalogservice-3/server": {
+   "cores": 0.9616683980435053,
+   "some": 0.04279618492016368,
+   "full": 0.028034284900997616
+  },
+  "productcatalogservice-4/server": {
+   "cores": 0.9694694773226907,
+   "some": 0.04245830648644304,
+   "full": 0.028067910242718243
+  },
+  "recommendationservice-1/server": {
+   "cores": 0.5811975314733455,
+   "some": 0.021669220215442583,
+   "full": 0.014414646490170156
+  },
+  "recommendationservice-2/server": {
+   "cores": 0.5804435238106733,
+   "some": 0.021249715952191942,
+   "full": 0.014082643116155345
+  },
+  "recommendationservice-3/server": {
+   "cores": 0.5842094370821131,
+   "some": 0.02036458195693634,
+   "full": 0.013541262614326222
+  },
+  "recommendationservice-4/server": {
+   "cores": 0.5792480116611712,
+   "some": 0.02072721064218369,
+   "full": 0.013769139930150396
+  },
+  "recommendationservice-5/server": {
+   "cores": 0.5808830282771779,
+   "some": 0.020765086027095772,
+   "full": 0.013916516427877602
+  },
+  "recommendationservice-6/server": {
+   "cores": 0.5799461437560028,
+   "some": 0.02153934389556254,
+   "full": 0.014101268305435543
+  },
+  "recommendationservice-7/server": {
+   "cores": 0.5797023912788458,
+   "some": 0.02080433642598156,
+   "full": 0.013632388540401824
+  },
+  "recommendationservice-8/server": {
+   "cores": 0.5808022774565402,
+   "some": 0.021058964013657828,
+   "full": 0.013707264301333628
+  },
+  "redis-cart/redis": {
+   "cores": 0.15008790028208482,
+   "some": 0.004286668563663369,
+   "full": 0.0042865435623930335
+  },
+  "shippingservice/server": {
+   "cores": 0.35335971605060024,
+   "some": 0.02197659833920102,
+   "full": 0.016661419323205626
+  }
+ },
+ "threads": [
+  {
+   "tid": "2498443",
+   "pod": "currencyservice-1",
+   "comm": "node",
+   "cores": 0.6884195532519993,
+   "wait": 0.05865633497539671
+  },
+  {
+   "tid": "2498727",
+   "pod": "currencyservice-4",
+   "comm": "node",
+   "cores": 0.6401580746652863,
+   "wait": 0.06560573147427752
+  },
+  {
+   "tid": "2498817",
+   "pod": "currencyservice-3",
+   "comm": "node",
+   "cores": 0.6392109946654986,
+   "wait": 0.06476442592443253
+  },
+  {
+   "tid": "2498424",
+   "pod": "currencyservice-2",
+   "comm": "node",
+   "cores": 0.6373759216414003,
+   "wait": 0.0664895828314982
+  },
+  {
+   "tid": "2497790",
+   "pod": "redis-cart",
+   "comm": "redis-server",
+   "cores": 0.1488259117070099,
+   "wait": 0.10615165215092395
+  },
+  {
+   "tid": "2500348",
+   "pod": "cartservice",
+   "comm": "dmesh-reactor",
+   "cores": 0.13147930304550465,
+   "wait": 0.27833542885938434
+  },
+  {
+   "tid": "2499998",
+   "pod": "paymentservice",
+   "comm": "node",
+   "cores": 0.12380167452089892,
+   "wait": 0.033340034446165144
+  },
+  {
+   "tid": "2500706",
+   "pod": "adservice",
+   "comm": "dmesh-reactor",
+   "cores": 0.1223502601457669,
+   "wait": 0.22220900509444289
+  },
+  {
+   "tid": "2500184",
+   "pod": "currencyservice-1",
+   "comm": "dmesh-reactor",
+   "cores": 0.1153058704315088,
+   "wait": 0.23237143899611168
+  },
+  {
+   "tid": "2500555",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.11519921772264086,
+   "wait": 0.13960715539555138
+  },
+  {
+   "tid": "2500701",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.11488550228447887,
+   "wait": 0.14055597616302967
+  },
+  {
+   "tid": "2500663",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.11434916070885831,
+   "wait": 0.14148993415446362
+  },
+  {
+   "tid": "2500644",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.11433317417139365,
+   "wait": 0.1382439519168707
+  },
+  {
+   "tid": "2500616",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.11430704778088181,
+   "wait": 0.13644046058872428
+  },
+  {
+   "tid": "2500576",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.11416005903709518,
+   "wait": 0.1355789820838698
+  },
+  {
+   "tid": "2500595",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.11391465816818629,
+   "wait": 0.1394343407643068
+  },
+  {
+   "tid": "2500682",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.11368430845223612,
+   "wait": 0.1385476501282317
+  },
+  {
+   "tid": "2500345",
+   "pod": "currencyservice-4",
+   "comm": "dmesh-reactor",
+   "cores": 0.10660437600177171,
+   "wait": 0.21260949491353814
+  },
+  {
+   "tid": "2500148",
+   "pod": "currencyservice-2",
+   "comm": "dmesh-reactor",
+   "cores": 0.10525818394597118,
+   "wait": 0.21297764452989246
+  },
+  {
+   "tid": "2500346",
+   "pod": "currencyservice-3",
+   "comm": "dmesh-reactor",
+   "cores": 0.1047239047663099,
+   "wait": 0.21023002735698035
+  },
+  {
+   "tid": "2500775",
+   "pod": "adservice",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.10356228783627106,
+   "wait": 0.13050845080412948
+  },
+  {
+   "tid": "2500827",
+   "pod": "adservice",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.10142960653770129,
+   "wait": 0.13044122674595882
+  },
+  {
+   "tid": "2500876",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.09836967581587401,
+   "wait": 0.11279262276539835
+  },
+  {
+   "tid": "2500520",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.09114897430983113,
+   "wait": 0.10877974410915008
+  },
+  {
+   "tid": "2500537",
+   "pod": "recommendationservice-1",
+   "comm": "dmesh-reactor",
+   "cores": 0.09091135627001597,
+   "wait": 0.10637589742983722
+  },
+  {
+   "tid": "2500626",
+   "pod": "recommendationservice-6",
+   "comm": "dmesh-reactor",
+   "cores": 0.09044256525588418,
+   "wait": 0.10632014548825298
+  },
+  {
+   "tid": "2500645",
+   "pod": "recommendationservice-8",
+   "comm": "dmesh-reactor",
+   "cores": 0.08997947167465307,
+   "wait": 0.10119755667947328
+  },
+  {
+   "tid": "2500558",
+   "pod": "recommendationservice-7",
+   "comm": "dmesh-reactor",
+   "cores": 0.08997459225006549,
+   "wait": 0.09929483359287498
+  },
+  {
+   "tid": "2500596",
+   "pod": "recommendationservice-3",
+   "comm": "dmesh-reactor",
+   "cores": 0.08989388067982673,
+   "wait": 0.10117820398279971
+  },
+  {
+   "tid": "2500683",
+   "pod": "recommendationservice-5",
+   "comm": "dmesh-reactor",
+   "cores": 0.08983146554552719,
+   "wait": 0.10021875173227801
+  },
+  {
+   "tid": "2500577",
+   "pod": "recommendationservice-2",
+   "comm": "dmesh-reactor",
+   "cores": 0.08831002158371305,
+   "wait": 0.1002879710607258
+  },
+  {
+   "tid": "2500664",
+   "pod": "recommendationservice-4",
+   "comm": "dmesh-reactor",
+   "cores": 0.08803300414349785,
+   "wait": 0.10414556638889297
+  },
+  {
+   "tid": "2500750",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.08755577879365135,
+   "wait": 0.09929403183472704
+  },
+  {
+   "tid": "2501756",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.08624638036176942,
+   "wait": 0.10330835188062357
+  },
+  {
+   "tid": "2500819",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.08552087511375563,
+   "wait": 0.10305293903496703
+  },
+  {
+   "tid": "2501050",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.08535171489464935,
+   "wait": 0.1044824225622248
+  },
+  {
+   "tid": "2499426",
+   "pod": "adservice",
+   "comm": "C2 CompilerThre",
+   "cores": 0.08497772896898301,
+   "wait": 0.005895565289224256
+  },
+  {
+   "tid": "2500751",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.0849496226833503,
+   "wait": 0.0921983828495419
+  },
+  {
+   "tid": "2500777",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.08493819856725167,
+   "wait": 0.10184500625923915
+  },
+  {
+   "tid": "2501064",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.08464135242552547,
+   "wait": 0.0958924630159712
+  },
+  {
+   "tid": "2500826",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.08118399128977506,
+   "wait": 0.09347536495198991
+  },
+  {
+   "tid": "2500451",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.08026639796464854,
+   "wait": 0.10293715898334162
+  },
+  {
+   "tid": "2501005",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.07754723133086765,
+   "wait": 0.0877205047176937
+  },
+  {
+   "tid": "2501022",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0763319924808911,
+   "wait": 0.1431322107192502
+  },
+  {
+   "tid": "2501115",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.07574477013819006,
+   "wait": 0.09688160169318394
+  },
+  {
+   "tid": "2501066",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.0757324026375042,
+   "wait": 0.09366605151485963
+  },
+  {
+   "tid": "2501373",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.07543826964835067,
+   "wait": 0.08593648871246704
+  },
+  {
+   "tid": "2500887",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.07428727670127902,
+   "wait": 0.08539394494881616
+  },
+  {
+   "tid": "2501116",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.07375437078557366,
+   "wait": 0.08501741562230228
+  },
+  {
+   "tid": "2500745",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.07350323085834105,
+   "wait": 0.08493659880099388
+  },
+  {
+   "tid": "2500324",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.07343600705017292,
+   "wait": 0.08209553605343253
+  },
+  {
+   "tid": "2500825",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.07307651414679324,
+   "wait": 0.08505034033190266
+  },
+  {
+   "tid": "2500502",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.07290259312930492,
+   "wait": 0.08155257916058319
+  },
+  {
+   "tid": "2501450",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.07168414137167692,
+   "wait": 0.13020777724850682
+  },
+  {
+   "tid": "2501345",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0709021724248456,
+   "wait": 0.12476903447678342
+  },
+  {
+   "tid": "2500836",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.07023508002045771,
+   "wait": 0.08391563605036607
+  },
+  {
+   "tid": "2500457",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.07007622515608056,
+   "wait": 0.0871993822967392
+  },
+  {
+   "tid": "2501454",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.06997897066772288,
+   "wait": 0.1303665036115781
+  },
+  {
+   "tid": "2501335",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.06895959493322326,
+   "wait": 0.07701988759668846
+  },
+  {
+   "tid": "2501256",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.06895294061559815,
+   "wait": 0.08696018474087205
+  },
+  {
+   "tid": "2500871",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.06867456441157438,
+   "wait": 0.08082222048824604
+  },
+  {
+   "tid": "2501361",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.06865401895277926,
+   "wait": 0.12964616091602923
+  },
+  {
+   "tid": "2500846",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.06845417792187641,
+   "wait": 0.07750648841681404
+  },
+  {
+   "tid": "2500505",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.06729490239063225,
+   "wait": 0.07828479220139781
+  },
+  {
+   "tid": "2500831",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.06728504929049921,
+   "wait": 0.07933161421482275
+  },
+  {
+   "tid": "2500453",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.06727090064671232,
+   "wait": 0.07571385819904465
+  },
+  {
+   "tid": "2500896",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.06698505724180244,
+   "wait": 0.07719327448374864
+  },
+  {
+   "tid": "2501004",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.06642977584870423,
+   "wait": 0.0791343058346582
+  },
+  {
+   "tid": "2498654",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.0661435689401002,
+   "wait": 0.08576358633033068
+  },
+  {
+   "tid": "2500890",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.06610538492705167,
+   "wait": 0.07931126563302841
+  },
+  {
+   "tid": "2501060",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.06551478905006677,
+   "wait": 0.07888961272294195
+  },
+  {
+   "tid": "2498695",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.06497376917690258,
+   "wait": 0.08182361529001278
+  },
+  {
+   "tid": "2500511",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.06497005251413164,
+   "wait": 0.08033488591066358
+  },
+  {
+   "tid": "2501722",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.06453298857242916,
+   "wait": 0.07906213772624317
+  },
+  {
+   "tid": "2498358",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.0644620649766616,
+   "wait": 0.08399324771410174
+  },
+  {
+   "tid": "2500319",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.06395510169960068,
+   "wait": 0.07772854792351418
+  },
+  {
+   "tid": "2498682",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.06364245502230008,
+   "wait": 0.07593532632473482
+  },
+  {
+   "tid": "2500504",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.06344667903270859,
+   "wait": 0.07950045418067442
+  },
+  {
+   "tid": "2500874",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.06338414777222891,
+   "wait": 0.07453890225844687
+  },
+  {
+   "tid": "2501752",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.06335012642648384,
+   "wait": 0.07443238542595977
+  },
+  {
+   "tid": "2501224",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.06321321428510163,
+   "wait": 0.0770069803405173
+  },
+  {
+   "tid": "2501723",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.06282358582546659,
+   "wait": 0.07275574763697411
+  },
+  {
+   "tid": "2498544",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.06274364426305311,
+   "wait": 0.07802093664494146
+  },
+  {
+   "tid": "2498359",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.06255623048344335,
+   "wait": 0.07918472009699777
+  },
+  {
+   "tid": "2500818",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.06229567608553532,
+   "wait": 0.07525987383538682
+  },
+  {
+   "tid": "2501087",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.06222146908139982,
+   "wait": 0.0705865089668867
+  },
+  {
+   "tid": "2500988",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.06186880649743389,
+   "wait": 0.07641930261818841
+  },
+  {
+   "tid": "2501127",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.06175065704672923,
+   "wait": 0.07787876157507423
+  },
+  {
+   "tid": "2498541",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.061729754959309845,
+   "wait": 0.0761411971669162
+  },
+  {
+   "tid": "2501128",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.06146776329679549,
+   "wait": 0.07228067768403203
+  },
+  {
+   "tid": "2498542",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.06143794661878076,
+   "wait": 0.07794869903582011
+  },
+  {
+   "tid": "2500523",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.06118302902815731,
+   "wait": 0.07186550646481635
+  },
+  {
+   "tid": "2501129",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.06075289103184038,
+   "wait": 0.07233029293825162
+  },
+  {
+   "tid": "2500524",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.060673774227808584,
+   "wait": 0.07030883376998696
+  },
+  {
+   "tid": "2501002",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.06066759754003743,
+   "wait": 0.07729964206471897
+  },
+  {
+   "tid": "2501058",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.060443650514155185,
+   "wait": 0.07227021845273912
+  },
+  {
+   "tid": "2500821",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.0599804368067033,
+   "wait": 0.07130774792154387
+  },
+  {
+   "tid": "2500759",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.05980246199801795,
+   "wait": 0.1023613030061523
+  },
+  {
+   "tid": "2498656",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.05918033292557405,
+   "wait": 0.07655053495184906
+  },
+  {
+   "tid": "2500833",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.058970436667484034,
+   "wait": 0.06806861575356543
+  },
+  {
+   "tid": "2498428",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.05869284347141766,
+   "wait": 0.07175251631654357
+  },
+  {
+   "tid": "2500968",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.05867161350566618,
+   "wait": 0.07622132910626439
+  },
+  {
+   "tid": "2501217",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.058664399182349954,
+   "wait": 0.06892694360140109
+  },
+  {
+   "tid": "2501063",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.058202394612186036,
+   "wait": 0.07245935037480968
+  },
+  {
+   "tid": "2500928",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.0577779282985081,
+   "wait": 0.07198316053548666
+  },
+  {
+   "tid": "2498548",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.05769200317528614,
+   "wait": 0.07497036826825987
+  },
+  {
+   "tid": "2501755",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.057645492702619185,
+   "wait": 0.07112610057553602
+  },
+  {
+   "tid": "2501359",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.057568827298499964,
+   "wait": 0.1038878077693973
+  },
+  {
+   "tid": "2500837",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.05732280154824066,
+   "wait": 0.07260088231314102
+  },
+  {
+   "tid": "2500365",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.057061235015046716,
+   "wait": 0.07089977615049324
+  },
+  {
+   "tid": "2500839",
+   "pod": "adservice",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.056944369702392236,
+   "wait": 0.07696584817250784
+  },
+  {
+   "tid": "2501200",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.05690434379562528,
+   "wait": 0.07418871207460694
+  },
+  {
+   "tid": "2501258",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.056841886035892554,
+   "wait": 0.06674143414096027
+  },
+  {
+   "tid": "2498540",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.05672532535133388,
+   "wait": 0.07480670948006239
+  },
+  {
+   "tid": "2500845",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.05658377578782343,
+   "wait": 0.06589163162976414
+  },
+  {
+   "tid": "2500702",
+   "pod": "adservice",
+   "comm": "dpumesh-grpc-1-",
+   "cores": 0.055964011614413035,
+   "wait": 0.0784508937644202
+  },
+  {
+   "tid": "2500512",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.05589928270659956,
+   "wait": 0.06786421217629528
+  },
+  {
+   "tid": "2500851",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.055840345482644604,
+   "wait": 0.06606953531272666
+  },
+  {
+   "tid": "2500747",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.055715556089460924,
+   "wait": 0.069078172138275
+  },
+  {
+   "tid": "2500443",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.05545601282682865,
+   "wait": 0.04916673353644967
+  },
+  {
+   "tid": "2498434",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.055452855044737404,
+   "wait": 0.06652572269877291
+  },
+  {
+   "tid": "2501074",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.055044915774017066,
+   "wait": 0.06222268446875131
+  },
+  {
+   "tid": "2500509",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.0548815653639535,
+   "wait": 0.06768129369236937
+  },
+  {
+   "tid": "2501067",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.05472419726468573,
+   "wait": 0.06498129412837558
+  },
+  {
+   "tid": "2500892",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.054718018451892975,
+   "wait": 0.0665798111234515
+  },
+  {
+   "tid": "2498664",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.05463846551842897,
+   "wait": 0.06710764611262311
+  },
+  {
+   "tid": "2501000",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.0545584059548163,
+   "wait": 0.06995726582214537
+  },
+  {
+   "tid": "2498665",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.05430735827852121,
+   "wait": 0.07020681810824343
+  },
+  {
+   "tid": "2500776",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.0542900382275046,
+   "wait": 0.06452716413823781
+  },
+  {
+   "tid": "2500525",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.05426271932487374,
+   "wait": 0.06311071324342538
+  },
+  {
+   "tid": "2501003",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.054236682310270186,
+   "wait": 0.06743139877778934
+  },
+  {
+   "tid": "2500870",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.05410192244076062,
+   "wait": 0.06557954770818258
+  },
+  {
+   "tid": "2498436",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.05405292306779999,
+   "wait": 0.06633132409817927
+  },
+  {
+   "tid": "2501068",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.05387725890759681,
+   "wait": 0.06869639200839933
+  },
+  {
+   "tid": "2500849",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.05384749348010292,
+   "wait": 0.06369776845942798
+  },
+  {
+   "tid": "2500935",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.053212071772571395,
+   "wait": 0.06483106910169993
+  },
+  {
+   "tid": "2500969",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.05299711446304798,
+   "wait": 0.06579796642788291
+  },
+  {
+   "tid": "2498633",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.052886644090382656,
+   "wait": 0.0691741067382192
+  },
+  {
+   "tid": "2501573",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.052815046487765444,
+   "wait": 0.06618281208891232
+  },
+  {
+   "tid": "2498527",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.052724194314471874,
+   "wait": 0.06731618648193378
+  },
+  {
+   "tid": "2501699",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.052709780667991875,
+   "wait": 0.06346522634619736
+  },
+  {
+   "tid": "2501179",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.052684646912567766,
+   "wait": 0.06684335305172058
+  },
+  {
+   "tid": "2501001",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.05234201055549429,
+   "wait": 0.06277110541712962
+  },
+  {
+   "tid": "2500931",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.0518923711109921,
+   "wait": 0.06367012492849805
+  },
+  {
+   "tid": "2498657",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.05174670813067867,
+   "wait": 0.33754166429819504
+  },
+  {
+   "tid": "2498526",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.051713763420875025,
+   "wait": 0.33822655013341035
+  },
+  {
+   "tid": "2501355",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.0516849142526927,
+   "wait": 0.06490760725452596
+  },
+  {
+   "tid": "2498624",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.05165078915589327,
+   "wait": 0.3393757020617725
+  },
+  {
+   "tid": "2501720",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.051522468976827655,
+   "wait": 0.06378203144075827
+  },
+  {
+   "tid": "2501445",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.05129838532455694,
+   "wait": 0.061326020231318557
+  },
+  {
+   "tid": "2500889",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.05126131669784361,
+   "wait": 0.06214521155642571
+  },
+  {
+   "tid": "2500847",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.051252932237635766,
+   "wait": 0.06191016879278202
+  },
+  {
+   "tid": "2501261",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.051147124662356554,
+   "wait": 0.0627906931161914
+  },
+  {
+   "tid": "2498357",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.050989362684085944,
+   "wait": 0.3390075584454791
+  },
+  {
+   "tid": "2501025",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.05092672692254426,
+   "wait": 0.0963625164179321
+  },
+  {
+   "tid": "2500461",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.05079220105541277,
+   "wait": 0.0618416524714786
+  },
+  {
+   "tid": "2500944",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.0505396239885751,
+   "wait": 0.056680895399810416
+  },
+  {
+   "tid": "2498538",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.05052626585282183,
+   "wait": 0.06569864516852149
+  },
+  {
+   "tid": "2501541",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.05043779407871928,
+   "wait": 0.06025147268613034
+  },
+  {
+   "tid": "2501163",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.05018605014534842,
+   "wait": 0.06269751316924163
+  },
+  {
+   "tid": "2500746",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.05014874626624432,
+   "wait": 0.061628095551186764
+  },
+  {
+   "tid": "2498661",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.05001659454824033,
+   "wait": 0.06211284597750754
+  },
+  {
+   "tid": "2501447",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.04972418682661998,
+   "wait": 0.08675083273831308
+  },
+  {
+   "tid": "2498660",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.04968046413228408,
+   "wait": 0.062354097179245054
+  },
+  {
+   "tid": "2500894",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.04966765062706565,
+   "wait": 0.06297440910822207
+  },
+  {
+   "tid": "2501257",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.04944078969657059,
+   "wait": 0.06036003428939762
+  },
+  {
+   "tid": "2501724",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.049078685641654844,
+   "wait": 0.06534089028280456
+  },
+  {
+   "tid": "2498537",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.04887222329346225,
+   "wait": 0.06170521445991477
+  },
+  {
+   "tid": "2501725",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.048569047087406184,
+   "wait": 0.05616480552999967
+  },
+  {
+   "tid": "2500875",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.04850270741322315,
+   "wait": 0.060580917659145174
+  },
+  {
+   "tid": "2500934",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.04808754469409385,
+   "wait": 0.05602979953298881
+  },
+  {
+   "tid": "2501442",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.04808073937493416,
+   "wait": 0.06293559533877356
+  },
+  {
+   "tid": "2498694",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.04803208963052666,
+   "wait": 0.0562593429907453
+  },
+  {
+   "tid": "2498433",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.04780988124731354,
+   "wait": 0.06043765857826159
+  },
+  {
+   "tid": "2501069",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.047694637576139134,
+   "wait": 0.06237316562302987
+  },
+  {
+   "tid": "2498691",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.04754519555742088,
+   "wait": 0.059504459469539854
+  },
+  {
+   "tid": "2500822",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.04753999987961933,
+   "wait": 0.05886172831272538
+  },
+  {
+   "tid": "2500503",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.04738387454298124,
+   "wait": 0.05898507869128494
+  },
+  {
+   "tid": "2500893",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.0473296422418405,
+   "wait": 0.054442250524376054
+  },
+  {
+   "tid": "2501121",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.04702618740795285,
+   "wait": 0.05965251397415736
+  },
+  {
+   "tid": "2498425",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.046982660340605026,
+   "wait": 0.05963992084617854
+  },
+  {
+   "tid": "2501035",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.04691791643263911,
+   "wait": 0.06142334284536857
+  },
+  {
+   "tid": "2500458",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.046662912591139125,
+   "wait": 0.0593497827726237
+  },
+  {
+   "tid": "2498690",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.046436138036521864,
+   "wait": 0.05900712641534697
+  },
+  {
+   "tid": "2501451",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.04635599409705172,
+   "wait": 0.08370650317503402
+  },
+  {
+   "tid": "2500834",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.04612919641719944,
+   "wait": 0.05602333584230096
+  },
+  {
+   "tid": "2498686",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.04607444798581348,
+   "wait": 0.05979398291184845
+  },
+  {
+   "tid": "2500515",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.04580883128645935,
+   "wait": 0.058844985892579
+  },
+  {
+   "tid": "2498437",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.0455326909801581,
+   "wait": 0.05884769979515928
+  },
+  {
+   "tid": "2501338",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.04547954144002101,
+   "wait": 0.0828096908110959
+  },
+  {
+   "tid": "2498663",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.044848377650760975,
+   "wait": 0.0613341830642741
+  },
+  {
+   "tid": "2501331",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0443256465884585,
+   "wait": 0.08610782207865814
+  },
+  {
+   "tid": "2498662",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.04370247638043397,
+   "wait": 0.05565939251869347
+  },
+  {
+   "tid": "2501164",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.04362970551589337,
+   "wait": 0.05464672835240078
+  },
+  {
+   "tid": "2501034",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.04360791854448127,
+   "wait": 0.05303990639792495
+  },
+  {
+   "tid": "2500872",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.04348672843787567,
+   "wait": 0.04765354353351715
+  },
+  {
+   "tid": "2498688",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.04325681335134247,
+   "wait": 0.05360761404230608
+  },
+  {
+   "tid": "2500832",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.04281578424434362,
+   "wait": 0.05118229626979125
+  },
+  {
+   "tid": "2501051",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.0419371243148813,
+   "wait": 0.05499816967395553
+  },
+  {
+   "tid": "2500820",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.04143621559935043,
+   "wait": 0.05565208381941814
+  },
+  {
+   "tid": "2500895",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.04140829056555971,
+   "wait": 0.05126445497973669
+  },
+  {
+   "tid": "2501119",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.041302829493801874,
+   "wait": 0.048803308343107726
+  },
+  {
+   "tid": "2500967",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.04121950989705881,
+   "wait": 0.05658437029386515
+  },
+  {
+   "tid": "2501508",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.041199934823125325,
+   "wait": 0.04780850985837667
+  },
+  {
+   "tid": "2501259",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.040765159654682706,
+   "wait": 0.05180552122837218
+  },
+  {
+   "tid": "2498659",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.0407049230425226,
+   "wait": 0.0498691170494867
+  },
+  {
+   "tid": "2501334",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.040572639698180944,
+   "wait": 0.07778075107903355
+  },
+  {
+   "tid": "2501059",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.04046864376631273,
+   "wait": 0.04991933393482041
+  },
+  {
+   "tid": "2500528",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.0403098207772595,
+   "wait": 0.049010646700202845
+  },
+  {
+   "tid": "2501083",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.040227435690013476,
+   "wait": 0.05135485514843671
+  },
+  {
+   "tid": "2500444",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.04017556303785288,
+   "wait": 0.25472495954081925
+  },
+  {
+   "tid": "2498689",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.04004931950489137,
+   "wait": 0.0505734572074083
+  },
+  {
+   "tid": "2500514",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.03962994724298221,
+   "wait": 0.29184331975956745
+  },
+  {
+   "tid": "2501727",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.0395179538548391,
+   "wait": 0.04800474185260236
+  },
+  {
+   "tid": "2501260",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.03933901778638486,
+   "wait": 0.04409788977385893
+  },
+  {
+   "tid": "2501354",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.03927305011598234,
+   "wait": 0.04743867122485756
+  },
+  {
+   "tid": "2498543",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.03926890432385035,
+   "wait": 0.0501008007789939
+  },
+  {
+   "tid": "2501199",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.03884806304701218,
+   "wait": 0.05255657911106697
+  },
+  {
+   "tid": "2501592",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0383711389502272,
+   "wait": 0.04480336931835966
+  },
+  {
+   "tid": "2498687",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.03826401961161707,
+   "wait": 0.04748424206297539
+  },
+  {
+   "tid": "2500522",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.03825524327242672,
+   "wait": 0.2851839627082392
+  },
+  {
+   "tid": "2500980",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.0382394057364763,
+   "wait": 0.049249308875629144
+  },
+  {
+   "tid": "2498547",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.03772563101519347,
+   "wait": 0.04780236404591929
+  },
+  {
+   "tid": "2498684",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.037469692039190095,
+   "wait": 0.04712983246125523
+  },
+  {
+   "tid": "2498685",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.03744464615965904,
+   "wait": 0.05183620216517002
+  },
+  {
+   "tid": "2501085",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.03742100679442182,
+   "wait": 0.045547902009741584
+  },
+  {
+   "tid": "2500318",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.03710723735571105,
+   "wait": 0.051453353774438056
+  },
+  {
+   "tid": "2500936",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.03701075600021041,
+   "wait": 0.046052936017196115
+  },
+  {
+   "tid": "2500971",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.03689012614929846,
+   "wait": 0.04731396233249197
+  },
+  {
+   "tid": "2498529",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.036620438533573274,
+   "wait": 0.04758194668090755
+  },
+  {
+   "tid": "2501015",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.03640271619595,
+   "wait": 0.05048133102116746
+  },
+  {
+   "tid": "2498667",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.03617893992180304,
+   "wait": 0.04720116318616028
+  },
+  {
+   "tid": "2500508",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.036083816955107144,
+   "wait": 0.2632269910684963
+  },
+  {
+   "tid": "2498679",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.035757557014460505,
+   "wait": 0.047872981763578334
+  },
+  {
+   "tid": "2501024",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0354161731701158,
+   "wait": 0.06881304569390313
+  },
+  {
+   "tid": "2500940",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.03514963396138659,
+   "wait": 0.04299571944795167
+  },
+  {
+   "tid": "2500888",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.03462270473141984,
+   "wait": 0.04114486626348602
+  },
+  {
+   "tid": "2501690",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.03451656615277678,
+   "wait": 0.043633331177739494
+  },
+  {
+   "tid": "2501459",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.03439817994966611,
+   "wait": 0.048512666389432156
+  },
+  {
+   "tid": "2500455",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.03407174675725878,
+   "wait": 0.253349407186642
+  },
+  {
+   "tid": "2498432",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.03365448001674717,
+   "wait": 0.04325996188333971
+  },
+  {
+   "tid": "2500501",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.03356535736102999,
+   "wait": 0.2443047185191619
+  },
+  {
+   "tid": "2500450",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.03356384597067034,
+   "wait": 0.25248922219493297
+  },
+  {
+   "tid": "2498668",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.03324430822333861,
+   "wait": 0.043428534721476675
+  },
+  {
+   "tid": "2499185",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.033112846637348155,
+   "wait": 0.1931108360066244
+  },
+  {
+   "tid": "2501010",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.03232996543124592,
+   "wait": 0.0431001312590463
+  },
+  {
+   "tid": "2501358",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.031887168681283246,
+   "wait": 0.0581686985197464
+  },
+  {
+   "tid": "2500816",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.03163332672659104,
+   "wait": 0.045043116504812485
+  },
+  {
+   "tid": "2501008",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.030563352602880643,
+   "wait": 0.04156323989024647
+  },
+  {
+   "tid": "2501027",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.029913696000685698,
+   "wait": 0.03853023194202436
+  },
+  {
+   "tid": "2500942",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.02908455907450546,
+   "wait": 0.037750464142562404
+  },
+  {
+   "tid": "2501019",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.029035858954586016,
+   "wait": 0.04127399807579994
+  },
+  {
+   "tid": "2500399",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.028360946595727122,
+   "wait": 0.03519431604047232
+  },
+  {
+   "tid": "2501189",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.028303175133619324,
+   "wait": 0.03287920426293604
+  },
+  {
+   "tid": "2501448",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.027873984771932817,
+   "wait": 0.05557983296016214
+  },
+  {
+   "tid": "2501117",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.027654474541139916,
+   "wait": 0.03824447891303293
+  },
+  {
+   "tid": "2501014",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.02729433088114686,
+   "wait": 0.04255049917335969
+  },
+  {
+   "tid": "2501697",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.027086045889431483,
+   "wait": 0.034258742407619266
+  },
+  {
+   "tid": "2500517",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.027072458126344595,
+   "wait": 0.03127145967408385
+  },
+  {
+   "tid": "2499186",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.02706765545253698,
+   "wait": 0.03869664413320355
+  },
+  {
+   "tid": "2501687",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.026978650548016455,
+   "wait": 0.033847170349980395
+  },
+  {
+   "tid": "2499188",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.026963916023275494,
+   "wait": 0.03832246333055674
+  },
+  {
+   "tid": "2500446",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.02684184115767845,
+   "wait": 0.03795432471431421
+  },
+  {
+   "tid": "2500767",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.026690354368180024,
+   "wait": 0.0377031321615468
+  },
+  {
+   "tid": "2500445",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.026594309767117935,
+   "wait": 0.03611715516890981
+  },
+  {
+   "tid": "2500765",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.026590322351595457,
+   "wait": 0.04011862470921188
+  },
+  {
+   "tid": "2500762",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.026589779721080925,
+   "wait": 0.03720309957991972
+  },
+  {
+   "tid": "2500770",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.02657603220637054,
+   "wait": 0.03781311765428448
+  },
+  {
+   "tid": "2500766",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.026500048309177203,
+   "wait": 0.03725069243858652
+  },
+  {
+   "tid": "2500447",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.026380573970008248,
+   "wait": 0.03849373632113426
+  },
+  {
+   "tid": "2500768",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.02629900451605117,
+   "wait": 0.03649085571667598
+  },
+  {
+   "tid": "2501009",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.02628635088745751,
+   "wait": 0.036520357391489455
+  },
+  {
+   "tid": "2500763",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.026255785201830917,
+   "wait": 0.04098955931016483
+  },
+  {
+   "tid": "2500764",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.026210955746247454,
+   "wait": 0.03711450630458241
+  },
+  {
+   "tid": "2501120",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.026091412281376,
+   "wait": 0.03701532229661582
+  },
+  {
+   "tid": "2500761",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.026038745371143684,
+   "wait": 0.03979232426815365
+  },
+  {
+   "tid": "2500824",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.025953510504936522,
+   "wait": 0.029567977237286984
+  },
+  {
+   "tid": "2500769",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.025771402404246208,
+   "wait": 0.03952908284293846
+  },
+  {
+   "tid": "2501023",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.025757190759819065,
+   "wait": 0.047704840929831654
+  },
+  {
+   "tid": "2501602",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.02485976988969697,
+   "wait": 0.029620123142224536
+  },
+  {
+   "tid": "2498666",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.024652147529715646,
+   "wait": 0.0320935241533897
+  },
+  {
+   "tid": "2501011",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.024492687534188783,
+   "wait": 0.033590964746267396
+  },
+  {
+   "tid": "2501576",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.024326079966024056,
+   "wait": 0.02947526629510351
+  },
+  {
+   "tid": "2501202",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.024261394808655194,
+   "wait": 0.02896402922460978
+  },
+  {
+   "tid": "2501500",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.02413759517553004,
+   "wait": 0.03179403348478825
+  },
+  {
+   "tid": "2501362",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.024074999414394865,
+   "wait": 0.04621868107659552
+  },
+  {
+   "tid": "2500366",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.024065838821299493,
+   "wait": 0.028401112128913043
+  },
+  {
+   "tid": "2500536",
+   "pod": "emailservice",
+   "comm": "dmesh-reactor",
+   "cores": 0.02406287566618616,
+   "wait": 0.02637468053511567
+  },
+  {
+   "tid": "2501013",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.023700139854850127,
+   "wait": 0.03361166395662502
+  },
+  {
+   "tid": "2500748",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.02314545896785462,
+   "wait": 0.02885422923375728
+  },
+  {
+   "tid": "2501144",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.022388704402266778,
+   "wait": 0.030585084948737604
+  },
+  {
+   "tid": "2500407",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.02226441326414666,
+   "wait": 0.025602229685012894
+  },
+  {
+   "tid": "2501380",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.021594220953255687,
+   "wait": 0.025764132955369765
+  },
+  {
+   "tid": "2498539",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.02145857807477246,
+   "wait": 0.02921484714856999
+  },
+  {
+   "tid": "2500771",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.021403765642736085,
+   "wait": 0.07594296402735368
+  },
+  {
+   "tid": "2501580",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.021370239427022833,
+   "wait": 0.027420548288842873
+  },
+  {
+   "tid": "2501344",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.02130922605696885,
+   "wait": 0.04099581337372233
+  },
+  {
+   "tid": "2501605",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.021191978115425864,
+   "wait": 0.029116984904035935
+  },
+  {
+   "tid": "2501016",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.02104010932204529,
+   "wait": 0.030241156078528845
+  },
+  {
+   "tid": "2501402",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.021026929438103508,
+   "wait": 0.02876475407445775
+  },
+  {
+   "tid": "2498626",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.020730651677153523,
+   "wait": 0.024789034670843802
+  },
+  {
+   "tid": "2498435",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.020427377095097704,
+   "wait": 0.026794157423088112
+  },
+  {
+   "tid": "2501012",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.019649783317729454,
+   "wait": 0.025382345700421687
+  },
+  {
+   "tid": "2498833",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.019044383415297288,
+   "wait": 0.02616310951000568
+  },
+  {
+   "tid": "2501103",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.01853320109535997,
+   "wait": 0.02732588982686755
+  },
+  {
+   "tid": "2501744",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.018510441614064645,
+   "wait": 0.03569585688742729
+  },
+  {
+   "tid": "2501745",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.017671439462628148,
+   "wait": 0.03323538138261877
+  },
+  {
+   "tid": "2498431",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.017602370010703493,
+   "wait": 0.021384918576201034
+  },
+  {
+   "tid": "2500979",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.017120541114073035,
+   "wait": 0.021924942064239377
+  },
+  {
+   "tid": "2501153",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.016950950015587905,
+   "wait": 0.02327910045099848
+  },
+  {
+   "tid": "2501007",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.01682198833000292,
+   "wait": 0.02302279984632002
+  },
+  {
+   "tid": "2501018",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.01647548580863919,
+   "wait": 0.022371847855960577
+  },
+  {
+   "tid": "2501086",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.016362126406613848,
+   "wait": 0.022021686422412815
+  },
+  {
+   "tid": "2501695",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0163446063535647,
+   "wait": 0.02022976408683734
+  },
+  {
+   "tid": "2501032",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.016182282953938223,
+   "wait": 0.022323603490672774
+  },
+  {
+   "tid": "2501337",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.015922881817750333,
+   "wait": 0.03191802586987226
+  },
+  {
+   "tid": "2501594",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.015569108847499995,
+   "wait": 0.020174531025526275
+  },
+  {
+   "tid": "2501377",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.015029120359817348,
+   "wait": 0.018536762756555678
+  },
+  {
+   "tid": "2501061",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.014908639885423451,
+   "wait": 0.020030618062997562
+  },
+  {
+   "tid": "2501031",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.014595635454487145,
+   "wait": 0.017873851644660557
+  },
+  {
+   "tid": "2500533",
+   "pod": "paymentservice",
+   "comm": "dmesh-reactor",
+   "cores": 0.014495576437628187,
+   "wait": 0.032658409394087894
+  },
+  {
+   "tid": "2501033",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.014143042979974514,
+   "wait": 0.018564590039352995
+  },
+  {
+   "tid": "2500848",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.014045667365385877,
+   "wait": 0.01584643804088342
+  },
+  {
+   "tid": "2501446",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.013990679431565945,
+   "wait": 0.015069501770197141
+  },
+  {
+   "tid": "2501154",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.013926948408893568,
+   "wait": 0.018456316064008764
+  },
+  {
+   "tid": "2501598",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.013415505961312675,
+   "wait": 0.018729989470239915
+  },
+  {
+   "tid": "2501593",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.013215311426817315,
+   "wait": 0.015583848247290503
+  },
+  {
+   "tid": "2501567",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.012994851061368582,
+   "wait": 0.016568739381337197
+  },
+  {
+   "tid": "2501017",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.012763535960607605,
+   "wait": 0.017944581363457827
+  },
+  {
+   "tid": "2501385",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.012529122453358786,
+   "wait": 0.017090492183698017
+  },
+  {
+   "tid": "2500873",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.0123927621925851,
+   "wait": 0.01606858954851854
+  },
+  {
+   "tid": "2501482",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.012329729177006284,
+   "wait": 0.015210858206744924
+  },
+  {
+   "tid": "2500835",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.012099689714209097,
+   "wait": 0.01456395100749104
+  },
+  {
+   "tid": "2501395",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.011760841645634446,
+   "wait": 0.013825426377166586
+  },
+  {
+   "tid": "2501360",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.011632499716347793,
+   "wait": 0.020880547075479292
+  },
+  {
+   "tid": "2501628",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.011117184104405509,
+   "wait": 0.00968236652293993
+  },
+  {
+   "tid": "2501546",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.011055457227100444,
+   "wait": 0.009714414223627633
+  },
+  {
+   "tid": "2501400",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.011015299568994554,
+   "wait": 0.01090040890140758
+  },
+  {
+   "tid": "2501464",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.01084761798991509,
+   "wait": 0.011259043671066398
+  },
+  {
+   "tid": "2501611",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.010770865209907906,
+   "wait": 0.009683158405987515
+  },
+  {
+   "tid": "2500939",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.01073737699458084,
+   "wait": 0.010291174835010372
+  },
+  {
+   "tid": "2500927",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.010717757795198922,
+   "wait": 0.011657866974144882
+  },
+  {
+   "tid": "2501494",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010705617296819991,
+   "wait": 0.00993375882773734
+  },
+  {
+   "tid": "2501507",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010677675262856503,
+   "wait": 0.009607380760890228
+  },
+  {
+   "tid": "2501569",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.010676089621742277,
+   "wait": 0.013555385507851427
+  },
+  {
+   "tid": "2501710",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.010652430756306884,
+   "wait": 0.01003651574701398
+  },
+  {
+   "tid": "2501470",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.010605254526874115,
+   "wait": 0.010110935378310322
+  },
+  {
+   "tid": "2500982",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.010587221843615314,
+   "wait": 0.009305018813109139
+  },
+  {
+   "tid": "2501618",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.010548426574354824,
+   "wait": 0.00906020970021402
+  },
+  {
+   "tid": "2501485",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.010543984904215941,
+   "wait": 0.011291707503015593
+  },
+  {
+   "tid": "2501403",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.010499155073628667,
+   "wait": 0.010927431926031553
+  },
+  {
+   "tid": "2501456",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.010474559698675908,
+   "wait": 0.009546604393244807
+  },
+  {
+   "tid": "2501620",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.010455913009177212,
+   "wait": 0.009197363719054347
+  },
+  {
+   "tid": "2501711",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.010445057023852263,
+   "wait": 0.008715052067517848
+  },
+  {
+   "tid": "2500516",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.010435156173233958,
+   "wait": 0.01596729764413025
+  },
+  {
+   "tid": "2501356",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.01043399891147318,
+   "wait": 0.009125968868497614
+  },
+  {
+   "tid": "2501428",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.010407257139707466,
+   "wait": 0.009109579701941203
+  },
+  {
+   "tid": "2501417",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010387840942388576,
+   "wait": 0.008277615372027213
+  },
+  {
+   "tid": "2501439",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010385001788535412,
+   "wait": 0.008674585656274223
+  },
+  {
+   "tid": "2501665",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.010367524485920718,
+   "wait": 0.008043371866506055
+  },
+  {
+   "tid": "2501518",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.010314448696533128,
+   "wait": 0.009761970956927308
+  },
+  {
+   "tid": "2501480",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.010314149068488132,
+   "wait": 0.009854512022384394
+  },
+  {
+   "tid": "2501519",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010286623288754864,
+   "wait": 0.010725470248577439
+  },
+  {
+   "tid": "2501412",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.010285414651471977,
+   "wait": 0.009697629928055689
+  },
+  {
+   "tid": "2500961",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.010247457265726555,
+   "wait": 0.009630810623998367
+  },
+  {
+   "tid": "2501638",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.010236845282881305,
+   "wait": 0.00933637563177569
+  },
+  {
+   "tid": "2501404",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.010228199445017181,
+   "wait": 0.008256338030794277
+  },
+  {
+   "tid": "2501501",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010221243249324203,
+   "wait": 0.009507237993180146
+  },
+  {
+   "tid": "2501671",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.010220786994687472,
+   "wait": 0.010178908569094125
+  },
+  {
+   "tid": "2501511",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.010208749997360381,
+   "wait": 0.00965715126668757
+  },
+  {
+   "tid": "2501437",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010193898346429114,
+   "wait": 0.008644878354371036
+  },
+  {
+   "tid": "2501639",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.010178672816698268,
+   "wait": 0.009146695829137257
+  },
+  {
+   "tid": "2501513",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.010175266657082859,
+   "wait": 0.010967913212426348
+  },
+  {
+   "tid": "2501506",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010165956187464355,
+   "wait": 0.008762369173382287
+  },
+  {
+   "tid": "2500995",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.010162606528423136,
+   "wait": 0.009596818653551843
+  },
+  {
+   "tid": "2500973",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.010143432708567428,
+   "wait": 0.010639964879621265
+  },
+  {
+   "tid": "2501679",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.010122143867217622,
+   "wait": 0.009515639078556948
+  },
+  {
+   "tid": "2501622",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.010119436214700853,
+   "wait": 0.010259464387750036
+  },
+  {
+   "tid": "2501537",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.010100027767460726,
+   "wait": 0.009242059673281091
+  },
+  {
+   "tid": "2501585",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.010090227292862502,
+   "wait": 0.009243038308226557
+  },
+  {
+   "tid": "2500957",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.010082229211581265,
+   "wait": 0.009306720205399693
+  },
+  {
+   "tid": "2501534",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.010056633951467081,
+   "wait": 0.008836434051073414
+  },
+  {
+   "tid": "2500850",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.010056393824026764,
+   "wait": 0.015108210038573478
+  },
+  {
+   "tid": "2501342",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.010047067854250738,
+   "wait": 0.008706183727392526
+  },
+  {
+   "tid": "2501713",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.010046965478210332,
+   "wait": 0.008779466597136427
+  },
+  {
+   "tid": "2501398",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.010041772050431646,
+   "wait": 0.009415237558217267
+  },
+  {
+   "tid": "2500992",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.010038651768721495,
+   "wait": 0.008792562980229623
+  },
+  {
+   "tid": "2501551",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.010036996001894612,
+   "wait": 0.010262767171314878
+  },
+  {
+   "tid": "2501351",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.01002800891056247,
+   "wait": 0.008685351140679448
+  },
+  {
+   "tid": "2501423",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.010026650521757718,
+   "wait": 0.009954342911924987
+  },
+  {
+   "tid": "2501682",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.010019493949028391,
+   "wait": 0.0094931034745368
+  },
+  {
+   "tid": "2500972",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.0100187370663365,
+   "wait": 0.010847077984427234
+  },
+  {
+   "tid": "2501409",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.010004274544359792,
+   "wait": 0.00826107295391337
+  },
+  {
+   "tid": "2501614",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009995473829921723,
+   "wait": 0.008684311130110244
+  },
+  {
+   "tid": "2501426",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009994873448820295,
+   "wait": 0.008686570653072856
+  },
+  {
+   "tid": "2501714",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009988384882879647,
+   "wait": 0.009852820630195465
+  },
+  {
+   "tid": "2501678",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009979720044822433,
+   "wait": 0.008265082994665777
+  },
+  {
+   "tid": "2501460",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.009979529292883899,
+   "wait": 0.010254353960814852
+  },
+  {
+   "tid": "2501668",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009970855204732681,
+   "wait": 0.01050638352208844
+  },
+  {
+   "tid": "2501438",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009969995570996574,
+   "wait": 0.010018764191612163
+  },
+  {
+   "tid": "2501648",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009953521653578875,
+   "wait": 0.00917823439965088
+  },
+  {
+   "tid": "2501489",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009946034077485694,
+   "wait": 0.009347232867113342
+  },
+  {
+   "tid": "2500938",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.00993391120428588,
+   "wait": 0.00899203613239387
+  },
+  {
+   "tid": "2501458",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.00990207613075902,
+   "wait": 0.009749213077274183
+  },
+  {
+   "tid": "2501414",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009898475719169506,
+   "wait": 0.008843718250099757
+  },
+  {
+   "tid": "2501340",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009884652828693108,
+   "wait": 0.009314243906860002
+  },
+  {
+   "tid": "2501436",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009863931618111901,
+   "wait": 0.010847060109245575
+  },
+  {
+   "tid": "2501560",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009855906411555003,
+   "wait": 0.008780671359379934
+  },
+  {
+   "tid": "2501522",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009853885266014925,
+   "wait": 0.009462442037937132
+  },
+  {
+   "tid": "2501517",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009831496038482343,
+   "wait": 0.008776349815461847
+  },
+  {
+   "tid": "2501481",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009817922025535188,
+   "wait": 0.009762420711497981
+  },
+  {
+   "tid": "2501703",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009814644742229494,
+   "wait": 0.008954600626952107
+  },
+  {
+   "tid": "2501633",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.00981096295481299,
+   "wait": 0.008577815797841639
+  },
+  {
+   "tid": "2501706",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009800044718855415,
+   "wait": 0.007874011895369779
+  },
+  {
+   "tid": "2501548",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009799221835492786,
+   "wait": 0.00820786003813222
+  },
+  {
+   "tid": "2501394",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.00978336517434801,
+   "wait": 0.009648401802770339
+  },
+  {
+   "tid": "2501343",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.00977804087023928,
+   "wait": 0.009002274111438275
+  },
+  {
+   "tid": "2501495",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009763393846387554,
+   "wait": 0.009188540254385077
+  },
+  {
+   "tid": "2501406",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009762940341778771,
+   "wait": 0.008788648565449024
+  },
+  {
+   "tid": "2501621",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.0097596558083994,
+   "wait": 0.009799952717920448
+  },
+  {
+   "tid": "2501369",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009756164147915077,
+   "wait": 0.008392862668238457
+  },
+  {
+   "tid": "2501643",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009752726487979544,
+   "wait": 0.00976162257838688
+  },
+  {
+   "tid": "2500929",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009752144857068667,
+   "wait": 0.009339174285217263
+  },
+  {
+   "tid": "2501619",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009748012440072598,
+   "wait": 0.009559742401761025
+  },
+  {
+   "tid": "2501255",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.009743411018310227,
+   "wait": 0.010585616577301647
+  },
+  {
+   "tid": "2501664",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009739409852648012,
+   "wait": 0.009173816854757174
+  },
+  {
+   "tid": "2501422",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009720572036206972,
+   "wait": 0.009021312679919477
+  },
+  {
+   "tid": "2501587",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009716351993320396,
+   "wait": 0.008602793301677819
+  },
+  {
+   "tid": "2501462",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.00971424209687838,
+   "wait": 0.010849004754008207
+  },
+  {
+   "tid": "2501363",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009700060452756117,
+   "wait": 0.010278838584642092
+  },
+  {
+   "tid": "2501411",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009698110932943945,
+   "wait": 0.007994452494358437
+  },
+  {
+   "tid": "2501655",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.00968222964654891,
+   "wait": 0.010440910981717727
+  },
+  {
+   "tid": "2501490",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009682006644282629,
+   "wait": 0.009184595464295784
+  },
+  {
+   "tid": "2501510",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009677159720025317,
+   "wait": 0.010282186868669337
+  },
+  {
+   "tid": "2499189",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.00967338368165098,
+   "wait": 0.013707622554974413
+  },
+  {
+   "tid": "2501718",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009671412911622847,
+   "wait": 0.010120868479256374
+  },
+  {
+   "tid": "2500930",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009667430246148644,
+   "wait": 0.008757044244267204
+  },
+  {
+   "tid": "2500996",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.00965764089666348,
+   "wait": 0.009134918459448657
+  },
+  {
+   "tid": "2501581",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009656303758074686,
+   "wait": 0.00877611768810283
+  },
+  {
+   "tid": "2501391",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009653217976715148,
+   "wait": 0.008119384888995383
+  },
+  {
+   "tid": "2501556",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009648586429646626,
+   "wait": 0.008099014681981282
+  },
+  {
+   "tid": "2501443",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009646886287368773,
+   "wait": 0.008966177119599275
+  },
+  {
+   "tid": "2501542",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009644331636406898,
+   "wait": 0.009638449951633736
+  },
+  {
+   "tid": "2501616",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009639120958452905,
+   "wait": 0.009679066364401766
+  },
+  {
+   "tid": "2501545",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009618748001410856,
+   "wait": 0.009307179210064371
+  },
+  {
+   "tid": "2501549",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009615389842283254,
+   "wait": 0.008906834516524617
+  },
+  {
+   "tid": "2500977",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009613761200732035,
+   "wait": 0.00817544658372751
+  },
+  {
+   "tid": "2501483",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009602682838147157,
+   "wait": 0.008771566266848593
+  },
+  {
+   "tid": "2501515",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009601152197591882,
+   "wait": 0.008643716842567066
+  },
+  {
+   "tid": "2501626",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.00959498100987662,
+   "wait": 0.007934947889637422
+  },
+  {
+   "tid": "2500926",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009592594360622077,
+   "wait": 0.008302193246802127
+  },
+  {
+   "tid": "2501341",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009592359608236385,
+   "wait": 0.009855134903714483
+  },
+  {
+   "tid": "2501030",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.00958792793819913,
+   "wait": 0.009029962017819169
+  },
+  {
+   "tid": "2501726",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009575407435958375,
+   "wait": 0.008174313322210636
+  },
+  {
+   "tid": "2501452",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009562242052163952,
+   "wait": 0.008964206724574954
+  },
+  {
+   "tid": "2501347",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009548959917183034,
+   "wait": 0.008539569159156659
+  },
+  {
+   "tid": "2501498",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009545204504018303,
+   "wait": 0.00868009833729735
+  },
+  {
+   "tid": "2501484",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009535904909510319,
+   "wait": 0.00995259664417838
+  },
+  {
+   "tid": "2501653",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009518421106829567,
+   "wait": 0.008256530282748056
+  },
+  {
+   "tid": "2501524",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009518321230814567,
+   "wait": 0.009359514616927755
+  },
+  {
+   "tid": "2501578",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.00950666048731119,
+   "wait": 0.008311341214769192
+  },
+  {
+   "tid": "2501635",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009505579726327857,
+   "wait": 0.008592118193191048
+  },
+  {
+   "tid": "2501390",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00950548435035859,
+   "wait": 0.010005926561148563
+  },
+  {
+   "tid": "2501405",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009496289506915149,
+   "wait": 0.008626200414554756
+  },
+  {
+   "tid": "2500962",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009495057619395977,
+   "wait": 0.009816269383740063
+  },
+  {
+   "tid": "2501676",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009490549823585088,
+   "wait": 0.0079687736083944
+  },
+  {
+   "tid": "2501584",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009490051193517713,
+   "wait": 0.008906863016814254
+  },
+  {
+   "tid": "2500978",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009471352753493098,
+   "wait": 0.008546843858086456
+  },
+  {
+   "tid": "2500947",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009466603080224107,
+   "wait": 0.00852129259841943
+  },
+  {
+   "tid": "2501661",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009462395537464568,
+   "wait": 0.008440372901065566
+  },
+  {
+   "tid": "2501570",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009462384037347695,
+   "wait": 0.009012933094761172
+  },
+  {
+   "tid": "2501557",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009454821460492315,
+   "wait": 0.008867864370486925
+  },
+  {
+   "tid": "2501654",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00943731878261974,
+   "wait": 0.007804038684260587
+  },
+  {
+   "tid": "2501559",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009429368951828854,
+   "wait": 0.00807612057431781
+  },
+  {
+   "tid": "2501029",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.009425111033557369,
+   "wait": 0.00803224300340796
+  },
+  {
+   "tid": "2501512",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009424804155438692,
+   "wait": 0.009977291145138517
+  },
+  {
+   "tid": "2501384",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009421785374760055,
+   "wait": 0.008439648893707775
+  },
+  {
+   "tid": "2501430",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009421492746786197,
+   "wait": 0.008583813358792405
+  },
+  {
+   "tid": "2501190",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.009421426496112918,
+   "wait": 0.010845287216228386
+  },
+  {
+   "tid": "2501586",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00941180264830968,
+   "wait": 0.009675937457603962
+  },
+  {
+   "tid": "2501672",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009411162516804286,
+   "wait": 0.009976717514308942
+  },
+  {
+   "tid": "2501634",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009406657471021342,
+   "wait": 0.008609450869335962
+  },
+  {
+   "tid": "2500959",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009405438958638098,
+   "wait": 0.008256178154169517
+  },
+  {
+   "tid": "2500946",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009403223561123919,
+   "wait": 0.008926065211958326
+  },
+  {
+   "tid": "2501624",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009398587264007122,
+   "wait": 0.009456882731440169
+  },
+  {
+   "tid": "2501646",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009397466502617281,
+   "wait": 0.00873133798302496
+  },
+  {
+   "tid": "2501336",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.00939740275196941,
+   "wait": 0.00932988956586045
+  },
+  {
+   "tid": "2501466",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009380599956209452,
+   "wait": 0.009245700835284735
+  },
+  {
+   "tid": "2501555",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009376794167532777,
+   "wait": 0.009025112843538989
+  },
+  {
+   "tid": "2501674",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009375364653005203,
+   "wait": 0.008527015031574181
+  },
+  {
+   "tid": "2501523",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009373155255551999,
+   "wait": 0.00845539005367876
+  },
+  {
+   "tid": "2501388",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00937117873546543,
+   "wait": 0.008103330475840935
+  },
+  {
+   "tid": "2501529",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009365372551459552,
+   "wait": 0.007968261478189827
+  },
+  {
+   "tid": "2501028",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.009364930921971451,
+   "wait": 0.009835502204195368
+  },
+  {
+   "tid": "2501641",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009354617817163577,
+   "wait": 0.008752161819649114
+  },
+  {
+   "tid": "2500990",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009347425869074744,
+   "wait": 0.008686037647656138
+  },
+  {
+   "tid": "2501408",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009346580985488535,
+   "wait": 0.009973295479532197
+  },
+  {
+   "tid": "2501539",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009345616600687886,
+   "wait": 0.008765599331209063
+  },
+  {
+   "tid": "2501533",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009342768821747071,
+   "wait": 0.008685447641660148
+  },
+  {
+   "tid": "2500948",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009341498808840448,
+   "wait": 0.00990150887499423
+  },
+  {
+   "tid": "2501644",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009340955303317022,
+   "wait": 0.009254332673006578
+  },
+  {
+   "tid": "2501427",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009340699800720454,
+   "wait": 0.009348208752030861
+  },
+  {
+   "tid": "2501348",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009330993952083876,
+   "wait": 0.009466036949470753
+  },
+  {
+   "tid": "2500945",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009328838305176916,
+   "wait": 0.009817204393242183
+  },
+  {
+   "tid": "2501526",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009324199883038523,
+   "wait": 0.008558287224380717
+  },
+  {
+   "tid": "2501652",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00931950046028021,
+   "wait": 0.00883868519895091
+  },
+  {
+   "tid": "2501357",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009316530930102086,
+   "wait": 0.00880906539793696
+  },
+  {
+   "tid": "2501623",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009308537848871661,
+   "wait": 0.008839735834628094
+  },
+  {
+   "tid": "2501642",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009307743840802482,
+   "wait": 0.008399543986137965
+  },
+  {
+   "tid": "2501474",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009306720955407315,
+   "wait": 0.008606133835626303
+  },
+  {
+   "tid": "2501433",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009299258254566933,
+   "wait": 0.009406337717771822
+  },
+  {
+   "tid": "2500166",
+   "pod": "paymentservice",
+   "comm": "node",
+   "cores": 0.00928140007308152,
+   "wait": 0.002433856859294087
+  },
+  {
+   "tid": "2501514",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009281317197239288,
+   "wait": 0.008670412113860215
+  },
+  {
+   "tid": "2501544",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.00927865042013792,
+   "wait": 0.007790471921387112
+  },
+  {
+   "tid": "2501681",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009273718245014237,
+   "wait": 0.008736516910656288
+  },
+  {
+   "tid": "2501346",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009267632183164074,
+   "wait": 0.008831167122547768
+  },
+  {
+   "tid": "2501707",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.00926160499691224,
+   "wait": 0.009334879366569758
+  },
+  {
+   "tid": "2501367",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009258658466967858,
+   "wait": 0.009027033113053905
+  },
+  {
+   "tid": "2501381",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009249624000154258,
+   "wait": 0.007726843649758952
+  },
+  {
+   "tid": "2501649",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009244748075602226,
+   "wait": 0.009066965143866838
+  },
+  {
+   "tid": "2501667",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009243882191802602,
+   "wait": 0.009485273269961627
+  },
+  {
+   "tid": "2501465",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009235183103397318,
+   "wait": 0.009219083939788087
+  },
+  {
+   "tid": "2501550",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.00923017867753938,
+   "wait": 0.010076119399489736
+  },
+  {
+   "tid": "2501531",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.009223902738759573,
+   "wait": 0.010221722879198486
+  },
+  {
+   "tid": "2500974",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009223186981485625,
+   "wait": 0.008508453342939315
+  },
+  {
+   "tid": "2501401",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009221515714501222,
+   "wait": 0.008689025553021002
+  },
+  {
+   "tid": "2501525",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009220640830610135,
+   "wait": 0.009886217719596456
+  },
+  {
+   "tid": "2501376",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009216321286712372,
+   "wait": 0.008310291454100902
+  },
+  {
+   "tid": "2501610",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009209914471602524,
+   "wait": 0.01033934169951056
+  },
+  {
+   "tid": "2501536",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009205141798099791,
+   "wait": 0.00858912091273091
+  },
+  {
+   "tid": "2501666",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009201764388776557,
+   "wait": 0.009269206074158886
+  },
+  {
+   "tid": "2501399",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009190443523727226,
+   "wait": 0.009013119971660327
+  },
+  {
+   "tid": "2500999",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009189051634582024,
+   "wait": 0.008021974899057406
+  },
+  {
+   "tid": "2501554",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.00918835562750879,
+   "wait": 0.008452083145071997
+  },
+  {
+   "tid": "2500994",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009185620974717628,
+   "wait": 0.008190231233977878
+  },
+  {
+   "tid": "2501457",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.00918499421834816,
+   "wait": 0.008675450290061145
+  },
+  {
+   "tid": "2501670",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009181974062655548,
+   "wait": 0.008890601726557397
+  },
+  {
+   "tid": "2500975",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009173810479692386,
+   "wait": 0.009162238612092219
+  },
+  {
+   "tid": "2500965",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009170505321103408,
+   "wait": 0.008151248087808071
+  },
+  {
+   "tid": "2501471",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009158235071405868,
+   "wait": 0.008762503549747898
+  },
+  {
+   "tid": "2500943",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009149785360534905,
+   "wait": 0.009439543805231737
+  },
+  {
+   "tid": "2500960",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009148101593423467,
+   "wait": 0.008398490850435375
+  },
+  {
+   "tid": "2501425",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.009139530631320275,
+   "wait": 0.009163298872867216
+  },
+  {
+   "tid": "2501432",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.00913406357576082,
+   "wait": 0.007856354715927067
+  },
+  {
+   "tid": "2501709",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009123523718648554,
+   "wait": 0.009868878293382944
+  },
+  {
+   "tid": "2501365",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.0091129661113559,
+   "wait": 0.009058927687185447
+  },
+  {
+   "tid": "2501431",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.009103984270077112,
+   "wait": 0.008479001293630157
+  },
+  {
+   "tid": "2501478",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009102993635009693,
+   "wait": 0.008489842528805205
+  },
+  {
+   "tid": "2501716",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.00909386579224715,
+   "wait": 0.00952521605088381
+  },
+  {
+   "tid": "2500998",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009089443622306443,
+   "wait": 0.006820781566819737
+  },
+  {
+   "tid": "2501418",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009088843491207556,
+   "wait": 0.009215212275441942
+  },
+  {
+   "tid": "2501631",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.009076810118917302,
+   "wait": 0.008783611264256988
+  },
+  {
+   "tid": "2501496",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009075645982086655,
+   "wait": 0.009475290668512522
+  },
+  {
+   "tid": "2501669",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.009074806598556343,
+   "wait": 0.008236803332271107
+  },
+  {
+   "tid": "2500952",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009058340181214862,
+   "wait": 0.00830433951861381
+  },
+  {
+   "tid": "2501627",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.00905749392261468,
+   "wait": 0.007851178413322418
+  },
+  {
+   "tid": "2500949",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009057406421725447,
+   "wait": 0.009087261975135253
+  },
+  {
+   "tid": "2501429",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.009054423766413938,
+   "wait": 0.00895192322474276
+  },
+  {
+   "tid": "2501613",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009039388488616545,
+   "wait": 0.008014203945084371
+  },
+  {
+   "tid": "2501386",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009036256831790795,
+   "wait": 0.009249476873659072
+  },
+  {
+   "tid": "2501629",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.0090309349027062,
+   "wait": 0.008639266047335451
+  },
+  {
+   "tid": "2501636",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.009029484762969022,
+   "wait": 0.007942195963296636
+  },
+  {
+   "tid": "2500950",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.009017109262201858,
+   "wait": 0.009996792718325048
+  },
+  {
+   "tid": "2501647",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.009003228246134755,
+   "wait": 0.00839925660821746
+  },
+  {
+   "tid": "2501662",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008999508958337153,
+   "wait": 0.008840303590397962
+  },
+  {
+   "tid": "2500964",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008981237397650737,
+   "wait": 0.008242659516785121
+  },
+  {
+   "tid": "2501657",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008980499015146857,
+   "wait": 0.0084175777944082
+  },
+  {
+   "tid": "2501708",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008973097314926399,
+   "wait": 0.009306896332189597
+  },
+  {
+   "tid": "2501677",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008971297296633547,
+   "wait": 0.00821090269405349
+  },
+  {
+   "tid": "2501339",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008966566873560186,
+   "wait": 0.008222540687325669
+  },
+  {
+   "tid": "2501370",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008965776240525304,
+   "wait": 0.00921980857215223
+  },
+  {
+   "tid": "2501712",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008964221474724856,
+   "wait": 0.009170744698536104
+  },
+  {
+   "tid": "2501658",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008960317810053504,
+   "wait": 0.007704118168809162
+  },
+  {
+   "tid": "2501715",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008958712293737297,
+   "wait": 0.008907879152140821
+  },
+  {
+   "tid": "2501410",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008955465385740297,
+   "wait": 0.008895601652369602
+  },
+  {
+   "tid": "2501389",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008947446304245644,
+   "wait": 0.008216101246884263
+  },
+  {
+   "tid": "2501421",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008938828966671157,
+   "wait": 0.009186816986872213
+  },
+  {
+   "tid": "2501675",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008938066208919562,
+   "wait": 0.008717762595063832
+  },
+  {
+   "tid": "2501387",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008934792550650708,
+   "wait": 0.009353688557719892
+  },
+  {
+   "tid": "2501477",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008907879152140821,
+   "wait": 0.00905834318124535
+  },
+  {
+   "tid": "2500841",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008907321021468769,
+   "wait": 0.006836027346756376
+  },
+  {
+   "tid": "2501509",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.008890296098451423,
+   "wait": 0.009053732009383893
+  },
+  {
+   "tid": "2501416",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008855107865847773,
+   "wait": 0.00897150667376136
+  },
+  {
+   "tid": "2501440",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.008848582549533647,
+   "wait": 0.009102545630456805
+  },
+  {
+   "tid": "2501617",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.0088367809295986,
+   "wait": 0.00799879103844929
+  },
+  {
+   "tid": "2501700",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008832660762727026,
+   "wait": 0.008295621180012893
+  },
+  {
+   "tid": "2500954",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008820911143320436,
+   "wait": 0.008353490768117902
+  },
+  {
+   "tid": "2501371",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008820734266522912,
+   "wait": 0.009467903093435611
+  },
+  {
+   "tid": "2501717",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008819541004396275,
+   "wait": 0.00819844294243012
+  },
+  {
+   "tid": "2501645",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.00881522808556584,
+   "wait": 0.007997886029252051
+  },
+  {
+   "tid": "2501574",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008808966646933394,
+   "wait": 0.009133429444316403
+  },
+  {
+   "tid": "2501625",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008798158912098796,
+   "wait": 0.009630665247520966
+  },
+  {
+   "tid": "2501488",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008796450394735832,
+   "wait": 0.008645932615085058
+  },
+  {
+   "tid": "2501468",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008794266122537964,
+   "wait": 0.009181216179953496
+  },
+  {
+   "tid": "2501352",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.008786177415335734,
+   "wait": 0.009148586598352375
+  },
+  {
+   "tid": "2501637",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008774371545357493,
+   "wait": 0.00853130707519247
+  },
+  {
+   "tid": "2501461",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00877304140683984,
+   "wait": 0.009570898265133512
+  },
+  {
+   "tid": "2501444",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008766537965748021,
+   "wait": 0.00899760431398103
+  },
+  {
+   "tid": "2500993",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008761462164164721,
+   "wait": 0.00839786884411418
+  },
+  {
+   "tid": "2501407",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008754041713753711,
+   "wait": 0.008758314757178908
+  },
+  {
+   "tid": "2501491",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008744482741609778,
+   "wait": 0.009794010282529901
+  },
+  {
+   "tid": "2500987",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00874144821077108,
+   "wait": 0.00794797752205226
+  },
+  {
+   "tid": "2501368",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.00874001207117618,
+   "wait": 0.008623152758582671
+  },
+  {
+   "tid": "2501547",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008734788518091341,
+   "wait": 0.008502027902640189
+  },
+  {
+   "tid": "2501393",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008729311587431529,
+   "wait": 0.008059066401003203
+  },
+  {
+   "tid": "2501392",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008702340063330937,
+   "wait": 0.007531660166188856
+  },
+  {
+   "tid": "2501532",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008696880132843891,
+   "wait": 0.009273855871412877
+  },
+  {
+   "tid": "2501564",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008696603630033906,
+   "wait": 0.00874330672965845
+  },
+  {
+   "tid": "2501467",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008685993897211522,
+   "wait": 0.009609769160162556
+  },
+  {
+   "tid": "2500976",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008682211358771126,
+   "wait": 0.0090623159716192
+  },
+  {
+   "tid": "2501420",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008680764219064436,
+   "wait": 0.007682588575012686
+  },
+  {
+   "tid": "2500963",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008676413549850359,
+   "wait": 0.0076577994480909045
+  },
+  {
+   "tid": "2501353",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.008666768451831163,
+   "wait": 0.00976788514203076
+  },
+  {
+   "tid": "2501612",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008664367177427993,
+   "wait": 0.00881080491561497
+  },
+  {
+   "tid": "2501486",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008659851756539614,
+   "wait": 0.008657292230528194
+  },
+  {
+   "tid": "2501650",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008627475302510922,
+   "wait": 0.008729610465468905
+  },
+  {
+   "tid": "2501632",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008620121227774462,
+   "wait": 0.007405737761490842
+  },
+  {
+   "tid": "2500991",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008618754088880787,
+   "wait": 0.007950142794057036
+  },
+  {
+   "tid": "2501659",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.00861730857419061,
+   "wait": 0.007569413674862358
+  },
+  {
+   "tid": "2501527",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.00861466629733823,
+   "wait": 0.007952491692927935
+  },
+  {
+   "tid": "2501608",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.00861117526186026,
+   "wait": 0.007885546887595197
+  },
+  {
+   "tid": "2501543",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.008603354557381631,
+   "wait": 0.008449360117398977
+  },
+  {
+   "tid": "2500997",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008596715989916579,
+   "wait": 0.008758966763804986
+  },
+  {
+   "tid": "2500953",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.00859659773871484,
+   "wait": 0.00827708274161431
+  },
+  {
+   "tid": "2501455",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008581337333629572,
+   "wait": 0.008615031801052693
+  },
+  {
+   "tid": "2501535",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.00856120512903419,
+   "wait": 0.009126056994393202
+  },
+  {
+   "tid": "2501538",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008556326204451672,
+   "wait": 0.008659408877038808
+  },
+  {
+   "tid": "2501463",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.00855627695395116,
+   "wait": 0.008381737180174662
+  },
+  {
+   "tid": "2501492",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008553047171128194,
+   "wait": 0.008239403358694115
+  },
+  {
+   "tid": "2501473",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008551133901684419,
+   "wait": 0.008095843774756646
+  },
+  {
+   "tid": "2501493",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.00855073014758123,
+   "wait": 0.009096776946832027
+  },
+  {
+   "tid": "2501419",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008549116506182449,
+   "wait": 0.008511320622078303
+  },
+  {
+   "tid": "2501349",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008534286980476032,
+   "wait": 0.00868115534803932
+  },
+  {
+   "tid": "2501630",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008517245807293542,
+   "wait": 0.007581702174745368
+  },
+  {
+   "tid": "2501415",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008512632760413029,
+   "wait": 0.008606372963056457
+  },
+  {
+   "tid": "2501660",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.00850704895366708,
+   "wait": 0.00835176800061012
+  },
+  {
+   "tid": "2501516",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.008502095403326169,
+   "wait": 0.007916672328910355
+  },
+  {
+   "tid": "2501673",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.008500863390805729,
+   "wait": 0.007469264407086218
+  },
+  {
+   "tid": "2500843",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008491806298762198,
+   "wait": 0.007860227005279564
+  },
+  {
+   "tid": "2501552",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008473202359697956,
+   "wait": 0.008788952443537213
+  },
+  {
+   "tid": "2501530",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.008456648816471053,
+   "wait": 0.008663409917699752
+  },
+  {
+   "tid": "2501413",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008454863673329371,
+   "wait": 0.00891696436947018
+  },
+  {
+   "tid": "2501528",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008453053529933623,
+   "wait": 0.007576142993249676
+  },
+  {
+   "tid": "2500958",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008452960278985951,
+   "wait": 0.008188022086527214
+  },
+  {
+   "tid": "2500937",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008438749884571512,
+   "wait": 0.007928179445852489
+  },
+  {
+   "tid": "2501663",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.00842231634256413,
+   "wait": 0.008149879073895342
+  },
+  {
+   "tid": "2501476",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.0083982067225479,
+   "wait": 0.009165775773038941
+  },
+  {
+   "tid": "2501562",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008394701686927655,
+   "wait": 0.007528137630390762
+  },
+  {
+   "tid": "2501553",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008393064545290051,
+   "wait": 0.007036576384854413
+  },
+  {
+   "tid": "2501615",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.008380062538155958,
+   "wait": 0.0071315718502545635
+  },
+  {
+   "tid": "2501487",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.00834414379812846,
+   "wait": 0.008749546918074938
+  },
+  {
+   "tid": "2500814",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008322967082918145,
+   "wait": 0.009577290205092188
+  },
+  {
+   "tid": "2501366",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008317310775435401,
+   "wait": 0.008371037571438904
+  },
+  {
+   "tid": "2501656",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008281647538004472,
+   "wait": 0.007925354542144145
+  },
+  {
+   "tid": "2500941",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.00822522458960107,
+   "wait": 0.00804186772622009
+  },
+  {
+   "tid": "2500951",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.00822258581278426,
+   "wait": 0.007120342236132578
+  },
+  {
+   "tid": "2501520",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.008193152138661841,
+   "wait": 0.007656454059418269
+  },
+  {
+   "tid": "2501651",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.00816417859421553,
+   "wait": 0.008742162343028515
+  },
+  {
+   "tid": "2501561",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.00813505954829055,
+   "wait": 0.007860268755703857
+  },
+  {
+   "tid": "2501609",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.008101022452385434,
+   "wait": 0.008330580660291825
+  },
+  {
+   "tid": "2501521",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.008097405540628235,
+   "wait": 0.007684808472572599
+  },
+  {
+   "tid": "2501719",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.008079454108195152,
+   "wait": 0.007163239047075363
+  },
+  {
+   "tid": "2500165",
+   "pod": "paymentservice",
+   "comm": "node",
+   "cores": 0.008064100202159672,
+   "wait": 0.0027116985578858927
+  },
+  {
+   "tid": "2501701",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.008051504199151634,
+   "wait": 0.007100995914523805
+  },
+  {
+   "tid": "2501424",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.008014105319082076,
+   "wait": 0.007380158626540531
+  },
+  {
+   "tid": "2500898",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.007976561437538927,
+   "wait": 0.007431060393834421
+  },
+  {
+   "tid": "2501540",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.007928451198614203,
+   "wait": 0.007613330871174904
+  },
+  {
+   "tid": "2501364",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.007849219518414966,
+   "wait": 0.007099842277799867
+  },
+  {
+   "tid": "2501505",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.007828161804414013,
+   "wait": 0.008210848318500896
+  },
+  {
+   "tid": "2501558",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.007789392410416482,
+   "wait": 0.007106476720222997
+  },
+  {
+   "tid": "2501104",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.007711752621394989,
+   "wait": 0.010369632632344949
+  },
+  {
+   "tid": "2500521",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.007693373809618625,
+   "wait": 0.013523878937663011
+  },
+  {
+   "tid": "2501640",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.0076919339199856135,
+   "wait": 0.006748110453292864
+  },
+  {
+   "tid": "2500966",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.007643883431668108,
+   "wait": 0.008027321578393526
+  },
+  {
+   "tid": "2501372",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.007458742550156879,
+   "wait": 0.011266137118154208
+  },
+  {
+   "tid": "2499218",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.007411424569283549,
+   "wait": 0.007103111936028069
+  },
+  {
+   "tid": "2501350",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.007264591827082307,
+   "wait": 0.007600884369686188
+  },
+  {
+   "tid": "2498935",
+   "pod": "currencyservice-1",
+   "comm": "libuv-worker",
+   "cores": 0.007220130500239986,
+   "wait": 0.03578251689311756
+  },
+  {
+   "tid": "2498934",
+   "pod": "currencyservice-1",
+   "comm": "libuv-worker",
+   "cores": 0.007211258660079095,
+   "wait": 0.03501615785492338
+  },
+  {
+   "tid": "2498933",
+   "pod": "currencyservice-1",
+   "comm": "libuv-worker",
+   "cores": 0.007207364620505559,
+   "wait": 0.035684207519039515
+  },
+  {
+   "tid": "2498936",
+   "pod": "currencyservice-1",
+   "comm": "libuv-worker",
+   "cores": 0.007169553986251512,
+   "wait": 0.036231098576870166
+  },
+  {
+   "tid": "2498744",
+   "pod": "currencyservice-1",
+   "comm": "node",
+   "cores": 0.006966444797135705,
+   "wait": 0.004512057604200216
+  },
+  {
+   "tid": "2499270",
+   "pod": "currencyservice-4",
+   "comm": "libuv-worker",
+   "cores": 0.0068720405877442485,
+   "wait": 0.03307484462614922
+  },
+  {
+   "tid": "2499268",
+   "pod": "currencyservice-4",
+   "comm": "libuv-worker",
+   "cores": 0.006868852180341766,
+   "wait": 0.033467342239942306
+  },
+  {
+   "tid": "2499370",
+   "pod": "currencyservice-3",
+   "comm": "libuv-worker",
+   "cores": 0.006857200436929852,
+   "wait": 0.03234652197450332
+  },
+  {
+   "tid": "2499372",
+   "pod": "currencyservice-3",
+   "comm": "libuv-worker",
+   "cores": 0.00684887747734701,
+   "wait": 0.03323550313385608
+  },
+  {
+   "tid": "2500527",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.00684003988753419,
+   "wait": 0.0091368124786968
+  },
+  {
+   "tid": "2499269",
+   "pod": "currencyservice-4",
+   "comm": "libuv-worker",
+   "cores": 0.0068271456314951285,
+   "wait": 0.030834253855939533
+  },
+  {
+   "tid": "2498802",
+   "pod": "currencyservice-2",
+   "comm": "libuv-worker",
+   "cores": 0.006800374984435966,
+   "wait": 0.0346487328709332
+  },
+  {
+   "tid": "2498801",
+   "pod": "currencyservice-2",
+   "comm": "libuv-worker",
+   "cores": 0.006782672554533395,
+   "wait": 0.03560097767320855
+  },
+  {
+   "tid": "2498800",
+   "pod": "currencyservice-2",
+   "comm": "libuv-worker",
+   "cores": 0.006778973266939045,
+   "wait": 0.03313359609821646
+  },
+  {
+   "tid": "2499368",
+   "pod": "currencyservice-3",
+   "comm": "libuv-worker",
+   "cores": 0.00677001117586097,
+   "wait": 0.03448246218119204
+  },
+  {
+   "tid": "2499266",
+   "pod": "currencyservice-4",
+   "comm": "libuv-worker",
+   "cores": 0.006764264742462313,
+   "wait": 0.03122098953617644
+  },
+  {
+   "tid": "2499371",
+   "pod": "currencyservice-3",
+   "comm": "libuv-worker",
+   "cores": 0.006748627958552059,
+   "wait": 0.03462784328364085
+  },
+  {
+   "tid": "2498803",
+   "pod": "currencyservice-2",
+   "comm": "libuv-worker",
+   "cores": 0.006722710445162946,
+   "wait": 0.037253140088460986
+  },
+  {
+   "tid": "2501680",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.006570587774202317,
+   "wait": 0.011179266110319603
+  },
+  {
+   "tid": "2499114",
+   "pod": "currencyservice-4",
+   "comm": "node",
+   "cores": 0.006519849883573839,
+   "wait": 0.00434571466372479
+  },
+  {
+   "tid": "2499193",
+   "pod": "currencyservice-3",
+   "comm": "node",
+   "cores": 0.006336965649996001,
+   "wait": 0.0048666234575082965
+  },
+  {
+   "tid": "2501333",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.006244865964024476,
+   "wait": 0.012103836631352522
+  },
+  {
+   "tid": "2498747",
+   "pod": "currencyservice-1",
+   "comm": "node",
+   "cores": 0.006086867108346579,
+   "wait": 0.0038675483043152025
+  },
+  {
+   "tid": "2501020",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.006064396004981926,
+   "wait": 0.009467218211475436
+  },
+  {
+   "tid": "2500167",
+   "pod": "paymentservice",
+   "comm": "node",
+   "cores": 0.0059587423062664995,
+   "wait": 0.0016136448988146332
+  },
+  {
+   "tid": "2499117",
+   "pod": "currencyservice-4",
+   "comm": "node",
+   "cores": 0.005877508605721549,
+   "wait": 0.003917763814634943
+  },
+  {
+   "tid": "2500164",
+   "pod": "paymentservice",
+   "comm": "node",
+   "cores": 0.005802129214671559,
+   "wait": 0.002473349885645598
+  },
+  {
+   "tid": "2498748",
+   "pod": "currencyservice-1",
+   "comm": "node",
+   "cores": 0.005795294020208266,
+   "wait": 0.004963741444478767
+  },
+  {
+   "tid": "2500883",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.005727857209875482,
+   "wait": 0.007526964868472461
+  },
+  {
+   "tid": "2499197",
+   "pod": "currencyservice-3",
+   "comm": "node",
+   "cores": 0.005676743690429641,
+   "wait": 0.004837670538271593
+  },
+  {
+   "tid": "2500456",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.005676556688529216,
+   "wait": 0.00864104306539456
+  },
+  {
+   "tid": "2499115",
+   "pod": "currencyservice-4",
+   "comm": "node",
+   "cores": 0.005641667208961673,
+   "wait": 0.004667986063837521
+  },
+  {
+   "tid": "2499116",
+   "pod": "currencyservice-4",
+   "comm": "node",
+   "cores": 0.005567033575490512,
+   "wait": 0.004015720185125564
+  },
+  {
+   "tid": "2500749",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.005483715978767775,
+   "wait": 0.007849265768884992
+  },
+  {
+   "tid": "2501330",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.005382000195071772,
+   "wait": 0.0008478092409393537
+  },
+  {
+   "tid": "2498701",
+   "pod": "currencyservice-2",
+   "comm": "node",
+   "cores": 0.005312884867680903,
+   "wait": 0.003284848757577489
+  },
+  {
+   "tid": "2498700",
+   "pod": "currencyservice-2",
+   "comm": "node",
+   "cores": 0.0052235049593493685,
+   "wait": 0.0035963221729547077
+  },
+  {
+   "tid": "2498746",
+   "pod": "currencyservice-1",
+   "comm": "node",
+   "cores": 0.005190685625819874,
+   "wait": 0.0037821855618084843
+  },
+  {
+   "tid": "2498703",
+   "pod": "currencyservice-2",
+   "comm": "node",
+   "cores": 0.005109834054158344,
+   "wait": 0.002887445843933844
+  },
+  {
+   "tid": "2499196",
+   "pod": "currencyservice-3",
+   "comm": "node",
+   "cores": 0.004984843783933232,
+   "wait": 0.0036558605280187146
+  },
+  {
+   "tid": "2501721",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.00495294170972547,
+   "wait": 0.007592980664364057
+  },
+  {
+   "tid": "2498702",
+   "pod": "currencyservice-2",
+   "comm": "node",
+   "cores": 0.004620498706242884,
+   "wait": 0.0038919948027549907
+  },
+  {
+   "tid": "2499195",
+   "pod": "currencyservice-3",
+   "comm": "node",
+   "cores": 0.0039811149584467655,
+   "wait": 0.0031897146657685347
+  },
+  {
+   "tid": "2500891",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.0036934299098210113,
+   "wait": 0.005260379084086051
+  },
+  {
+   "tid": "2501685",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0033842695179501065,
+   "wait": 0.005931478404194588
+  },
+  {
+   "tid": "2499427",
+   "pod": "adservice",
+   "comm": "C1 CompilerThre",
+   "cores": 0.0033056872193502726,
+   "wait": 0.0017000587770036148
+  },
+  {
+   "tid": "2500823",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.002811624698394482,
+   "wait": 0.0029625401070861967
+  },
+  {
+   "tid": "2501453",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0021959739417870684,
+   "wait": 0.004367425884367065
+  },
+  {
+   "tid": "2500344",
+   "pod": "paymentservice",
+   "comm": "libuv-worker",
+   "cores": 0.0016787355603044647,
+   "wait": 0.012552469440624691
+  },
+  {
+   "tid": "2500342",
+   "pod": "paymentservice",
+   "comm": "libuv-worker",
+   "cores": 0.0016516125346642233,
+   "wait": 0.013746728577392963
+  },
+  {
+   "tid": "2500343",
+   "pod": "paymentservice",
+   "comm": "libuv-worker",
+   "cores": 0.0016451922194171793,
+   "wait": 0.012472624629194455
+  },
+  {
+   "tid": "2500341",
+   "pod": "paymentservice",
+   "comm": "libuv-worker",
+   "cores": 0.0016387545289935585,
+   "wait": 0.012298999114709202
+  },
+  {
+   "tid": "2500796",
+   "pod": "adservice",
+   "comm": "GC Thread#12",
+   "cores": 0.0012178496265087913,
+   "wait": 0.000754136788984449
+  },
+  {
+   "tid": "2500794",
+   "pod": "adservice",
+   "comm": "GC Thread#10",
+   "cores": 0.001184104033566101,
+   "wait": 0.0007587202105638922
+  },
+  {
+   "tid": "2500804",
+   "pod": "adservice",
+   "comm": "GC Thread#20",
+   "cores": 0.0011121743025735967,
+   "wait": 0.0004673256242396195
+  },
+  {
+   "tid": "2499367",
+   "pod": "adservice",
+   "comm": "VM Thread",
+   "cores": 0.00109180959561539,
+   "wait": 0.002754250740326358
+  },
+  {
+   "tid": "2500787",
+   "pod": "adservice",
+   "comm": "GC Thread#3",
+   "cores": 0.00099781239036015,
+   "wait": 0.0007718838443405307
+  },
+  {
+   "tid": "2500800",
+   "pod": "adservice",
+   "comm": "GC Thread#16",
+   "cores": 0.0008159335419996328,
+   "wait": 0.0004387999593449276
+  },
+  {
+   "tid": "2500785",
+   "pod": "adservice",
+   "comm": "GC Thread#1",
+   "cores": 0.0008114783717235553,
+   "wait": 0.0013319600361663202
+  },
+  {
+   "tid": "2500790",
+   "pod": "adservice",
+   "comm": "GC Thread#6",
+   "cores": 0.0007820438225922437,
+   "wait": 0.0003118007937042312
+  },
+  {
+   "tid": "2500806",
+   "pod": "adservice",
+   "comm": "GC Thread#22",
+   "cores": 0.0006913827762410253,
+   "wait": 0.0002978005264252278
+  },
+  {
+   "tid": "2500801",
+   "pod": "adservice",
+   "comm": "GC Thread#17",
+   "cores": 0.000660602963438348,
+   "wait": 0.0001321432179176006
+  },
+  {
+   "tid": "2500786",
+   "pod": "adservice",
+   "comm": "GC Thread#2",
+   "cores": 0.0006568130499230035,
+   "wait": 0.00040903140681927577
+  },
+  {
+   "tid": "2500795",
+   "pod": "adservice",
+   "comm": "GC Thread#11",
+   "cores": 0.0005524537393619157,
+   "wait": 0.00022087899470309
+  },
+  {
+   "tid": "2499273",
+   "pod": "adservice",
+   "comm": "GC Thread#0",
+   "cores": 0.000499883080107758,
+   "wait": 0.0007638991381952203
+  },
+  {
+   "tid": "2500676",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.00047568008414258637,
+   "wait": 0.0012167438652713912
+  },
+  {
+   "tid": "2500793",
+   "pod": "adservice",
+   "comm": "GC Thread#9",
+   "cores": 0.00046839813513911016,
+   "wait": 0.0003476410329339573
+  },
+  {
+   "tid": "2500581",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0004307727527677028,
+   "wait": 0.0017049028262317103
+  },
+  {
+   "tid": "2500589",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0004008689488675464,
+   "wait": 0.0013915362666152393
+  },
+  {
+   "tid": "2500671",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.00039492588847064874,
+   "wait": 0.0019719631652569576
+  },
+  {
+   "tid": "2500559",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00038815194462982173,
+   "wait": 0.0017063477159155347
+  },
+  {
+   "tid": "2500540",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0003730336659889252,
+   "wait": 0.0006612524700390185
+  },
+  {
+   "tid": "2500607",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00037121214747757583,
+   "wait": 0.0011168506000969003
+  },
+  {
+   "tid": "2500699",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.00037115189686527347,
+   "wait": 0.001148541797161604
+  },
+  {
+   "tid": "2500591",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.00035996378316503937,
+   "wait": 0.002291617163770105
+  },
+  {
+   "tid": "2500629",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0003566364993512117,
+   "wait": 0.0012947549080657853
+  },
+  {
+   "tid": "2500593",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0003557799906468633,
+   "wait": 0.0014566456782956212
+  },
+  {
+   "tid": "2500584",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0003530413378150521,
+   "wait": 0.0013636018577292408
+  },
+  {
+   "tid": "2499343",
+   "pod": "adservice",
+   "comm": "VM Periodic Tas",
+   "cores": 0.0003498969308597274,
+   "wait": 0.002257665693735169
+  },
+  {
+   "tid": "2500628",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.00034911504791377,
+   "wait": 0.0005277902387168229
+  },
+  {
+   "tid": "2500649",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.0003406395867811171,
+   "wait": 0.0009463411172786054
+  },
+  {
+   "tid": "2500590",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.00033970595229297076,
+   "wait": 0.0007975457301318042
+  },
+  {
+   "tid": "2500437",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.0003351554060476262,
+   "wait": 0.0011504439414923204
+  },
+  {
+   "tid": "2500588",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0003340426447390871,
+   "wait": 0.0010775125753206068
+  },
+  {
+   "tid": "2500586",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0003335280145091101,
+   "wait": 0.0014326968099130446
+  },
+  {
+   "tid": "2500592",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.00033280550716656274,
+   "wait": 0.0012318522688119311
+  },
+  {
+   "tid": "2500695",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0003240419181057833,
+   "wait": 0.00081769118486184
+  },
+  {
+   "tid": "2500578",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.00032265215398217764,
+   "wait": 0.0016450554680274307
+  },
+  {
+   "tid": "2500434",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.0003211166383773591,
+   "wait": 0.0006724588339247217
+  },
+  {
+   "tid": "2500642",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0003191206180926195,
+   "wait": 0.002167556402991218
+  },
+  {
+   "tid": "2500675",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.00031911111799607386,
+   "wait": 0.001183509402523108
+  },
+  {
+   "tid": "2500580",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0003181532332614822,
+   "wait": 0.0010514161851136424
+  },
+  {
+   "tid": "2500582",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0003165673421447179,
+   "wait": 0.001938420449376024
+  },
+  {
+   "tid": "2500587",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0003159482108527392,
+   "wait": 0.0014503553643697277
+  },
+  {
+   "tid": "2500667",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.0003121759225165122,
+   "wait": 0.001082819129248949
+  },
+  {
+   "tid": "2500436",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00031134103903193206,
+   "wait": 0.0007594080925545562
+  },
+  {
+   "tid": "2500432",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00030907926604645616,
+   "wait": 0.0009121683949951736
+  },
+  {
+   "tid": "2500670",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.00030855826075169195,
+   "wait": 0.0020178701317907256
+  },
+  {
+   "tid": "2500691",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.00030832025833297047,
+   "wait": 0.0011986115560001314
+  },
+  {
+   "tid": "2500585",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.00030519547657708863,
+   "wait": 0.001050643927265501
+  },
+  {
+   "tid": "2500680",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.00030467909632932687,
+   "wait": 0.0015731571123537814
+  },
+  {
+   "tid": "2500426",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00030456659518602366,
+   "wait": 0.001247269675492744
+  },
+  {
+   "tid": "2500547",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.00030291857843790196,
+   "wait": 0.0011540124777578984
+  },
+  {
+   "tid": "2500797",
+   "pod": "adservice",
+   "comm": "GC Thread#13",
+   "cores": 0.000302688576100482,
+   "wait": 0.0005225316852762902
+  },
+  {
+   "tid": "2500641",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0003010823097766529,
+   "wait": 0.0010581461285073107
+  },
+  {
+   "tid": "2500430",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00030099105884930696,
+   "wait": 0.000851702905509078
+  },
+  {
+   "tid": "2500679",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.0003003694275319215,
+   "wait": 0.0009659494415500035
+  },
+  {
+   "tid": "2500583",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.00030010254981975223,
+   "wait": 0.0010187163527985903
+  },
+  {
+   "tid": "2500689",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.00029926129127038487,
+   "wait": 0.000928049431387666
+  },
+  {
+   "tid": "2500668",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.000298715910727905,
+   "wait": 0.0015329239534806053
+  },
+  {
+   "tid": "2500678",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.0002951273742590732,
+   "wait": 0.0013266346070461572
+  },
+  {
+   "tid": "2500692",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0002944017418847675,
+   "wait": 0.0011388949491246238
+  },
+  {
+   "tid": "2500429",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.0002939519873140953,
+   "wait": 0.0013999266018827926
+  },
+  {
+   "tid": "2500604",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00029267472433379285,
+   "wait": 0.001404891152335493
+  },
+  {
+   "tid": "2500600",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00028927368977046643,
+   "wait": 0.0010147691876851617
+  },
+  {
+   "tid": "2500694",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0002888339353014212,
+   "wait": 0.0014832001981583706
+  },
+  {
+   "tid": "2500427",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00028869105884942614,
+   "wait": 0.000935002252046345
+  },
+  {
+   "tid": "2500673",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.000286747914102039,
+   "wait": 0.0014198695545548827
+  },
+  {
+   "tid": "2500440",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.0002857451539113964,
+   "wait": 0.0006514447453671149
+  },
+  {
+   "tid": "2500431",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.0002848696450139567,
+   "wait": 0.0009720526285742028
+  },
+  {
+   "tid": "2500687",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.00028434176464932397,
+   "wait": 0.001162012934063271
+  },
+  {
+   "tid": "2500428",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.0002843260144892615,
+   "wait": 0.0013258648492234227
+  },
+  {
+   "tid": "2500565",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00028393913555756884,
+   "wait": 0.0009695557281992231
+  },
+  {
+   "tid": "2500697",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.00028365775769804047,
+   "wait": 0.0009862428977841183
+  },
+  {
+   "tid": "2500433",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00028360750718736503,
+   "wait": 0.0009753576621619105
+  },
+  {
+   "tid": "2500597",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.0002835146312435047,
+   "wait": 0.0009667388245721811
+  },
+  {
+   "tid": "2500666",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.000280886354533401,
+   "wait": 0.001201666962050976
+  },
+  {
+   "tid": "2500438",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00027941158954596627,
+   "wait": 0.0007010001239782059
+  },
+  {
+   "tid": "2500562",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.0002792125875235899,
+   "wait": 0.0011401918373043693
+  },
+  {
+   "tid": "2500630",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0002779031992168108,
+   "wait": 0.0011896773402053419
+  },
+  {
+   "tid": "2500685",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.000275667051491754,
+   "wait": 0.001166126100863707
+  },
+  {
+   "tid": "2500566",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00027536129838451,
+   "wait": 0.000834883359578896
+  },
+  {
+   "tid": "2500572",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00027451116474494866,
+   "wait": 0.0011776984684689566
+  },
+  {
+   "tid": "2500601",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.0002741466610406463,
+   "wait": 0.0016417160590903803
+  },
+  {
+   "tid": "2500610",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.0002726830211662715,
+   "wait": 0.0009681860892801418
+  },
+  {
+   "tid": "2500646",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00027172963647741197,
+   "wait": 0.0015436628126152486
+  },
+  {
+   "tid": "2500543",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0002697426162841365,
+   "wait": 0.001073632285886809
+  },
+  {
+   "tid": "2500608",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00026962699010907494,
+   "wait": 0.00085617832599095
+  },
+  {
+   "tid": "2500609",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.000269009983838692,
+   "wait": 0.0014791696571976275
+  },
+  {
+   "tid": "2500633",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.00026705308895156774,
+   "wait": 0.001104357473134349
+  },
+  {
+   "tid": "2500686",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.00026663495970229086,
+   "wait": 0.0009877737883419342
+  },
+  {
+   "tid": "2500632",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0002655090732603664,
+   "wait": 0.0011060503653385217
+  },
+  {
+   "tid": "2500696",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0002655040732095529,
+   "wait": 0.0010143458083825309
+  },
+  {
+   "tid": "2500612",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00026453406335173854,
+   "wait": 0.001192022239035592
+  },
+  {
+   "tid": "2500698",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0002643276862544123,
+   "wait": 0.0009602025081462645
+  },
+  {
+   "tid": "2500672",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.0002636158040198436,
+   "wait": 0.001209648918168339
+  },
+  {
+   "tid": "2500550",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0002635221780683613,
+   "wait": 0.0011753280693795579
+  },
+  {
+   "tid": "2500688",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0002614444069528213,
+   "wait": 0.0006092319413756134
+  },
+  {
+   "tid": "2500542",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0002612979054639865,
+   "wait": 0.0013649082460055317
+  },
+  {
+   "tid": "2500693",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.00026015139381245646,
+   "wait": 0.0014479825902561927
+  },
+  {
+   "tid": "2500544",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0002601068933602165,
+   "wait": 0.001686761391867716
+  },
+  {
+   "tid": "2500439",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.000259775014987472,
+   "wait": 0.0007957460868427638
+  },
+  {
+   "tid": "2500602",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.0002590743828672337,
+   "wait": 0.0011426014867926537
+  },
+  {
+   "tid": "2500634",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0002584462514837908,
+   "wait": 0.001159171530187243
+  },
+  {
+   "tid": "2500652",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00025842112622845304,
+   "wait": 0.0007528981513966807
+  },
+  {
+   "tid": "2500635",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.00025832537525537495,
+   "wait": 0.0008635727761377294
+  },
+  {
+   "tid": "2500603",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00025720811390110375,
+   "wait": 0.0009132259057422238
+  },
+  {
+   "tid": "2500611",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00025586772527928114,
+   "wait": 0.0014406258904930548
+  },
+  {
+   "tid": "2500659",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00025492221567045283,
+   "wait": 0.0011124424302984695
+  },
+  {
+   "tid": "2500669",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.00025485096494636076,
+   "wait": 0.0007577957011684805
+  },
+  {
+   "tid": "2500605",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00025380645433142565,
+   "wait": 0.0007567526905687893
+  },
+  {
+   "tid": "2500627",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.00025308932204350283,
+   "wait": 0.0008038069187617093
+  },
+  {
+   "tid": "2500674",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.00025308294697871567,
+   "wait": 0.000847281735578532
+  },
+  {
+   "tid": "2500677",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.0002509465502673877,
+   "wait": 0.0012498572017887177
+  },
+  {
+   "tid": "2500631",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0002508734245242406,
+   "wait": 0.0009925083364572148
+  },
+  {
+   "tid": "2500548",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0002501445421169061,
+   "wait": 0.0011743078090110683
+  },
+  {
+   "tid": "2500452",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.00024961666175227334,
+   "wait": 0.0002897518196295051
+  },
+  {
+   "tid": "2500564",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00024926078313562423,
+   "wait": 0.0009414018170825131
+  },
+  {
+   "tid": "2500651",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00024843064969931687,
+   "wait": 0.0014716937062225885
+  },
+  {
+   "tid": "2500690",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0002473837640602453,
+   "wait": 0.001203086476476922
+  },
+  {
+   "tid": "2500546",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.00024726788788264297,
+   "wait": 0.000815405661635
+  },
+  {
+   "tid": "2500567",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.0002467266323820842,
+   "wait": 0.001393692913532362
+  },
+  {
+   "tid": "2500647",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00024399922966460334,
+   "wait": 0.0009350297523258192
+  },
+  {
+   "tid": "2500799",
+   "pod": "adservice",
+   "comm": "GC Thread#15",
+   "cores": 0.00024396635433050474,
+   "wait": 0.0006352512057987802
+  },
+  {
+   "tid": "2500545",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0002419713340559278,
+   "wait": 0.001078754087937593
+  },
+  {
+   "tid": "2500637",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.00024052881939623996,
+   "wait": 0.001081190612699
+  },
+  {
+   "tid": "2500552",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.00024025781664214953,
+   "wait": 0.0007221699641186525
+  },
+  {
+   "tid": "2500640",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.00023921593105389146,
+   "wait": 0.0011316271252646958
+  },
+  {
+   "tid": "2500573",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.0002385294240772012,
+   "wait": 0.0008696350877465284
+  },
+  {
+   "tid": "2500541",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.00023837692252739017,
+   "wait": 0.0008705584721305071
+  },
+  {
+   "tid": "2500653",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.0002373631622249579,
+   "wait": 0.0006373798524313474
+  },
+  {
+   "tid": "2500636",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0002362009004133654,
+   "wait": 0.0012151158487265234
+  },
+  {
+   "tid": "2500549",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0002337298753013455,
+   "wait": 0.0010481394018130308
+  },
+  {
+   "tid": "2500606",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00023258523866887053,
+   "wait": 0.0007588353367338725
+  },
+  {
+   "tid": "2500657",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.0002323546113250989,
+   "wait": 0.0010990422941183535
+  },
+  {
+   "tid": "2500574",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00023231948596813426,
+   "wait": 0.0009026465482285305
+  },
+  {
+   "tid": "2500650",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00023225723533550646,
+   "wait": 0.001192632620238647
+  },
+  {
+   "tid": "2500553",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.00023191548186240538,
+   "wait": 0.0008342557282005345
+  },
+  {
+   "tid": "2500660",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00022998758726999936,
+   "wait": 0.000946917123132318
+  },
+  {
+   "tid": "2500538",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.00022868344901657444,
+   "wait": 0.0008116052480129472
+  },
+  {
+   "tid": "2500654",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.000227685563875475,
+   "wait": 0.0008153419109871282
+  },
+  {
+   "tid": "2500568",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00022538741552033105,
+   "wait": 0.0008025224057077272
+  },
+  {
+   "tid": "2500638",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.00022422840374176727,
+   "wait": 0.0006693296771243781
+  },
+  {
+   "tid": "2500563",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.0002229083903270096,
+   "wait": 0.001230863383762296
+  },
+  {
+   "tid": "2500561",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00022043411518196096,
+   "wait": 0.0005003243345920472
+  },
+  {
+   "tid": "2501062",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.00022004486122613186,
+   "wait": 0.00039107159930108076
+  },
+  {
+   "tid": "2500599",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.00021888997448948924,
+   "wait": 0.0007610811095567453
+  },
+  {
+   "tid": "2500510",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.000215939819508268,
+   "wait": 8.552824418864454e-05
+  },
+  {
+   "tid": "2500551",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.00021502243518526547,
+   "wait": 0.0009933702202161877
+  },
+  {
+   "tid": "2500571",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00021479280785165658,
+   "wait": 0.0004494340674150285
+  },
+  {
+   "tid": "2500460",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.00021357654549127855,
+   "wait": 0.0005725708188035849
+  },
+  {
+   "tid": "2500772",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0002106347655951699,
+   "wait": 0.0011824053913034925
+  },
+  {
+   "tid": "2500789",
+   "pod": "adservice",
+   "comm": "GC Thread#5",
+   "cores": 0.00021037001290459632,
+   "wait": 0.0008262916472648298
+  },
+  {
+   "tid": "2500656",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00021026188680575494,
+   "wait": 0.0008698729651639795
+  },
+  {
+   "tid": "2500661",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00020047266232186113,
+   "wait": 0.0010604505269259717
+  },
+  {
+   "tid": "2500655",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00020020115956268937,
+   "wait": 0.0007278540218834121
+  },
+  {
+   "tid": "2500569",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00019916739905700322,
+   "wait": 0.0007054706694105347
+  },
+  {
+   "tid": "2500435",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.00018949367574690073,
+   "wait": 0.000451227085636741
+  },
+  {
+   "tid": "2500658",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.00018853404099452434,
+   "wait": 0.0007061650514672563
+  },
+  {
+   "tid": "2500570",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.00018532800841292347,
+   "wait": 0.0004484553074682905
+  },
+  {
+   "tid": "2500788",
+   "pod": "adservice",
+   "comm": "GC Thread#4",
+   "cores": 0.00012875943352958063,
+   "wait": 0.0009357196343368086
+  },
+  {
+   "tid": "2500802",
+   "pod": "adservice",
+   "comm": "GC Thread#18",
+   "cores": 0.00011604180428550427,
+   "wait": 0.0003551454841986332
+  },
+  {
+   "tid": "2500792",
+   "pod": "adservice",
+   "comm": "GC Thread#8",
+   "cores": 9.143917925906562e-05,
+   "wait": 0.0001611128873245292
+  },
+  {
+   "tid": "2500146",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 8.501461396883021e-05,
+   "wait": 0.0001269181648175181
+  },
+  {
+   "tid": "2500805",
+   "pod": "adservice",
+   "comm": "GC Thread#21",
+   "cores": 8.314809500015959e-05,
+   "wait": 0.0002643883118705257
+  },
+  {
+   "tid": "2501449",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 6.65135509500764e-05,
+   "wait": 0.00012062672588019148
+  },
+  {
+   "tid": "2500803",
+   "pod": "adservice",
+   "comm": "GC Thread#19",
+   "cores": 6.647842559311173e-05,
+   "wait": 0.0001526520513405057
+  },
+  {
+   "tid": "2500798",
+   "pod": "adservice",
+   "comm": "GC Thread#14",
+   "cores": 6.629004867871402e-05,
+   "wait": 0.0004292559873534348
+  },
+  {
+   "tid": "2499425",
+   "pod": "adservice",
+   "comm": "Monitor Deflati",
+   "cores": 6.612579700949133e-05,
+   "wait": 0.0005246338316395459
+  },
+  {
+   "tid": "2500238",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 6.287926401630133e-05,
+   "wait": 0.00013089358021804257
+  },
+  {
+   "tid": "2500791",
+   "pod": "adservice",
+   "comm": "GC Thread#7",
+   "cores": 6.131062307484353e-05,
+   "wait": 0.0006888020000136495
+  },
+  {
+   "tid": "2499288",
+   "pod": "adservice",
+   "comm": "G1 Service",
+   "cores": 5.076801593462925e-05,
+   "wait": 0.00030580185773949295
+  },
+  {
+   "tid": "2499418",
+   "pod": "adservice",
+   "comm": "Reference Handl",
+   "cores": 4.4729079563383197e-05,
+   "wait": 6.278726308133336e-05
+  },
+  {
+   "tid": "2499424",
+   "pod": "adservice",
+   "comm": "Service Thread",
+   "cores": 3.8716893463989235e-05,
+   "wait": 9.928900903368236e-05
+  },
+  {
+   "tid": "2501088",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 2.532375735501224e-05,
+   "wait": 0.00023149910263091315
+  },
+  {
+   "tid": "2500425",
+   "pod": "emailservice",
+   "comm": "grpc_global_tim",
+   "cores": 2.4171370643776345e-05,
+   "wait": 0.00012135423327355225
+  },
+  {
+   "tid": "2500617",
+   "pod": "recommendationservice-8",
+   "comm": "grpc_global_tim",
+   "cores": 2.2250976127590523e-05,
+   "wait": 8.208695921626963e-05
+  },
+  {
+   "tid": "2500614",
+   "pod": "recommendationservice-6",
+   "comm": "grpc_global_tim",
+   "cores": 2.1387217349562532e-05,
+   "wait": 3.3897844489961e-06
+  },
+  {
+   "tid": "2500529",
+   "pod": "recommendationservice-7",
+   "comm": "grpc_global_tim",
+   "cores": 2.1192215367836964e-05,
+   "wait": 0.00020186867650898367
+  },
+  {
+   "tid": "2500621",
+   "pod": "recommendationservice-4",
+   "comm": "grpc_global_tim",
+   "cores": 2.1026213680829563e-05,
+   "wait": 2.5732886512824918e-05
+  },
+  {
+   "tid": "2500531",
+   "pod": "recommendationservice-2",
+   "comm": "grpc_global_tim",
+   "cores": 2.0973088140936373e-05,
+   "wait": 5.5516689193457805e-05
+  },
+  {
+   "tid": "2500623",
+   "pod": "recommendationservice-5",
+   "comm": "grpc_global_tim",
+   "cores": 2.0701335379223952e-05,
+   "wait": 7.095947113214898e-05
+  },
+  {
+   "tid": "2500491",
+   "pod": "recommendationservice-1",
+   "comm": "grpc_global_tim",
+   "cores": 1.988607709408668e-05,
+   "wait": 3.468072744608101e-05
+  },
+  {
+   "tid": "2500534",
+   "pod": "recommendationservice-3",
+   "comm": "grpc_global_tim",
+   "cores": 1.9594449130390687e-05,
+   "wait": 4.524070976287213e-05
+  },
+  {
+   "tid": "2500442",
+   "pod": "emailservice",
+   "comm": "lifeguard",
+   "cores": 1.9529573471085837e-05,
+   "wait": 0.00015565483185653875
+  },
+  {
+   "tid": "2500662",
+   "pod": "recommendationservice-8",
+   "comm": "lifeguard",
+   "cores": 1.762317909717775e-05,
+   "wait": 0.0002337426254309199
+  },
+  {
+   "tid": "2500681",
+   "pod": "recommendationservice-4",
+   "comm": "lifeguard",
+   "cores": 1.6340666063521137e-05,
+   "wait": 8.596449862212032e-05
+  },
+  {
+   "tid": "2500554",
+   "pod": "recommendationservice-1",
+   "comm": "lifeguard",
+   "cores": 1.553528287874048e-05,
+   "wait": 9.150967997553562e-06
+  },
+  {
+   "tid": "2500613",
+   "pod": "recommendationservice-3",
+   "comm": "lifeguard",
+   "cores": 1.5091278366503805e-05,
+   "wait": 4.668084939842358e-05
+  },
+  {
+   "tid": "2500575",
+   "pod": "recommendationservice-7",
+   "comm": "lifeguard",
+   "cores": 1.5079528247092135e-05,
+   "wait": 5.127502108711572e-05
+  },
+  {
+   "tid": "2500594",
+   "pod": "recommendationservice-2",
+   "comm": "lifeguard",
+   "cores": 1.4876151180253996e-05,
+   "wait": 0.0001152255459902043
+  },
+  {
+   "tid": "2499271",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 1.4054267827788867e-05,
+   "wait": 4.467695403365271e-05
+  },
+  {
+   "tid": "2500643",
+   "pod": "recommendationservice-6",
+   "comm": "lifeguard",
+   "cores": 1.362326344766723e-05,
+   "wait": 0.0003323928779731807
+  },
+  {
+   "tid": "2500700",
+   "pod": "recommendationservice-5",
+   "comm": "lifeguard",
+   "cores": 1.2625878311649092e-05,
+   "wait": 0.00022234913464352232
+  },
+  {
+   "tid": "2499464",
+   "pod": "adservice",
+   "comm": "Common-Cleaner",
+   "cores": 1.1421491071953044e-05,
+   "wait": 2.0530458642673405e-05
+  },
+  {
+   "tid": "2499191",
+   "pod": "currencyservice-3",
+   "comm": "DelayedTaskSche",
+   "cores": 5.746808402468718e-06,
+   "wait": 5.507805973584562e-06
+  },
+  {
+   "tid": "2499111",
+   "pod": "currencyservice-4",
+   "comm": "DelayedTaskSche",
+   "cores": 4.940050203714355e-06,
+   "wait": 6.861319728792535e-07
+  },
+  {
+   "tid": "2500163",
+   "pod": "paymentservice",
+   "comm": "DelayedTaskSche",
+   "cores": 2.9162796369599164e-06,
+   "wait": 3.0075305643058545e-07
+  },
+  {
+   "tid": "2498699",
+   "pod": "currencyservice-2",
+   "comm": "DelayedTaskSche",
+   "cores": 2.5881513023255493e-06,
+   "wait": 2.182109675890192e-05
+  },
+  {
+   "tid": "2498743",
+   "pod": "currencyservice-1",
+   "comm": "DelayedTaskSche",
+   "cores": 1.8310186078949358e-06,
+   "wait": 1.1225489080064782e-05
+  },
+  {
+   "tid": "2498856",
+   "pod": "adservice",
+   "comm": "java",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499272",
+   "pod": "adservice",
+   "comm": "java",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499274",
+   "pod": "adservice",
+   "comm": "G1 Main Marker",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499275",
+   "pod": "adservice",
+   "comm": "G1 Conc#0",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499287",
+   "pod": "adservice",
+   "comm": "G1 Refine#0",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499422",
+   "pod": "adservice",
+   "comm": "Finalizer",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499423",
+   "pod": "adservice",
+   "comm": "Signal Dispatch",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499458",
+   "pod": "adservice",
+   "comm": "Notification Th",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500703",
+   "pod": "adservice",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500807",
+   "pod": "adservice",
+   "comm": "G1 Conc#1",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500808",
+   "pod": "adservice",
+   "comm": "G1 Conc#2",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500809",
+   "pod": "adservice",
+   "comm": "G1 Conc#3",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500810",
+   "pod": "adservice",
+   "comm": "G1 Conc#4",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500811",
+   "pod": "adservice",
+   "comm": "G1 Conc#5",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500812",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500813",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500970",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500981",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500983",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500984",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500985",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501374",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501375",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501378",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501379",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501382",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501383",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501396",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501397",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501441",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501469",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501472",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501475",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501479",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501497",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501499",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501502",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501503",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501504",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501563",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501565",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501566",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501568",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501571",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501572",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501575",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501577",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501579",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501582",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501589",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501590",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501591",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501595",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501596",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501597",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501599",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501600",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501601",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501603",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501604",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501606",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501683",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501684",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501686",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501688",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501689",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501691",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501692",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501693",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501694",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501696",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2501698",
+   "pod": "adservice",
+   "comm": "grpc-default-ex",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498831",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499201",
+   "pod": "cartservice",
+   "comm": ".NET SynchManag",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499202",
+   "pod": "cartservice",
+   "comm": ".NET EventPipe",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499210",
+   "pod": "cartservice",
+   "comm": ".NET DebugPipe",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499213",
+   "pod": "cartservice",
+   "comm": ".NET Debugger",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499219",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499220",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499221",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499222",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499223",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499224",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499225",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499226",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499227",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499228",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499229",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499230",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499231",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499232",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499233",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499234",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499235",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499237",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499238",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499240",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499242",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499244",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499245",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499246",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499247",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499249",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499250",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499251",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499252",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499254",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499256",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499852",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500103",
+   "pod": "cartservice",
+   "comm": "dotnet",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500123",
+   "pod": "cartservice",
+   "comm": ".NET SigHandler",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500325",
+   "pod": "cartservice",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500448",
+   "pod": "checkoutservice",
+   "comm": "checkoutservice",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498797",
+   "pod": "currencyservice-1",
+   "comm": "node",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499905",
+   "pod": "currencyservice-1",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498718",
+   "pod": "currencyservice-2",
+   "comm": "node",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499795",
+   "pod": "currencyservice-2",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499267",
+   "pod": "currencyservice-3",
+   "comm": "node",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500185",
+   "pod": "currencyservice-3",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499139",
+   "pod": "currencyservice-4",
+   "comm": "node",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500116",
+   "pod": "currencyservice-4",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499204",
+   "pod": "emailservice",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500441",
+   "pod": "emailservice",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500449",
+   "pod": "emailservice",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500459",
+   "pod": "frontend-1",
+   "comm": "frontend",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500454",
+   "pod": "frontend-2",
+   "comm": "frontend",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500526",
+   "pod": "frontend-3",
+   "comm": "frontend",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500513",
+   "pod": "frontend-4",
+   "comm": "frontend",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500506",
+   "pod": "frontend-5",
+   "comm": "frontend",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500518",
+   "pod": "frontend-6",
+   "comm": "frontend",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500216",
+   "pod": "paymentservice",
+   "comm": "node",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500350",
+   "pod": "paymentservice",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2497847",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498367",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498373",
+   "pod": "productcatalogservice-1",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498127",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498528",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498530",
+   "pod": "productcatalogservice-2",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498289",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498658",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498669",
+   "pod": "productcatalogservice-3",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498275",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498628",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498635",
+   "pod": "productcatalogservice-4",
+   "comm": "productcatalogs",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499976",
+   "pod": "recommendationservice-1",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500493",
+   "pod": "recommendationservice-1",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500539",
+   "pod": "recommendationservice-1",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500081",
+   "pod": "recommendationservice-2",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500532",
+   "pod": "recommendationservice-2",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500579",
+   "pod": "recommendationservice-2",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500058",
+   "pod": "recommendationservice-3",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500535",
+   "pod": "recommendationservice-3",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500598",
+   "pod": "recommendationservice-3",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500351",
+   "pod": "recommendationservice-4",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500622",
+   "pod": "recommendationservice-4",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500665",
+   "pod": "recommendationservice-4",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500418",
+   "pod": "recommendationservice-5",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500624",
+   "pod": "recommendationservice-5",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500684",
+   "pod": "recommendationservice-5",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500151",
+   "pod": "recommendationservice-6",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500615",
+   "pod": "recommendationservice-6",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500639",
+   "pod": "recommendationservice-6",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500115",
+   "pod": "recommendationservice-7",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500530",
+   "pod": "recommendationservice-7",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500560",
+   "pod": "recommendationservice-7",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500262",
+   "pod": "recommendationservice-8",
+   "comm": "python",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500618",
+   "pod": "recommendationservice-8",
+   "comm": "dmesh-callback",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2500648",
+   "pod": "recommendationservice-8",
+   "comm": "event_engine",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498074",
+   "pod": "redis-cart",
+   "comm": "iou-sqp-2497790",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498155",
+   "pod": "redis-cart",
+   "comm": "bio_close_file",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498156",
+   "pod": "redis-cart",
+   "comm": "bio_aof",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498157",
+   "pod": "redis-cart",
+   "comm": "bio_lazy_free",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498158",
+   "pod": "redis-cart",
+   "comm": "jemalloc_bg_thd",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2498159",
+   "pod": "redis-cart",
+   "comm": "jemalloc_bg_thd",
+   "cores": 0.0,
+   "wait": 0.0
+  },
+  {
+   "tid": "2499190",
+   "pod": "shippingservice",
+   "comm": "shippingservice",
+   "cores": 0.0,
+   "wait": 0.0
+  }
+ ],
+ "host_busy": 27.369512445998765,
+ "host_cpu": {
+  "0": 0.9898477157360406,
+  "1": 0.85,
+  "2": 0.8556430446194225,
+  "3": 0.8375165125495376,
+  "4": 0.8513157894736842,
+  "5": 0.8465608465608465,
+  "6": 0.8488063660477454,
+  "7": 0.8397350993377484,
+  "8": 0.8445322793148881,
+  "9": 0.8533685601056803,
+  "10": 0.8486842105263158,
+  "11": 0.847769028871391,
+  "12": 0.8546895640686922,
+  "13": 0.8443271767810027,
+  "14": 0.8484848484848485,
+  "15": 0.849802371541502,
+  "16": 0.9089726918075423,
+  "17": 0.849476439790576,
+  "18": 0.8571428571428571,
+  "19": 0.8552631578947368,
+  "20": 0.8526315789473684,
+  "21": 0.8459495351925631,
+  "22": 0.8455497382198953,
+  "23": 0.851261620185923,
+  "24": 0.8441215323645971,
+  "25": 0.8531746031746031,
+  "26": 0.8527851458885941,
+  "27": 0.8549019607843137,
+  "28": 0.8364116094986808,
+  "29": 0.8448275862068966,
+  "30": 0.8473684210526315,
+  "31": 0.8507853403141361
+ },
+ "dpu_busy": 13.857483055504671,
+ "dpu_cpu": {
+  "0": 0.05772005772005772,
+  "1": 0.1331877729257642,
+  "2": 0.9526542324246772,
+  "3": 0.8066860465116279,
+  "4": 0.9641833810888252,
+  "5": 0.9671897289586305,
+  "6": 0.9609261939218524,
+  "7": 0.9613180515759312,
+  "8": 0.9857752489331437,
+  "9": 0.9550724637681159,
+  "10": 0.9785407725321889,
+  "11": 0.9757489300998573,
+  "12": 0.9843304843304843,
+  "13": 0.9770444763271162,
+  "14": 0.9700854700854701,
+  "15": 0.9644886363636364
+ },
+ "jet1_busy": 1.984566647713427,
+ "jet1_cpus": 16,
+ "dpu_threads": {
+  "1211808": {
+   "comm": "linkerd2-proxy",
+   "cores": 0.0,
+   "last_cpu": 0
+  },
+  "1211815": {
+   "comm": "dmesh-control",
+   "cores": 0.022759601707256567,
+   "last_cpu": 1
+  },
+  "1211816": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.9445234708511475,
+   "last_cpu": 2
+  },
+  "1211817": {
+   "comm": "dmesh-shard-1",
+   "cores": 0.7866287340070551,
+   "last_cpu": 3
+  },
+  "1211818": {
+   "comm": "dmesh-shard-2",
+   "cores": 0.9630156472382935,
+   "last_cpu": 4
+  },
+  "1211819": {
+   "comm": "dmesh-shard-3",
+   "cores": 0.9687055476651076,
+   "last_cpu": 5
+  },
+  "1211820": {
+   "comm": "dmesh-shard-4",
+   "cores": 0.9559032717047758,
+   "last_cpu": 6
+  },
+  "1211821": {
+   "comm": "dmesh-shard-5",
+   "cores": 0.958748221918183,
+   "last_cpu": 7
+  },
+  "1211822": {
+   "comm": "dmesh-shard-6",
+   "cores": 0.9886201991589572,
+   "last_cpu": 8
+  },
+  "1211823": {
+   "comm": "dmesh-shard-7",
+   "cores": 0.9530583214913688,
+   "last_cpu": 9
+  },
+  "1211824": {
+   "comm": "dmesh-shard-8",
+   "cores": 0.9786628734120324,
+   "last_cpu": 10
+  },
+  "1211825": {
+   "comm": "dmesh-shard-9",
+   "cores": 0.9758179231986254,
+   "last_cpu": 11
+  },
+  "1211826": {
+   "comm": "dmesh-shard-10",
+   "cores": 0.9871977240522537,
+   "last_cpu": 12
+  },
+  "1211827": {
+   "comm": "dmesh-shard-11",
+   "cores": 0.9758179231986254,
+   "last_cpu": 13
+  },
+  "1211828": {
+   "comm": "dmesh-shard-12",
+   "cores": 0.9715504978785148,
+   "last_cpu": 14
+  },
+  "1211829": {
+   "comm": "dmesh-shard-13",
+   "cores": 0.964438122344997,
+   "last_cpu": 15
+  },
+  "1211830": {
+   "comm": "admin",
+   "cores": 0.0,
+   "last_cpu": 10
+  },
+  "1211839": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.0,
+   "last_cpu": 15
+  },
+  "1211846": {
+   "comm": "dmesh-shard-0",
+   "cores": 0.0,
+   "last_cpu": 15
+  }
+ }
+}

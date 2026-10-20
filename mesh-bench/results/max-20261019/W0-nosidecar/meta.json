@@ -1,0 +1,7 @@
+{
+ "cfg": "W0-nosidecar",
+ "knobs": null,
+ "extra_env": "",
+ "host_lib": null,
+ "dpu": null
+}

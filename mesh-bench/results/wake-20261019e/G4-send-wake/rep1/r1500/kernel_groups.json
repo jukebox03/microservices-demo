@@ -1,0 +1,94 @@
+{
+ "currencyservice": {
+  "timerfd": 14518616,
+  "irq": 163269555,
+  "socket I/O": 348928333,
+  "event wait": 826945474,
+  "other": 40248106,
+  "park/wake": 207031917,
+  "entry/exit": 192696808
+ },
+ "productcatalogservice": {
+  "other": 318493131,
+  "event wait": 2238901953,
+  "park/wake": 4149584643,
+  "socket I/O": 562985857,
+  "entry/exit": 961650837,
+  "irq": 499529398,
+  "timerfd": 41306820
+ },
+ "frontend": {
+  "other": 485291877,
+  "park/wake": 6534778200,
+  "socket I/O": 2009263325,
+  "entry/exit": 1573295799,
+  "event wait": 3889643806,
+  "irq": 921757768,
+  "timerfd": 4826186
+ },
+ "checkoutservice": {
+  "park/wake": 431653741,
+  "event wait": 269193398,
+  "entry/exit": 105648892,
+  "irq": 40873564,
+  "socket I/O": 68046025,
+  "other": 40656650
+ },
+ "cartservice": {
+  "park/wake": 2423497096,
+  "entry/exit": 658816524,
+  "event wait": 311856031,
+  "socket I/O": 749567658,
+  "irq": 122056027,
+  "other": 48488863,
+  "timerfd": 4752639
+ },
+ "adservice": {
+  "park/wake": 232003791,
+  "event wait": 290620417,
+  "socket I/O": 133268812,
+  "entry/exit": 92850053,
+  "other": 20142118,
+  "irq": 53064845
+ },
+ "recommendationservice": {
+  "park/wake": 881345458,
+  "entry/exit": 206585379,
+  "irq": 255800085,
+  "event wait": 540122663,
+  "other": 69296360,
+  "socket I/O": 300189907,
+  "timerfd": 2169200
+ },
+ "shippingservice": {
+  "park/wake": 269918901,
+  "event wait": 118040453,
+  "irq": 36795725,
+  "socket I/O": 41931412,
+  "entry/exit": 52012445,
+  "other": 20734920
+ },
+ "redis-cart": {
+  "socket I/O": 482871606,
+  "event wait": 93851086,
+  "other": 7669369,
+  "irq": 14526020,
+  "entry/exit": 9090009
+ },
+ "emailservice": {
+  "event wait": 26619633,
+  "park/wake": 42638423,
+  "socket I/O": 15127971,
+  "irq": 10332400,
+  "entry/exit": 4553662,
+  "other": 5181468
+ },
+ "paymentservice": {
+  "event wait": 36331968,
+  "entry/exit": 1574813,
+  "socket I/O": 10232533,
+  "park/wake": 14783512,
+  "irq": 5147301,
+  "other": 6104694
+ }
+}

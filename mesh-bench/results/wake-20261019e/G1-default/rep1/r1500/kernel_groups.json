@@ -1,0 +1,94 @@
+{
+ "frontend": {
+  "park/wake": 6449788788,
+  "socket I/O": 1564211492,
+  "irq": 945576964,
+  "other": 473545660,
+  "event wait": 3077588967,
+  "entry/exit": 1335894379,
+  "timerfd": 9929271
+ },
+ "productcatalogservice": {
+  "park/wake": 4086230569,
+  "event wait": 1921805446,
+  "irq": 425924035,
+  "other": 293383644,
+  "entry/exit": 918261855,
+  "socket I/O": 355398032,
+  "timerfd": 61459312
+ },
+ "cartservice": {
+  "park/wake": 2429989105,
+  "irq": 165283822,
+  "socket I/O": 750669991,
+  "entry/exit": 690888198,
+  "event wait": 215831192,
+  "other": 48556112
+ },
+ "recommendationservice": {
+  "irq": 237965957,
+  "socket I/O": 209046126,
+  "park/wake": 1000607840,
+  "entry/exit": 220881050,
+  "event wait": 352841471,
+  "other": 76140982,
+  "timerfd": 1999700
+ },
+ "currencyservice": {
+  "irq": 221855987,
+  "event wait": 658410847,
+  "entry/exit": 190564291,
+  "socket I/O": 241524087,
+  "other": 34083606,
+  "park/wake": 189687610,
+  "timerfd": 31728463
+ },
+ "adservice": {
+  "socket I/O": 131487914,
+  "event wait": 280877296,
+  "park/wake": 200329413,
+  "other": 13968940,
+  "irq": 59812736,
+  "entry/exit": 89104525
+ },
+ "redis-cart": {
+  "socket I/O": 456105772,
+  "event wait": 95637298,
+  "other": 6956760,
+  "entry/exit": 4518457,
+  "irq": 4296767
+ },
+ "checkoutservice": {
+  "park/wake": 396971299,
+  "event wait": 165249157,
+  "entry/exit": 103409419,
+  "socket I/O": 60141735,
+  "irq": 44808039,
+  "other": 16000034
+ },
+ "shippingservice": {
+  "entry/exit": 58890763,
+  "irq": 21939688,
+  "park/wake": 249089639,
+  "other": 31253213,
+  "event wait": 109089565,
+  "timerfd": 4495637,
+  "socket I/O": 23789654
+ },
+ "paymentservice": {
+  "other": 12602218,
+  "event wait": 28994220,
+  "socket I/O": 17961557,
+  "entry/exit": 9098431,
+  "irq": 6145208,
+  "park/wake": 7927958
+ },
+ "emailservice": {
+  "park/wake": 46279322,
+  "irq": 16082672,
+  "entry/exit": 14734418,
+  "socket I/O": 6132702,
+  "event wait": 12114273,
+  "other": 10457759
+ }
+}
