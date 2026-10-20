@@ -21,6 +21,9 @@ the other figures as figs/fig_motivation.{png,pdf}.
 (h) sidecar vCPU from L4 to L7 and as features are added, the steps that
     matter in order (plot_sequence.draw, without the notes under the bars)
 No footnotes: the conditions and reading notes are in figs/fig_motivation.md.
+DPUMESH_SRC=<run dir>/<cfg> takes (g)'s DPUMesh bar from another run (e.g.
+../results/wake-20261019e/G1-default, the Comch fast-path wake build) and FIG_NAME
+names the output (default fig_motivation).
 Raw values: vCPU are the cgroup CPU of each point's measured window, split by
 the perf shares of the same point."""
 import csv, json, os, sys
@@ -70,8 +73,16 @@ def service_cpu(d):
     return cpu
 
 
+def src(res, cfg):
+    """(run dir, cfg) a bar is read from: DPUMESH_SRC moves the DPUMesh one."""
+    if cfg == 'D1-dpumesh' and os.environ.get('DPUMESH_SRC'):
+        return os.path.split(os.environ['DPUMESH_SRC'].rstrip('/'))
+    return res, cfg
+
+
 def app_parts(res, cfg, rate):
     """App-container vCPU by bucket: each service's cgroup CPU split by its perf shares."""
+    res, cfg = src(res, cfg)
     d = f'{res}/{cfg}/rep1/r{rate}'
     cpu = service_cpu(d)
     out = {x: 0.0 for x in ('kernel', 'rpc', 'runtime', 'business', 'unresolved', 'dpumesh')}
@@ -91,6 +102,7 @@ KGROUPS = [('k_socket', 'Kernel: socket I/O', '#4f4e4a', ('socket I/O',)),
 
 def app_kernel_split(res, cfg, rate):
     """Each service's kernel vCPU (as app_parts) split by its kernel_groups.json cycles."""
+    res, cfg = src(res, cfg)
     d = f'{res}/{cfg}/rep1/r{rate}'
     cpu = service_cpu(d)
     kg = json.load(open(f'{d}/kernel_groups.json'))
@@ -256,7 +268,7 @@ def main():
     # split by the syscall that entered it, loses its socket I/O and gains
     # waiting; the DPUMesh host stack appears (stacked right above the kernel)
     cfgs4 = [(c, n) for c, n in [('N0-nosidecar', 'No sidecar'), ('L2-l7', 'Linkerd L7'), ('I2-l7', 'Istio L7'),
-                                  ('D1-dpumesh', 'DPUMesh')] if os.path.exists(f'{res}/{c}/rep1/r{rate}/app_buckets.json')]
+                                  ('D1-dpumesh', 'DPUMesh')] if os.path.exists('{}/{}/rep1/r{}/app_buckets.json'.format(*src(res, c), rate))]
     sub = gs[5, :].subgridspec(1, 2, width_ratios=[1.6, 1], wspace=0.05)
     ax = fig.add_subplot(sub[0, 0]); panel_label(ax, '(g)')
     parts4 = ([('business', 'Business logic', '#eda100', None)] + [(k, n, c, None) for k, n, c, _ in KGROUPS] +
@@ -304,9 +316,10 @@ def main():
                      fontsize=9.5, va='bottom')
 
     os.makedirs(f'{res}/figs', exist_ok=True)
-    fig.savefig(f'{res}/figs/fig_motivation.png', dpi=400)
-    fig.savefig(f'{res}/figs/fig_motivation.pdf')
-    print('wrote', f'{res}/figs/fig_motivation.png')
+    name = os.environ.get('FIG_NAME', 'fig_motivation')
+    fig.savefig(f'{res}/figs/{name}.png', dpi=400)
+    fig.savefig(f'{res}/figs/{name}.pdf')
+    print('wrote', f'{res}/figs/{name}.png')
 
 
 if __name__ == '__main__':
