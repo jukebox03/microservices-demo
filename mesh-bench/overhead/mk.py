@@ -5,7 +5,9 @@ Online Boutique on jet2 for the sidecar CPU-overhead ladder. <group> is a
 deployment (what needs fresh pods); the steps are policy objects applied on top
 of a running deployment (see STEPS). Every group uses the same layout:
 frontend x6 round-robin over catalog x4, currency x2, recommendation x5, the
-rest x1 (24 pods, ../k8sob/gen.py tcp).
+rest x1 (24 pods, ../k8sob/gen.py tcp). OB_N_CUR / OB_N_REC change the currency
+and recommendation counts for every group (dpumesh then needs OB_LAYOUT, a
+layout file that places the extra pods).
 
   nosidecar, nosidecar-trace       no mesh (-trace: app tracing at 1%)
   l5d-opaque, l5d, l5d-trace       Linkerd, sidecars injected by `linkerd inject --manual`
@@ -45,14 +47,14 @@ def kind_of(pod):
 
 
 def base(group):
-    env = dict(os.environ, NODE='jet2', N_FE='6', FE_RR='1', N_CAT='4', N_CUR='2', N_REC='5',
-               DPUMESH_LIB=f'{HOME}/DPUMesh-main/build/lib')
+    env = dict(os.environ, NODE='jet2', N_FE='6', FE_RR='1', N_CAT='4', N_CUR=os.environ.get('OB_N_CUR', '2'),
+               N_REC=os.environ.get('OB_N_REC', '5'), DPUMESH_LIB=f'{HOME}/DPUMesh-main/build/lib')
     if group.endswith('-trace'):
         env['EXTRA_ENV'] = ','.join(f'{k}={v}' for k, v in TRACE_ENV.items())
     if group == 'dpumesh':
         # the same 24 processes over DPUMesh to jet2's DPU (PF1, host 0b:00.1),
         # host library of feature/dpa-mux (= main + DPA mux), 14 DPU workers
-        env.update(W='14', LAYOUT=os.path.join(HERE, '..', 'dpumesh', 'layout14rr-fe6.txt'),
+        env.update(W='14', LAYOUT=os.environ.get('OB_LAYOUT') or os.path.join(HERE, '..', 'dpumesh', 'layout14rr-fe6.txt'),
                    DPUMESH_LIB=f'{HOME}/DPUMesh/build/lib')
     out = subprocess.run([sys.executable, GEN, 'dpumesh' if group == 'dpumesh' else 'tcp'], env=env,
                          capture_output=True, text=True, check=True).stdout

@@ -23,6 +23,8 @@ FRONTENDS = [f'http://10.99.0.{100 + i}' for i in range(1, 7)]
 WARM_S, MEASURE_S, PROF_S = 15, 30, 25
 A0, A1, B0, B_S, C0, C_S = 16, 44, 46, 10, 57, 10
 CG = '/sys/fs/cgroup'
+# pods of the mk.py layout: 24, plus the extra currency / recommendation replicas
+NPODS = 24 + int(os.environ.get('OB_N_CUR', 2)) - 2 + int(os.environ.get('OB_N_REC', 5)) - 5
 L5D_ANN = {'retry.linkerd.io/http': '5xx', 'retry.linkerd.io/grpc': 'unavailable',
            'retry.linkerd.io/limit': '2', 'timeout.linkerd.io/request': '10s'}
 
@@ -75,7 +77,7 @@ def deploy(group, mesh):
     kubectl('apply', '-f', '-', inp=sh([sys.executable, f'{HERE}/mk.py', group]))
     kubectl('-n', NS, 'wait', '--for=condition=Ready', 'pod', '--all', '--timeout=420s')
     pods = json.loads(kubectl('-n', NS, 'get', 'pods', '-o', 'json'))['items']
-    assert len(pods) == 24, f'{len(pods)} pods'
+    assert len(pods) == NPODS, f'{len(pods)} pods'
     want = {'l5d': 'linkerd-proxy', 'istio': 'istio-proxy'}.get(mesh)
     for p in pods:
         names = [c['name'] for c in p['spec'].get('initContainers', []) + p['spec']['containers']]
